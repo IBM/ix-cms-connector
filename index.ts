@@ -2,10 +2,6 @@ import process from "process";
 import jsonSchemaGenerator from "json-schema-generator";
 import axios from "axios";
 
-const jsonToSchema = jsonSchemaGenerator,
-  obj = { some: { object: true } },
-  schemaObj;
-
 const testEndpoint = process.argv[2] || "https://dummyjson.com/products/1";
 
 const getJson = async () => {
@@ -15,7 +11,7 @@ const getJson = async () => {
 
 const getSchema = async () => {
   const json = await getJson();
-  const schema = jsonToSchema(json);
+  const schema = jsonSchemaGenerator(json);
   console.log("schema", schema);
 };
 
