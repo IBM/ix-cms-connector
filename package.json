@@ -8,7 +8,7 @@
   "scripts": {
     "generate:schema": "ts-node index.ts",
     "lint": "eslint .",
-    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "format": "prettier --write \"**/*.{ts,tsx.md}\"",
     "prepare": "husky install"
   },
   "devDependencies": {
