@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "generate:schema": "ts-node index.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/json-schema-generator": "^2.0.0",
@@ -17,7 +18,8 @@
     "eslint": "^8.37.0",
     "json-schema-generator": "^2.0.6",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "axios": "^1.3.4"
