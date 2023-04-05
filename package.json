@@ -10,9 +10,7 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx.md}\"",
     "prepare": "husky install",
-
     "build": "preact build",
-
     "dev": "preact watch"
   },
   "devDependencies": {
