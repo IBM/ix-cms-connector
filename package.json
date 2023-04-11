@@ -10,14 +10,15 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx.md}\"",
     "prepare": "husky install",
-    "build": "preact build",
-    "dev": "preact watch"
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch"
   },
   "devDependencies": {
     "@types/json-schema-generator": "^2.0.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "husky": "^8.0.0",
     "json-schema-generator": "^2.0.6",
