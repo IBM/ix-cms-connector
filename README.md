@@ -4,16 +4,40 @@ A tool to connect a JSON schema from a CMS with the input props of UI components
 
 ## prerequistes
 
+### pnpm
+
 pnpm is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. 
 
-for more details see: https://pnpm.io/motivation
+For more details see: https://pnpm.io/motivation
 
-for installation instructions see: https://pnpm.io/installation
+For installation instructions see: https://pnpm.io/installation
+
+### preact
+
+preact is the JavaScript library used on this project: https://preactjs.com/
+
+preact-cli https://github.com/preactjs/preact-cli
 
 ## install
 
 ```
 pnpm install
+```
+
+## dev
+
+Spin up a development server on port `8080` (by default)
+
+```
+pnpm run dev
+```
+
+## build
+
+Create production build
+
+```
+pnpm run build
 ```
 
 ## precommit hook
