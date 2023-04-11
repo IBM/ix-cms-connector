@@ -4,6 +4,10 @@ A tool to connect a JSON schema from a CMS with the input props of UI components
 
 ## prerequistes
 
+### node
+
+This project needs node 18 in order to run. You can use `nvm install 18` and `nvm use 18` for that.
+
 ### pnpm
 
 pnpm is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. 
