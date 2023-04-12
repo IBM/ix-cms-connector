@@ -3,10 +3,10 @@ import { useState } from "preact/hooks";
 
 import Header from "./components/Header";
 import FileSelect from "./components/FileSelect";
-import Parser from "./components/Parser";
+import ComponentParser from "./components/ComponentParser";
 
 const Main: FunctionComponent = () => {
-  const [file, setFile] = useState<File>();
+  const [componentFile, setComponentFile] = useState<File>();
 
   const appTitle = "CMS Adapter Generator";
 
@@ -19,8 +19,8 @@ const Main: FunctionComponent = () => {
         <div class="flex-1 pl-8">
           <h3 class="mb-4 font-semibold text-lg">Component</h3>
 
-          <FileSelect onSelect={setFile} />
-          <Parser file={file} />
+          <FileSelect onSelect={setComponentFile} />
+          <ComponentParser file={componentFile} />
         </div>
       </div>
     </div>

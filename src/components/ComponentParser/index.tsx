@@ -2,8 +2,9 @@ import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
 
-interface ParserProps {
+interface ComponentParserProps {
   file?: File;
+  onParsed?: (docs?: Documentation[], error?: unknown) => void;
 }
 
 // taken from the official repo, see https://github.com/reactjs/react-docgen/blob/main/packages/website/src/components/playground/Playground.tsx
@@ -48,16 +49,17 @@ function getParserConfig(fileName: string) {
   };
 }
 
-const Parser: FunctionComponent<ParserProps> = ({ file }) => {
-  const [doc, setDoc] = useState<Documentation[]>();
-  const [docString, setDocString] = useState<string>();
+const ComponentParser: FunctionComponent<ComponentParserProps> = ({
+  file,
+  onParsed,
+}) => {
+  const [docsString, setDocsString] = useState<string>(); // todo: remove later, we don't need to show parsed docs
   const [error, setError] = useState<string>();
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
     try {
-      setDoc(undefined);
-      setDocString(undefined);
+      setDocsString(undefined);
       setError(undefined);
 
       if (!file) {
@@ -70,21 +72,26 @@ const Parser: FunctionComponent<ParserProps> = ({ file }) => {
 
       reader.onload = (event) => {
         try {
-          const doc = parse(
+          const docs = parse(
             event.target.result as string,
             getParserConfig(file.name)
           );
 
-          setDoc(doc);
+          const docString = JSON.stringify(docs, undefined, 2);
 
-          const docString = JSON.stringify(doc, undefined, 2);
-
-          setDocString(docString);
-
+          setDocsString(docString);
           setPending(false);
+
+          if (onParsed) {
+            onParsed(docs);
+          }
         } catch (err) {
           setError(JSON.stringify(err, undefined, 2));
           setPending(false);
+
+          if (onParsed) {
+            onParsed(undefined, err);
+          }
         }
       };
 
@@ -92,6 +99,10 @@ const Parser: FunctionComponent<ParserProps> = ({ file }) => {
     } catch (err) {
       setError(JSON.stringify(err, undefined, 2));
       setPending(false);
+
+      if (onParsed) {
+        onParsed(undefined, err);
+      }
     }
   }, [file]);
 
@@ -110,9 +121,9 @@ const Parser: FunctionComponent<ParserProps> = ({ file }) => {
             {error}
           </div>
         )}
-        {!error && !!docString && (
+        {!error && !!docsString && (
           <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
-            {docString}
+            {docsString}
           </div>
         )}
       </div>
@@ -120,4 +131,4 @@ const Parser: FunctionComponent<ParserProps> = ({ file }) => {
   );
 };
 
-export default Parser;
+export default ComponentParser;
