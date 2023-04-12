@@ -8,11 +8,12 @@
  * @param {Record<string, unknown>} options - this is mainly relevant for plugins (will always be empty in the config), default to an empty object
  */
 export default (config) => {
+  // a workaround for the issue with react-docgen not in node enviroment
   config.node = {
     fs: "empty",
   };
 
-  // a workaround for the issue with babel/traverse library import in react-docgen
+  // a workaround for the issue with a @babel/traverse library import in react-docgen
   config.module.rules.push({
     test: /FileState\.js$/,
     loader: "string-replace-loader",
