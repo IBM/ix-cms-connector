@@ -26,7 +26,7 @@ const FileSelect: FunctionComponent<FileSelectProps> = ({ onSelect }) => {
     <div
       {...getRootProps({
         className:
-          "flex justify-center rounded border-2 border-indigo-500 p-16 font-semibold hover:bg-indigo-100 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200",
+          "flex justify-center rounded border-2 border-indigo-500 p-16 hover:bg-indigo-100 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200",
       })}
     >
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}

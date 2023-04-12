@@ -1,13 +1,55 @@
 import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { parse } from "react-docgen";
+import { parse, type Documentation } from "react-docgen";
 
 interface ParserProps {
   file?: File;
 }
 
+// taken from the official repo, see https://github.com/reactjs/react-docgen/blob/main/packages/website/src/components/playground/Playground.tsx
+const defaultParserPlugins = [
+  "jsx",
+  "asyncDoExpressions",
+  "decimal",
+  "decorators",
+  "decoratorAutoAccessors",
+  "destructuringPrivate",
+  "doExpressions",
+  "explicitResourceManagement",
+  "exportDefaultFrom",
+  "functionBind",
+  "functionSent",
+  "importAssertions",
+  "importReflection",
+  "moduleBlocks",
+  "partialApplication",
+  ["pipelineOperator", { proposal: "minimal" }],
+  "recordAndTuple",
+  "regexpUnicodeSets",
+  "throwExpressions",
+];
+
+function getParserConfig(fileName: string) {
+  const fileExt = fileName.split(".").pop().toLowerCase();
+
+  return {
+    babelOptions: {
+      babelrc: false,
+      babelrcRoots: false,
+      configFile: false,
+      filename: fileName,
+      parserOpts: {
+        plugins: [
+          ...defaultParserPlugins,
+          ["ts", "tsx"].includes(fileExt) ? "typescript" : "flow",
+        ],
+      },
+    },
+  };
+}
+
 const Parser: FunctionComponent<ParserProps> = ({ file }) => {
-  const [doc, setDoc] = useState<any>();
+  const [doc, setDoc] = useState<Documentation[]>();
   const [docString, setDocString] = useState<string>();
   const [error, setError] = useState<string>();
   const [pending, setPending] = useState(false);
@@ -28,7 +70,10 @@ const Parser: FunctionComponent<ParserProps> = ({ file }) => {
 
       reader.onload = (event) => {
         try {
-          const doc = parse(event.target.result as string);
+          const doc = parse(
+            event.target.result as string,
+            getParserConfig(file.name)
+          );
 
           setDoc(doc);
 
@@ -56,7 +101,7 @@ const Parser: FunctionComponent<ParserProps> = ({ file }) => {
 
   return (
     <div class="mt-4">
-      <h2 class="text-lg font-semibold">{file.name}</h2>
+      <h4 class="font-semibold">{file.name}</h4>
 
       <div class="mt-2">
         {pending && <span>Parsing...</span>}

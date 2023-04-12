@@ -11,4 +11,14 @@ export default (config) => {
   config.node = {
     fs: "empty",
   };
+
+  // a workaround for the issue with babel/traverse library import in react-docgen
+  config.module.rules.push({
+    test: /FileState\.js$/,
+    loader: "string-replace-loader",
+    options: {
+      search: "traverse.default",
+      replace: "traverse",
+    },
+  });
 };
