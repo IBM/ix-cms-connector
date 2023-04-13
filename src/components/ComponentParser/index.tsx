@@ -1,52 +1,11 @@
 import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
+import { getComponentParserConfig } from "../../utils";
 
 interface ComponentParserProps {
   file?: File;
   onParsed?: (docs?: Documentation[], error?: unknown) => void;
-}
-
-// taken from the official repo, see https://github.com/reactjs/react-docgen/blob/main/packages/website/src/components/playground/Playground.tsx
-const defaultParserPlugins = [
-  "jsx",
-  "asyncDoExpressions",
-  "decimal",
-  "decorators",
-  "decoratorAutoAccessors",
-  "destructuringPrivate",
-  "doExpressions",
-  "explicitResourceManagement",
-  "exportDefaultFrom",
-  "functionBind",
-  "functionSent",
-  "importAssertions",
-  "importReflection",
-  "moduleBlocks",
-  "partialApplication",
-  ["pipelineOperator", { proposal: "minimal" }],
-  "recordAndTuple",
-  "regexpUnicodeSets",
-  "throwExpressions",
-];
-
-function getParserConfig(fileName: string) {
-  const fileExt = fileName.split(".").pop().toLowerCase();
-
-  return {
-    babelOptions: {
-      babelrc: false,
-      babelrcRoots: false,
-      configFile: false,
-      filename: fileName,
-      parserOpts: {
-        plugins: [
-          ...defaultParserPlugins,
-          ["ts", "tsx"].includes(fileExt) ? "typescript" : "flow",
-        ],
-      },
-    },
-  };
 }
 
 const ComponentParser: FunctionComponent<ComponentParserProps> = ({
@@ -74,7 +33,7 @@ const ComponentParser: FunctionComponent<ComponentParserProps> = ({
         try {
           const docs = parse(
             event.target.result as string,
-            getParserConfig(file.name)
+            getComponentParserConfig(file.name)
           );
 
           const docString = JSON.stringify(docs, undefined, 2);
