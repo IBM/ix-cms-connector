@@ -13,6 +13,8 @@ export const getSchema = async (endpoint) => {
   const json = await getJson(endpoint);
   const schema = jsonSchemaGenerator(json);
   console.log("schema", schema);
+
+  return schema;
 };
 
 getSchema(testEndpoint);
