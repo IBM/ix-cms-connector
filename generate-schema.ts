@@ -4,15 +4,17 @@ import axios from "axios";
 
 const testEndpoint = process.argv[2] || "https://dummyjson.com/products/1";
 
-const getJson = async () => {
-  const res = await axios(testEndpoint);
+const getJson = async (endpoint) => {
+  const res = await axios(endpoint);
   return await res.data;
 };
 
-const getSchema = async () => {
-  const json = await getJson();
+export const getSchema = async (endpoint) => {
+  const json = await getJson(endpoint);
   const schema = jsonSchemaGenerator(json);
   console.log("schema", schema);
+
+  return schema;
 };
 
-getSchema();
+getSchema(testEndpoint);
