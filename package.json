@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx.md}\"",
     "prepare": "husky install",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch"
   },
   "devDependencies": {
