@@ -71,6 +71,31 @@ function filterComponentProps([, propDescr]: [
   return isMappableType;
 }
 
+function getComponentMappablePropType(
+  propDescr: Documentation["props"][string]
+): MappableProp["type"] {
+  const type = propDescr.tsType
+    ? propDescr.tsType.name
+    : propDescr.flowType
+    ? propDescr.flowType.name
+    : propDescr.type.name;
+
+  if (type === "boolean" || type === "bool") {
+    return "boolean";
+  }
+
+  if (type === "number") {
+    return "number";
+  }
+
+  if (type === "string") {
+    return "string";
+  }
+
+  // default value (should not be a case, just to get rid of a TS complain)
+  return "string";
+}
+
 export function getComponentMappableProps(
   docs: Documentation[]
 ): MappableProp[] {
@@ -78,15 +103,13 @@ export function getComponentMappableProps(
     return [];
   }
 
+  // it's possible that in one file there are 2 components
+  // that's why docs is an array, but we only need one component
   return Object.entries(docs[0].props)
     .filter(filterComponentProps)
     .map(([name, propDescr]) => ({
       name,
-      type: propDescr.tsType
-        ? propDescr.tsType.name
-        : propDescr.flowType
-        ? propDescr.flowType.name
-        : propDescr.type.name, // js type
+      type: getComponentMappablePropType(propDescr),
       isRequired: !!propDescr.required,
       description: propDescr.description,
     }));

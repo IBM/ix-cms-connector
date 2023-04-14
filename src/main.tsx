@@ -4,6 +4,7 @@ import { useState } from "preact/hooks";
 import Header from "./components/Header";
 import FileSelect from "./components/FileSelect";
 import ComponentParser from "./components/ComponentParser";
+import { getComponentMappableProps } from "./utils";
 
 const Main: FunctionComponent = () => {
   const [componentFile, setComponentFile] = useState<File>();
@@ -20,7 +21,16 @@ const Main: FunctionComponent = () => {
           <h3 class="mb-4 font-semibold text-lg">Component</h3>
 
           <FileSelect onSelect={setComponentFile} />
-          <ComponentParser file={componentFile} />
+          <ComponentParser
+            file={componentFile}
+            onParsed={(docs) => {
+              if (docs) {
+                console.log(
+                  JSON.stringify(getComponentMappableProps(docs), undefined, 2)
+                );
+              }
+            }}
+          />
         </div>
       </div>
     </div>
