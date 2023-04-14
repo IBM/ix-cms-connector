@@ -6,7 +6,9 @@ interface FileSelectProps {
   onSelect: (file: File) => void;
 }
 
-export const FileSelect: FunctionComponent<FileSelectProps> = ({ onSelect }) => {
+export const FileSelect: FunctionComponent<FileSelectProps> = ({
+  onSelect,
+}) => {
   const handleSelectedFiles = useCallback(
     (files: File[]) => {
       onSelect(files[0]);
