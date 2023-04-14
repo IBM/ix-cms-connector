@@ -3,7 +3,7 @@ import { getSchema } from "../../generate-schema";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { Error } from "./Error";
-import { CmsSchema, getCmsMappableFields } from "../utils/funcs";
+import { CmsSchema } from "../utils/funcs";
 import { AxiosError } from "axios";
 
 export const CmsSchemaForm = () => {
