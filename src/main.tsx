@@ -1,9 +1,9 @@
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 
-import Header from "./components/Header";
-import FileSelect from "./components/FileSelect";
-import ComponentParser from "./components/ComponentParser";
+import { MainHeader as Header } from "./components/Header";
+import { FileSelect } from "./components/FileSelect";
+import { ComponentParser } from "./components/ComponentParser";
 
 const Main: FunctionComponent = () => {
   const [componentFile, setComponentFile] = useState<File>();

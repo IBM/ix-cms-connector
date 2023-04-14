@@ -11,7 +11,7 @@ interface ButtonProps {
     type: ButtonType;
 }
 
-const Button: FunctionComponent<ButtonProps> = ({ onClick, text, type }) => {
+export const Button: FunctionComponent<ButtonProps> = ({ onClick, text, type }) => {
     const colorsVariants = {
         primary: 'bg-blue-primary hover:bg-blue-hover',
         secondary: 'bg-gray-primary hover:bg-gray-hover'
@@ -19,6 +19,4 @@ const Button: FunctionComponent<ButtonProps> = ({ onClick, text, type }) => {
 
     return <button onClick={onClick} class={`${colorsVariants[type]} py-3 pl-3.5 pr-16 text-white text-sm font-normal`}>{text}</button>
 };
-
-export default Button;
 

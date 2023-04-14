@@ -8,7 +8,7 @@ interface ComponentParserProps {
   onParsed?: (docs?: Documentation[], error?: unknown) => void;
 }
 
-const ComponentParser: FunctionComponent<ComponentParserProps> = ({
+export const ComponentParser: FunctionComponent<ComponentParserProps> = ({
   file,
   onParsed,
 }) => {
@@ -89,5 +89,3 @@ const ComponentParser: FunctionComponent<ComponentParserProps> = ({
     </div>
   );
 };
-
-export default ComponentParser;
