@@ -1,6 +1,6 @@
 import type { Documentation, Config } from "react-docgen";
 import type { MappableProp } from "./types";
-import { JSONSchema4, JSONSchema4TypeName } from "json-schema";
+import { JSONSchema4 } from "json-schema";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
