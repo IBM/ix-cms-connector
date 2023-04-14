@@ -19,7 +19,7 @@ const Main: FunctionComponent = () => {
       <div class="p-16 flex">
         <div class="flex-1 pl-8">
           <h3 class="mb-4 font-semibold text-lg">CMS</h3>
-          <CmsSchemaForm/>
+          <CmsSchemaForm />
         </div>
       </div>
 
