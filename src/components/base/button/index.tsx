@@ -17,7 +17,7 @@ const Button: FunctionComponent<ButtonProps> = ({ onClick, text, type }) => {
         secondary: 'bg-gray-primary hover:bg-gray-hover'
     }
 
-    return <button onClick={onClick} class={`${colorsVariants[type]} h-12 w-32 text-white text-sm font-normal`}>{text}</button>
+    return <button onClick={onClick} class={`${colorsVariants[type]} py-3 pl-3.5 pr-16 text-white text-sm font-normal`}>{text}</button>
 };
 
 export default Button;
