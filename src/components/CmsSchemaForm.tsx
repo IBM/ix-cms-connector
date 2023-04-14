@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 
 export const CmsSchemaForm = () => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
-  const [cmsError, setCmsError] = useState<AxiosError>();
+  const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
 
   const handleGetCmsSchema = (e) => {
@@ -25,6 +25,7 @@ export const CmsSchemaForm = () => {
     try {
       setCmsSchema((await getSchema(cmsEndpoint)) as CmsSchema);
       setParsingCmsSchema(false);
+      setCmsError(false);
     } catch (err) {
       setCmsError(err);
       setParsingCmsSchema(false);
