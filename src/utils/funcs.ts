@@ -1,5 +1,6 @@
 import type { Documentation, Config } from "react-docgen";
 import type { MappableProp } from "./types";
+import { JSONSchema4, JSONSchema4TypeName } from "json-schema";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -116,20 +117,12 @@ export function getComponentMappableProps(
     }));
 }
 
-interface CmsSchema {
-  $schema: string;
-  description: string;
-  type: string;
-  properties: Record<
-    string,
-    {
+export interface CmsSchema extends JSONSchema4 {
+  properties: {
+    [k: string]: {
       type: "boolean" | "number" | "string";
-      minLength?: number;
-      uniqueItems?: undefined | number;
-      minItems?: undefined | number;
-      items?: Record<string, unknown>[];
-    }
-  >;
+    };
+  };
   required: string[];
 }
 
