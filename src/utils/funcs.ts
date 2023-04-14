@@ -92,7 +92,7 @@ function getComponentMappablePropType(
     return "string";
   }
 
-  // default value (should not be a case, just to get rif of a TS complain)
+  // default value (should not be a case, just to get rid of a TS complain)
   return "string";
 }
 
