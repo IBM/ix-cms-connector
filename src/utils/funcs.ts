@@ -42,6 +42,14 @@ export function getComponentParserConfig(fileName: string): Config {
     },
   };
 }
+function isPrimitiveType(type) {
+  return (
+    type === "boolean" ||
+    type === "bool" ||
+    type === "number" ||
+    type === "string"
+  );
+}
 
 function filterComponentProps([, propDescr]: [
   string,
@@ -52,20 +60,13 @@ function filterComponentProps([, propDescr]: [
   let isMappableType = false;
 
   if (tsType) {
-    isMappableType =
-      tsType.name === "boolean" ||
-      tsType.name === "number" ||
-      tsType.name === "string";
+    isMappableType = isPrimitiveType(tsType.name);
   } else if (flowType) {
-    isMappableType =
-      flowType.name === "boolean" ||
-      flowType.name === "number" ||
-      flowType.name === "string";
+    isMappableType = isPrimitiveType(flowType.name);
   } else if (type) {
     // js type (PropTypes)
 
-    isMappableType =
-      type.name === "bool" || type.name === "number" || type.name === "string";
+    isMappableType = isPrimitiveType(type.name);
   }
 
   return isMappableType;
@@ -112,5 +113,32 @@ export function getComponentMappableProps(
       type: getComponentMappablePropType(propDescr),
       isRequired: !!propDescr.required,
       description: propDescr.description,
+    }));
+}
+
+interface CmsSchema {
+  $schema: string;
+  description: string;
+  type: string;
+  properties: Record<
+    string,
+    {
+      type: "boolean" | "number" | "string";
+      minLength?: number;
+      uniqueItems?: undefined | number;
+      minItems?: undefined | number;
+      items?: Record<string, unknown>[];
+    }
+  >;
+  required: string[];
+}
+
+export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
+  return Object.entries(schema.properties)
+    .filter(([, { type }]) => isPrimitiveType(type))
+    .map(([name, { type }]) => ({
+      name,
+      type,
+      isRequired: schema.required.includes(name),
     }));
 }
