@@ -1,10 +1,11 @@
-import { FC, HTMLAttributes } from "preact/compat";
+import { FunctionalComponent } from "preact";
+import { HTMLAttributes } from "react";
 
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
     label: string;
 }
 
-export const Input: FC<InputProps> = ({ label, ...input }) => {
+export const Input: FunctionalComponent<InputProps> = ({ label, ...input }) => {
     return (
         <label class="block text-gray-700 text-sm font-bold mb-2">
             {label}

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../generate-schema";
 import { Button } from "./Button";
 import { Input } from "./Input";
@@ -16,7 +16,7 @@ export const CmsSchemaForm = () => {
         generateCmsSchema(e);
     }
 
-    const generateCmsSchema= async(e) => {
+    const generateCmsSchema= useCallback(async(e) => {
         const form = e.target;
         const formData = new FormData(form);
         const { cmsEndpoint } = Object.fromEntries(formData.entries());
@@ -29,7 +29,7 @@ export const CmsSchemaForm = () => {
             setCmsError( JSON.stringify(err, undefined, 2) );
             setParsingCmsSchema(false);
         }
-    }
+    }, [])
 
     return (
         <>
