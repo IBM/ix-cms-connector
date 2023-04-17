@@ -3,7 +3,7 @@ import { FunctionComponent } from "preact";
 import Header from "./components/Header";
 import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { getComponentMappableProps } from "./utils";
+import { getComponentMappableProps, getCmsMappableFields } from "./utils";
 
 const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
@@ -15,7 +15,15 @@ const Main: FunctionComponent = () => {
       <div class="p-16 flex">
         <div class="flex-1 pr-8">
           <h3 class="mb-4 font-semibold text-lg">CMS</h3>
-          <CmsSchemaForm />
+          <CmsSchemaForm
+            onParsed={(cmsSchema) => {
+              if (cmsSchema) {
+                console.log(
+                  JSON.stringify(getCmsMappableFields(cmsSchema), undefined, 2)
+                );
+              }
+            }}
+          />
         </div>
 
         <div class="flex-1 pl-8">

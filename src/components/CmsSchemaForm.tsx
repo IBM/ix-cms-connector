@@ -3,10 +3,17 @@ import { getSchema } from "../../generate-schema";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { Error } from "./Error";
-import { CmsSchema } from "../utils/funcs";
+import { CmsSchema } from "../utils/types";
 import { AxiosError } from "axios";
+import { FunctionComponent } from "preact";
 
-export const CmsSchemaForm = () => {
+interface CmsSchemaFormProps {
+  onParsed?: (cmsSchema?: CmsSchema, error?: unknown) => void;
+}
+
+export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
+  onParsed,
+}) => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
@@ -23,12 +30,22 @@ export const CmsSchemaForm = () => {
     const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
     try {
-      setCmsSchema((await getSchema(cmsEndpoint)) as CmsSchema);
+      const cmsSchema = (await getSchema(cmsEndpoint)) as CmsSchema;
+
+      setCmsSchema(cmsSchema);
       setParsingCmsSchema(false);
       setCmsError(false);
+
+      if (onParsed) {
+        onParsed(cmsSchema);
+      }
     } catch (err) {
       setCmsError(err);
       setParsingCmsSchema(false);
+
+      if (onParsed) {
+        onParsed(undefined, err);
+      }
     }
   }, []);
 

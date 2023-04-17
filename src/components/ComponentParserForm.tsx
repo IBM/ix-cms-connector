@@ -2,7 +2,7 @@ import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
 import { getComponentParserConfig } from "../utils";
-import FileSelect from "./FileSelect";
+import { FileSelect } from "./FileSelect";
 
 interface ComponentParserFormProps {
   onParsed?: (docs?: Documentation[], error?: unknown) => void;

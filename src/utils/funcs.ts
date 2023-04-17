@@ -1,6 +1,5 @@
 import type { Documentation, Config } from "react-docgen";
-import type { MappableProp } from "./types";
-import { JSONSchema4 } from "json-schema";
+import type { CmsSchema, MappableProp } from "./types";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -115,15 +114,6 @@ export function getComponentMappableProps(
       isRequired: !!propDescr.required,
       description: propDescr.description,
     }));
-}
-
-export interface CmsSchema extends JSONSchema4 {
-  properties: {
-    [k: string]: {
-      type: "boolean" | "number" | "string";
-    };
-  };
-  required: string[];
 }
 
 export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
