@@ -1,0 +1,115 @@
+{
+  "sys": {
+    "id": "abc123",
+    "type": "Entry",
+    "createdAt": "2022-03-01T00:00:00Z",
+    "updatedAt": "2022-03-01T00:00:00Z",
+    "contentType": {
+      "sys": {
+        "id": "product",
+        "linkType": "ContentType",
+        "type": "Link"
+      }
+    }
+  },
+  "fields": {
+    "name": "Acme Pro Camera",
+    "slug": "acme-pro-camera",
+    "description": "The Acme Pro Camera is the ultimate tool for professional photographers. With its cutting-edge features and sleek design, you'll be able to capture stunning photos like never before.",
+    "price": 1499.99,
+    "images": [
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Asset",
+          "id": "def456"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Asset",
+          "id": "ghi789"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Asset",
+          "id": "jkl012"
+        }
+      }
+    ],
+    "specs": {
+      "resolution": "45 megapixels",
+      "sensorType": "Full-frame CMOS",
+      "isoRange": "50-102400",
+      "shutterSpeeds": "30s-1/8000s",
+      "videoResolution": "4K at 60fps"
+    },
+    "relatedProducts": [
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "mno345"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "pqr678"
+        }
+      }
+    ],
+    "reviews": [
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "stu901"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "vwx234"
+        }
+      }
+    ],
+    "category": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Entry",
+        "id": "yzab567"
+      }
+    },
+    "teaser": {
+      "description": "Subscribe to our newsletter and stay up-to-date with the latest news and promotions!",
+      "image": {
+        "sys": {
+          "type": "Link",
+          "linkType": "Asset",
+          "id": "1234567890"
+        }
+      }
+    },
+    "newsletterForm": {
+      "fields": [
+        {
+          "label": "Email Address",
+          "name": "email",
+          "type": "email",
+          "required": true
+        }
+      ],
+      "submitButton": {
+        "label": "Subscribe",
+        "url": "https://example.com/subscribe",
+        "type": "submit"
+      }
+    }
+  }
+}
