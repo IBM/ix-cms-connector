@@ -24,9 +24,9 @@ export const Button: FunctionComponent<ButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      class={`${colorsVariants[type]} py-3 pl-3.5 pr-16 text-white text-sm font-normal`}
+      class={`${colorsVariants[type]} py-3 pl-3.5 pr-16 text-white text-sm font-normal focus:outline-2 focus:outline-offset-2 focus:outline-blue-primary rounded-none`}
     >
       {text}
-    </button>
+    </button> 
   );
 };

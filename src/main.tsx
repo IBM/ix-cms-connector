@@ -4,6 +4,7 @@ import { useState } from "preact/hooks";
 import { MainHeader as Header } from "./components/Header";
 import { FileSelect } from "./components/FileSelect";
 import { ComponentParser } from "./components/ComponentParser";
+import { getComponentMappableProps } from "./utils/funcs";
 
 const Main: FunctionComponent = () => {
   const [componentFile, setComponentFile] = useState<File>();
