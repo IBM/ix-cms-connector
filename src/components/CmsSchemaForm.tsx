@@ -8,11 +8,11 @@ import { AxiosError } from "axios";
 import { FunctionComponent } from "preact";
 
 interface CmsSchemaFormProps {
-  onParsed?: (cmsSchema?: CmsSchema, error?: unknown) => void;
+  onGenerate: (cmsSchema: CmsSchema) => void;
 }
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
-  onParsed,
+  onGenerate,
 }) => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
@@ -36,16 +36,10 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       setParsingCmsSchema(false);
       setCmsError(false);
 
-      if (onParsed) {
-        onParsed(cmsSchema);
-      }
+      onGenerate(cmsSchema);
     } catch (err) {
       setCmsError(err);
       setParsingCmsSchema(false);
-
-      if (onParsed) {
-        onParsed(undefined, err);
-      }
     }
   }, []);
 

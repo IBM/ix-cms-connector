@@ -5,7 +5,7 @@ import { getComponentParserConfig } from "../utils";
 import { FileSelect } from "./FileSelect";
 
 interface ComponentParserFormProps {
-  onParsed?: (doc?: Documentation, error?: unknown) => void;
+  onParsed: (doc: Documentation) => void;
 }
 
 export const ComponentParserForm: FunctionComponent<
@@ -41,16 +41,10 @@ export const ComponentParserForm: FunctionComponent<
           setDocsString(docString);
           setPending(false);
 
-          if (onParsed) {
-            onParsed(docs[0]);
-          }
+          onParsed(docs[0]);
         } catch (err) {
           setError(JSON.stringify(err, undefined, 2));
           setPending(false);
-
-          if (onParsed) {
-            onParsed(undefined, err);
-          }
         }
       };
 
@@ -58,10 +52,6 @@ export const ComponentParserForm: FunctionComponent<
     } catch (err) {
       setError(JSON.stringify(err, undefined, 2));
       setPending(false);
-
-      if (onParsed) {
-        onParsed(undefined, err);
-      }
     }
   }, [file]);
 

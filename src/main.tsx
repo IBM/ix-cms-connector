@@ -4,9 +4,9 @@ import Header from "./components/Header";
 import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
 import { CmsSchema } from "./utils";
-import { PropsMapper } from "./components/PropsMapper";
 import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
+import { SchemaMatcher } from "./components/SchemaMatcher";
 
 const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
@@ -23,10 +23,8 @@ const Main: FunctionComponent = () => {
           <div class="flex-1 pr-8">
             <h3 class="mb-4 font-semibold text-lg">CMS</h3>
             <CmsSchemaForm
-              onParsed={(cmsSchema) => {
-                if (cmsSchema) {
-                  setCmsSchema(cmsSchema);
-                }
+              onGenerate={(cmsSchema) => {
+                setCmsSchema(cmsSchema);
               }}
             />
           </div>
@@ -35,9 +33,7 @@ const Main: FunctionComponent = () => {
             <h3 class="mb-4 font-semibold text-lg">Component</h3>
             <ComponentParserForm
               onParsed={(doc) => {
-                if (doc) {
-                  setComponentDoc(doc);
-                }
+                setComponentDoc(doc);
               }}
             />
           </div>
@@ -45,7 +41,7 @@ const Main: FunctionComponent = () => {
       )}
 
       {cmsSchema && componentDoc && (
-        <PropsMapper cmsSchema={cmsSchema} componentDoc={componentDoc} />
+        <SchemaMatcher cmsSchema={cmsSchema} componentDoc={componentDoc} />
       )}
     </div>
   );
