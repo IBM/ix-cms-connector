@@ -1,10 +1,11 @@
 import { FunctionComponent } from "preact";
 import { MappableProp } from "../utils/types";
+import { useReducer, useRef } from "preact/hooks";
 
 interface IClickableList {
   listCollection: any[];
   mappedKey: string;
-  onItemClick?: (item: any) => void;
+  onItemClick?: (name: string) => void;
 }
 
 const ClickableList: FunctionComponent<IClickableList> = ({
@@ -13,11 +14,32 @@ const ClickableList: FunctionComponent<IClickableList> = ({
   onItemClick,
 }) => (
   <ul>
-    {listCollection.map((item) => (
-      <li onClick={(item) => onItemClick(item)}>{item[mappedKey]}</li>
-    ))}
+    {listCollection.map((item) => {
+      return (
+        <li onClick={() => onItemClick(item[mappedKey])}>{item[mappedKey]}</li>
+      );
+    })}
   </ul>
 );
+
+type IMappedFields = [string, string][];
+
+interface IMappedFieldsAction {
+  type: string;
+  payload?: [string, string];
+}
+
+const mappedFieldsReducer = (
+  state: IMappedFields,
+  action: IMappedFieldsAction
+) => {
+  switch (action.type) {
+    case "ADD_MAPPED_FIELDS":
+      return [...state, action.payload];
+    default:
+      return state;
+  }
+};
 
 interface ISchemaForm {
   cmsSchema: MappableProp[];
@@ -28,22 +50,46 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
   cmsSchema = [],
   componentProps = [],
 }) => {
+  const [mappedFields, dispatch] = useReducer(mappedFieldsReducer, []);
+  const schemaFieldToMap = useRef();
+  const onSchemaFieldClick = (name) => {
+    schemaFieldToMap.current = name;
+  };
+  const onComponentPropClick = (name) => {
+    dispatch({
+      type: "ADD_MAPPED_FIELDS",
+      payload: [schemaFieldToMap.current, name],
+    });
+  };
+
   return (
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
-        <ClickableList
-          listCollection={cmsSchema}
-          mappedKey="name"
-        ></ClickableList>
+    <>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
+          <ClickableList
+            listCollection={cmsSchema}
+            mappedKey="name"
+            onItemClick={onSchemaFieldClick}
+          ></ClickableList>
+        </div>
+        <div>
+          <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
+          <ClickableList
+            listCollection={componentProps}
+            mappedKey="name"
+            onItemClick={onComponentPropClick}
+          ></ClickableList>
+        </div>
       </div>
       <div>
-        <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
-        <ClickableList
-          listCollection={componentProps}
-          mappedKey="name"
-        ></ClickableList>
+        <h4 class="mb-4 font-semibold text-sm">Mapped Props</h4>
+        <ul>
+          {mappedFields.map(([schemaField, componentProp]) => (
+            <li>{`${schemaField}-${componentProp}`}</li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </>
   );
 };
