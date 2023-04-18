@@ -1,7 +1,7 @@
 import { FunctionComponent } from "preact";
 
 /* Example of function component */
-const MainHeader: FunctionComponent<{ title: string }> = ({
+export const MainHeader: FunctionComponent<{ title: string }> = ({
   title /*, children*/,
 }) => {
   return (
@@ -11,5 +11,3 @@ const MainHeader: FunctionComponent<{ title: string }> = ({
     </header>
   );
 };
-
-export default MainHeader;
