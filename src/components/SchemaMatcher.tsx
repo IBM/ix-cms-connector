@@ -3,7 +3,7 @@ import { MappableProp } from "../utils/types";
 import { useReducer, useRef } from "preact/hooks";
 
 interface IClickableList {
-  listCollection: any[];
+  listCollection: object[];
   mappedKey: string;
   onItemClick?: (name: string) => void;
 }
