@@ -16,7 +16,9 @@ const ClickableList: FunctionComponent<IClickableList> = ({
   <ul>
     {listCollection.map((item) => {
       return (
-        <li onClick={() => onItemClick(item[mappedKey])}>{item[mappedKey]}</li>
+        <li class="cursor-pointer" onClick={() => onItemClick(item[mappedKey])}>
+          {item[mappedKey]}
+        </li>
       );
     })}
   </ul>
@@ -65,31 +67,37 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
   return (
     <>
       <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
-          <ClickableList
-            listCollection={cmsSchema}
-            mappedKey="name"
-            onItemClick={onSchemaFieldClick}
-          ></ClickableList>
-        </div>
-        <div>
-          <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
-          <ClickableList
-            listCollection={componentProps}
-            mappedKey="name"
-            onItemClick={onComponentPropClick}
-          ></ClickableList>
-        </div>
+        {!!cmsSchema.length && (
+          <div>
+            <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
+            <ClickableList
+              listCollection={cmsSchema}
+              mappedKey="name"
+              onItemClick={onSchemaFieldClick}
+            ></ClickableList>
+          </div>
+        )}
+        {!!componentProps.length && (
+          <div>
+            <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
+            <ClickableList
+              listCollection={componentProps}
+              mappedKey="name"
+              onItemClick={onComponentPropClick}
+            ></ClickableList>
+          </div>
+        )}
       </div>
-      <div>
-        <h4 class="mb-4 font-semibold text-sm">Mapped Props</h4>
-        <ul>
-          {mappedFields.map(([schemaField, componentProp]) => (
-            <li>{`${schemaField}-${componentProp}`}</li>
-          ))}
-        </ul>
-      </div>
+      {!!mappedFields.length && (
+        <div>
+          <h4 class="mb-4 font-semibold text-sm">Mapped Props</h4>
+          <ul>
+            {mappedFields.map(([schemaField, componentProp]) => (
+              <li>{`${schemaField}-${componentProp}`}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 };
