@@ -9,12 +9,14 @@ interface ButtonProps {
   onClick: () => void;
   text: string;
   type: ButtonType;
+  disabled?: boolean;
 }
 
 export const Button: FunctionComponent<ButtonProps> = ({
   onClick,
   text,
   type,
+  disabled
 }) => {
   const colorsVariants = {
     primary: "bg-blue-primary hover:bg-blue-hover",
@@ -23,8 +25,9 @@ export const Button: FunctionComponent<ButtonProps> = ({
 
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
-      class={`${colorsVariants[type]} py-3 pl-3.5 pr-16 text-white text-sm font-normal focus:outline-2 focus:outline-offset-2 focus:outline-blue-primary rounded-none`}
+      class={`${colorsVariants[type]} py-3 pl-3.5 pr-16 text-white text-sm font-normal focus:outline-2 focus:outline-offset-2 focus:outline-blue-primary rounded-none disabled:bg-disabled-02 disabled:text-disabled-03`}
     >
       {text}
     </button>
