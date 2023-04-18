@@ -16,7 +16,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   onClick,
   text,
   type,
-  disabled
+  disabled,
 }) => {
   const colorsVariants = {
     primary: "bg-blue-primary hover:bg-blue-hover",
