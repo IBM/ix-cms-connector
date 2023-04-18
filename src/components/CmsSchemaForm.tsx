@@ -5,8 +5,15 @@ import { Input } from "./Input";
 import { Error } from "./Error";
 import { CmsSchema } from "../utils/funcs";
 import { AxiosError } from "axios";
+import { FunctionComponent } from "preact";
 
-export const CmsSchemaForm = () => {
+interface ICmsSchemaForm {
+  onGenerate: (cmsSchema: CmsSchema) => void;
+}
+
+export const CmsSchemaForm: FunctionComponent<ICmsSchemaForm> = ({
+  onGenerate,
+}) => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
@@ -23,7 +30,9 @@ export const CmsSchemaForm = () => {
     const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
     try {
-      setCmsSchema((await getSchema(cmsEndpoint)) as CmsSchema);
+      const schema = (await getSchema(cmsEndpoint)) as CmsSchema;
+      setCmsSchema(schema);
+      onGenerate(schema);
       setParsingCmsSchema(false);
       setCmsError(false);
     } catch (err) {
