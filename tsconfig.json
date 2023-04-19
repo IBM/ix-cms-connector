@@ -1,5 +1,6 @@
 {
   "exclude": ["node_modules"],
+  "inlcude": ["custom.d.ts"],
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -10,8 +11,6 @@
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"]
     },
-    "lib": [
-      "dom.iterable"
-    ]
+    "lib": ["dom.iterable"]
   }
 }
