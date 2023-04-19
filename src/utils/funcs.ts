@@ -1,5 +1,5 @@
 import type { Documentation, Config } from "react-docgen";
-import type { MappableProp } from "./types";
+import type { CodeGeneratorOptions, MappableProp, MappedFields } from "./types";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -113,4 +113,31 @@ export function getComponentMappableProps(
       isRequired: !!propDescr.required,
       description: propDescr.description,
     }));
+}
+
+export function generateAdapterCode(
+  componentDoc: Documentation,
+  mappedFields: MappedFields,
+  options?: CodeGeneratorOptions
+) {
+  const componentName = componentDoc.displayName ?? "Component";
+  const hofName = `${componentName}Adapter`;
+  const partialComponentName = `Partial${componentName}`;
+
+  return `
+    const ${hofName} = (cmsProps: CMSProps) => {
+      return function ${partialComponentName}(
+        restComponentProps: Omit<ComponentProps, "label" | "isActive">
+      ) {
+        const mappedProps = {
+          label: cmsProps.name,
+          isActive: cmsProps.isActive,
+        };
+    
+        const allProps: ComponentProps = { ...mappedProps, ...restComponentProps };
+    
+        return <${componentName} {...allProps} />;
+      };
+    };
+  `;
 }

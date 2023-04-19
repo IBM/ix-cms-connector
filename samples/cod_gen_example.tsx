@@ -32,6 +32,7 @@ const WrapperAdapter = (
     isActive: mixedProps.isActive,
   };
 
+  // data mutation! not a really good aproach
   delete mixedProps.name;
   delete mixedProps.isActive;
 
@@ -42,22 +43,26 @@ const WrapperAdapter = (
 
 // 2nd solution:
 
-const hocAdapter = (contentProps: CMSProps) => {
+function connectComponentToCMS(cmsProps: CMSProps) {
   // we need to exclude props that we already applied
-  // so the returned function will have only the rest of the props
-  return function NewComponent(
-    componentProps: Omit<ComponentProps, "label" | "isActive">
+  // so the returned function will have only the rest props
+  return function CMSComponent(
+    componentProps: Omit<ComponentProps, "label" | "isActive"> &
+      Partial<Pick<ComponentProps, "label" | "isActive">>
   ) {
-    const mappedProps = {
-      label: contentProps.name,
-      isActive: contentProps.isActive,
+    const mappedCMSProps = {
+      label: cmsProps.name,
+      isActive: cmsProps.isActive,
     };
 
-    const allProps: ComponentProps = { ...componentProps, ...mappedProps };
+    const allProps: ComponentProps = {
+      ...mappedCMSProps,
+      ...componentProps,
+    };
 
     return <Component {...allProps} />;
   };
-};
+}
 
 // usage examples:
 
@@ -74,8 +79,9 @@ const restProps = {
 />;
 
 // 2nd:
-hocAdapter(cmsData)(restProps);
-// or
-const NewComponent = hocAdapter(cmsData);
+connectComponentToCMS(cmsData)(restProps);
 
-<NewComponent data={restProps.data} />;
+// or
+const CMSComponent = connectComponentToCMS(cmsData);
+
+<CMSComponent data={restProps.data} />;
