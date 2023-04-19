@@ -1,9 +1,11 @@
+import { ComponentProps } from "react";
+
 interface CMSProps {
   name: string;
   isActive: boolean;
 }
 
-interface ComponentProps {
+interface MyComponentProps {
   label: string;
   isActive: boolean;
   data: Record<string, symbol>;
@@ -11,7 +13,7 @@ interface ComponentProps {
 
 // our sample component:
 
-const Component = (props: ComponentProps) => {
+const MyComponent = (props: MyComponentProps) => {
   return (
     <div>
       <div>
@@ -25,7 +27,7 @@ const Component = (props: ComponentProps) => {
 // 1st solution:
 
 const WrapperAdapter = (
-  mixedProps: CMSProps & Omit<ComponentProps, "label" | "isActive">
+  mixedProps: CMSProps & Omit<MyComponentProps, "label" | "isActive">
 ) => {
   const mappedProps = {
     label: mixedProps.name,
@@ -36,31 +38,35 @@ const WrapperAdapter = (
   delete mixedProps.name;
   delete mixedProps.isActive;
 
-  const allProps: ComponentProps = { ...mixedProps, ...mappedProps };
+  const allProps: MyComponentProps = { ...mixedProps, ...mappedProps };
 
-  return <Component {...allProps} />;
+  return <MyComponent {...allProps} />;
 };
 
 // 2nd solution:
 
-function connectComponentToCMS(cmsProps: CMSProps) {
-  // we need to exclude props that we already applied
-  // so the returned function will have only the rest props
-  return function CMSComponent(
-    componentProps: Omit<ComponentProps, "label" | "isActive"> &
-      Partial<Pick<ComponentProps, "label" | "isActive">>
+// Don't forget to import your component!
+// import Component from '...';
+
+function connectMyComponentToCMS(cmsProps: CMSProps) {
+  return function CMSMyComponent(
+    componentProps: Omit<
+      ComponentProps<typeof MyComponent>,
+      "label" | "isActive"
+    > &
+      Partial<Pick<ComponentProps<typeof MyComponent>, "label" | "isActive">>
   ) {
     const mappedCMSProps = {
       label: cmsProps.name,
       isActive: cmsProps.isActive,
     };
 
-    const allProps: ComponentProps = {
+    const allProps: ComponentProps<typeof MyComponent> = {
       ...mappedCMSProps,
       ...componentProps,
     };
 
-    return <Component {...allProps} />;
+    return <MyComponent {...allProps} />;
   };
 }
 
@@ -79,9 +85,16 @@ const restProps = {
 />;
 
 // 2nd:
-connectComponentToCMS(cmsData)(restProps);
+function Example1() {
+  const CMSComponent = connectMyComponentToCMS(cmsData);
 
-// or
-const CMSComponent = connectComponentToCMS(cmsData);
+  return (
+    <>
+      <CMSComponent data={restProps.data} />
+    </>
+  );
+}
 
-<CMSComponent data={restProps.data} />;
+function Example2() {
+  return <>{connectMyComponentToCMS(cmsData)(restProps)}</>;
+}

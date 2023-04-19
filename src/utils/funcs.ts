@@ -121,23 +121,38 @@ export function generateAdapterCode(
   options?: CodeGeneratorOptions
 ) {
   const componentName = componentDoc.displayName ?? "Component";
-  const hofName = `${componentName}Adapter`;
-  const partialComponentName = `Partial${componentName}`;
+  const hofName = `connect${componentName}ToCMS`;
+  const hocName = `CMS${componentName}`;
+
+  const cmsPropsType = `{ ${mappedFields
+    .map((mf) => `${mf[0].name}: ${mf[0].type};`)
+    .join(" ")} }`;
+  const componentMappedPropsUnion = mappedFields
+    .map((mf) => `"${mf[1].name}"`)
+    .join(" | ");
+
+  const mappedCMSPropsVar = `{ ${mappedFields
+    .map((mf) => `${mf[1].name}: cmsProps.${mf[0].name}`)
+    .join(", ")} }`;
 
   return `
-    const ${hofName} = (cmsProps: CMSProps) => {
-      return function ${partialComponentName}(
-        restComponentProps: Omit<ComponentProps, "label" | "isActive">
+    // Don't forget to import React.ComponentProps and your component!
+    import { ComponentProps } from "react";
+    import Component from '...';
+
+    function ${hofName}(cmsProps: ${cmsPropsType}) {
+      return function ${hocName}(
+        componentProps: Omit<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}> & Partial<Pick<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}>>
       ) {
-        const mappedProps = {
-          label: cmsProps.name,
-          isActive: cmsProps.isActive,
-        };
+        const mappedCMSProps = ${mappedCMSPropsVar};
     
-        const allProps: ComponentProps = { ...mappedProps, ...restComponentProps };
+        const allProps: ComponentProps<typeof ${componentName}> = {
+          ...mappedCMSProps,
+          ...componentProps,
+        };
     
         return <${componentName} {...allProps} />;
       };
-    };
+    }
   `;
 }
