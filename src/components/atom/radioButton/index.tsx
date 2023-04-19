@@ -13,7 +13,7 @@ export const RadioButton: FunctionComponent<RadioButtonProps> = ({
   const className = {
     base: `appearance-none w-4 h-4 shrink-0 outline outline-1 outline-interactive-icon-01 rounded-full`,
     focus: `focus:ring-2 focus:ring-offset-1 focus:ring-focus`,
-    checked: `before:checked:block before:hidden before:w-2 before:h-2 before:bg-interactive-icon-01 before:rounded-full before:m-1`,
+    checked: `before:checked:block before:hidden before:w-2 before:h-2 before:absolute before:bg-interactive-icon-01 before:rounded-full before:m-1`,
   };
 
   return (
@@ -25,7 +25,7 @@ export const RadioButton: FunctionComponent<RadioButtonProps> = ({
         {...rest}
       />
       {label && (
-        <label class={`text-sm ml-2.5 text-text-01`} htmlFor={id}>
+        <label class={`text-sm leading-tight ml-2.5 text-text-01`} htmlFor={id}>
           {label}
         </label>
       )}
