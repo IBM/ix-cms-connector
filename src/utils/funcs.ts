@@ -1,6 +1,14 @@
 import type { Documentation, Config } from "react-docgen";
 import type { CodeGeneratorOptions, MappableProp, MappedFields } from "./types";
 import CodeBlockWriter from "code-block-writer";
+// import {
+//   createSourceFile,
+//   ScriptTarget,
+//   CompilerOptions,
+//   CompilerHost,
+//   createProgram,
+//   getPreEmitDiagnostics,
+// } from "typescript";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -116,6 +124,37 @@ export function getComponentMappableProps(
     }));
 }
 
+// function getDiagnosticsForText(text: string) {
+//   const dummyFilePath = "/file.ts";
+//   const textAst = createSourceFile(dummyFilePath, text, ScriptTarget.Latest);
+//   const options: CompilerOptions = {};
+//   const host: CompilerHost = {
+//     fileExists: (filePath) => filePath === dummyFilePath,
+//     directoryExists: (dirPath) => dirPath === "/",
+//     getCurrentDirectory: () => "/",
+//     getDirectories: () => [],
+//     getCanonicalFileName: (fileName) => fileName,
+//     getNewLine: () => "\n",
+//     getDefaultLibFileName: () => "",
+//     getSourceFile: (filePath) =>
+//       filePath === dummyFilePath ? textAst : undefined,
+//     readFile: (filePath) => (filePath === dummyFilePath ? text : undefined),
+//     useCaseSensitiveFileNames: () => true,
+//     writeFile: () => null,
+//   };
+//   const program = createProgram({
+//     options,
+//     rootNames: [dummyFilePath],
+//     host,
+//   });
+
+//   return getPreEmitDiagnostics(program);
+// }
+
+// async function checkTS(code: string) {
+//   console.log(getDiagnosticsForText(code));
+// }
+
 export function generateAdapterCode(
   componentDoc: Documentation,
   mappedFields: MappedFields,
@@ -215,5 +254,9 @@ export function generateAdapterCode(
         });
     });
 
-  return snippet.toString();
+  const snippetCode = snippet.toString();
+
+  // checkTS(snippetCode);
+
+  return snippetCode;
 }
