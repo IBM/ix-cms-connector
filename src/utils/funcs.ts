@@ -1,5 +1,6 @@
 import type { Documentation, Config } from "react-docgen";
 import type { CodeGeneratorOptions, MappableProp, MappedFields } from "./types";
+import CodeBlockWriter from "code-block-writer";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -120,6 +121,9 @@ export function generateAdapterCode(
   mappedFields: MappedFields,
   options?: CodeGeneratorOptions
 ) {
+  // typescript is a default syntax to use
+  const isTS = !options || !options.syntax || options.syntax === "typescript";
+
   const componentName = componentDoc.displayName ?? "Component";
   const hofName = `connect${componentName}ToCMS`;
   const hocName = `CMS${componentName}`;
@@ -127,22 +131,29 @@ export function generateAdapterCode(
   const cmsPropsType = `{ ${mappedFields
     .map((mf) => `${mf[0].name}: ${mf[0].type};`)
     .join(" ")} }`;
-  const componentMappedPropsUnion = mappedFields
+  const componentMappedPropsUnionOld = mappedFields
     .map((mf) => `"${mf[1].name}"`)
     .join(" | ");
+  const getComponentMappedPropsUnion = (useSingleQuote: boolean) => {
+    const quoteMark = useSingleQuote ? "'" : '"';
+
+    return mappedFields
+      .map((mf) => `${quoteMark}${mf[1].name}${quoteMark}`)
+      .join(" | ");
+  };
 
   const mappedCMSPropsVar = `{ ${mappedFields
     .map((mf) => `${mf[1].name}: cmsProps.${mf[0].name}`)
     .join(", ")} }`;
 
-  return `
+  const manualSnippet = `
     // Don't forget to import React.ComponentProps and your component!
     import { ComponentProps } from "react";
     import Component from '...';
 
     function ${hofName}(cmsProps: ${cmsPropsType}) {
       return function ${hocName}(
-        componentProps: Omit<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}> & Partial<Pick<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}>>
+        componentProps: Omit<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnionOld}> & Partial<Pick<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnionOld}>>
       ) {
         const mappedCMSProps = ${mappedCMSPropsVar};
     
@@ -155,4 +166,54 @@ export function generateAdapterCode(
       };
     }
   `;
+
+  const writer = new CodeBlockWriter({
+    indentNumberOfSpaces: 2,
+    // useSingleQuote: true,
+  });
+
+  const componentMappedPropsUnion = getComponentMappedPropsUnion(
+    writer.getOptions().useSingleQuote
+  );
+
+  const snippet = writer
+    .writeLine(
+      "// Don't forget to import React.ComponentProps and your component!"
+    )
+    .write("import { ComponentProps } from ")
+    .quote("react")
+    .write(";")
+    .newLine()
+    .write(`import ${componentName} from `)
+    .quote("path-to-your-component")
+    .write(";")
+    .blankLine()
+
+    .write(`function ${hofName}(cmsProps: ${cmsPropsType})`)
+    .block(() => {
+      writer
+        .writeLine(`return function ${hocName}(`)
+        .indent()
+        .write(
+          `componentProps: Omit<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}> & Partial<Pick<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}>>`
+        )
+        .newLine()
+        .write(")")
+        .block(() => {
+          writer
+            .writeLine(`const mappedCMSProps = ${mappedCMSPropsVar};`)
+            .blankLine()
+            .write(`const allProps: ComponentProps<typeof ${componentName}> = `)
+            .inlineBlock(() => {
+              writer
+                .writeLine("...mappedCMSProps,")
+                .writeLine("...componentProps,");
+            })
+            .write(";")
+            .blankLine()
+            .write(`return <${componentName} {...allProps} />;`);
+        });
+    });
+
+  return snippet.toString();
 }
