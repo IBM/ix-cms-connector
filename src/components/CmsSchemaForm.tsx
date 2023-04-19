@@ -35,7 +35,11 @@ export const CmsSchemaForm = () => {
   return (
     <>
       <form onSubmit={handleGetCmsSchema}>
-        <Input label="Your CMS api endpoint" name="cmsEndpoint" placeholder="cms-endpoint:3000/my-component" />
+        <Input
+          label="Your CMS api endpoint"
+          name="cmsEndpoint"
+          placeholder="cms-endpoint:3000/my-component"
+        />
         <Button text="Get CMS schema" type="submit" />
       </form>
       {parsingCmsSchema && <span>Parsing...</span>}
