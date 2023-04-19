@@ -1,6 +1,11 @@
 import { FunctionComponent } from "preact";
-import { MappableProp } from "../utils/types";
 import { useMemo, useReducer, useRef } from "preact/hooks";
+import { Documentation } from "react-docgen";
+import {
+  CmsSchema,
+  getCmsMappableFields,
+  getComponentMappableProps,
+} from "../utils";
 
 interface IClickableList {
   listCollection: object[];
@@ -55,16 +60,26 @@ const mappedFieldsReducer = (
 };
 
 interface ISchemaForm {
-  cmsSchema: MappableProp[];
-  componentProps: MappableProp[];
+  cmsSchema: CmsSchema;
+  componentDoc: Documentation;
 }
 
 export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
-  cmsSchema = [],
-  componentProps = [],
+  cmsSchema,
+  componentDoc,
 }) => {
+  const cmsMappableFields = useMemo(
+    () => getCmsMappableFields(cmsSchema),
+    [cmsSchema]
+  );
+  const componentMappableProps = useMemo(
+    () => getComponentMappableProps(componentDoc),
+    [componentDoc]
+  );
+
   const [mappedFields, dispatch] = useReducer(mappedFieldsReducer, []);
   const schemaFieldToMap = useRef();
+
   const onSchemaFieldClick = (name) => {
     schemaFieldToMap.current = name;
   };
@@ -87,23 +102,23 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
   return (
     <>
       <div class="grid grid-cols-2 gap-4 mb-4">
-        {!!cmsSchema.length && (
+        {!!cmsMappableFields.length && (
           <div>
             <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
             <ClickableList
               disabledMappedKeys={mappedSchemaFields}
-              listCollection={cmsSchema}
+              listCollection={cmsMappableFields}
               mappedKey="name"
               onItemClick={onSchemaFieldClick}
             ></ClickableList>
           </div>
         )}
-        {!!componentProps.length && (
+        {!!componentMappableProps.length && (
           <div>
             <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
             <ClickableList
               disabledMappedKeys={mappedComponentProps}
-              listCollection={componentProps}
+              listCollection={componentMappableProps}
               mappedKey="name"
               onItemClick={onComponentPropClick}
             ></ClickableList>
