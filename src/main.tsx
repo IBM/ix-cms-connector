@@ -18,30 +18,31 @@ const Main: FunctionComponent = () => {
     <div class="p-16">
       <Header title={appTitle} />
 
-      {(!cmsSchema || !componentDoc) && (
-        <div class="flex">
-          <div class="flex-1 pr-8">
-            <h3 class="mb-4 font-semibold text-lg">CMS</h3>
-            <CmsSchemaForm
-              onGenerate={(cmsSchema) => {
-                setCmsSchema(cmsSchema);
-              }}
-            />
-          </div>
-
-          <div class="flex-1 pl-8">
-            <h3 class="mb-4 font-semibold text-lg">Component</h3>
-            <ComponentParserForm
-              onParsed={(doc) => {
-                setComponentDoc(doc);
-              }}
-            />
-          </div>
+      <div class="grid grid-cols-2 gap-4 mb-8">
+        <div>
+          <h3 class="mb-4 font-semibold text-lg">CMS</h3>
+          <CmsSchemaForm
+            onGenerate={(cmsSchema) => {
+              setCmsSchema(cmsSchema);
+            }}
+          />
         </div>
-      )}
+
+        <div>
+          <h3 class="mb-4 font-semibold text-lg">Component</h3>
+          <ComponentParserForm
+            onParsed={(doc) => {
+              setComponentDoc(doc);
+            }}
+          />
+        </div>
+      </div>
 
       {cmsSchema && componentDoc && (
-        <SchemaMatcher cmsSchema={cmsSchema} componentDoc={componentDoc} />
+        <div class="mb-8">
+          <h3 class="mb-4 font-semibold text-lg">Schema Mapping</h3>
+          <SchemaMatcher cmsSchema={cmsSchema} componentDoc={componentDoc} />
+        </div>
       )}
     </div>
   );
