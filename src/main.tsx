@@ -6,11 +6,16 @@ import { FileSelect } from "./components/FileSelect";
 import { ComponentParser } from "./components/ComponentParser";
 import { getComponentMappableProps } from "./utils/funcs";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
+import { Dropdown, DropdownOption } from "./components/atom/dropdown";
 
 const Main: FunctionComponent = () => {
   const [componentFile, setComponentFile] = useState<File>();
 
   const appTitle = "CMS Adapter Generator";
+
+  const onItemSelected = (option: DropdownOption) => {
+    alert(option.label);
+  }
 
   return (
     <div class="bg-ui-shell-gray-10 h-full">
@@ -37,6 +42,7 @@ const Main: FunctionComponent = () => {
               }
             }}
           />
+          <Dropdown handleOptionSelect={onItemSelected} label="Choose something" customOptions={[{value: 'one', label: '1'}, {value: 'two', label: '2'}]}></Dropdown>
         </div>
       </div>
     </div>
