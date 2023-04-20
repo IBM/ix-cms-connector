@@ -1,11 +1,12 @@
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 
-import Header from "./components/Header";
-import FileSelect from "./components/FileSelect";
-import ComponentParser from "./components/ComponentParser";
+import { MainHeader as Header } from "./components/Header";
+import { FileSelect } from "./components/FileSelect";
+import { ComponentParser } from "./components/ComponentParser";
+import { getComponentMappableProps } from "./utils/funcs";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { getComponentMappableProps, generateAdapterCode } from "./utils";
+import { generateAdapterCode } from "./utils";
 
 const Main: FunctionComponent = () => {
   const [componentFile, setComponentFile] = useState<File>();
@@ -13,7 +14,7 @@ const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
 
   return (
-    <div>
+    <div class="bg-ui-shell-gray-10 h-full">
       <Header title={appTitle} />
 
       <div class="p-16 flex">

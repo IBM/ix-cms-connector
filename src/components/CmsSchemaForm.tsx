@@ -1,12 +1,14 @@
 import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../generate-schema";
 import { Button } from "./Button";
-import { Input } from "./Input";
 import { Error } from "./Error";
+import { CmsSchema } from "../utils/funcs";
+import { AxiosError } from "axios";
+import { Input } from "./atom/input";
 
 export const CmsSchemaForm = () => {
-  const [cmsSchema, setCmsSchema] = useState<string>("");
-  const [cmsError, setCmsError] = useState<string>("");
+  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
 
   const handleGetCmsSchema = (e) => {
@@ -21,10 +23,11 @@ export const CmsSchemaForm = () => {
     const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
     try {
-      setCmsSchema(JSON.stringify(await getSchema(cmsEndpoint), undefined, 2));
+      setCmsSchema((await getSchema(cmsEndpoint)) as CmsSchema);
       setParsingCmsSchema(false);
+      setCmsError(false);
     } catch (err) {
-      setCmsError(JSON.stringify(err, undefined, 2));
+      setCmsError(err);
       setParsingCmsSchema(false);
     }
   }, []);
@@ -32,14 +35,18 @@ export const CmsSchemaForm = () => {
   return (
     <>
       <form onSubmit={handleGetCmsSchema}>
-        <Input label="Your CMS api endpoint" name="cmsEndpoint" />
+        <Input
+          label="Your CMS api endpoint"
+          name="cmsEndpoint"
+          placeholder="cms-endpoint:3000/my-component"
+        />
         <Button text="Get CMS schema" type="submit" />
       </form>
       {parsingCmsSchema && <span>Parsing...</span>}
-      {cmsError && <Error error={cmsError} />}
+      {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}
       {!cmsError && cmsSchema && (
         <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
-          {cmsSchema}
+          {JSON.stringify(cmsSchema, undefined, 2)}
         </div>
       )}
     </>
