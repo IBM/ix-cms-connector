@@ -6,7 +6,6 @@ import { CmsSchema } from "../utils/funcs";
 import { AxiosError } from "axios";
 import { Button, ButtonType } from "./atom/button";
 
-
 export const CmsSchemaForm = () => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
