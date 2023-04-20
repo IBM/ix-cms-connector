@@ -2,6 +2,7 @@ import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
 import { getComponentParserConfig } from "../../utils";
+import { CodeSnippet } from "../molecule/codeSnippet";
 
 interface ComponentParserProps {
   file?: File;
@@ -80,11 +81,7 @@ export const ComponentParser: FunctionComponent<ComponentParserProps> = ({
             {error}
           </div>
         )}
-        {!error && !!docsString && (
-          <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
-            {docsString}
-          </div>
-        )}
+        {!error && !!docsString && <CodeSnippet snippet={docsString} />}
       </div>
     </div>
   );
