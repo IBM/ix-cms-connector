@@ -10,6 +10,7 @@ import {
 interface IClickableList {
   listCollection: object[];
   mappedKey: string;
+  mappedSubKey?: string;
   onItemClick?: (name: string) => void;
   disabledMappedKeys?: string[];
 }
@@ -17,6 +18,7 @@ interface IClickableList {
 const ClickableList: FunctionComponent<IClickableList> = ({
   listCollection,
   mappedKey,
+  mappedSubKey,
   onItemClick,
   disabledMappedKeys,
 }) => (
@@ -34,6 +36,7 @@ const ClickableList: FunctionComponent<IClickableList> = ({
           onClick={() => onItemClick(mappedItemKey)}
         >
           {mappedItemKey}
+          <div class="text-xs">{item[mappedSubKey]}</div>
         </li>
       );
     })}
@@ -109,6 +112,7 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
               disabledMappedKeys={mappedSchemaFields}
               listCollection={cmsMappableFields}
               mappedKey="name"
+              mappedSubKey="type"
               onItemClick={onSchemaFieldClick}
             ></ClickableList>
           </div>
@@ -120,6 +124,7 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
               disabledMappedKeys={mappedComponentProps}
               listCollection={componentMappableProps}
               mappedKey="name"
+              mappedSubKey="type"
               onItemClick={onComponentPropClick}
             ></ClickableList>
           </div>
