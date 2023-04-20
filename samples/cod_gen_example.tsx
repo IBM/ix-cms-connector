@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 
-interface CMSProps {
+interface CMSData {
   name: string;
   isActive: boolean;
 }
@@ -27,7 +27,7 @@ const MyComponent = (props: MyComponentProps) => {
 // 1st solution:
 
 const WrapperAdapter = (
-  mixedProps: CMSProps & Omit<MyComponentProps, "label" | "isActive">
+  mixedProps: CMSData & Omit<MyComponentProps, "label" | "isActive">
 ) => {
   const mappedProps = {
     label: mixedProps.name,
@@ -45,34 +45,36 @@ const WrapperAdapter = (
 
 // 2nd solution:
 
-// Don't forget to import your component!
-// import Component from '...';
+// Don't forget to import React.ComponentProps!
+// import { ComponentProps } from "react";
 
-function connectMyComponentToCMS(cmsProps: CMSProps) {
-  return function CMSMyComponent(
-    componentProps: Omit<
-      ComponentProps<typeof MyComponent>,
-      "label" | "isActive"
-    > &
-      Partial<Pick<ComponentProps<typeof MyComponent>, "label" | "isActive">>
-  ) {
-    const mappedCMSProps = {
-      label: cmsProps.name,
-      isActive: cmsProps.isActive,
+function connectMyComponentToCMS(cmsData: CMSData) {
+  return function (Component: typeof MyComponent) {
+    return function CMSMyComponent(
+      componentProps: Omit<
+        ComponentProps<typeof MyComponent>,
+        "label" | "isActive"
+      > &
+        Partial<Pick<ComponentProps<typeof MyComponent>, "label" | "isActive">>
+    ) {
+      const mappedCMSProps = {
+        label: cmsData.name,
+        isActive: cmsData.isActive,
+      };
+
+      const allProps: ComponentProps<typeof MyComponent> = {
+        ...mappedCMSProps,
+        ...componentProps,
+      };
+
+      return <Component {...allProps} />;
     };
-
-    const allProps: ComponentProps<typeof MyComponent> = {
-      ...mappedCMSProps,
-      ...componentProps,
-    };
-
-    return <MyComponent {...allProps} />;
   };
 }
 
 // usage examples:
 
-const cmsData: CMSProps = { name: "Description", isActive: true };
+const cmsData: CMSData = { name: "Description", isActive: true };
 const restProps = {
   data: { key: Symbol() },
 };
@@ -85,16 +87,12 @@ const restProps = {
 />;
 
 // 2nd:
-function Example1() {
-  const CMSComponent = connectMyComponentToCMS(cmsData);
+function ExampleApp() {
+  const CMSComponent = connectMyComponentToCMS(cmsData)(MyComponent);
 
   return (
     <>
       <CMSComponent data={restProps.data} />
     </>
   );
-}
-
-function Example2() {
-  return <>{connectMyComponentToCMS(cmsData)(restProps)}</>;
 }
