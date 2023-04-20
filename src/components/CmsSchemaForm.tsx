@@ -36,7 +36,11 @@ export const CmsSchemaForm = () => {
     <>
       <form onSubmit={handleGetCmsSchema}>
         <Input label="Your CMS api endpoint" name="cmsEndpoint" />
-        <Button text="Get CMS schema" type="submit" style={ButtonType.PRIMARY} />
+        <Button
+          text="Get CMS schema"
+          type="submit"
+          style={ButtonType.PRIMARY}
+        />
       </form>
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}
