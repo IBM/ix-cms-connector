@@ -15,7 +15,7 @@ const Main: FunctionComponent = () => {
 
   const onItemSelected = (option: DropdownOption) => {
     alert(option.label);
-  }
+  };
 
   return (
     <div class="bg-ui-shell-gray-10 h-full">
@@ -42,7 +42,14 @@ const Main: FunctionComponent = () => {
               }
             }}
           />
-          <Dropdown handleOptionSelect={onItemSelected} label="Choose something" customOptions={[{value: 'one', label: '1'}, {value: 'two', label: '2'}]}></Dropdown>
+          <Dropdown
+            handleOptionSelect={onItemSelected}
+            label="Choose something"
+            customOptions={[
+              { value: "one", label: "1" },
+              { value: "two", label: "2" },
+            ]}
+          ></Dropdown>
         </div>
       </div>
     </div>
