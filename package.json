@@ -13,8 +13,8 @@
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
     "test": "vitest run --config ./vitest.config.ts",
-    "test:verbose": "vitest run --reporter verbose",
-    "test:watch": "vitest --reporter verbose"
+    "test:verbose": "vitest run --config ./vitest.config.ts --reporter verbose",
+    "test:watch": "vitest --config ./vitest.config.ts --reporter verbose"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
