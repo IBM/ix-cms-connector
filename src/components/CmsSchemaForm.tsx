@@ -1,6 +1,6 @@
 import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../generate-schema";
-import { Input } from "./Input";
+import { Input } from "./atom/input";
 import { Error } from "./Error";
 import { CmsSchema } from "../utils/funcs";
 import { AxiosError } from "axios";
