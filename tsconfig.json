@@ -1,6 +1,5 @@
 {
   "exclude": ["node_modules"],
-  "inlcude": ["custom.d.ts"],
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "react-jsx",
