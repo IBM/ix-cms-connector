@@ -11,7 +11,10 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender",
-    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch"
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
+    "test": "vitest run --config ./vitest.config.ts",
+    "test:verbose": "vitest run --reporter verbose",
+    "test:watch": "vitest --reporter verbose"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
