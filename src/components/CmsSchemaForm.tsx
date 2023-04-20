@@ -6,6 +6,7 @@ import { CmsSchema } from "../utils/funcs";
 import { AxiosError } from "axios";
 import { Button, ButtonType } from "./atom/button";
 
+
 export const CmsSchemaForm = () => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
@@ -35,7 +36,11 @@ export const CmsSchemaForm = () => {
   return (
     <>
       <form onSubmit={handleGetCmsSchema}>
-        <Input label="Your CMS api endpoint" name="cmsEndpoint" />
+        <Input
+          label="Your CMS api endpoint"
+          name="cmsEndpoint"
+          placeholder="cms-endpoint:3000/my-component"
+        />
         <Button
           text="Get CMS schema"
           type="submit"

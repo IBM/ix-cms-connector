@@ -13,7 +13,7 @@ const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
 
   return (
-    <div>
+    <div class="bg-ui-shell-gray-10 h-full">
       <Header title={appTitle} />
 
       <div class="p-16 flex">
