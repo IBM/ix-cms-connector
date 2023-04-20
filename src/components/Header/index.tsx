@@ -1,5 +1,7 @@
 import { FunctionComponent } from "preact";
 
+// Husky test
+
 /* Example of function component */
 export const MainHeader: FunctionComponent<{ title: string }> = ({
   title /*, children*/,
