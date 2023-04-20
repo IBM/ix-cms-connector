@@ -1,10 +1,10 @@
 import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../generate-schema";
-import { Button } from "./Button";
+import { Input } from "./atom/input";
 import { Error } from "./Error";
 import { CmsSchema } from "../utils/funcs";
 import { AxiosError } from "axios";
-import { Input } from "./atom/input";
+import { Button, ButtonType } from "./atom/button";
 
 export const CmsSchemaForm = () => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
@@ -40,7 +40,11 @@ export const CmsSchemaForm = () => {
           name="cmsEndpoint"
           placeholder="cms-endpoint:3000/my-component"
         />
-        <Button text="Get CMS schema" type="submit" />
+        <Button
+          text="Get CMS schema"
+          type="submit"
+          style={ButtonType.PRIMARY}
+        />
       </form>
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}
