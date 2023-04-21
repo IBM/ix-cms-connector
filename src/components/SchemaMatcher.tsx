@@ -3,16 +3,17 @@ import { useMemo, useRef, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import {
   CmsSchema,
+  MappableProp,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../utils";
+import { useCallback } from "react";
 
 interface IClickableList {
   listCollection: object[];
   mappedKey: string;
   mappedSubKey?: string;
   onItemClick?: (name: string) => void;
-  disabledMappedKeys?: string[];
 }
 
 const ClickableList: FunctionComponent<IClickableList> = ({
@@ -20,7 +21,6 @@ const ClickableList: FunctionComponent<IClickableList> = ({
   mappedKey,
   mappedSubKey,
   onItemClick,
-  disabledMappedKeys,
 }) => (
   <ul>
     {listCollection.map((item) => {
@@ -28,11 +28,7 @@ const ClickableList: FunctionComponent<IClickableList> = ({
       return (
         <li
           key={mappedItemKey}
-          class={`${
-            disabledMappedKeys.includes(mappedItemKey)
-              ? "pointer-events-none opacity-60"
-              : "cursor-pointer"
-          }`}
+          class="cursor-pointer"
           onClick={() => onItemClick(mappedItemKey)}
         >
           {mappedItemKey}
@@ -54,20 +50,21 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
   cmsSchema,
   componentDoc,
 }) => {
-  const cmsMappableFields = useMemo(
-    () => getCmsMappableFields(cmsSchema),
-    [cmsSchema]
-  );
-  const componentMappableProps = useMemo(
-    () => getComponentMappableProps(componentDoc),
-    [componentDoc]
-  );
-
   const [mappedFields, setMappedFields] = useState<IMappedFields>([]);
   const cmsFieldToMap = useRef<string | null>(null);
   const componentPropToMap = useRef<string | null>(null);
 
-  const onCmsSchemaFieldClick = (name: string) => {
+  // convert cms and component schemas to common type
+  const cmsMappableFields: MappableProp[] = useMemo(
+    () => getCmsMappableFields(cmsSchema),
+    [cmsSchema]
+  );
+  const componentMappableProps: MappableProp[] = useMemo(
+    () => getComponentMappableProps(componentDoc),
+    [componentDoc]
+  );
+
+  const onCmsSchemaFieldClick = useCallback((name: string) => {
     if (componentPropToMap.current) {
       setMappedFields((prevState) => [
         ...prevState,
@@ -77,9 +74,9 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
     } else {
       cmsFieldToMap.current = name;
     }
-  };
+  }, []);
 
-  const onComponentPropClick = (name: string) => {
+  const onComponentPropClick = useCallback((name: string) => {
     if (cmsFieldToMap.current) {
       setMappedFields((prevState) => [
         ...prevState,
@@ -89,15 +86,22 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
     } else {
       componentPropToMap.current = name;
     }
-  };
+  }, []);
 
-  const mappedCmsSchemaFields = useMemo(
-    () => mappedFields.map(([schemaField, componentProp]) => schemaField),
-    [mappedFields]
+  // get unmapped fields to be rendered as clickable lists
+  const unmappedCmsSchemaFields: MappableProp[] = useMemo(
+    () =>
+      cmsMappableFields.filter(
+        (field) => !mappedFields.flat().includes(field.name)
+      ),
+    [cmsMappableFields, mappedFields]
   );
-  const mappedComponentProps = useMemo(
-    () => mappedFields.map(([schemaField, componentProp]) => componentProp),
-    [mappedFields]
+  const unmappedComponentProps: MappableProp[] = useMemo(
+    () =>
+      componentMappableProps.filter(
+        (field) => !mappedFields.flat().includes(field.name)
+      ),
+    [componentMappableProps, mappedFields]
   );
 
   return (
@@ -107,8 +111,7 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
           <div>
             <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
             <ClickableList
-              disabledMappedKeys={mappedCmsSchemaFields}
-              listCollection={cmsMappableFields}
+              listCollection={unmappedCmsSchemaFields}
               mappedKey="name"
               mappedSubKey="type"
               onItemClick={onCmsSchemaFieldClick}
@@ -119,8 +122,7 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
           <div>
             <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
             <ClickableList
-              disabledMappedKeys={mappedComponentProps}
-              listCollection={componentMappableProps}
+              listCollection={unmappedComponentProps}
               mappedKey="name"
               mappedSubKey="type"
               onItemClick={onComponentPropClick}
