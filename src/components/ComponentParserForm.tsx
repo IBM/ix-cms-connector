@@ -3,6 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
 import { getComponentParserConfig } from "../utils";
 import { FileSelect } from "./FileSelect";
+import { CodeSnippet } from "./molecule/codeSnippet";
 
 interface ComponentParserFormProps {
   onParsed: (doc: Documentation) => void;
@@ -70,11 +71,7 @@ export const ComponentParserForm: FunctionComponent<
                 {error}
               </div>
             )}
-            {!error && !!docsString && (
-              <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
-                {docsString}
-              </div>
-            )}
+            {!error && !!docsString && <CodeSnippet snippet={docsString} />}
           </div>
         </div>
       )}

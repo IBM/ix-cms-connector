@@ -1,12 +1,14 @@
 import { FunctionComponent } from "preact";
 
-import Header from "./components/Header";
 import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
 import { CmsSchema } from "./utils";
 import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import { SchemaMatcher } from "./components/SchemaMatcher";
+import { MainHeader as Header } from "./components/Header";
+import { FileSelect } from "./components/FileSelect";
+import { getComponentMappableProps } from "./utils/funcs";
 
 const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
@@ -15,7 +17,7 @@ const Main: FunctionComponent = () => {
   const [componentDoc, setComponentDoc] = useState<Documentation>();
 
   return (
-    <div class="p-16">
+    <div class="bg-ui-shell-gray-10 h-full">
       <Header title={appTitle} />
 
       <div class="grid grid-cols-2 gap-4 mb-8">

@@ -1,11 +1,11 @@
 import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../generate-schema";
-import { Button } from "./Button";
-import { Input } from "./Input";
+import { Input } from "./atom/input";
 import { Error } from "./Error";
 import { CmsSchema } from "../utils/types";
 import { AxiosError } from "axios";
 import { FunctionComponent } from "preact";
+import { Button, ButtonType } from "./atom/button";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: CmsSchema) => void;
@@ -46,8 +46,16 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   return (
     <>
       <form onSubmit={handleGetCmsSchema}>
-        <Input label="Your CMS api endpoint" name="cmsEndpoint" />
-        <Button text="Get CMS schema" type="submit" />
+        <Input
+          label="Your CMS api endpoint"
+          name="cmsEndpoint"
+          placeholder="cms-endpoint:3000/my-component"
+        />
+        <Button
+          text="Get CMS schema"
+          type="submit"
+          style={ButtonType.PRIMARY}
+        />
       </form>
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}

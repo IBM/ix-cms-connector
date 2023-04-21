@@ -7,10 +7,10 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 
 export const Input: FunctionalComponent<InputProps> = ({ label, ...input }) => {
   return (
-    <label class="block text-gray-700 text-sm font-bold mb-2">
+    <label class="text-text-02 font-normal text-xs flex flex-col">
       {label}
       <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        class="p-3.5 text-text-01 placeholder-text-03 bg-ui-shell-white border-solid border-b rounded-none border-ui-04 my-2 box-content focus:outline-focus focus:border-ui-shell-white"
         {...input}
       ></input>
     </label>

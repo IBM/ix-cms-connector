@@ -1,0 +1,159 @@
+{
+  "sys": {
+    "id": "xyz789",
+    "type": "Entry",
+    "createdAt": "2022-02-01T00:00:00Z",
+    "updatedAt": "2022-02-01T00:00:00Z",
+    "contentType": {
+      "sys": {
+        "id": "landingPage",
+        "linkType": "ContentType",
+        "type": "Link"
+      }
+    }
+  },
+  "fields": {
+    "title": "Acme Corp. - Homepage",
+    "slug": "home",
+    "heroImage": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Asset",
+        "id": "abc123"
+      }
+    },
+    "heroText": "Welcome to Acme Corp.",
+    "features": [
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "def456"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "ghi789"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "jkl012"
+        }
+      }
+    ],
+    "testimonial": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Entry",
+        "id": "mno345"
+      }
+    },
+    "ctaText": "Get Started",
+    "ctaUrl": "https://www.acmecorp.com/signup",
+    "threeColumnComponent": [
+      {
+        "image": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Asset",
+            "id": "qwertyuiop"
+          }
+        }
+      },
+      {
+        "richText": {
+          "data": {
+            "target": "_blank",
+            "uri": "https://example.com",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "This is a paragraph of text.",
+                "spans": []
+              },
+              {
+                "type": "paragraph",
+                "text": "This is another paragraph of text.",
+                "spans": []
+              }
+            ]
+          },
+          "nodeType": "embedded-entry-inline",
+          "content": [],
+          "marks": []
+        }
+      },
+      {
+        "callToAction": [
+          {
+            "text": "Learn More",
+            "url": "https://example.com",
+            "icon": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "abcdefg"
+              }
+            }
+          },
+          {
+            "text": "Get Started",
+            "url": "https://example.com",
+            "icon": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "hijklmn"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "slider": [
+      {
+        "image": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Asset",
+            "id": "qwertyuiop"
+          }
+        },
+        "link": "https://example.com",
+        "text": "Example Slide 1"
+      },
+      {
+        "image": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Asset",
+            "id": "asdfghjkl"
+          }
+        },
+        "link": "https://example.com",
+        "text": "Example Slide 2"
+      }
+    ],
+    "relatedPosts": [
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "pqr678"
+        }
+      },
+      {
+        "sys": {
+          "type": "Link",
+          "linkType": "Entry",
+          "id": "stu901"
+        }
+      }
+    ]
+  }
+}
