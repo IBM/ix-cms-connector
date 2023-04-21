@@ -2,7 +2,7 @@ import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 
 import { MainHeader as Header } from "./components/Header";
-import { FileSelect } from "./components/FileSelect";
+import { FileSelect } from "./components/molecule/fileSelect";
 import { ComponentParser } from "./components/ComponentParser";
 import { getComponentMappableProps } from "./utils/funcs";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
@@ -26,7 +26,10 @@ const Main: FunctionComponent = () => {
       <div class="p-16 flex">
         <div class="flex-1 pl-8">
           <h3 class="mb-4 font-semibold text-lg">Component</h3>
-          <FileSelect onSelect={setComponentFile} />
+          <FileSelect
+            onSelect={setComponentFile}
+            onRemoveFile={() => setComponentFile(null)}
+          />
           <ComponentParser
             file={componentFile}
             onParsed={(docs) => {
