@@ -8,6 +8,7 @@ import { Documentation } from "react-docgen";
 import { SchemaMatcher } from "./components/SchemaMatcher";
 import { MainHeader as Header } from "./components/Header";
 import { generateAdapterCode } from "./utils";
+import { CodeGenerator } from "./components/organisms/CodeGenerator";
 
 const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
@@ -46,20 +47,23 @@ const Main: FunctionComponent = () => {
         </div>
       )}
 
-      <div class="p-16">
-        <div class="mt-16 font-mono whitespace-pre p-4 rounded border-2 border-gray-200 bg-gray-50 max-h-96 text-sm overflow-scroll text-gray-900">
-          {generateAdapterCode({ displayName: "Button" }, [
-            [
-              { name: "name", type: "string", isRequired: true },
-              { name: "label", type: "string", isRequired: true },
-            ],
-            [
-              { name: "isActive", type: "boolean", isRequired: true },
-              { name: "isActive", type: "boolean", isRequired: true },
-            ],
-          ])}
+      {componentDoc && (
+        <div class="p-16">
+          <CodeGenerator
+            componentDoc={componentDoc}
+            mappedFields={[
+              [
+                { name: "name", type: "string", isRequired: true },
+                { name: "label", type: "string", isRequired: true },
+              ],
+              [
+                { name: "active", type: "boolean", isRequired: false },
+                { name: "isActive", type: "boolean", isRequired: false },
+              ],
+            ]}
+          />
         </div>
-      </div>
+      )}
     </div>
   );
 };

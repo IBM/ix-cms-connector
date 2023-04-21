@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { ComponentType } from "react";
+import { ComponentType } from "preact";
 
 // generated from the mapped CMS fields
 interface SampleComponentMappedCMSFields {
