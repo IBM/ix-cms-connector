@@ -37,6 +37,10 @@ module.exports = {
         "03": "#FFFFFF",
       },
       focus: "#0F62FE",
+      field: {
+        "01": "#FFFFFF",
+        "02": "#F4F4F4",
+      },
       hover: {
         primary: "#0353E9",
         "primary-text": "#054ADA",

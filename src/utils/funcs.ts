@@ -1,5 +1,10 @@
 import type { Documentation, Config } from "react-docgen";
-import type { CodeGeneratorOptions, MappableProp, MappedFields } from "./types";
+import type {
+  CmsSchema,
+  CodeGeneratorOptions,
+  MappableProp,
+  MappedFields,
+} from "./types";
 import CodeBlockWriter from "code-block-writer";
 
 export function getComponentParserConfig(fileName: string): Config {
@@ -43,7 +48,8 @@ export function getComponentParserConfig(fileName: string): Config {
     },
   };
 }
-function isPrimitiveType(type) {
+
+function isPrimitiveType(type: string) {
   return (
     type === "boolean" ||
     type === "bool" ||
@@ -98,22 +104,28 @@ function getComponentMappablePropType(
   return "string";
 }
 
-export function getComponentMappableProps(
-  docs: Documentation[]
-): MappableProp[] {
-  if (docs.length === 0 || !docs[0].props) {
+export function getComponentMappableProps(doc: Documentation): MappableProp[] {
+  if (!doc.props) {
     return [];
   }
 
-  // it's possible that in one file there are 2 components
-  // that's why docs is an array, but we only need one component
-  return Object.entries(docs[0].props)
+  return Object.entries(doc.props)
     .filter(filterComponentProps)
     .map(([name, propDescr]) => ({
       name,
       type: getComponentMappablePropType(propDescr),
       isRequired: !!propDescr.required,
       description: propDescr.description,
+    }));
+}
+
+export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
+  return Object.entries(schema.properties)
+    .filter(([, { type }]) => isPrimitiveType(type))
+    .map(([name, { type }]) => ({
+      name,
+      type,
+      isRequired: schema.required.includes(name),
     }));
 }
 

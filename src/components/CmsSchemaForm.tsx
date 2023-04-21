@@ -1,12 +1,19 @@
 import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../generate-schema";
-import { Button } from "./Button";
-import { Error } from "./Error";
-import { CmsSchema } from "../utils/funcs";
-import { AxiosError } from "axios";
 import { Input } from "./atom/input";
+import { Error } from "./Error";
+import { CmsSchema } from "../utils/types";
+import { AxiosError } from "axios";
+import { FunctionComponent } from "preact";
+import { Button, ButtonType } from "./atom/button";
 
-export const CmsSchemaForm = () => {
+interface CmsSchemaFormProps {
+  onGenerate: (cmsSchema: CmsSchema) => void;
+}
+
+export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
+  onGenerate,
+}) => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
@@ -23,9 +30,13 @@ export const CmsSchemaForm = () => {
     const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
     try {
-      setCmsSchema((await getSchema(cmsEndpoint)) as CmsSchema);
+      const cmsSchema = (await getSchema(cmsEndpoint)) as CmsSchema;
+
+      setCmsSchema(cmsSchema);
       setParsingCmsSchema(false);
       setCmsError(false);
+
+      onGenerate(cmsSchema);
     } catch (err) {
       setCmsError(err);
       setParsingCmsSchema(false);
@@ -40,7 +51,11 @@ export const CmsSchemaForm = () => {
           name="cmsEndpoint"
           placeholder="cms-endpoint:3000/my-component"
         />
-        <Button text="Get CMS schema" type="submit" />
+        <Button
+          text="Get CMS schema"
+          type="submit"
+          style={ButtonType.PRIMARY}
+        />
       </form>
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}
