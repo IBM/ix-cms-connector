@@ -1,6 +1,5 @@
 import type { Documentation, Config } from "react-docgen";
-import type { MappableProp } from "./types";
-import { JSONSchema4 } from "json-schema";
+import type { CmsSchema, MappableProp } from "./types";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -43,7 +42,8 @@ export function getComponentParserConfig(fileName: string): Config {
     },
   };
 }
-function isPrimitiveType(type) {
+
+function isPrimitiveType(type: string) {
   return (
     type === "boolean" ||
     type === "bool" ||
@@ -98,16 +98,12 @@ function getComponentMappablePropType(
   return "string";
 }
 
-export function getComponentMappableProps(
-  docs: Documentation[]
-): MappableProp[] {
-  if (docs.length === 0 || !docs[0].props) {
+export function getComponentMappableProps(doc: Documentation): MappableProp[] {
+  if (!doc.props) {
     return [];
   }
 
-  // it's possible that in one file there are 2 components
-  // that's why docs is an array, but we only need one component
-  return Object.entries(docs[0].props)
+  return Object.entries(doc.props)
     .filter(filterComponentProps)
     .map(([name, propDescr]) => ({
       name,
@@ -115,15 +111,6 @@ export function getComponentMappableProps(
       isRequired: !!propDescr.required,
       description: propDescr.description,
     }));
-}
-
-export interface CmsSchema extends JSONSchema4 {
-  properties: {
-    [k: string]: {
-      type: "boolean" | "number" | "string";
-    };
-  };
-  required: string[];
 }
 
 export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
