@@ -81,16 +81,29 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
   );
 
   const [mappedFields, dispatch] = useReducer(mappedFieldsReducer, []);
-  const schemaFieldToMap = useRef();
+  const schemaFieldToMap = useRef(null);
+  const componentPropToMap = useRef(null);
 
   const onSchemaFieldClick = (name) => {
-    schemaFieldToMap.current = name;
+    if( componentPropToMap.current ) {
+      dispatch({
+        type: "ADD_MAPPED_FIELDS",
+        payload: [name, componentPropToMap.current],
+      });
+    } else { 
+      schemaFieldToMap.current = name;
+    }
   };
   const onComponentPropClick = (name) => {
-    dispatch({
-      type: "ADD_MAPPED_FIELDS",
-      payload: [schemaFieldToMap.current, name],
-    });
+    if( schemaFieldToMap.current ) {
+      dispatch({
+        type: "ADD_MAPPED_FIELDS",
+        payload: [schemaFieldToMap.current, name],
+      });
+      schemaFieldToMap.current = null;
+    } else {
+      componentPropToMap.current = name;
+    }
   };
 
   const mappedSchemaFields = useMemo(
