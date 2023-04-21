@@ -1,5 +1,5 @@
 import { FunctionComponent } from "preact";
-import { useMemo, useReducer, useRef } from "preact/hooks";
+import { useMemo, useRef, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import {
   CmsSchema,
@@ -45,23 +45,6 @@ const ClickableList: FunctionComponent<IClickableList> = ({
 
 type IMappedFields = [string, string][];
 
-interface IMappedFieldsAction {
-  type: string;
-  payload?: [string, string];
-}
-
-const mappedFieldsReducer = (
-  state: IMappedFields,
-  action: IMappedFieldsAction
-) => {
-  switch (action.type) {
-    case "ADD_MAPPED_FIELDS":
-      return [...state, action.payload];
-    default:
-      return state;
-  }
-};
-
 interface ISchemaForm {
   cmsSchema: CmsSchema;
   componentDoc: Documentation;
@@ -80,33 +63,35 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
     [componentDoc]
   );
 
-  const [mappedFields, dispatch] = useReducer(mappedFieldsReducer, []);
-  const schemaFieldToMap = useRef(null);
-  const componentPropToMap = useRef(null);
+  const [mappedFields, setMappedFields] = useState<IMappedFields>([]);
+  const cmsFieldToMap = useRef<string | null>(null);
+  const componentPropToMap = useRef<string | null>(null);
 
-  const onSchemaFieldClick = (name) => {
-    if( componentPropToMap.current ) {
-      dispatch({
-        type: "ADD_MAPPED_FIELDS",
-        payload: [name, componentPropToMap.current],
-      });
-    } else { 
-      schemaFieldToMap.current = name;
+  const onCmsSchemaFieldClick = (name: string) => {
+    if (componentPropToMap.current) {
+      setMappedFields((prevState) => [
+        ...prevState,
+        [name, componentPropToMap.current],
+      ]);
+      componentPropToMap.current = null;
+    } else {
+      cmsFieldToMap.current = name;
     }
   };
-  const onComponentPropClick = (name) => {
-    if( schemaFieldToMap.current ) {
-      dispatch({
-        type: "ADD_MAPPED_FIELDS",
-        payload: [schemaFieldToMap.current, name],
-      });
-      schemaFieldToMap.current = null;
+
+  const onComponentPropClick = (name: string) => {
+    if (cmsFieldToMap.current) {
+      setMappedFields((prevState) => [
+        ...prevState,
+        [cmsFieldToMap.current, name],
+      ]);
+      cmsFieldToMap.current = null;
     } else {
       componentPropToMap.current = name;
     }
   };
 
-  const mappedSchemaFields = useMemo(
+  const mappedCmsSchemaFields = useMemo(
     () => mappedFields.map(([schemaField, componentProp]) => schemaField),
     [mappedFields]
   );
@@ -122,11 +107,11 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
           <div>
             <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
             <ClickableList
-              disabledMappedKeys={mappedSchemaFields}
+              disabledMappedKeys={mappedCmsSchemaFields}
               listCollection={cmsMappableFields}
               mappedKey="name"
               mappedSubKey="type"
-              onItemClick={onSchemaFieldClick}
+              onItemClick={onCmsSchemaFieldClick}
             ></ClickableList>
           </div>
         )}
