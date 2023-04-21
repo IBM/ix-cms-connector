@@ -7,8 +7,6 @@ import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import { SchemaMatcher } from "./components/SchemaMatcher";
 import { MainHeader as Header } from "./components/Header";
-import { FileSelect } from "./components/FileSelect";
-import { getComponentMappableProps } from "./utils/funcs";
 
 const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
