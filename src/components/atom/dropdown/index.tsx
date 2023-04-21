@@ -1,4 +1,4 @@
-import { FunctionComponent } from "preact";
+import { FunctionComponent, JSX } from "preact";
 import { useRef, useState } from "preact/hooks";
 import { ChevronDown } from "@carbon/icons-react";
 import { useKeypress } from "../../../hooks/useKeyPress";
@@ -9,7 +9,6 @@ export interface DropdownOption {
 }
 
 interface DropdownProps {
-  ariaLabel?: string;
   label: string;
   description?: string;
   options: DropdownOption[];
@@ -31,18 +30,18 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
     setIsOpen(false);
   });
 
-  const handleDropdownClick = (event) => {
+  const handleDropdownClick = (event: JSX.TargetedMouseEvent<HTMLElement>) => {
     setIsOpen(!isOpen);
     event.stopPropagation();
   };
 
-  const handleOptionClick = (event, option: DropdownOption) => {
+  const handleOptionClick = (event: JSX.TargetedMouseEvent<HTMLElement>, option: DropdownOption) => {
     setIsOpen(false);
     handleOptionSelect(option);
     event.stopPropagation();
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: JSX.TargetedKeyboardEvent<HTMLElement>) => {
     switch (event.key) {
       case "Enter":
       case " ":
@@ -76,7 +75,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
     }
   };
 
-  const handleKeyDownOnItem = (event, option) => {
+  const handleKeyDownOnItem = (event: JSX.TargetedKeyboardEvent<HTMLElement>, option: DropdownOption) => {
     switch (event.key) {
       case "Enter":
       case " ":
