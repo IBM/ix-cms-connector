@@ -1,7 +1,7 @@
 import { FunctionComponent, JSX } from "preact";
 import { useRef, useState } from "preact/hooks";
 import { ChevronDown } from "@carbon/icons-react";
-import { useKeypress } from "../../../hooks/useKeyPress";
+import { useKeypress } from "../../hooks/useKeyPress";
 
 export interface DropdownOption {
   label: string;

@@ -6,15 +6,16 @@ import { FileSelect } from "./components/FileSelect";
 import { ComponentParser } from "./components/ComponentParser";
 import { getComponentMappableProps } from "./utils/funcs";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { Dropdown, DropdownOption } from "./components/atom/dropdown";
+import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
 
 const Main: FunctionComponent = () => {
   const [componentFile, setComponentFile] = useState<File>();
+  const [selectedValue, setSelectedValue] = useState<DropdownOption>();
 
   const appTitle = "CMS Adapter Generator";
 
   const onItemSelected = (option: DropdownOption) => {
-    alert(option.label);
+    setSelectedValue(option);
   };
 
   return (
@@ -42,14 +43,18 @@ const Main: FunctionComponent = () => {
               }
             }}
           />
-          <Dropdown
-            handleOptionSelect={onItemSelected}
-            label="Choose something"
-            customOptions={[
-              { value: "one", label: "1" },
-              { value: "two", label: "2" },
-            ]}
-          ></Dropdown>
+          <div class="w-[10rem]">
+            <Dropdown
+              handleOptionSelect={onItemSelected}
+              label="Choose something"
+              options={[
+                { value: "one", label: "1" },
+                { value: "two", label: "2" },
+              ]}
+              description="You should selected one element here"
+              selected={selectedValue}
+            ></Dropdown>
+          </div>
         </div>
       </div>
     </div>
