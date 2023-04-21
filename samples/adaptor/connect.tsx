@@ -1,29 +1,32 @@
-// Don't forget to import!
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { ComponentType } from "react";
 
 // generated from the mapped CMS fields
-interface MappedCMSFields {
+interface SampleComponentMappedCMSFields {
   headline: string;
   hyphenatedHeadline: boolean;
 }
 
 // generated from the mapped component props
-interface MappedComponentProps {
+interface SampleComponentMappedProps {
   label: string;
   isActive: boolean;
 }
 
-export function connectSampleComponentToCMS(cmsData: MappedCMSFields) {
-  return function enhance<P extends MappedComponentProps>(
+export function connectSampleComponentToCMS(
+  cmsData: SampleComponentMappedCMSFields
+) {
+  return function enhance<P extends SampleComponentMappedProps>(
     Component: ComponentType<P>
   ) {
     // restProps actullay includes also all the mapped props,
     // but they are optional now
     return function ConnectedComponent(
-      restProps: Omit<P, keyof MappedComponentProps> &
-        Partial<MappedComponentProps>
+      restProps: Omit<P, keyof SampleComponentMappedProps> &
+        Partial<SampleComponentMappedProps>
     ) {
-      const mappedProps: MappedComponentProps = {
+      const mappedProps: SampleComponentMappedProps = {
         label: cmsData.headline,
         isActive: cmsData.hyphenatedHeadline,
       };

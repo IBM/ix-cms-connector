@@ -127,93 +127,88 @@ export function generateAdapterCode(
 
   const componentName = componentDoc.displayName ?? "Component";
   const hofName = `connect${componentName}ToCMS`;
-  const hocName = `CMS${componentName}`;
+  const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
+  const mappedPropsTypeName = `${componentName}MappedProps`;
 
-  const cmsPropsType = `{ ${mappedFields
-    .map((mf) => `${mf[0].name}: ${mf[0].type};`)
-    .join(" ")} }`;
-  const componentMappedPropsUnionOld = mappedFields
-    .map((mf) => `"${mf[1].name}"`)
-    .join(" | ");
-  const getComponentMappedPropsUnion = (useSingleQuote: boolean) => {
-    const quoteMark = useSingleQuote ? "'" : '"';
+  const addTypeProperty = (p: MappableProp) =>
+    `${p.name}${p.isRequired ? "" : "?"}: ${p.type};`;
 
-    return mappedFields
-      .map((mf) => `${quoteMark}${mf[1].name}${quoteMark}`)
-      .join(" | ");
-  };
-
-  const mappedCMSPropsVar = `{ ${mappedFields
-    .map((mf) => `${mf[1].name}: cmsProps.${mf[0].name}`)
-    .join(", ")} }`;
-
-  const manualSnippet = `
-    // Don't forget to import React.ComponentProps and your component!
-    import { ComponentProps } from "react";
-    import Component from '...';
-
-    function ${hofName}(cmsProps: ${cmsPropsType}) {
-      return function ${hocName}(
-        componentProps: Omit<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnionOld}> & Partial<Pick<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnionOld}>>
-      ) {
-        const mappedCMSProps = ${mappedCMSPropsVar};
-    
-        const allProps: ComponentProps<typeof ${componentName}> = {
-          ...mappedCMSProps,
-          ...componentProps,
-        };
-    
-        return <${componentName} {...allProps} />;
-      };
-    }
-  `;
+  const mappedPropsVariable = mappedFields.map(
+    (mf) => `${mf[1].name}: cmsData.${mf[0].name},`
+  );
 
   const writer = new CodeBlockWriter({
     indentNumberOfSpaces: 2,
     // useSingleQuote: true,
   });
 
-  const componentMappedPropsUnion = getComponentMappedPropsUnion(
-    writer.getOptions().useSingleQuote
-  );
-
   const snippet = writer
-    .writeLine(
-      "// Don't forget to import React.ComponentProps and your component!"
-    )
-    .write("import { ComponentProps } from ")
+    .write("import { ComponentType } from ")
     .quote("react")
     .write(";")
-    .newLine()
-    .write(`import ${componentName} from `)
-    .quote("path-to-your-component")
-    .write(";")
+
     .blankLine()
 
-    .write(`function ${hofName}(cmsProps: ${cmsPropsType})`)
+    .write(`interface ${mappedCMSFieldsTypeName}`)
+    .block(() => {
+      mappedFields.forEach((f) => writer.writeLine(addTypeProperty(f[0])));
+    })
+
+    .blankLine()
+
+    .write(`interface ${mappedPropsTypeName}`)
+    .block(() => {
+      mappedFields.forEach((f) => writer.writeLine(addTypeProperty(f[1])));
+    })
+
+    .blankLine()
+
+    .write(`function ${hofName}(cmsData: ${mappedCMSFieldsTypeName})`)
     .block(() => {
       writer
-        .writeLine(`return function ${hocName}(`)
+        .writeLine(`return function enhance<P extends ${mappedPropsTypeName}>(`)
+
         .indent()
-        .write(
-          `componentProps: Omit<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}> & Partial<Pick<ComponentProps<typeof ${componentName}>, ${componentMappedPropsUnion}>>`
-        )
+        .write("Component: ComponentType<P>")
         .newLine()
-        .write(")")
-        .block(() => {
+
+        .write(") ")
+        .inlineBlock(() => {
           writer
-            .writeLine(`const mappedCMSProps = ${mappedCMSPropsVar};`)
-            .blankLine()
-            .write(`const allProps: ComponentProps<typeof ${componentName}> = `)
+            .writeLine(`return function ConnectedComponent(`)
+
+            .indent()
+            .write(
+              `restProps: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
+            )
+            .newLine()
+
+            .write(") ")
             .inlineBlock(() => {
               writer
-                .writeLine("...mappedCMSProps,")
-                .writeLine("...componentProps,");
+                .write(`const mappedProps: ${mappedPropsTypeName} = `)
+                .inlineBlock(() => {
+                  mappedPropsVariable.forEach((p) => writer.writeLine(p));
+                })
+                .write(";")
+
+                .blankLine()
+
+                .write(`const allProps = `)
+                .inlineBlock(() => {
+                  writer
+                    .writeLine("...mappedProps,")
+                    .writeLine("...restProps,");
+                })
+                .write(" as P;")
+
+                .blankLine()
+
+                .write(`return <Component {...allProps} />;`);
             })
-            .write(";")
-            .blankLine()
-            .write(`return <${componentName} {...allProps} />;`);
-        });
+            .write(";");
+        })
+        .write(";");
     });
 
   return snippet.toString();
