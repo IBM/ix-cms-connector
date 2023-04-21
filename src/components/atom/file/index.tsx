@@ -1,0 +1,41 @@
+import { Spinner } from "../spinner";
+import { Close, CheckmarkFilled } from "@carbon/icons-react";
+
+type Props = {
+  name: string;
+  label?: string;
+  isLoading?: boolean;
+  onRemoveFile?: () => void;
+};
+
+export const File = ({
+  name,
+  label,
+  isLoading = false,
+  onRemoveFile,
+}: Props) => {
+  const isClickable = onRemoveFile !== undefined;
+
+  return (
+    <div class="text-text-02 font-normal text-xs flex flex-col">
+      {label}
+      <div class="flex items-center p-3.5 text-text-01 bg-ui-shell-white  my-2">
+        <div class="flex-1 text-sm">{name}</div>
+        <div class="flex-shrink-0 flex items-center">
+          {isLoading && <Spinner />}
+          {!isLoading && isClickable && (
+            <button
+              onClick={onRemoveFile}
+              class="focus:outline focus:outline-2 focus:outline-interactive-01"
+            >
+              <Close />
+            </button>
+          )}
+          {!isLoading && !isClickable && (
+            <CheckmarkFilled class="fill-interactive-01" />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
