@@ -35,7 +35,10 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
     event.stopPropagation();
   };
 
-  const handleOptionClick = (event: JSX.TargetedMouseEvent<HTMLElement>, option: DropdownOption) => {
+  const handleOptionClick = (
+    event: JSX.TargetedMouseEvent<HTMLElement>,
+    option: DropdownOption
+  ) => {
     setIsOpen(false);
     handleOptionSelect(option);
     event.stopPropagation();
@@ -75,7 +78,10 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
     }
   };
 
-  const handleKeyDownOnItem = (event: JSX.TargetedKeyboardEvent<HTMLElement>, option: DropdownOption) => {
+  const handleKeyDownOnItem = (
+    event: JSX.TargetedKeyboardEvent<HTMLElement>,
+    option: DropdownOption
+  ) => {
     switch (event.key) {
       case "Enter":
       case " ":
