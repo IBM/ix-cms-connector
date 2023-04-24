@@ -50,9 +50,6 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
       case " ":
         setIsOpen(!isOpen);
         break;
-      case "Escape":
-        setIsOpen(false);
-        break;
       case "ArrowUp":
         if (isOpen && dropdownRef.current) {
           const options =
@@ -130,7 +127,6 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
                 tabIndex={0}
               >
                 <div class="text-text-02 text-sm w-full py-3.5 border-b border-ui-03">
-                  {" "}
                   {option.label}
                 </div>
               </li>
