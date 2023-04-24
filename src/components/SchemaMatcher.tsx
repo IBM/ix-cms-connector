@@ -4,22 +4,26 @@ import { Documentation } from "react-docgen";
 import {
   CmsSchema,
   MappableProp,
+  MappedFields,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../utils";
 import { useCallback } from "react";
 import { ClickableList } from "./molecule/ClickableList";
+import { Button, ButtonType } from "./atom/button";
 
 type IMappedFields = [string, string][];
 
-interface ISchemaForm {
+interface ISchemaMatcher {
   cmsSchema: CmsSchema;
   componentDoc: Documentation;
+  onGenerate?: (mappedFields: MappedFields) => void;
 }
 
-export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
+export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
   cmsSchema,
   componentDoc,
+  onGenerate,
 }) => {
   const [mappedFields, setMappedFields] = useState<IMappedFields>([]);
   const cmsFieldToMap = useRef<string | null>(null);
@@ -58,6 +62,16 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
       componentPropToMap.current = name;
     }
   }, []);
+
+  // callback to get the mappedfields with mappable props
+  const getMappedFields: () => [MappableProp, MappableProp][] = useCallback(
+    () =>
+      mappedFields.map(([cmsField, componentProp]) => [
+        cmsMappableFields.find(({ name }) => name === cmsField),
+        componentMappableProps.find(({ name }) => name === componentProp),
+      ]),
+    [mappedFields]
+  );
 
   // get unmapped fields to be rendered as clickable lists
   const unmappedCmsSchemaFields: MappableProp[] = useMemo(
@@ -111,6 +125,13 @@ export const SchemaMatcher: FunctionComponent<ISchemaForm> = ({
           </ul>
         </div>
       )}
+      <Button
+        text="Generate Adapter"
+        style={ButtonType.PRIMARY}
+        onClick={() => {
+          onGenerate(getMappedFields());
+        }}
+      />
     </>
   );
 };
