@@ -7,7 +7,6 @@ import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import { SchemaMatcher } from "./components/SchemaMatcher";
 import { Header } from "./components/atom/Header";
-import { generateAdapterCode } from "./utils";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
 
 const Main: FunctionComponent = () => {
