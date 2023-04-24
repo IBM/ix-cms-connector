@@ -1,21 +1,25 @@
 import { FunctionComponent } from "preact";
+import { useState } from "preact/hooks";
+import { Documentation } from "react-docgen";
 
 import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
 import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
+import { MainHeader as Header } from "./components/Header/index";
+import { SchemaMatcher } from "./components/SchemaMatcher";
+import { CmsSchema } from "./utils";
 
 const Main: FunctionComponent = () => {
-  const [componentFile, setComponentFile] = useState<File>();
   const [selectedValue, setSelectedValue] = useState<DropdownOption>();
+
+  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [componentDoc, setComponentDoc] = useState<Documentation>();
 
   const appTitle = "CMS Adapter Generator";
 
   const onItemSelected = (option: DropdownOption) => {
     setSelectedValue(option);
   };
-
-  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
-  const [componentDoc, setComponentDoc] = useState<Documentation>();
 
   return (
     <div class="bg-ui-shell-gray-10 h-full">
