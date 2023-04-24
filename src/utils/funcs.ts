@@ -1,6 +1,11 @@
 import type { Documentation, Config } from "react-docgen";
-import type { MappableProp } from "./types";
-import { JSONSchema4 } from "json-schema";
+import type {
+  CmsSchema,
+  CodeGeneratorOptions,
+  MappableProp,
+  MappedFields,
+} from "./types";
+import CodeBlockWriter from "code-block-writer";
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -43,7 +48,8 @@ export function getComponentParserConfig(fileName: string): Config {
     },
   };
 }
-function isPrimitiveType(type) {
+
+function isPrimitiveType(type: string) {
   return (
     type === "boolean" ||
     type === "bool" ||
@@ -98,16 +104,12 @@ function getComponentMappablePropType(
   return "string";
 }
 
-export function getComponentMappableProps(
-  docs: Documentation[]
-): MappableProp[] {
-  if (docs.length === 0 || !docs[0].props) {
+export function getComponentMappableProps(doc: Documentation): MappableProp[] {
+  if (!doc.props) {
     return [];
   }
 
-  // it's possible that in one file there are 2 components
-  // that's why docs is an array, but we only need one component
-  return Object.entries(docs[0].props)
+  return Object.entries(doc.props)
     .filter(filterComponentProps)
     .map(([name, propDescr]) => ({
       name,
@@ -115,15 +117,6 @@ export function getComponentMappableProps(
       isRequired: !!propDescr.required,
       description: propDescr.description,
     }));
-}
-
-export interface CmsSchema extends JSONSchema4 {
-  properties: {
-    [k: string]: {
-      type: "boolean" | "number" | "string";
-    };
-  };
-  required: string[];
 }
 
 export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
@@ -134,4 +127,101 @@ export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
       type,
       isRequired: schema.required.includes(name),
     }));
+}
+
+export function generateAdapterCode(
+  componentDoc: Documentation,
+  mappedFields: MappedFields,
+  options?: CodeGeneratorOptions
+) {
+  // typescript is a default syntax to use
+  const isTS = !options || !options.syntax || options.syntax === "typescript";
+
+  const componentName = componentDoc.displayName ?? "Component";
+  const hofName = `connect${componentName}ToCMS`;
+  const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
+  const mappedPropsTypeName = `${componentName}MappedProps`;
+
+  const addTypeProperty = (p: MappableProp) =>
+    `${p.name}${p.isRequired ? "" : "?"}: ${p.type};`;
+
+  const mappedPropsVariable = mappedFields.map(
+    (mf) => `${mf[1].name}: cmsData.${mf[0].name},`
+  );
+
+  const writer = new CodeBlockWriter({
+    indentNumberOfSpaces: 2,
+    // useSingleQuote: true,
+  });
+
+  const snippet = writer
+    .write("import { ComponentType } from ")
+    .quote("react")
+    .write(";")
+
+    .blankLine()
+
+    .write(`interface ${mappedCMSFieldsTypeName}`)
+    .block(() => {
+      mappedFields.forEach((f) => writer.writeLine(addTypeProperty(f[0])));
+    })
+
+    .blankLine()
+
+    .write(`interface ${mappedPropsTypeName}`)
+    .block(() => {
+      mappedFields.forEach((f) => writer.writeLine(addTypeProperty(f[1])));
+    })
+
+    .blankLine()
+
+    .write(`function ${hofName}(cmsData: ${mappedCMSFieldsTypeName})`)
+    .block(() => {
+      writer
+        .writeLine(`return function enhance<P extends ${mappedPropsTypeName}>(`)
+
+        .indent()
+        .write("Component: ComponentType<P>")
+        .newLine()
+
+        .write(") ")
+        .inlineBlock(() => {
+          writer
+            .writeLine(`return function ConnectedComponent(`)
+
+            .indent()
+            .write(
+              `restProps: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
+            )
+            .newLine()
+
+            .write(") ")
+            .inlineBlock(() => {
+              writer
+                .write(`const mappedProps: ${mappedPropsTypeName} = `)
+                .inlineBlock(() => {
+                  mappedPropsVariable.forEach((p) => writer.writeLine(p));
+                })
+                .write(";")
+
+                .blankLine()
+
+                .write(`const allProps = `)
+                .inlineBlock(() => {
+                  writer
+                    .writeLine("...mappedProps,")
+                    .writeLine("...restProps,");
+                })
+                .write(" as P;")
+
+                .blankLine()
+
+                .write(`return <Component {...allProps} />;`);
+            })
+            .write(";");
+        })
+        .write(";");
+    });
+
+  return snippet.toString();
 }
