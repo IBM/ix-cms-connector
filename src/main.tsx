@@ -1,20 +1,27 @@
 import { FunctionComponent } from "preact";
+import { useState } from "preact/hooks";
+import { Documentation } from "react-docgen";
 
 import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { CmsSchema, MappedFields } from "./utils";
-import { useState } from "preact/hooks";
-import { Documentation } from "react-docgen";
+import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
+import { MainHeader as Header } from "./components/Header/index";
 import { SchemaMatcher } from "./components/SchemaMatcher";
-import { MainHeader as Header } from "./components/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
+import { CmsSchema, MappedFields } from "./utils";
 
 const Main: FunctionComponent = () => {
-  const appTitle = "CMS Adapter Generator";
+  const [selectedValue, setSelectedValue] = useState<DropdownOption>();
 
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
   const [mappedFields, setMappedFields] = useState<MappedFields>();
+
+  const appTitle = "CMS Adapter Generator";
+
+  const onItemSelected = (option: DropdownOption) => {
+    setSelectedValue(option);
+  };
 
   return (
     <div class="bg-ui-shell-gray-10 h-full">
@@ -37,6 +44,18 @@ const Main: FunctionComponent = () => {
               setComponentDoc(doc);
             }}
           />
+          <div class="w-[10rem]">
+            <Dropdown
+              handleOptionSelect={onItemSelected}
+              label="Choose something"
+              options={[
+                { value: "one", label: "1" },
+                { value: "two", label: "2" },
+              ]}
+              description="You should selected one element here"
+              selected={selectedValue}
+            ></Dropdown>
+          </div>
         </div>
       </div>
 
