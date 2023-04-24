@@ -7,6 +7,8 @@ import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import { SchemaMatcher } from "./components/SchemaMatcher";
 import { MainHeader as Header } from "./components/Header";
+import { generateAdapterCode } from "./utils";
+import { CodeGenerator } from "./components/organisms/CodeGenerator";
 
 const Main: FunctionComponent = () => {
   const appTitle = "CMS Adapter Generator";
@@ -42,6 +44,24 @@ const Main: FunctionComponent = () => {
         <div class="mb-8">
           <h3 class="mb-4 font-semibold text-lg">Schema Mapping</h3>
           <SchemaMatcher cmsSchema={cmsSchema} componentDoc={componentDoc} />
+        </div>
+      )}
+
+      {componentDoc && (
+        <div class="p-16">
+          <CodeGenerator
+            componentDoc={componentDoc}
+            mappedFields={[
+              [
+                { name: "name", type: "string", isRequired: true },
+                { name: "label", type: "string", isRequired: true },
+              ],
+              [
+                { name: "active", type: "boolean", isRequired: false },
+                { name: "isActive", type: "boolean", isRequired: false },
+              ],
+            ]}
+          />
         </div>
       )}
     </div>

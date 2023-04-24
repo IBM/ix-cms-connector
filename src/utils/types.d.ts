@@ -15,3 +15,9 @@ export interface MappableProp {
   isRequired: boolean;
   description?: string;
 }
+
+export type MappedFields = [MappableProp, MappableProp][];
+
+export interface CodeGeneratorOptions {
+  syntax?: "typescript" | "javascript";
+}
