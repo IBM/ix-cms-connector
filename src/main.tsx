@@ -8,13 +8,14 @@ import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
 import { MainHeader as Header } from "./components/Header/index";
 import { SchemaMatcher } from "./components/SchemaMatcher";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
-import { CmsSchema } from "./utils";
+import { CmsSchema, MappedFields } from "./utils";
 
 const Main: FunctionComponent = () => {
   const [selectedValue, setSelectedValue] = useState<DropdownOption>();
 
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
+  const [mappedFields, setMappedFields] = useState<MappedFields>();
 
   const appTitle = "CMS Adapter Generator";
 
@@ -61,24 +62,21 @@ const Main: FunctionComponent = () => {
       {cmsSchema && componentDoc && (
         <div class="mb-8">
           <h3 class="mb-4 font-semibold text-lg">Schema Mapping</h3>
-          <SchemaMatcher cmsSchema={cmsSchema} componentDoc={componentDoc} />
+          <SchemaMatcher
+            cmsSchema={cmsSchema}
+            componentDoc={componentDoc}
+            onGenerate={(mappedFields) => {
+              setMappedFields(mappedFields);
+            }}
+          />
         </div>
       )}
 
-      {componentDoc && (
+      {componentDoc && mappedFields?.length && (
         <div class="p-16">
           <CodeGenerator
             componentDoc={componentDoc}
-            mappedFields={[
-              [
-                { name: "name", type: "string", isRequired: true },
-                { name: "label", type: "string", isRequired: true },
-              ],
-              [
-                { name: "active", type: "boolean", isRequired: false },
-                { name: "isActive", type: "boolean", isRequired: false },
-              ],
-            ]}
+            mappedFields={mappedFields}
           />
         </div>
       )}
