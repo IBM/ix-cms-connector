@@ -1,3 +1,20 @@
+@use "@carbon/type";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ui-shell-gray-10 h-full;
+  }
+  h1,
+  h2 {
+    @apply text-xl text-text-01 leading-tight mb-7;
+  }
+  h3 {
+    @apply text-sm text-text-01 leading-tight font-semibold mb-2;
+  }
+  p {
+    @apply text-sm text-text-05 leading-normal mb-2;
+  }
+}
