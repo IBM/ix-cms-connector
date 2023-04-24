@@ -1,7 +1,7 @@
-import { Spinner } from "../spinner";
+import { Spinner } from "./Spinner";
 import { Close, CheckmarkFilled } from "@carbon/icons-react";
 
-type Props = {
+type FileProps = {
   name: string;
   label?: string;
   isLoading?: boolean;
@@ -13,7 +13,7 @@ export const File = ({
   label,
   isLoading = false,
   onRemoveFile,
-}: Props) => {
+}: FileProps) => {
   const isClickable = onRemoveFile !== undefined;
 
   return (

@@ -1,6 +1,6 @@
-export const Spinner = ({ ...rest }) => {
+export const Spinner = () => {
   return (
-    <svg viewBox="0 0 16 16" class="w-4 h-4 animate-spin" {...rest}>
+    <svg viewBox="0 0 16 16" class="w-4 h-4 animate-spin">
       <circle
         fill="none"
         r={6.5}

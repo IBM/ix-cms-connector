@@ -2,8 +2,8 @@ import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
 import { getComponentParserConfig } from "../utils";
-import { FileSelect } from "./FileSelect";
-import { CodeSnippet } from "./molecule/codeSnippet";
+import { FileSelect } from "./molecule/FileSelect";
+import { CodeSnippet } from "./molecule/CodeSnippet";
 
 interface ComponentParserFormProps {
   onParsed: (doc: Documentation) => void;
@@ -58,7 +58,7 @@ export const ComponentParserForm: FunctionComponent<
 
   return (
     <div>
-      <FileSelect onSelect={setFile} />
+      <FileSelect onSelect={setFile} onRemoveFile={() => setFile(null)} />
 
       {file && (
         <div class="mt-4">
