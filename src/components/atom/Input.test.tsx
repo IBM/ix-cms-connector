@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/preact";
 
-import { Input } from "./index";
+import { Input } from "./input/index";
 
 describe("Input", () => {
   it("should display the input with the given label", () => {
