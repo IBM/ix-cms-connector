@@ -1,10 +1,6 @@
 import { FunctionComponent } from "preact";
-import { useState } from "preact/hooks";
 
-import { MainHeader as Header } from "./components/Header";
-import { FileSelect } from "./components/FileSelect";
-import { ComponentParser } from "./components/ComponentParser";
-import { getComponentMappableProps } from "./utils/funcs";
+import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
 import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
 
@@ -18,29 +14,28 @@ const Main: FunctionComponent = () => {
     setSelectedValue(option);
   };
 
+  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [componentDoc, setComponentDoc] = useState<Documentation>();
+
   return (
     <div class="bg-ui-shell-gray-10 h-full">
       <Header title={appTitle} />
 
-      <div class="p-16 flex">
-        <div class="flex-1 pl-8">
+      <div class="grid grid-cols-2 gap-4 mb-8">
+        <div>
           <h3 class="mb-4 font-semibold text-lg">CMS</h3>
-          <CmsSchemaForm />
+          <CmsSchemaForm
+            onGenerate={(cmsSchema) => {
+              setCmsSchema(cmsSchema);
+            }}
+          />
         </div>
-      </div>
 
-      <div class="p-16 flex">
-        <div class="flex-1 pl-8">
+        <div>
           <h3 class="mb-4 font-semibold text-lg">Component</h3>
-          <FileSelect onSelect={setComponentFile} />
-          <ComponentParser
-            file={componentFile}
-            onParsed={(docs) => {
-              if (docs) {
-                console.log(
-                  JSON.stringify(getComponentMappableProps(docs), undefined, 2)
-                );
-              }
+          <ComponentParserForm
+            onParsed={(doc) => {
+              setComponentDoc(doc);
             }}
           />
           <div class="w-[10rem]">
@@ -57,6 +52,13 @@ const Main: FunctionComponent = () => {
           </div>
         </div>
       </div>
+
+      {cmsSchema && componentDoc && (
+        <div class="mb-8">
+          <h3 class="mb-4 font-semibold text-lg">Schema Mapping</h3>
+          <SchemaMatcher cmsSchema={cmsSchema} componentDoc={componentDoc} />
+        </div>
+      )}
     </div>
   );
 };
