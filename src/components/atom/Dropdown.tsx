@@ -73,8 +73,6 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
           }
         }
         break;
-      default:
-        break;
     }
   };
 
@@ -88,8 +86,6 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
         handleOptionSelect(option);
         setIsOpen(!isOpen);
         event.stopPropagation();
-        break;
-      default:
         break;
     }
   };
