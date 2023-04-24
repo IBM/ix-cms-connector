@@ -49,7 +49,7 @@ export function getComponentParserConfig(fileName: string): Config {
   };
 }
 
-function isPrimitiveType(type: string) {
+export function isPrimitiveType(type: string) {
   return (
     type === "boolean" ||
     type === "bool" ||
