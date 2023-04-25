@@ -60,7 +60,13 @@ const Main: FunctionComponent = () => {
               selected={selectedValue}
             ></Dropdown>
 
-            <SearchInput onSearchText={(term: string) => {alert(term)}} label="test" placeholder="Search" />
+            <SearchInput
+              onSearchText={(term: string) => {
+                alert(term);
+              }}
+              label="test"
+              placeholder="Search"
+            />
           </div>
         </div>
       </div>
