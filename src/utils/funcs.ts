@@ -134,54 +134,79 @@ export function generateAdapterCode(
   mappedFields: MappedFields,
   options?: CodeGeneratorOptions
 ) {
-  // typescript is a default syntax to use
-  const isTS = !options || !options.syntax || options.syntax === "typescript";
+  // if the component has a tsType field in any of the PropDescriptor, then it's Typescript
+  const isTS = Object.entries(componentDoc.props).some(([, pd]) => pd.tsType);
 
+  // helper variables and functions
   const componentName = componentDoc.displayName ?? "Component";
   const hofName = `connect${componentName}ToCMS`;
   const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
   const mappedPropsTypeName = `${componentName}MappedProps`;
 
-  const addTypeProperty = (p: MappableProp) =>
+  const addTypePropertyDef = (p: MappableProp) =>
     `${p.name}${p.isRequired ? "" : "?"}: ${p.type};`;
 
-  const mappedPropsVariable = mappedFields.map(
+  const mappedPropsDeclarations = mappedFields.map(
     (mf) => `${mf[1].name}: cmsData.${mf[0].name},`
   );
 
+  const addInlineTypeDef = (typeDefinition: string) =>
+    isTS ? typeDefinition : "";
+
+  // start writing
+
   const writer = new CodeBlockWriter({
-    indentNumberOfSpaces: 2,
-    // useSingleQuote: true,
+    ...options,
   });
 
-  const snippet = writer
-    .write("import { ComponentType } from ")
-    .quote("react")
-    .write(";")
+  // if it's TS, then we need to add some type imports and defenitions
+  let requiredTypeDefs: CodeBlockWriter;
 
-    .blankLine()
+  if (isTS) {
+    requiredTypeDefs = writer
+      .write("import { ComponentType } from ")
+      .quote("react")
+      .write(";")
 
-    .write(`interface ${mappedCMSFieldsTypeName}`)
-    .block(() => {
-      mappedFields.forEach((f) => writer.writeLine(addTypeProperty(f[0])));
-    })
+      .blankLine()
 
-    .blankLine()
+      // an interface for the mapped CMS fields
+      .write(`interface ${mappedCMSFieldsTypeName}`)
+      .block(() => {
+        mappedFields.forEach((f) => writer.writeLine(addTypePropertyDef(f[0])));
+      })
 
-    .write(`interface ${mappedPropsTypeName}`)
-    .block(() => {
-      mappedFields.forEach((f) => writer.writeLine(addTypeProperty(f[1])));
-    })
+      .blankLine()
 
-    .blankLine()
+      // an interface for the mapped component props
+      .write(`interface ${mappedPropsTypeName}`)
+      .block(() => {
+        mappedFields.forEach((f) => writer.writeLine(addTypePropertyDef(f[1])));
+      })
 
-    .write(`function ${hofName}(cmsData: ${mappedCMSFieldsTypeName})`)
+      .blankLine();
+  } else {
+    requiredTypeDefs = writer;
+  }
+
+  // then we are creating our function (see samples/adaptor/connect.tsx as an example of the ready function)
+  // we use addInlineTypeDef() function to conditionaly (if it's a TS component) add type definitions
+  const snippetCode = requiredTypeDefs
+    .write(
+      `function ${hofName}(cmsData${addInlineTypeDef(
+        `: ${mappedCMSFieldsTypeName}`
+      )})`
+    )
     .block(() => {
       writer
-        .writeLine(`return function enhance<P extends ${mappedPropsTypeName}>(`)
+        .writeLine(
+          `return function enhance${addInlineTypeDef(
+            `<P extends ${mappedPropsTypeName}>`
+          )}(`
+        )
 
         .indent()
-        .write("Component: ComponentType<P>")
+        .write(`Component${addInlineTypeDef(": ComponentType<P>")}`)
         .newLine()
 
         .write(") ")
@@ -191,16 +216,22 @@ export function generateAdapterCode(
 
             .indent()
             .write(
-              `restProps: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
+              `restProps${addInlineTypeDef(
+                `: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
+              )}`
             )
             .newLine()
 
             .write(") ")
             .inlineBlock(() => {
               writer
-                .write(`const mappedProps: ${mappedPropsTypeName} = `)
+                .write(
+                  `const mappedProps${addInlineTypeDef(
+                    `: ${mappedPropsTypeName}`
+                  )} = `
+                )
                 .inlineBlock(() => {
-                  mappedPropsVariable.forEach((p) => writer.writeLine(p));
+                  mappedPropsDeclarations.forEach((p) => writer.writeLine(p));
                 })
                 .write(";")
 
@@ -212,7 +243,7 @@ export function generateAdapterCode(
                     .writeLine("...mappedProps,")
                     .writeLine("...restProps,");
                 })
-                .write(" as P;")
+                .write(`${addInlineTypeDef(" as P")};`)
 
                 .blankLine()
 
@@ -223,5 +254,5 @@ export function generateAdapterCode(
         .write(";");
     });
 
-  return snippet.toString();
+  return snippetCode.toString();
 }
