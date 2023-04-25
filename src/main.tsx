@@ -49,17 +49,6 @@ const Main: FunctionComponent = () => {
             }}
           />
           <div class="w-[10rem]">
-            <Dropdown
-              handleOptionSelect={onItemSelected}
-              label="Choose something"
-              options={[
-                { value: "one", label: "1" },
-                { value: "two", label: "2" },
-              ]}
-              description="You should selected one element here"
-              selected={selectedValue}
-            ></Dropdown>
-
             <SearchInput
               onSearchText={(term: string) => {
                 alert(term);
