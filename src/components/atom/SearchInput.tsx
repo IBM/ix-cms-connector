@@ -30,12 +30,12 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
     onSearchText("");
   };
 
-  const debouncedChange = debounce(onChange, 360);
+  const debouncedChange = debounce(onChange, 300);
 
   return (
     <label htmlFor="search" class="flex flex-col">
       {label}
-      <div class="flex relative items-center bg-ui-shell-white  focus:outline-8">
+      <div class="flex relative items-center bg-ui-shell-white focus:outline-8 border-b  border-ui-04">
         <Search class="absolute left-0 ml-3" />
         <input
           id="search"
