@@ -17,7 +17,7 @@ const Overview: FunctionComponent = () => {
 
   const onSearchText = (term: string) => {
     console.log(term);
-  }
+  };
 
   return (
     <>
@@ -55,7 +55,11 @@ const Overview: FunctionComponent = () => {
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Search Input</h3>
-            <SearchInput label="Input Label" placeholder="Placeholder" onSearchText={onSearchText}/>
+            <SearchInput
+              label="Input Label"
+              placeholder="Placeholder"
+              onSearchText={onSearchText}
+            />
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Radio Button</h3>

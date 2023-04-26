@@ -43,7 +43,7 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
         <input
           id="search"
           type="text"
-          value={searchTerm}  
+          value={searchTerm}
           aria-label={label}
           icon={Search}
           onChange={debouncedChange}
