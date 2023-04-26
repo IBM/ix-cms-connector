@@ -12,10 +12,14 @@ export const CodeGenerator: FunctionComponent<CodeGeneratorProps> = ({
   componentDoc,
   mappedFields,
 }) => {
+  const code = generateAdapterCode(componentDoc, mappedFields, {
+    indentNumberOfSpaces: 2,
+  });
+
   return (
     <div>
       <h3 class="mb-4 font-semibold text-lg">Adapter Code</h3>
-      <CodeSnippet snippet={generateAdapterCode(componentDoc, mappedFields)} />
+      <CodeSnippet snippet={code} />
     </div>
   );
 };

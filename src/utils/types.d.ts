@@ -1,4 +1,5 @@
 import { JSONSchema4 } from "json-schema";
+import type { Options as CodeBlockWriterOptions } from "code-block-writer";
 
 export interface CmsSchema extends JSONSchema4 {
   properties: {
@@ -18,6 +19,4 @@ export interface MappableProp {
 
 export type MappedFields = [MappableProp, MappableProp][];
 
-export interface CodeGeneratorOptions {
-  syntax?: "typescript" | "javascript";
-}
+export type CodeGeneratorOptions = Partial<CodeBlockWriterOptions>;
