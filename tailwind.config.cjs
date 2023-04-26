@@ -1,3 +1,5 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+
 /* eslint-disable-next-line no-undef */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -96,6 +98,12 @@ module.exports = {
         "teal-background": "#9EF0F0",
         "teal-text": "#005D5D",
         "teal-hover": "#57E5E5",
+      },
+    },
+    extend: {
+      fontFamily: {
+        sans: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
+        mono: ["IBM Plex Mono", ...defaultTheme.fontFamily.mono],
       },
     },
   },

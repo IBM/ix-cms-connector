@@ -1,12 +1,11 @@
-import { FunctionComponent } from "preact";
-import { HTMLAttributes } from "react";
+import { FunctionComponent, JSX } from "preact";
 
 export enum ButtonType {
   PRIMARY = "primary",
   SECONDARY = "secondary",
 }
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends JSX.HTMLAttributes {
   text: string;
   style: ButtonType;
 }
