@@ -63,6 +63,15 @@ export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
     }
   }, []);
 
+  const onMappedLinkClick = useCallback((pairIndex) => {
+    setMappedFields((prevState) => {
+      return [
+        ...prevState.slice(0, pairIndex),
+        ...prevState.slice(pairIndex + 1),
+      ];
+    });
+  }, []);
+
   // callback to get the mappedfields with mappable props
   const getMappedFields: () => [MappableProp, MappableProp][] = useCallback(
     () =>
@@ -119,8 +128,17 @@ export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
         <div>
           <h4 class="mb-4 font-semibold text-sm">Mapped Props</h4>
           <ul>
-            {mappedFields.map(([schemaField, componentProp]) => (
-              <li>{`${schemaField}-${componentProp}`}</li>
+            {mappedFields.map(([schemaField, componentProp], index) => (
+              <li>
+                {schemaField}
+                <span
+                  class="cursor-pointer"
+                  onClick={() => onMappedLinkClick(index)}
+                >
+                  -
+                </span>
+                {componentProp}
+              </li>
             ))}
           </ul>
         </div>
