@@ -21,12 +21,12 @@ const Overview: FunctionComponent = () => {
   };
 
   const onSelect = () => {
-    console.log('File selected');
-  }
+    console.log("File selected");
+  };
 
   const onRemoveFile = () => {
-    console.log('File removed');
-  }
+    console.log("File removed");
+  };
 
   return (
     <>
