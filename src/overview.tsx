@@ -7,6 +7,7 @@ import { Header } from "./components/atom/Header";
 import { Input } from "./components/atom/input";
 import { RadioButton } from "./components/atom/RadioButton";
 import { SearchInput } from "./components/atom/SearchInput";
+import { FileSelect } from "./components/molecule/FileSelect";
 
 const Overview: FunctionComponent = () => {
   const [selected, setSelected] = useState<DropdownOption>();
@@ -18,6 +19,14 @@ const Overview: FunctionComponent = () => {
   const onSearchText = (term: string) => {
     console.log(term);
   };
+
+  const onSelect = () => {
+    console.log('File selected');
+  }
+
+  const onRemoveFile = () => {
+    console.log('File removed');
+  }
 
   return (
     <>
@@ -34,6 +43,12 @@ const Overview: FunctionComponent = () => {
               disabled
               text="Button disabled"
             />
+          </div>
+          <div class="flex flex-col gap-3 w-[400px] mb-6">
+            <h3>File whitout removing option</h3>
+            <FileSelect onSelect={onSelect} />
+            <h3>File with removing option</h3>
+            <FileSelect onSelect={onSelect} onRemoveFile={onRemoveFile} />
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Dropdown</h3>
@@ -56,7 +71,7 @@ const Overview: FunctionComponent = () => {
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Search Input</h3>
             <SearchInput
-              label="Input Label"
+              label="Search Input Label"
               placeholder="Placeholder"
               onSearchText={onSearchText}
             />
