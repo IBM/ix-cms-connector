@@ -39,8 +39,6 @@ const Main: FunctionComponent = () => {
               setComponentDoc(doc);
             }}
           />
-          <div class="w-[10rem]">
-          </div>
         </div>
       </div>
 
