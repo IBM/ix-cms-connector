@@ -38,7 +38,7 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
       class="flex flex-col text-xs text-text-02 font-normal mb-2"
     >
       {label}
-      <div class="flex relative items-center bg-ui-shell-white focus:outline-8 border-b  border-ui-04">
+      <div class="flex relative items-center bg-ui-shell-white focus:outline-8 border-b mt-2 border-ui-04">
         <Search class="absolute left-0 ml-3" />
         <input
           id="search"
@@ -48,7 +48,7 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
           icon={Search}
           onChange={debouncedChange}
           {...input}
-          class="py-3.5 px-10 min-w-0 text-sm text-text-01 placeholder-text-03 bg-ui-shell-white box-border focus:outline-focus"
+          class="py-3.5 px-10 min-w-0 w-full text-sm text-text-01 placeholder-text-03 bg-ui-shell-white box-border focus:outline-focus"
         />
         {searchTerm && (
           <button
