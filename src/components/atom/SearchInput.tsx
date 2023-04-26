@@ -50,12 +50,14 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
           {...input}
           class="py-3.5 px-10 min-w-0 text-sm text-text-01 placeholder-text-03 bg-ui-shell-white box-border focus:outline-focus"
         />
-        { searchTerm && <button
-          onClick={onClean}
-          class="bg-ui-shell-white absolute right-0 mr-3  focus:outline-focus"
-        >
-          <Close />
-        </button>}
+        {searchTerm && (
+          <button
+            onClick={onClean}
+            class="bg-ui-shell-white absolute right-0 mr-3  focus:outline-focus"
+          >
+            <Close />
+          </button>
+        )}
       </div>
     </label>
   );
