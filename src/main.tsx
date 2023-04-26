@@ -4,24 +4,15 @@ import { Documentation } from "react-docgen";
 
 import { ComponentParserForm } from "./components/ComponentParserForm";
 import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
 import { SchemaMatcher } from "./components/SchemaMatcher";
 import { Header } from "./components/atom/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
 import { CmsSchema, MappedFields } from "./utils";
-import { SearchInput } from "./components/atom/SearchInput";
 
 const Main: FunctionComponent = () => {
-  const [selectedValue, setSelectedValue] = useState<DropdownOption>();
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
   const [mappedFields, setMappedFields] = useState<MappedFields>();
-
-  const appTitle = "CMS Adapter Generator";
-
-  const onItemSelected = (option: DropdownOption) => {
-    setSelectedValue(option);
-  };
 
   return (
     <>
@@ -48,15 +39,6 @@ const Main: FunctionComponent = () => {
               setComponentDoc(doc);
             }}
           />
-          <div class="w-[10rem]">
-            <SearchInput
-              onSearchText={(term: string) => {
-                alert(term);
-              }}
-              label="test"
-              placeholder="Search"
-            />
-          </div>
         </div>
       </div>
 
