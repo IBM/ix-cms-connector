@@ -146,8 +146,26 @@ export function generateAdapterCode(
   const addTypePropertyDef = (p: MappableProp) =>
     `${p.name}${p.isRequired ? "" : "?"}: ${p.type};`;
 
+  const getCMSFieldPath = (cmsField: MappableProp, compProp: MappableProp) => {
+    const cmsFieldPath = `cmsData.${cmsField.name}`;
+
+    if (compProp.type === "boolean" && cmsField.type !== "boolean") {
+      return `Boolean(${cmsFieldPath})`;
+    }
+
+    if (compProp.type === "number" && cmsField.type !== "number") {
+      return `Number(${cmsFieldPath})`;
+    }
+
+    if (compProp.type === "string" && cmsField.type !== "string") {
+      return `${cmsFieldPath}.toString()`;
+    }
+
+    return cmsFieldPath;
+  };
+
   const mappedPropsDeclarations = mappedFields.map(
-    (mf) => `${mf[1].name}: cmsData.${mf[0].name},`
+    (mf) => `${mf[1].name}: ${getCMSFieldPath(mf[0], mf[1])},`
   );
 
   const addInlineTypeDef = (typeDefinition: string) =>
