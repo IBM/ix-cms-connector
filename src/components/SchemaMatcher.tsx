@@ -63,15 +63,11 @@ export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
     }
   }, []);
 
-  const onMappedLinkClick = useCallback(([cmsField, componentProp]) => {
+  const onMappedLinkClick = useCallback((pairIndex) => {
     setMappedFields((prevState) => {
-      const indexToRemove = prevState.findIndex(
-        (mappedFields) =>
-          mappedFields[0] === cmsField && mappedFields[1] === componentProp
-      );
       return [
-        ...prevState.slice(0, indexToRemove),
-        ...prevState.slice(indexToRemove + 1),
+        ...prevState.slice(0, pairIndex),
+        ...prevState.slice(pairIndex + 1),
       ];
     });
   }, []);
@@ -132,14 +128,12 @@ export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
         <div>
           <h4 class="mb-4 font-semibold text-sm">Mapped Props</h4>
           <ul>
-            {mappedFields.map(([schemaField, componentProp]) => (
+            {mappedFields.map(([schemaField, componentProp], index) => (
               <li>
                 {schemaField}
                 <span
                   class="cursor-pointer"
-                  onClick={() =>
-                    onMappedLinkClick([schemaField, componentProp])
-                  }
+                  onClick={() => onMappedLinkClick(index)}
                 >
                   -
                 </span>
