@@ -9,6 +9,7 @@ import { SchemaMatcher } from "./components/SchemaMatcher";
 import { Header } from "./components/atom/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
 import { CmsSchema, MappedFields } from "./utils";
+import { SearchInput } from "./components/atom/SearchInput";
 
 const Main: FunctionComponent = () => {
   const [selectedValue, setSelectedValue] = useState<DropdownOption>();
@@ -48,16 +49,13 @@ const Main: FunctionComponent = () => {
             }}
           />
           <div class="w-[10rem]">
-            <Dropdown
-              handleOptionSelect={onItemSelected}
-              label="Choose something"
-              options={[
-                { value: "one", label: "1" },
-                { value: "two", label: "2" },
-              ]}
-              description="You should selected one element here"
-              selected={selectedValue}
-            ></Dropdown>
+            <SearchInput
+              onSearchText={(term: string) => {
+                alert(term);
+              }}
+              label="test"
+              placeholder="Search"
+            />
           </div>
         </div>
       </div>
