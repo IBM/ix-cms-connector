@@ -2,9 +2,9 @@ import { FunctionComponent } from "preact";
 import { useMemo, useRef, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import {
-  CmsSchema,
-  MappableProp,
-  MappedProps,
+  type CmsSchema,
+  type MappableProp,
+  type MappedProps,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../../utils";
@@ -72,8 +72,8 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
     });
   }, []);
 
-  // callback to get the mappedfields with mappable props
-  const getMappedFields: () => [MappableProp, MappableProp][] = useCallback(
+  // callback to get MappedProps from MappedFields
+  const getMappedProps: () => MappedProps = useCallback(
     () =>
       mappedFields.map(([cmsField, componentProp]) => [
         cmsMappableFields.find(({ name }) => name === cmsField),
@@ -147,7 +147,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         text="Generate Adapter"
         style={ButtonType.PRIMARY}
         onClick={() => {
-          onGenerate(getMappedFields());
+          onGenerate(getMappedProps());
         }}
       />
     </>
