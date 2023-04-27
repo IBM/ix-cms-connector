@@ -17,7 +17,7 @@ export interface MappableProp {
   description?: string;
 }
 
-export type MappedFields = [MappableProp, MappableProp][];
+export type MappedProps = [MappableProp, MappableProp][];
 
 export type CodeGeneratorOptions = Partial<CodeBlockWriterOptions>;
 

@@ -4,7 +4,7 @@ import { Documentation } from "react-docgen";
 import {
   CmsSchema,
   MappableProp,
-  MappedFields,
+  MappedProps,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../../utils";
@@ -12,20 +12,20 @@ import { useCallback } from "react";
 import { ClickableList } from "../molecule/ClickableList";
 import { Button, ButtonType } from "../atom/Button";
 
-type IMappedFields = [string, string][];
+type MappedFields = [string, string][];
 
-interface ISchemaMatcher {
+interface SchemaMatcherProps {
   cmsSchema: CmsSchema;
   componentDoc: Documentation;
-  onGenerate?: (mappedFields: MappedFields) => void;
+  onGenerate?: (mappedProps: MappedProps) => void;
 }
 
-export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
+export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   cmsSchema,
   componentDoc,
   onGenerate,
 }) => {
-  const [mappedFields, setMappedFields] = useState<IMappedFields>([]);
+  const [mappedFields, setMappedFields] = useState<MappedFields>([]);
   const cmsFieldToMap = useRef<string | null>(null);
   const componentPropToMap = useRef<string | null>(null);
 
