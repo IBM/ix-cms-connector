@@ -1,11 +1,11 @@
 import { useCallback, useState } from "preact/hooks";
-import { getSchema } from "../../generate-schema";
-import { Input } from "./atom/input";
-import { Error } from "./Error";
-import { CmsSchema } from "../utils/types";
+import { getSchema } from "../../../generate-schema";
+import { Input } from "../atom/Input";
+import { Error } from "../atom/Error";
+import { CmsSchema } from "../../utils/types";
 import { AxiosError } from "axios";
 import { FunctionComponent } from "preact";
-import { Button, ButtonType } from "./atom/button";
+import { Button, ButtonType } from "../atom/Button";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: CmsSchema) => void;

@@ -4,6 +4,7 @@ import type {
   CodeGeneratorOptions,
   MappableProp,
   MappedFields,
+  TimeoutHandle,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
 
@@ -49,7 +50,7 @@ export function getComponentParserConfig(fileName: string): Config {
   };
 }
 
-function isPrimitiveType(type: string) {
+export function isPrimitiveType(type: string) {
   return (
     type === "boolean" ||
     type === "bool" ||
@@ -274,8 +275,6 @@ export function generateAdapterCode(
 
   return snippetCode.toString();
 }
-
-type TimeoutHandle = ReturnType<typeof setTimeout>;
 
 export function debounce<T extends (...args: any[]) => void>(
   func: T,

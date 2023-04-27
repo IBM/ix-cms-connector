@@ -56,4 +56,34 @@ to generate the json schema based on a cms api endpoint run:
 pnpm generate:schema <apiendpoint> 
 ```
 
+## Unit & Integration Testing
 
+Testing is done using a combination of Vitest (https://vitest.dev/) with Preact Testing Library (https://preactjs.com/guide/v10/preact-testing-library)
+
+User events are available through @testing-library/user-event (https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
+
+Vitest has been expanded with Jest Dom (https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
+
+### test
+
+Runs the tests once
+
+```
+pnpm run test
+```
+
+### test: verbose
+
+Runs the tests once and shows the full task tree
+
+```
+pnpm run test:verbose
+```
+
+### test: watch
+
+Watch mode
+
+```
+pnpm run test:watch
+```
