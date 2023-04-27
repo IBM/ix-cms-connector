@@ -2,7 +2,7 @@ import { FunctionComponent } from "preact";
 import { useMemo, useRef, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import {
-  type CmsSchema,
+  type JSONSchema,
   type MappableProp,
   type MappedProps,
   getCmsMappableFields,
@@ -15,7 +15,7 @@ import { Button, ButtonType } from "../atom/Button";
 type MappedFields = [string, string][];
 
 interface SchemaMatcherProps {
-  cmsSchema: CmsSchema;
+  cmsSchema: JSONSchema;
   componentDoc: Documentation;
   onGenerate?: (mappedProps: MappedProps) => void;
 }

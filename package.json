@@ -21,17 +21,16 @@
     "@testing-library/preact": "^3.2.3",
     "@testing-library/user-event": "^14.4.3",
     "@types/json-schema": "^7.0.11",
-    "@types/json-schema-generator": "^2.0.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@types/testing-library__jest-dom": "^5.14.5",
+    "@types/to-json-schema": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "husky": "^8.0.0",
-    "json-schema-generator": "^2.0.6",
     "preact-cli": "^3.4.5",
     "preact-render-to-string": "^6.0.2",
     "prettier": "^2.8.7",
@@ -49,7 +48,8 @@
     "postcss": "^8.4.21",
     "preact": "^10.13.2",
     "react-docgen": "6.0.0-beta.6",
-    "react-dropzone": "^14.2.3"
+    "react-dropzone": "^14.2.3",
+    "to-json-schema": "^0.2.5"
   },
   "engines": {
     "node": ">=18.0.0"

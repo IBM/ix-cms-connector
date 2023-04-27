@@ -1,12 +1,28 @@
+import axios from "axios";
+import toJsonSchema from "to-json-schema";
 import type { Documentation, Config } from "react-docgen";
 import type {
-  CmsSchema,
+  JSONSchema,
   CodeGeneratorOptions,
   MappableProp,
   MappedProps,
   TimeoutHandle,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
+
+async function fetchData(endpoint: string) {
+  const res = await axios(endpoint);
+
+  return await res.data;
+}
+
+export async function getJSONSchema(endpoint: string) {
+  const json = await fetchData(endpoint);
+
+  const schema = toJsonSchema(json);
+
+  return schema;
+}
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -120,7 +136,7 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
     }));
 }
 
-export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
+export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
   return Object.entries(schema.properties)
     .filter(([, { type }]) => isPrimitiveType(type))
     .map(([name, { type }]) => ({

@@ -1,20 +1,19 @@
 import { useCallback, useState } from "preact/hooks";
-import { getSchema } from "../../../generate-schema";
 import { Input } from "../atom/Input";
 import { Error } from "../atom/Error";
-import { CmsSchema } from "../../utils/types";
+import { getJSONSchema, type JSONSchema } from "../../utils";
 import { AxiosError } from "axios";
 import { FunctionComponent } from "preact";
 import { Button, ButtonType } from "../atom/Button";
 
 interface CmsSchemaFormProps {
-  onGenerate: (cmsSchema: CmsSchema) => void;
+  onGenerate: (cmsSchema: JSONSchema) => void;
 }
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
 }) => {
-  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
 
@@ -30,7 +29,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
     try {
-      const cmsSchema = (await getSchema(cmsEndpoint)) as CmsSchema;
+      const cmsSchema = await getJSONSchema(cmsEndpoint as string);
 
       setCmsSchema(cmsSchema);
       setParsingCmsSchema(false);
