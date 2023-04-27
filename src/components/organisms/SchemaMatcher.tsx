@@ -7,10 +7,10 @@ import {
   MappedFields,
   getCmsMappableFields,
   getComponentMappableProps,
-} from "../utils";
+} from "../../utils";
 import { useCallback } from "react";
-import { ClickableList } from "./molecule/ClickableList";
-import { Button, ButtonType } from "./atom/button";
+import { ClickableList } from "../molecule/ClickableList";
+import { Button, ButtonType } from "../atom/Button";
 
 type IMappedFields = [string, string][];
 

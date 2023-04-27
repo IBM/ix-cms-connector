@@ -20,3 +20,5 @@ export interface MappableProp {
 export type MappedFields = [MappableProp, MappableProp][];
 
 export type CodeGeneratorOptions = Partial<CodeBlockWriterOptions>;
+
+export type TimeoutHandle = ReturnType<typeof setTimeout>;

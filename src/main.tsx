@@ -2,9 +2,9 @@ import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 
-import { ComponentParserForm } from "./components/ComponentParserForm";
-import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { SchemaMatcher } from "./components/SchemaMatcher";
+import { ComponentParserForm } from "./components/organisms/ComponentParserForm";
+import { CmsSchemaForm } from "./components/organisms/CmsSchemaForm";
+import { SchemaMatcher } from "./components/organisms/SchemaMatcher";
 import { Header } from "./components/atom/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
 import { CmsSchema, MappedFields } from "./utils";
