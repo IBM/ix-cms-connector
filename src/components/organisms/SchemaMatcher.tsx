@@ -2,9 +2,9 @@ import { FunctionComponent } from "preact";
 import { useMemo, useRef, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import {
-  CmsSchema,
-  MappableProp,
-  MappedFields,
+  type CmsSchema,
+  type MappableProp,
+  type MappedProps,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../../utils";
@@ -12,20 +12,20 @@ import { useCallback } from "react";
 import { ClickableList } from "../molecule/ClickableList";
 import { Button, ButtonType } from "../atom/Button";
 
-type IMappedFields = [string, string][];
+type MappedFields = [string, string][];
 
-interface ISchemaMatcher {
+interface SchemaMatcherProps {
   cmsSchema: CmsSchema;
   componentDoc: Documentation;
-  onGenerate?: (mappedFields: MappedFields) => void;
+  onGenerate?: (mappedProps: MappedProps) => void;
 }
 
-export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
+export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   cmsSchema,
   componentDoc,
   onGenerate,
 }) => {
-  const [mappedFields, setMappedFields] = useState<IMappedFields>([]);
+  const [mappedFields, setMappedFields] = useState<MappedFields>([]);
   const cmsFieldToMap = useRef<string | null>(null);
   const componentPropToMap = useRef<string | null>(null);
 
@@ -72,8 +72,8 @@ export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
     });
   }, []);
 
-  // callback to get the mappedfields with mappable props
-  const getMappedFields: () => [MappableProp, MappableProp][] = useCallback(
+  // callback to get MappedProps from MappedFields
+  const getMappedProps: () => MappedProps = useCallback(
     () =>
       mappedFields.map(([cmsField, componentProp]) => [
         cmsMappableFields.find(({ name }) => name === cmsField),
@@ -147,7 +147,7 @@ export const SchemaMatcher: FunctionComponent<ISchemaMatcher> = ({
         text="Generate Adapter"
         style={ButtonType.PRIMARY}
         onClick={() => {
-          onGenerate(getMappedFields());
+          onGenerate(getMappedProps());
         }}
       />
     </>
