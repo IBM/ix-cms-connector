@@ -1,18 +1,18 @@
 import { FunctionComponent } from "preact";
 import { CodeSnippet } from "../molecule/CodeSnippet";
-import { generateAdapterCode, type MappedFields } from "../../utils";
+import { generateAdapterCode, type MappedProps } from "../../utils";
 import { Documentation } from "react-docgen";
 
 interface CodeGeneratorProps {
   componentDoc: Documentation;
-  mappedFields: MappedFields;
+  mappedProps: MappedProps;
 }
 
 export const CodeGenerator: FunctionComponent<CodeGeneratorProps> = ({
   componentDoc,
-  mappedFields,
+  mappedProps,
 }) => {
-  const code = generateAdapterCode(componentDoc, mappedFields, {
+  const code = generateAdapterCode(componentDoc, mappedProps, {
     indentNumberOfSpaces: 2,
   });
 

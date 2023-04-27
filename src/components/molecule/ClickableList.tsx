@@ -1,13 +1,13 @@
 import { FunctionComponent } from "preact";
 
-interface IClickableList {
+interface ClickableListProps {
   listCollection: object[];
   mappedKey: string;
   mappedSubKey?: string;
   onItemClick?: (name: string) => void;
 }
 
-export const ClickableList: FunctionComponent<IClickableList> = ({
+export const ClickableList: FunctionComponent<ClickableListProps> = ({
   listCollection,
   mappedKey,
   mappedSubKey,
