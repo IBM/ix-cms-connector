@@ -130,6 +130,31 @@ export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
     }));
 }
 
+function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
+  let cmsFieldPath = `cmsData.${cmsField.name}`;
+
+  // for simple types it is possible to do a conversion
+  if (
+    compProp.type === "boolean" &&
+    (cmsField.type === "number" || cmsField.type === "string")
+  ) {
+    cmsFieldPath = `Boolean(${cmsFieldPath})`;
+  } else if (
+    compProp.type === "number" &&
+    (cmsField.type === "boolean" || cmsField.type === "string")
+  ) {
+    cmsFieldPath = `Number(${cmsFieldPath})`;
+  } else if (
+    compProp.type === "string" &&
+    (cmsField.type === "boolean" || cmsField.type === "number")
+  ) {
+    cmsFieldPath = `${cmsFieldPath}.toString()`;
+  }
+
+  // for other cases we just return the default path
+  return cmsFieldPath;
+}
+
 export function generateAdapterCode(
   componentDoc: Documentation,
   mappedProps: MappedProps,
@@ -144,26 +169,8 @@ export function generateAdapterCode(
   const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
   const mappedPropsTypeName = `${componentName}MappedProps`;
 
-  const addTypePropertyDef = (p: MappableProp) =>
-    `${p.name}${p.isRequired ? "" : "?"}: ${p.type};`;
-
-  const getCMSFieldPath = (cmsField: MappableProp, compProp: MappableProp) => {
-    const cmsFieldPath = `cmsData.${cmsField.name}`;
-
-    if (compProp.type === "boolean" && cmsField.type !== "boolean") {
-      return `Boolean(${cmsFieldPath})`;
-    }
-
-    if (compProp.type === "number" && cmsField.type !== "number") {
-      return `Number(${cmsFieldPath})`;
-    }
-
-    if (compProp.type === "string" && cmsField.type !== "string") {
-      return `${cmsFieldPath}.toString()`;
-    }
-
-    return cmsFieldPath;
-  };
+  const addTypePropertyDef = (prop: MappableProp) =>
+    `${prop.name}${prop.isRequired ? "" : "?"}: ${prop.type};`;
 
   const mappedPropsDeclarations = mappedProps.map(
     (mf) => `${mf[1].name}: ${getCMSFieldPath(mf[0], mf[1])},`
