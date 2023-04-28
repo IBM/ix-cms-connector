@@ -3,7 +3,7 @@ import { vi } from "vitest";
 import { getSchema } from "./generate-schema";
 import jsonSchemaGenerator from "json-schema-generator";
 
-// Mocks a module
+// Mocks a module (gets hoisted at the beginning of the file)
 vi.mock("json-schema-generator");
 
 // Will be reused in the tests (it can be set individually)
@@ -17,7 +17,7 @@ describe("getSchema()", () => {
     expect(jsonSchemaGenerator).toBeCalled();
   });
 
-  it("should return the schema if an endpoint is provided", () => {
+  it("should return a promise that resolves to a defined value", () => {
     // resets the mocks, so we can use the real module
     vi.restoreAllMocks();
 
