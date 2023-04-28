@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { getSchema } from "../../generate-schema";
-import { Input } from "./atom/input";
-import { Error } from "./Error";
-import { CmsSchema } from "../utils/types";
+import { getSchema } from "../../../generate-schema";
+import { Input } from "../atom/input";
+import { Error } from "../atom/Error";
+import { CmsSchema } from "../../utils/types";
 import { FunctionComponent } from "preact";
-import { Button, ButtonType } from "./atom/button";
-import { RadioButton } from "./atom/RadioButton";
-import { FileSelect } from "./molecule/FileSelect";
+import { Button, ButtonType } from "../atom/button";
+import { RadioButton } from "../atom/RadioButton";
+import { FileSelect } from "../molecule/FileSelect";
 import jsonSchemaGenerator from "json-schema-generator";
 
 interface CmsSchemaFormProps {
@@ -32,7 +32,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     const reader = new FileReader();
     reader.onload = async (e) => {
       try {
-        const json = JSON.parse(e.target.result as string);
+        const json = JSON.parse(e.target?.result as string);
 
         /* Remove or update with the new library */
         const cmsSchema = jsonSchemaGenerator(json) as CmsSchema;
