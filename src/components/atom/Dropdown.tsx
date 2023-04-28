@@ -1,6 +1,6 @@
 import { FunctionComponent, JSX } from "preact";
 import { useRef, useState } from "preact/hooks";
-import { ChevronDown } from "@carbon/icons-react";
+// import { ChevronDown } from "@carbon/icons-react";
 import { useKeypress } from "../../hooks/useKeyPress";
 
 export interface DropdownOption {
@@ -107,7 +107,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
           <div class="text-text-01 text-sm">
             {selected ? selected.label : options[0].label}
           </div>
-          <ChevronDown class={`${isOpen ? "rotate-180" : "rotate-0"}`} />
+          {/* <ChevronDown class={`${isOpen ? "rotate-180" : "rotate-0"}`} /> */}
         </div>
         {isOpen && (
           <ul
