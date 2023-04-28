@@ -3,7 +3,8 @@ import type {
   CmsSchema,
   CodeGeneratorOptions,
   MappableProp,
-  MappedFields,
+  MappedProps,
+  TimeoutHandle,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
 
@@ -131,7 +132,7 @@ export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
 
 export function generateAdapterCode(
   componentDoc: Documentation,
-  mappedFields: MappedFields,
+  mappedProps: MappedProps,
   options?: CodeGeneratorOptions
 ) {
   // if the component has a tsType field in any of the PropDescriptor, then it's Typescript
@@ -146,7 +147,7 @@ export function generateAdapterCode(
   const addTypePropertyDef = (p: MappableProp) =>
     `${p.name}${p.isRequired ? "" : "?"}: ${p.type};`;
 
-  const mappedPropsDeclarations = mappedFields.map(
+  const mappedPropsDeclarations = mappedProps.map(
     (mf) => `${mf[1].name}: cmsData.${mf[0].name},`
   );
 
@@ -173,7 +174,7 @@ export function generateAdapterCode(
       // an interface for the mapped CMS fields
       .write(`interface ${mappedCMSFieldsTypeName}`)
       .block(() => {
-        mappedFields.forEach((f) => writer.writeLine(addTypePropertyDef(f[0])));
+        mappedProps.forEach((f) => writer.writeLine(addTypePropertyDef(f[0])));
       })
 
       .blankLine()
@@ -181,7 +182,7 @@ export function generateAdapterCode(
       // an interface for the mapped component props
       .write(`interface ${mappedPropsTypeName}`)
       .block(() => {
-        mappedFields.forEach((f) => writer.writeLine(addTypePropertyDef(f[1])));
+        mappedProps.forEach((f) => writer.writeLine(addTypePropertyDef(f[1])));
       })
 
       .blankLine();
@@ -256,8 +257,6 @@ export function generateAdapterCode(
 
   return snippetCode.toString();
 }
-
-type TimeoutHandle = ReturnType<typeof setTimeout>;
 
 export function debounce<T extends (...args: any[]) => void>(
   func: T,

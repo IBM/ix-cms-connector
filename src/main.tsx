@@ -2,17 +2,17 @@ import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 
-import { ComponentParserForm } from "./components/ComponentParserForm";
-import { CmsSchemaForm } from "./components/CmsSchemaForm";
-import { SchemaMatcher } from "./components/SchemaMatcher";
+import { ComponentParserForm } from "./components/organisms/ComponentParserForm";
+import { CmsSchemaForm } from "./components/organisms/CmsSchemaForm";
+import { SchemaMatcher } from "./components/organisms/SchemaMatcher";
 import { Header } from "./components/atom/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
-import { CmsSchema, MappedFields } from "./utils";
+import { CmsSchema, MappedProps } from "./utils";
 
 const Main: FunctionComponent = () => {
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
-  const [mappedFields, setMappedFields] = useState<MappedFields>();
+  const [mappedProps, setMappedProps] = useState<MappedProps>();
 
   return (
     <>
@@ -48,18 +48,18 @@ const Main: FunctionComponent = () => {
           <SchemaMatcher
             cmsSchema={cmsSchema}
             componentDoc={componentDoc}
-            onGenerate={(mappedFields) => {
-              setMappedFields(mappedFields);
+            onGenerate={(mappedProps) => {
+              setMappedProps(mappedProps);
             }}
           />
         </div>
       )}
 
-      {componentDoc && mappedFields?.length && (
+      {componentDoc && mappedProps?.length && (
         <div class="px-4 my-16 mx-auto max-w-7xl">
           <CodeGenerator
             componentDoc={componentDoc}
-            mappedFields={mappedFields}
+            mappedProps={mappedProps}
           />
         </div>
       )}
