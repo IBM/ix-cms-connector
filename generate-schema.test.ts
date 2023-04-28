@@ -1,13 +1,23 @@
 import { vi } from "vitest";
 
-import { getSchema } from "./generate-schema";
 import jsonSchemaGenerator from "json-schema-generator";
 
+import { getJson, getSchema } from "./generate-schema";
+
 // Mocks a module (gets hoisted at the beginning of the file)
+// It's functionality can be mocked under the folder "__mocks__"
+// to make it available to all the tests globally
 vi.mock("json-schema-generator");
 
 // Will be reused in the tests (it can be set individually)
 const testEndpoint = "https://dummyjson.com/products/1";
+
+describe("getJson()", () => {
+  it("should return any data available for the endpoint", async () => {
+    const result = await getJson(testEndpoint);
+    expect(result).toBeDefined();
+  });
+});
 
 describe("getSchema()", () => {
   it("should execute the jsonSchemaGenerator method", async () => {
