@@ -31,26 +31,23 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
     const reader = new FileReader();
     reader.onload = async (e) => {
-
       try {
-      const json = JSON.parse(e.target.result as string);
+        const json = JSON.parse(e.target.result as string);
 
-      /* Remove or update with the new library */
-      const cmsSchema = jsonSchemaGenerator(json) as CmsSchema;
+        /* Remove or update with the new library */
+        const cmsSchema = jsonSchemaGenerator(json) as CmsSchema;
 
-      setCmsSchema(cmsSchema);
-      setParsingCmsSchema(false);
-      setCmsError(false);
+        setCmsSchema(cmsSchema);
+        setParsingCmsSchema(false);
+        setCmsError(false);
 
-      setParsingCmsSchema(false);
-
-      } catch(e) {
+        setParsingCmsSchema(false);
+      } catch (e) {
         setCmsError(true);
       }
     };
 
     reader.readAsText(file);
-
   }, [file]);
 
   const handleGetCmsSchema = (e) => {
