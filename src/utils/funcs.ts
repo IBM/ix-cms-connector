@@ -1,4 +1,5 @@
 import axios from "axios";
+import { JSONSchema4TypeName } from "json-schema";
 import toJsonSchema from "to-json-schema";
 import type { Documentation, Config } from "react-docgen";
 import type {
@@ -66,22 +67,19 @@ export function getComponentParserConfig(fileName: string): Config {
   };
 }
 
-export function isPrimitiveType(type: string) {
-  return (
-    type === "boolean" ||
-    type === "bool" ||
-    type === "number" ||
-    type === "string"
-  );
-}
-
-function filterComponentProps([, propDescr]: [
+function filterComponentProp([, propDescr]: [
   string,
   Documentation["props"][string]
 ]) {
   const { type, tsType, flowType } = propDescr;
 
   let isMappableType = false;
+
+  const isPrimitiveType = (type: string) =>
+    type === "boolean" ||
+    type === "bool" ||
+    type === "number" ||
+    type === "string";
 
   if (tsType) {
     isMappableType = isPrimitiveType(tsType.name);
@@ -127,7 +125,7 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
   }
 
   return Object.entries(doc.props)
-    .filter(filterComponentProps)
+    .filter(filterComponentProp)
     .map(([name, propDescr]) => ({
       name,
       type: getComponentMappablePropType(propDescr),
@@ -136,13 +134,46 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
     }));
 }
 
+function filterCMSField([, fieldSchema]: [string, JSONSchema]) {
+  const { type } = fieldSchema;
+
+  return (
+    typeof type === "string" &&
+    (type === "boolean" ||
+      type === "integer" ||
+      type === "number" ||
+      type === "string")
+  );
+}
+
+export function getCMSMappableFieldType(
+  fieldSchema: JSONSchema
+): MappableProp["type"] {
+  const type = fieldSchema.type as JSONSchema4TypeName;
+
+  if (type === "boolean") {
+    return "boolean";
+  }
+
+  if (type === "number" || type === "integer") {
+    return "number";
+  }
+
+  if (type === "string") {
+    return "string";
+  }
+
+  // default value (should not be a case, just to get rid of a TS complain)
+  return "string";
+}
+
 export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
   return Object.entries(schema.properties)
-    .filter(([, { type }]) => isPrimitiveType(type))
-    .map(([name, { type }]) => ({
+    .filter(filterCMSField)
+    .map(([name, fieldSchema]) => ({
       name,
-      type,
-      isRequired: schema.required.includes(name),
+      type: getCMSMappableFieldType(fieldSchema),
+      isRequired: !!fieldSchema.required,
     }));
 }
 
