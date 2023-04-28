@@ -51,7 +51,10 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
     api: (
-      <form onSubmit={handleGetCmsSchema} class="flex flex-row max-h-12 items-center">
+      <form
+        onSubmit={handleGetCmsSchema}
+        class="flex flex-row max-h-12 items-center"
+      >
         <Input
           name="cmsEndpoint"
           placeholder="cms-endpoint:3000/my-component"
@@ -84,9 +87,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           onClick={() => setSchemaProvider("json")}
         />
       </div>
-      <div class="mt-6">
-        {schemaComponent[schemaProvider]}
-      </div>
+      <div class="mt-6">{schemaComponent[schemaProvider]}</div>
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}
       {!cmsError && cmsSchema && (
