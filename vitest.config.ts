@@ -4,7 +4,7 @@ export default defineConfig({
   plugins: [],
   test: {
     globals: true,
-    environment: "jsdom",
+    /* environment: "node" (default environment, no need to specify) */
     setupFiles: "./vitest.setup.ts",
   },
 });

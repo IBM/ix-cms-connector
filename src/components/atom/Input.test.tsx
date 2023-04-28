@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+
 import { render, screen } from "@testing-library/preact";
 
 import { Input } from "./Input";
