@@ -6,10 +6,14 @@ import { CmsSchema } from "../utils/types";
 import { AxiosError } from "axios";
 import { FunctionComponent } from "preact";
 import { Button, ButtonType } from "./atom/button";
+import { RadioButton } from "./atom/RadioButton";
+import { FileSelect } from "./molecule/FileSelect";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: CmsSchema) => void;
 }
+
+type SchemaProvider = "api" | "json";
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
@@ -17,6 +21,8 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
   const [cmsError, setCmsError] = useState<AxiosError | false>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
+  const [schemaProvider, setSchemaProvider] = useState<SchemaProvider>("api");
+  const [file, setFile] = useState<File>();
 
   const handleGetCmsSchema = (e) => {
     e.preventDefault();
@@ -43,11 +49,10 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     }
   }, []);
 
-  return (
-    <>
-      <form onSubmit={handleGetCmsSchema}>
+  const schemaComponent: Record<SchemaProvider, JSX.Element> = {
+    api: (
+      <form onSubmit={handleGetCmsSchema} class="flex flex-row max-h-12 items-center">
         <Input
-          label="Your CMS api endpoint"
           name="cmsEndpoint"
           placeholder="cms-endpoint:3000/my-component"
         />
@@ -57,6 +62,31 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           style={ButtonType.PRIMARY}
         />
       </form>
+    ),
+    json: <FileSelect onSelect={setFile} onRemoveFile={() => setFile(null)} />,
+  };
+
+  return (
+    <>
+      <div class="flex flex-col">
+        <RadioButton
+          label="API endpoint"
+          name="cms"
+          value={"api"}
+          checked={schemaProvider === "api"}
+          onClick={() => setSchemaProvider("api")}
+        />
+        <RadioButton
+          label="JSON File upload"
+          name="cms"
+          value={"json"}
+          checked={schemaProvider === "json"}
+          onClick={() => setSchemaProvider("json")}
+        />
+      </div>
+      <div class="mt-6">
+        {schemaComponent[schemaProvider]}
+      </div>
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error={JSON.stringify(cmsError, undefined, 2)} />}
       {!cmsError && cmsSchema && (
