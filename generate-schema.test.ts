@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 
 import jsonSchemaGenerator from "json-schema-generator";
 

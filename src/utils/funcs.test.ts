@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { isPrimitiveType } from "./funcs";
 
 describe("isPrimitiveType()", () => {
