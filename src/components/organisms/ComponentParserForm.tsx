@@ -1,9 +1,9 @@
 import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { parse, type Documentation } from "react-docgen";
-import { getComponentParserConfig } from "../utils";
-import { FileSelect } from "./molecule/FileSelect";
-import { CodeSnippet } from "./molecule/CodeSnippet";
+import { getComponentParserConfig } from "../../utils";
+import { FileSelect } from "../molecule/FileSelect";
+import { CodeSnippet } from "../molecule/CodeSnippet";
 
 interface ComponentParserFormProps {
   onParsed: (doc: Documentation) => void;
