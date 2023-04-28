@@ -8,6 +8,7 @@ import type {
   MappableProp,
   MappedProps,
   TimeoutHandle,
+  MappablePropType,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
 
@@ -96,7 +97,7 @@ function filterComponentProp([, propDescr]: [
 
 function getComponentMappablePropType(
   propDescr: Documentation["props"][string]
-): MappableProp["type"] {
+): MappablePropType {
   const type = propDescr.tsType
     ? propDescr.tsType.name
     : propDescr.flowType
@@ -135,6 +136,22 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
 }
 
 function filterCMSField([, fieldSchema]: [string, JSONSchema]) {
+  const isSimpleArray = (fs: JSONSchema) => {
+    // itemsType only has value when all the items have the same type
+    const itemsType =
+      fs.items && typeof fs.items === "object"
+        ? ((fs.items as JSONSchema).type as JSONSchema4TypeName)
+        : undefined;
+
+    return (
+      fs.type === "array" &&
+      (itemsType === "boolean" ||
+        itemsType === "integer" ||
+        itemsType === "number" ||
+        itemsType === "string")
+    );
+  };
+
   const { type } = fieldSchema;
 
   return (
@@ -142,13 +159,14 @@ function filterCMSField([, fieldSchema]: [string, JSONSchema]) {
     (type === "boolean" ||
       type === "integer" ||
       type === "number" ||
-      type === "string")
+      type === "string" ||
+      isSimpleArray(fieldSchema))
   );
 }
 
 export function getCMSMappableFieldType(
   fieldSchema: JSONSchema
-): MappableProp["type"] {
+): MappablePropType {
   const type = fieldSchema.type as JSONSchema4TypeName;
 
   if (type === "boolean") {
@@ -161,6 +179,12 @@ export function getCMSMappableFieldType(
 
   if (type === "string") {
     return "string";
+  }
+
+  if (type === "array") {
+    return `${
+      (fieldSchema.items as JSONSchema).type as JSONSchema4TypeName
+    }[]` as MappablePropType;
   }
 
   // default value (should not be a case, just to get rid of a TS complain)

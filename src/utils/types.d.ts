@@ -3,9 +3,17 @@ import type { Options as CodeBlockWriterOptions } from "code-block-writer";
 
 export type JSONSchema = toJsonSchema.JSONSchema3or4;
 
+export type MappablePropType =
+  | "boolean"
+  | "number"
+  | "string"
+  | "boolean[]"
+  | "number[]"
+  | "string[]";
+
 export interface MappableProp {
   name: string;
-  type: "boolean" | "number" | "string";
+  type: MappablePropType;
   isRequired: boolean;
   description?: string;
 }
