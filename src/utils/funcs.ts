@@ -204,6 +204,20 @@ export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
   );
 }
 
+export function canMapProps(
+  cmsField: MappableProp,
+  componentProp: MappableProp
+) {
+  const fullMatch = cmsField.type === componentProp.type;
+
+  const primitiveTypes = ["boolean", "number", "string"];
+  const canBeConverted =
+    primitiveTypes.includes(cmsField.type) &&
+    primitiveTypes.includes(componentProp.type);
+
+  return fullMatch || canBeConverted;
+}
+
 function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
   let cmsFieldPath = `cmsData.${cmsField.name}`;
 
