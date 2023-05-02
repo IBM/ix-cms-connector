@@ -6,8 +6,6 @@ import userEvent from "@testing-library/user-event";
 
 import { Dropdown } from "./Dropdown";
 
-// TODO: fix svg issue
-
 const mockLabel = "Dropdown";
 
 const mockOptions = [
