@@ -68,56 +68,56 @@ export function getComponentParserConfig(fileName: string): Config {
   };
 }
 
-function filterComponentProp([, propDescr]: [
-  string,
-  Documentation["props"][string]
-]) {
-  const { type, tsType, flowType } = propDescr;
+export function getComponentPropType(
+  propDescr: Documentation["props"][string]
+): MappablePropType | undefined {
+  const { type, tsType } = propDescr;
 
-  let isMappableType = false;
-
-  const isPrimitiveType = (type: string) =>
-    type === "boolean" ||
-    type === "bool" ||
-    type === "number" ||
-    type === "string";
+  // primitive types in PropTypes and TS and their corresponding MappablePropType
+  const primitiveTypesMap: Record<string, MappablePropType> = {
+    boolean: "boolean",
+    bool: "boolean",
+    number: "number",
+    string: "string",
+  };
+  const primitiveTypes = Object.keys(primitiveTypesMap);
 
   if (tsType) {
-    isMappableType = isPrimitiveType(tsType.name);
-  } else if (flowType) {
-    isMappableType = isPrimitiveType(flowType.name);
+    if (primitiveTypes.includes(tsType.name)) {
+      return primitiveTypesMap[tsType.name];
+    }
+
+    if (tsType.name === "Array") {
+      // an example of array field schema:
+      // "tsType": { "name": "Array", "elements": [{ "name": "string" }], "raw": "string[]" }
+
+      const itemsType = (tsType.raw ?? "").replace("[]", "");
+
+      if (primitiveTypes.includes(itemsType)) {
+        return `${primitiveTypesMap[itemsType]}[]` as MappablePropType;
+      }
+    }
   } else if (type) {
     // js type (PropTypes)
 
-    isMappableType = isPrimitiveType(type.name);
+    if (primitiveTypes.includes(type.name)) {
+      return primitiveTypesMap[type.name];
+    }
+
+    if (type.name === "arrayOf") {
+      // an example of array field schema:
+      // "type": { "name": "arrayOf", "value": { "name": "number" } }
+
+      const itemsType =
+        (type.value as Documentation["props"][string]["type"])?.name ?? "";
+
+      if (primitiveTypes.includes(itemsType)) {
+        return `${primitiveTypesMap[itemsType]}[]` as MappablePropType;
+      }
+    }
   }
 
-  return isMappableType;
-}
-
-function getComponentMappablePropType(
-  propDescr: Documentation["props"][string]
-): MappablePropType {
-  const type = propDescr.tsType
-    ? propDescr.tsType.name
-    : propDescr.flowType
-    ? propDescr.flowType.name
-    : propDescr.type.name;
-
-  if (type === "boolean" || type === "bool") {
-    return "boolean";
-  }
-
-  if (type === "number") {
-    return "number";
-  }
-
-  if (type === "string") {
-    return "string";
-  }
-
-  // default value (should not be a case, just to get rid of a TS complain)
-  return "string";
+  return undefined;
 }
 
 export function getComponentMappableProps(doc: Documentation): MappableProp[] {
@@ -125,17 +125,37 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
     return [];
   }
 
-  return Object.entries(doc.props)
-    .filter(filterComponentProp)
-    .map(([name, propDescr]) => ({
-      name,
-      type: getComponentMappablePropType(propDescr),
-      isRequired: !!propDescr.required,
-      description: propDescr.description,
-    }));
+  return Object.entries(doc.props).reduce(
+    (mappableProps, [name, propDescr]) => {
+      const type = getComponentPropType(propDescr);
+
+      if (type) {
+        mappableProps.push({
+          name,
+          type,
+          isRequired: !!propDescr.required,
+          description: propDescr.description,
+        });
+      }
+
+      return mappableProps;
+    },
+    [] as MappableProp[]
+  );
 }
 
-function filterCMSField([, fieldSchema]: [string, JSONSchema]) {
+export function getCMSFieldType(
+  fieldSchema: JSONSchema
+): MappablePropType | undefined {
+  // primitive types in JSON and their corresponding MappablePropType
+  const primitiveTypesMap: Record<string, MappablePropType> = {
+    boolean: "boolean",
+    integer: "number",
+    number: "number",
+    string: "string",
+  };
+  const primitiveTypes = Object.keys(primitiveTypesMap);
+
   const isSimpleArray = (fs: JSONSchema) => {
     // itemsType only has value when all the items have the same type
     const itemsType =
@@ -143,62 +163,45 @@ function filterCMSField([, fieldSchema]: [string, JSONSchema]) {
         ? ((fs.items as JSONSchema).type as JSONSchema4TypeName)
         : undefined;
 
-    return (
-      fs.type === "array" &&
-      (itemsType === "boolean" ||
-        itemsType === "integer" ||
-        itemsType === "number" ||
-        itemsType === "string")
-    );
+    return fs.type === "array" && primitiveTypes.includes(itemsType);
   };
 
   const { type } = fieldSchema;
 
-  return (
-    typeof type === "string" &&
-    (type === "boolean" ||
-      type === "integer" ||
-      type === "number" ||
-      type === "string" ||
-      isSimpleArray(fieldSchema))
-  );
-}
+  if (typeof type === "string") {
+    if (primitiveTypes.includes(type)) {
+      return primitiveTypesMap[type];
+    }
 
-export function getCMSMappableFieldType(
-  fieldSchema: JSONSchema
-): MappablePropType {
-  const type = fieldSchema.type as JSONSchema4TypeName;
-
-  if (type === "boolean") {
-    return "boolean";
+    if (isSimpleArray(fieldSchema)) {
+      return `${
+        primitiveTypesMap[
+          (fieldSchema.items as JSONSchema).type as JSONSchema4TypeName
+        ]
+      }[]` as MappablePropType;
+    }
   }
 
-  if (type === "number" || type === "integer") {
-    return "number";
-  }
-
-  if (type === "string") {
-    return "string";
-  }
-
-  if (type === "array") {
-    return `${
-      (fieldSchema.items as JSONSchema).type as JSONSchema4TypeName
-    }[]` as MappablePropType;
-  }
-
-  // default value (should not be a case, just to get rid of a TS complain)
-  return "string";
+  return undefined;
 }
 
 export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
-  return Object.entries(schema.properties)
-    .filter(filterCMSField)
-    .map(([name, fieldSchema]) => ({
-      name,
-      type: getCMSMappableFieldType(fieldSchema),
-      isRequired: !!fieldSchema.required,
-    }));
+  return Object.entries(schema.properties).reduce(
+    (mappableProps, [name, fieldSchema]) => {
+      const type = getCMSFieldType(fieldSchema);
+
+      if (type) {
+        mappableProps.push({
+          name,
+          type,
+          isRequired: !!fieldSchema.required,
+        });
+      }
+
+      return mappableProps;
+    },
+    [] as MappableProp[]
+  );
 }
 
 function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
