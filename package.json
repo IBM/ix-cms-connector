@@ -6,7 +6,6 @@
   "author": "LIT frontend",
   "license": "MIT",
   "scripts": {
-    "generate:schema": "ts-node generate-schema.ts",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
