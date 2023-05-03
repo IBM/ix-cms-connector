@@ -2,7 +2,6 @@ import { useCallback, useState } from "preact/hooks";
 import { getSchema } from "../../../generate-schema";
 import { Input } from "../atom/Input";
 import { Error } from "../atom/Error";
-import { Dropdown } from "../atom/Dropdown";
 import { CmsSchema } from "../../utils/types";
 import { AxiosError } from "axios";
 import { FunctionComponent } from "preact";
@@ -44,25 +43,8 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     }
   }, []);
 
-  const dummyData = [
-    {
-      label: "dummy_1",
-      value: "dummy_1",
-    },
-    {
-      label: "dummy_2",
-      value: "dummy_2",
-    },
-  ];
-
   return (
     <>
-      <Dropdown
-        label="Dropdown"
-        options={dummyData}
-        handleOptionSelect={() => console.log("option changed")}
-      />
-
       <form onSubmit={handleGetCmsSchema}>
         <Input
           label="Your CMS api endpoint"
