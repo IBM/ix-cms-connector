@@ -50,27 +50,29 @@ describe("Dropdown", () => {
     expect(list).toBeVisible();
   });
 
-  it("should select the second option on the dropdown with the keyboard arrows", async () => {
-    const handler = vi.fn((val) => 0);
+  it("should return the value of the second item on the dropdown, when is selected and pressed 'enter' on the keyboard", async () => {
     const user = userEvent.setup();
+
+    let elValue: string | null = null;
+    const selectedOptionHandler = vi.fn((val) => (elValue = val));
 
     render(
       <Dropdown
         label={mockLabel}
         options={mockOptions}
-        handleOptionSelect={(option) => handler(option.value)}
+        handleOptionSelect={(option) => selectedOptionHandler(option.value)}
       />
     );
 
     const dropdownEl = screen.getByLabelText(mockLabel);
     fireEvent.click(dropdownEl);
 
-    // Example to get all the list that's visible
-    // const optionsList = screen.getAllByRole("option");
-    // screen.debug(optionsList);
+    const optionsList = screen.getAllByRole("option");
+    optionsList[1].focus();
 
-    user.keyboard("{ArrowDown}{ArrowDown}{Enter}");
+    await user.keyboard("[Enter]");
 
-    // expect(handler).toBeCalled();
+    expect(selectedOptionHandler).toBeCalledTimes(1);
+    expect(elValue).toMatch(mockOptions[1].value);
   });
 });
