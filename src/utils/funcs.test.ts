@@ -1,4 +1,5 @@
 import { getCMSFieldType, canMapProps } from "./funcs";
+import { CommonType } from "./const";
 
 describe("utils/funcs", () => {
   describe("getCMSFieldType()", () => {
@@ -14,12 +15,12 @@ describe("utils/funcs", () => {
       const result = canMapProps(
         {
           name: "items",
-          type: "string[]",
+          type: CommonType.StringArray,
           isRequired: false,
         },
         {
           name: "itemsList",
-          type: "string[]",
+          type: CommonType.StringArray,
           isRequired: true,
         }
       );
@@ -31,12 +32,12 @@ describe("utils/funcs", () => {
       const result = canMapProps(
         {
           name: "name",
-          type: "string",
+          type: CommonType.String,
           isRequired: false,
         },
         {
           name: "hasName",
-          type: "boolean",
+          type: CommonType.Boolean,
           isRequired: true,
         }
       );
@@ -48,12 +49,12 @@ describe("utils/funcs", () => {
       const result = canMapProps(
         {
           name: "name",
-          type: "string",
+          type: CommonType.String,
           isRequired: false,
         },
         {
           name: "flags",
-          type: "boolean[]",
+          type: CommonType.BooleanArray,
           isRequired: false,
         }
       );

@@ -3,6 +3,11 @@ import { JSONSchema4TypeName } from "json-schema";
 import toJsonSchema from "to-json-schema";
 import type { Documentation, Config } from "react-docgen";
 import type {
+  PropDescriptor,
+  PropTypeDescriptor,
+} from "react-docgen/dist/Documentation";
+import { JSONType, JSType, TSType, CommonType } from "./const";
+import type {
   JSONSchema,
   CodeGeneratorOptions,
   MappableProp,
@@ -69,16 +74,16 @@ export function getComponentParserConfig(fileName: string): Config {
 }
 
 export function getComponentPropType(
-  propDescr: Documentation["props"][string]
+  propDescr: PropDescriptor
 ): MappablePropType | undefined {
   const { type, tsType } = propDescr;
 
   // primitive types in PropTypes and TS and their corresponding MappablePropType
   const primitiveTypesMap: Record<string, MappablePropType> = {
-    boolean: "boolean",
-    bool: "boolean",
-    number: "number",
-    string: "string",
+    [TSType.Boolean]: CommonType.Boolean,
+    [JSType.Boolean]: CommonType.Boolean,
+    [TSType.Number]: CommonType.Number, // same as JSType.Number
+    [TSType.String]: CommonType.String, // same as JSType.String
   };
   const primitiveTypes = Object.keys(primitiveTypesMap);
 
@@ -87,7 +92,7 @@ export function getComponentPropType(
       return primitiveTypesMap[tsType.name];
     }
 
-    if (tsType.name === "Array") {
+    if (tsType.name === TSType.Array) {
       // an example of array field schema:
       // "tsType": { "name": "Array", "elements": [{ "name": "string" }], "raw": "string[]" }
 
@@ -108,8 +113,7 @@ export function getComponentPropType(
       // an example of array field schema:
       // "type": { "name": "arrayOf", "value": { "name": "number" } }
 
-      const itemsType =
-        (type.value as Documentation["props"][string]["type"])?.name ?? "";
+      const itemsType = (type.value as PropTypeDescriptor)?.name ?? "";
 
       if (primitiveTypes.includes(itemsType)) {
         return `${primitiveTypesMap[itemsType]}[]` as MappablePropType;
@@ -149,10 +153,10 @@ export function getCMSFieldType(
 ): MappablePropType | undefined {
   // primitive types in JSON and their corresponding MappablePropType
   const primitiveTypesMap: Record<string, MappablePropType> = {
-    boolean: "boolean",
-    integer: "number",
-    number: "number",
-    string: "string",
+    [JSONType.Boolean]: CommonType.Boolean,
+    [JSONType.Integer]: CommonType.Number,
+    [JSONType.Number]: CommonType.Number,
+    [JSONType.String]: CommonType.String,
   };
   const primitiveTypes = Object.keys(primitiveTypesMap);
 
@@ -163,7 +167,7 @@ export function getCMSFieldType(
         ? ((fs.items as JSONSchema).type as JSONSchema4TypeName)
         : undefined;
 
-    return fs.type === "array" && primitiveTypes.includes(itemsType);
+    return fs.type === JSONType.Array && primitiveTypes.includes(itemsType);
   };
 
   const { type } = fieldSchema;
@@ -210,7 +214,11 @@ export function canMapProps(
 ) {
   const fullMatch = cmsField.type === componentProp.type;
 
-  const primitiveTypes = ["boolean", "number", "string"];
+  const primitiveTypes = [
+    CommonType.Boolean,
+    CommonType.Number,
+    CommonType.String,
+  ];
   const canBeConverted =
     primitiveTypes.includes(cmsField.type) &&
     primitiveTypes.includes(componentProp.type);
@@ -223,18 +231,20 @@ function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
 
   // for simple types it is possible to do a conversion
   if (
-    compProp.type === "boolean" &&
-    (cmsField.type === "number" || cmsField.type === "string")
+    compProp.type === CommonType.Boolean &&
+    (cmsField.type === CommonType.Number || cmsField.type === CommonType.String)
   ) {
     cmsFieldPath = `Boolean(${cmsFieldPath})`;
   } else if (
-    compProp.type === "number" &&
-    (cmsField.type === "boolean" || cmsField.type === "string")
+    compProp.type === CommonType.Number &&
+    (cmsField.type === CommonType.Boolean ||
+      cmsField.type === CommonType.String)
   ) {
     cmsFieldPath = `Number(${cmsFieldPath})`;
   } else if (
-    compProp.type === "string" &&
-    (cmsField.type === "boolean" || cmsField.type === "number")
+    compProp.type === CommonType.String &&
+    (cmsField.type === CommonType.Boolean ||
+      cmsField.type === CommonType.Number)
   ) {
     cmsFieldPath = `${cmsFieldPath}.toString()`;
   }
