@@ -4,17 +4,9 @@ import { CommonType } from "./const";
 
 export type JSONSchema = toJsonSchema.JSONSchema3or4;
 
-export type MappablePropType =
-  | CommonType.Boolean
-  | CommonType.Number
-  | CommonType.String
-  | CommonType.BooleanArray
-  | CommonType.NumberArray
-  | CommonType.StringArray;
-
 export interface MappableProp {
   name: string;
-  type: MappablePropType;
+  type: CommonType;
   isRequired: boolean;
   description?: string;
 }

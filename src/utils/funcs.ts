@@ -13,7 +13,6 @@ import type {
   MappableProp,
   MappedProps,
   TimeoutHandle,
-  MappablePropType,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
 
@@ -75,11 +74,11 @@ export function getComponentParserConfig(fileName: string): Config {
 
 export function getComponentPropType(
   propDescr: PropDescriptor
-): MappablePropType | undefined {
+): CommonType | undefined {
   const { type, tsType } = propDescr;
 
-  // primitive types in PropTypes and TS and their corresponding MappablePropType
-  const primitiveTypesMap: Record<string, MappablePropType> = {
+  // primitive types in PropTypes and TS and their corresponding CommonType
+  const primitiveTypesMap: Record<string, CommonType> = {
     [TSType.Boolean]: CommonType.Boolean,
     [JSType.Boolean]: CommonType.Boolean,
     [TSType.Number]: CommonType.Number, // same as JSType.Number
@@ -99,7 +98,7 @@ export function getComponentPropType(
       const itemsType = (tsType.raw ?? "").replace("[]", "");
 
       if (primitiveTypes.includes(itemsType)) {
-        return `${primitiveTypesMap[itemsType]}[]` as MappablePropType;
+        return `${primitiveTypesMap[itemsType]}[]` as CommonType;
       }
     }
   } else if (type) {
@@ -116,7 +115,7 @@ export function getComponentPropType(
       const itemsType = (type.value as PropTypeDescriptor)?.name ?? "";
 
       if (primitiveTypes.includes(itemsType)) {
-        return `${primitiveTypesMap[itemsType]}[]` as MappablePropType;
+        return `${primitiveTypesMap[itemsType]}[]` as CommonType;
       }
     }
   }
@@ -150,9 +149,9 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
 
 export function getCMSFieldType(
   fieldSchema: JSONSchema
-): MappablePropType | undefined {
-  // primitive types in JSON and their corresponding MappablePropType
-  const primitiveTypesMap: Record<string, MappablePropType> = {
+): CommonType | undefined {
+  // primitive types in JSON and their corresponding CommonType
+  const primitiveTypesMap: Record<string, CommonType> = {
     [JSONType.Boolean]: CommonType.Boolean,
     [JSONType.Integer]: CommonType.Number,
     [JSONType.Number]: CommonType.Number,
@@ -182,7 +181,7 @@ export function getCMSFieldType(
         primitiveTypesMap[
           (fieldSchema.items as JSONSchema).type as JSONSchema4TypeName
         ]
-      }[]` as MappablePropType;
+      }[]` as CommonType;
     }
   }
 
