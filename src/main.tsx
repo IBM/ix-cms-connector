@@ -24,7 +24,8 @@ const Main: FunctionComponent = () => {
 
       <div class="px-4 my-16 mx-auto max-w-7xl grid grid-cols-2 gap-8">
         <div>
-          <h3>CMS</h3>
+          <h3>JSON Schema</h3>
+          <p>Provide a schema to map data from.</p>
           <CmsSchemaForm
             onGenerate={(cmsSchema) => {
               setCmsSchema(cmsSchema);
