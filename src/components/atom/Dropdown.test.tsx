@@ -54,13 +54,13 @@ describe("Dropdown", () => {
     const user = userEvent.setup();
 
     let elValue: string | null = null;
-    const selectedOptionHandler = vi.fn((val) => (elValue = val));
+    const selectedOptionSpy = vi.fn((val) => (elValue = val));
 
     render(
       <Dropdown
         label={mockLabel}
         options={mockOptions}
-        handleOptionSelect={(option) => selectedOptionHandler(option.value)}
+        handleOptionSelect={(option) => selectedOptionSpy(option.value)}
       />
     );
 
@@ -72,7 +72,7 @@ describe("Dropdown", () => {
 
     await user.keyboard("[Enter]");
 
-    expect(selectedOptionHandler).toBeCalledTimes(1);
+    expect(selectedOptionSpy).toBeCalledTimes(1);
     expect(elValue).toMatch(mockOptions[1].value);
   });
 });
