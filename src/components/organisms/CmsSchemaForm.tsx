@@ -1,16 +1,15 @@
+import { FunctionComponent, JSX } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { getSchema } from "../../../generate-schema";
-import { Input } from "../atom/input";
+import toJsonSchema from "to-json-schema";
+import { Input } from "../atom/Input";
 import { Error } from "../atom/Error";
-import { CmsSchema } from "../../utils/types";
-import { FunctionComponent } from "preact";
-import { Button, ButtonType } from "../atom/button";
+import { Button, ButtonType } from "../atom/Button";
 import { RadioButton } from "../atom/RadioButton";
 import { FileSelect } from "../molecule/FileSelect";
-import jsonSchemaGenerator from "json-schema-generator";
+import { getJSONSchema, type JSONSchema } from "../../utils";
 
 interface CmsSchemaFormProps {
-  onGenerate: (cmsSchema: CmsSchema) => void;
+  onGenerate: (cmsSchema: JSONSchema) => void;
 }
 
 type SchemaProvider = "api" | "json";
@@ -18,7 +17,7 @@ type SchemaProvider = "api" | "json";
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
 }) => {
-  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
   const [cmsError, setCmsError] = useState<boolean>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
   const [schemaProvider, setSchemaProvider] = useState<SchemaProvider>("api");
@@ -30,50 +29,54 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     }
 
     const reader = new FileReader();
+
     reader.onload = async (e) => {
       try {
+        setParsingCmsSchema(true);
+
         const json = JSON.parse(e.target?.result as string);
 
-        /* Remove or update with the new library */
-        const cmsSchema = jsonSchemaGenerator(json) as CmsSchema;
+        const cmsSchema = toJsonSchema(json);
 
         setCmsSchema(cmsSchema);
         setParsingCmsSchema(false);
         setCmsError(false);
 
-        setParsingCmsSchema(false);
+        onGenerate(cmsSchema);
       } catch (e) {
         setCmsError(true);
+        setParsingCmsSchema(false);
       }
     };
 
     reader.readAsText(file);
   }, [file]);
 
-  const handleGetCmsSchema = (e) => {
-    e.preventDefault();
-    setParsingCmsSchema(true);
-    generateCmsSchema(e);
-  };
+  const getCmsSchemaFromUrl = useCallback(
+    async (e: JSX.TargetedEvent<HTMLFormElement, Event>) => {
+      e.preventDefault();
 
-  const generateCmsSchema = useCallback(async (e) => {
-    const form = e.target;
-    const formData = new FormData(form);
-    const { cmsEndpoint } = Object.fromEntries(formData.entries());
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
-    try {
-      const cmsSchema = (await getSchema(cmsEndpoint)) as CmsSchema;
+      try {
+        setParsingCmsSchema(true);
 
-      setCmsSchema(cmsSchema);
-      setParsingCmsSchema(false);
-      setCmsError(false);
+        const cmsSchema = await getJSONSchema(cmsEndpoint as string);
 
-      onGenerate(cmsSchema);
-    } catch (err) {
-      setCmsError(err);
-      setParsingCmsSchema(false);
-    }
-  }, []);
+        setCmsSchema(cmsSchema);
+        setParsingCmsSchema(false);
+        setCmsError(false);
+
+        onGenerate(cmsSchema);
+      } catch (e) {
+        setCmsError(true);
+        setParsingCmsSchema(false);
+      }
+    },
+    []
+  );
 
   const onRemoveFile = useCallback((): void => {
     setFile(null);
@@ -83,7 +86,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
     api: (
       <form
-        onSubmit={handleGetCmsSchema}
+        onSubmit={getCmsSchemaFromUrl}
         class="flex flex-row max-h-12 items-center"
       >
         <Input
