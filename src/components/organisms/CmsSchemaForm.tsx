@@ -134,9 +134,19 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
       </div>
       <div class="my-6 ">{schemaComponent[schemaProvider]}</div>
-      <Dropdown options={cmsOptions} label="CMS" handleOptionSelect={setCmsProvider} selected={cmsProvider} />
+      <Dropdown
+        options={cmsOptions}
+        label="CMS"
+        handleOptionSelect={setCmsProvider}
+        selected={cmsProvider}
+      />
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error="Unable to process this action!" />}
+      {!cmsError && cmsSchema && (
+        <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
+          {JSON.stringify(cmsSchema, undefined, 2)}
+        </div>
+      )}
     </>
   );
 };
