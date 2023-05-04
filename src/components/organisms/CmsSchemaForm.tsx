@@ -65,6 +65,18 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     reader.readAsText(file);
   }, [file]);
 
+  useEffect(() => {
+    if (cmsSchema) {
+      switch (cmsProvider.value) {
+        case CMSProvider.STORYBLOK:
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, [cmsProvider, cmsSchema]);
+
   const handleGetCmsSchema = (e) => {
     e.preventDefault();
     setParsingCmsSchema(true);
