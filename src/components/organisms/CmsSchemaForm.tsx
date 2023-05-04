@@ -8,12 +8,20 @@ import { Button, ButtonType } from "../atom/button";
 import { RadioButton } from "../atom/RadioButton";
 import { FileSelect } from "../molecule/FileSelect";
 import jsonSchemaGenerator from "json-schema-generator";
+import { JSX } from "preact/jsx-runtime";
+import { Dropdown, DropdownOption } from "../atom/Dropdown";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: CmsSchema) => void;
 }
 
 type SchemaProvider = "api" | "json";
+
+export enum CMSProvider {
+  STORYBLOK = "Storyblok",
+  CONTENTFUL = "Contentful (not yet implemented)",
+  MAGNOLIA = "Magnolia (not yet implemented)",
+}
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
@@ -23,6 +31,13 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
   const [schemaProvider, setSchemaProvider] = useState<SchemaProvider>("api");
   const [file, setFile] = useState<File>();
+  const [cmsProvider, setCmsProvider] = useState<DropdownOption>();
+
+  const cmsOptions = [
+    { label: CMSProvider.STORYBLOK, value: CMSProvider.STORYBLOK },
+    { label: CMSProvider.MAGNOLIA, value: CMSProvider.MAGNOLIA },
+    { label: CMSProvider.CONTENTFUL, value: CMSProvider.STORYBLOK },
+  ];
 
   useEffect(() => {
     if (!file) {
@@ -118,14 +133,10 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           onClick={() => setSchemaProvider("json")}
         />
       </div>
-      <div class="mt-6">{schemaComponent[schemaProvider]}</div>
+      <div class="my-6 ">{schemaComponent[schemaProvider]}</div>
+      <Dropdown options={cmsOptions} label="CMS" handleOptionSelect={setCmsProvider} selected={cmsProvider} />
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error="Unable to process this action!" />}
-      {!cmsError && cmsSchema && (
-        <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
-          {JSON.stringify(cmsSchema, undefined, 2)}
-        </div>
-      )}
     </>
   );
 };
