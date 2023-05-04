@@ -1,7 +1,12 @@
 import { describe, it, expect, vi } from "vitest";
 
 import toJsonSchema from "to-json-schema";
-import { fetchData, getJSONSchema, getCMSFieldType, canMapProps } from "./funcs";
+import {
+  fetchData,
+  getJSONSchema,
+  getCMSFieldType,
+  canMapProps,
+} from "./funcs";
 import { CommonType } from "./const";
 
 // Mocks a module (gets hoisted at the beginning of the file)
@@ -12,7 +17,6 @@ vi.mock("to-json-schema");
 
 // Will be reused in the tests (it can be set individually)
 const testEndpoint = "https://dummyjson.com/products/1";
-
 
 describe("fetchData()", () => {
   it("should return any data available for the endpoint", async () => {
