@@ -11,6 +11,7 @@ import {
 import { useCallback } from "react";
 import { ClickableList } from "../molecule/ClickableList";
 import { Button, ButtonType } from "../atom/Button";
+import { PropFilters } from "../organisms/PropFilters";
 
 type MappedFields = [string, string][];
 
@@ -104,6 +105,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         {!!cmsMappableFields.length && (
           <div>
             <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
+            <PropFilters propList={unmappedCmsSchemaFields} />
             <ClickableList
               listCollection={unmappedCmsSchemaFields}
               mappedKey="name"
@@ -115,6 +117,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         {!!componentMappableProps.length && (
           <div>
             <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
+            <PropFilters propList={unmappedComponentProps} />
             <ClickableList
               listCollection={unmappedComponentProps}
               mappedKey="name"
