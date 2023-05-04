@@ -1,12 +1,34 @@
+import axios from "axios";
+import { JSONSchema4TypeName } from "json-schema";
+import toJsonSchema from "to-json-schema";
 import type { Documentation, Config } from "react-docgen";
 import type {
-  CmsSchema,
+  PropDescriptor,
+  PropTypeDescriptor,
+} from "react-docgen/dist/Documentation";
+import { JSONType, JSType, TSType, CommonType } from "./const";
+import type {
+  JSONSchema,
   CodeGeneratorOptions,
   MappableProp,
   MappedProps,
   TimeoutHandle,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
+
+async function fetchData(endpoint: string) {
+  const res = await axios(endpoint);
+
+  return await res.data;
+}
+
+export async function getJSONSchema(endpoint: string) {
+  const json = await fetchData(endpoint);
+
+  const schema = toJsonSchema(json);
+
+  return schema;
+}
 
 export function getComponentParserConfig(fileName: string): Config {
   const fileExt = fileName.split(".").pop().toLowerCase();
@@ -50,59 +72,55 @@ export function getComponentParserConfig(fileName: string): Config {
   };
 }
 
-export function isPrimitiveType(type: string) {
-  return (
-    type === "boolean" ||
-    type === "bool" ||
-    type === "number" ||
-    type === "string"
-  );
-}
+export function getComponentPropType(
+  propDescr: PropDescriptor
+): CommonType | undefined {
+  const { type, tsType } = propDescr;
 
-function filterComponentProps([, propDescr]: [
-  string,
-  Documentation["props"][string]
-]) {
-  const { type, tsType, flowType } = propDescr;
-
-  let isMappableType = false;
+  // primitive types in PropTypes and TS and their corresponding CommonType
+  const primitiveTypesMap: Record<string, CommonType> = {
+    [TSType.Boolean]: CommonType.Boolean,
+    [JSType.Boolean]: CommonType.Boolean,
+    [TSType.Number]: CommonType.Number, // same as JSType.Number
+    [TSType.String]: CommonType.String, // same as JSType.String
+  };
+  const primitiveTypes = Object.keys(primitiveTypesMap);
 
   if (tsType) {
-    isMappableType = isPrimitiveType(tsType.name);
-  } else if (flowType) {
-    isMappableType = isPrimitiveType(flowType.name);
+    if (primitiveTypes.includes(tsType.name)) {
+      return primitiveTypesMap[tsType.name];
+    }
+
+    if (tsType.name === TSType.Array) {
+      // an example of array field schema:
+      // "tsType": { "name": "Array", "elements": [{ "name": "string" }], "raw": "string[]" }
+
+      const itemsType = (tsType.raw ?? "").replace("[]", "");
+
+      if (primitiveTypes.includes(itemsType)) {
+        return `${primitiveTypesMap[itemsType]}[]` as CommonType;
+      }
+    }
   } else if (type) {
     // js type (PropTypes)
 
-    isMappableType = isPrimitiveType(type.name);
+    if (primitiveTypes.includes(type.name)) {
+      return primitiveTypesMap[type.name];
+    }
+
+    if (type.name === "arrayOf") {
+      // an example of array field schema:
+      // "type": { "name": "arrayOf", "value": { "name": "number" } }
+
+      const itemsType = (type.value as PropTypeDescriptor)?.name ?? "";
+
+      if (primitiveTypes.includes(itemsType)) {
+        return `${primitiveTypesMap[itemsType]}[]` as CommonType;
+      }
+    }
   }
 
-  return isMappableType;
-}
-
-function getComponentMappablePropType(
-  propDescr: Documentation["props"][string]
-): MappableProp["type"] {
-  const type = propDescr.tsType
-    ? propDescr.tsType.name
-    : propDescr.flowType
-    ? propDescr.flowType.name
-    : propDescr.type.name;
-
-  if (type === "boolean" || type === "bool") {
-    return "boolean";
-  }
-
-  if (type === "number") {
-    return "number";
-  }
-
-  if (type === "string") {
-    return "string";
-  }
-
-  // default value (should not be a case, just to get rid of a TS complain)
-  return "string";
+  return undefined;
 }
 
 export function getComponentMappableProps(doc: Documentation): MappableProp[] {
@@ -110,24 +128,101 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
     return [];
   }
 
-  return Object.entries(doc.props)
-    .filter(filterComponentProps)
-    .map(([name, propDescr]) => ({
-      name,
-      type: getComponentMappablePropType(propDescr),
-      isRequired: !!propDescr.required,
-      description: propDescr.description,
-    }));
+  return Object.entries(doc.props).reduce(
+    (mappableProps, [name, propDescr]) => {
+      const type = getComponentPropType(propDescr);
+
+      if (type) {
+        mappableProps.push({
+          name,
+          type,
+          isRequired: !!propDescr.required,
+          description: propDescr.description,
+        });
+      }
+
+      return mappableProps;
+    },
+    [] as MappableProp[]
+  );
 }
 
-export function getCmsMappableFields(schema: CmsSchema): MappableProp[] {
-  return Object.entries(schema.properties)
-    .filter(([, { type }]) => isPrimitiveType(type))
-    .map(([name, { type }]) => ({
-      name,
-      type,
-      isRequired: schema.required.includes(name),
-    }));
+export function getCMSFieldType(
+  fieldSchema: JSONSchema
+): CommonType | undefined {
+  // primitive types in JSON and their corresponding CommonType
+  const primitiveTypesMap: Record<string, CommonType> = {
+    [JSONType.Boolean]: CommonType.Boolean,
+    [JSONType.Integer]: CommonType.Number,
+    [JSONType.Number]: CommonType.Number,
+    [JSONType.String]: CommonType.String,
+  };
+  const primitiveTypes = Object.keys(primitiveTypesMap);
+
+  const isSimpleArray = (fs: JSONSchema) => {
+    // itemsType only has value when all the items have the same type
+    const itemsType =
+      fs.items && typeof fs.items === "object"
+        ? ((fs.items as JSONSchema).type as JSONSchema4TypeName)
+        : undefined;
+
+    return fs.type === JSONType.Array && primitiveTypes.includes(itemsType);
+  };
+
+  const { type } = fieldSchema;
+
+  if (typeof type === "string") {
+    if (primitiveTypes.includes(type)) {
+      return primitiveTypesMap[type];
+    }
+
+    if (isSimpleArray(fieldSchema)) {
+      return `${
+        primitiveTypesMap[
+          (fieldSchema.items as JSONSchema).type as JSONSchema4TypeName
+        ]
+      }[]` as CommonType;
+    }
+  }
+
+  return undefined;
+}
+
+export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
+  return Object.entries(schema.properties).reduce(
+    (mappableProps, [name, fieldSchema]) => {
+      const type = getCMSFieldType(fieldSchema);
+
+      if (type) {
+        mappableProps.push({
+          name,
+          type,
+          isRequired: !!fieldSchema.required,
+        });
+      }
+
+      return mappableProps;
+    },
+    [] as MappableProp[]
+  );
+}
+
+export function canMapProps(
+  cmsField: MappableProp,
+  componentProp: MappableProp
+) {
+  const fullMatch = cmsField.type === componentProp.type;
+
+  const primitiveTypes = [
+    CommonType.Boolean,
+    CommonType.Number,
+    CommonType.String,
+  ];
+  const canBeConverted =
+    primitiveTypes.includes(cmsField.type) &&
+    primitiveTypes.includes(componentProp.type);
+
+  return fullMatch || canBeConverted;
 }
 
 function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
@@ -135,18 +230,20 @@ function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
 
   // for simple types it is possible to do a conversion
   if (
-    compProp.type === "boolean" &&
-    (cmsField.type === "number" || cmsField.type === "string")
+    compProp.type === CommonType.Boolean &&
+    (cmsField.type === CommonType.Number || cmsField.type === CommonType.String)
   ) {
     cmsFieldPath = `Boolean(${cmsFieldPath})`;
   } else if (
-    compProp.type === "number" &&
-    (cmsField.type === "boolean" || cmsField.type === "string")
+    compProp.type === CommonType.Number &&
+    (cmsField.type === CommonType.Boolean ||
+      cmsField.type === CommonType.String)
   ) {
     cmsFieldPath = `Number(${cmsFieldPath})`;
   } else if (
-    compProp.type === "string" &&
-    (cmsField.type === "boolean" || cmsField.type === "number")
+    compProp.type === CommonType.String &&
+    (cmsField.type === CommonType.Boolean ||
+      cmsField.type === CommonType.Number)
   ) {
     cmsFieldPath = `${cmsFieldPath}.toString()`;
   }

@@ -7,10 +7,10 @@ import { CmsSchemaForm } from "./components/organisms/CmsSchemaForm";
 import { SchemaMatcher } from "./components/organisms/SchemaMatcher";
 import { Header } from "./components/atom/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
-import { CmsSchema, MappedProps } from "./utils";
+import type { JSONSchema, MappedProps } from "./utils";
 
 const Main: FunctionComponent = () => {
-  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
   const [mappedProps, setMappedProps] = useState<MappedProps>();
 

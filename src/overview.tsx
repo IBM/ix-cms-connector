@@ -1,10 +1,10 @@
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
-import { Button, ButtonType } from "./components/atom/button";
+import { Button, ButtonType } from "./components/atom/Button";
 import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
 
 import { Header } from "./components/atom/Header";
-import { Input } from "./components/atom/input";
+import { Input } from "./components/atom/Input";
 import { RadioButton } from "./components/atom/RadioButton";
 import { SearchInput } from "./components/atom/SearchInput";
 import { FileSelect } from "./components/molecule/FileSelect";
