@@ -1,18 +1,12 @@
-import { JSONSchema4 } from "json-schema";
+import toJsonSchema from "to-json-schema";
 import type { Options as CodeBlockWriterOptions } from "code-block-writer";
+import { CommonType } from "./const";
 
-export interface CmsSchema extends JSONSchema4 {
-  properties: {
-    [k: string]: {
-      type: "boolean" | "number" | "string";
-    };
-  };
-  required: string[];
-}
+export type JSONSchema = toJsonSchema.JSONSchema3or4;
 
 export interface MappableProp {
   name: string;
-  type: "boolean" | "number" | "string";
+  type: CommonType;
   isRequired: boolean;
   description?: string;
 }

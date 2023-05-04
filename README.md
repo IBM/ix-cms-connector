@@ -36,6 +36,12 @@ Spin up a development server on port `8080` (by default)
 pnpm run dev
 ```
 
+#### Component overview
+It is possible to check all the components avaible in the overview page.
+```
+localhost:8080/overview
+```
+
 ## build
 
 Create production build
@@ -87,3 +93,4 @@ Watch mode
 ```
 pnpm run test:watch
 ```
+

@@ -7,10 +7,10 @@ import { CmsSchemaForm } from "./components/organisms/CmsSchemaForm";
 import { SchemaMatcher } from "./components/organisms/SchemaMatcher";
 import { Header } from "./components/atom/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
-import { CmsSchema, MappedProps } from "./utils";
+import type { JSONSchema, MappedProps } from "./utils";
 
 const Main: FunctionComponent = () => {
-  const [cmsSchema, setCmsSchema] = useState<CmsSchema>();
+  const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
   const [mappedProps, setMappedProps] = useState<MappedProps>();
 
@@ -24,7 +24,8 @@ const Main: FunctionComponent = () => {
 
       <div class="px-4 my-16 mx-auto max-w-7xl grid grid-cols-2 gap-8">
         <div>
-          <h3>CMS</h3>
+          <h3>JSON Schema</h3>
+          <p>Provide a schema to map data from.</p>
           <CmsSchemaForm
             onGenerate={(cmsSchema) => {
               setCmsSchema(cmsSchema);
