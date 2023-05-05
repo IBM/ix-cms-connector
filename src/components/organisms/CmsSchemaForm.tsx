@@ -39,23 +39,23 @@ function getComponentsFromJson(
 }
 
 function getComponentsFromObj(obj: object) {
-  if(!obj) {
+  if (!obj) {
     return [];
   }
 
   const componentsList = [];
   const keys = Object.keys(obj);
 
-  if(keys.includes('component') && keys.includes('_uid')) {
-    componentsList.push({label: obj['component'], value: obj['_uid']});
+  if (keys.includes("component") && keys.includes("_uid")) {
+    componentsList.push({ label: obj["component"], value: obj["_uid"] });
   }
-  
+
   keys.forEach((key: string) => {
-    if (typeof obj[key] === 'object') {
+    if (typeof obj[key] === "object") {
       const a = getComponentsFromObj(obj[key]);
       componentsList.push(...a);
     }
-  })
+  });
 
   return componentsList;
 }
@@ -110,7 +110,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   }, [file]);
 
   useEffect(() => {
-    if(!jsonTest) {
+    if (!jsonTest) {
       return;
     }
 
