@@ -7,7 +7,7 @@ import { Button, ButtonType } from "../atom/Button";
 import { RadioButton } from "../atom/RadioButton";
 import { FileSelect } from "../molecule/FileSelect";
 import { Dropdown, DropdownOption } from "../atom/Dropdown";
-import { getJSONSchema, type JSONSchema } from "../../utils";
+import { getComponentFromJson, getComponentsFromJson, getJSON, type JSONSchema } from "../../utils";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
@@ -21,99 +21,21 @@ export enum CMSProvider {
   MAGNOLIA = "Magnolia (not yet implemented)",
 }
 
-function getComponentsFromJson(
-  cmsProvider: CMSProvider,
-  json: JSON
-): DropdownOption[] {
-  const componentsList = [];
-  switch (cmsProvider) {
-    case CMSProvider.STORYBLOK:
-      componentsList.push(...getComponentsFromObj(json));
-      break;
-
-    default:
-      break;
-  }
-
-  return componentsList;
-}
-
-function getComponentsFromObj(obj: object) {
-  if (!obj) {
-    return [];
-  }
-
-  const componentsList = [];
-  const keys = Object.keys(obj);
-
-  if (keys.includes("component") && keys.includes("_uid")) {
-    componentsList.push({ label: obj["component"], value: obj["_uid"] });
-  }
-
-  keys.forEach((key: string) => {
-    if (typeof obj[key] === "object") {
-      const a = getComponentsFromObj(obj[key]);
-      componentsList.push(...a);
-    }
-  });
-
-  return componentsList;
-}
-
-function getComponentFromJson(
-  cmsProvider: CMSProvider,
-  json: JSON,
-  id: string
-) {
-  let component;
-  switch (cmsProvider) {
-    case CMSProvider.STORYBLOK:
-      component = getComponentFromObj(json, id);
-      break;
-
-    default:
-      break;
-  }
-
-  return component;
-}
-
-function getComponentFromObj(obj: object, id: string) {
-  if (!obj) {
-    return undefined;
-  }
-
-  const keys = Object.keys(obj);
-
-  if (keys.includes("_uid") && obj["_uid"] === id) {
-    return obj;
-  }
-
-  for (const key of keys) {
-    if (typeof obj[key] === "object") {
-      const component = getComponentFromObj(obj[key], id);
-      if (component) {
-        return component;
-      }
-    }
-  }
-
-  return undefined;
-}
-
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
 }) => {
   const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
-  const [jsonTest, setJsonTest] = useState<JSON>();
+  const [json, setJson] = useState<JSON>();
+
   const [cmsError, setCmsError] = useState<boolean>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
+
   const [schemaProvider, setSchemaProvider] = useState<SchemaProvider>("api");
-  const [file, setFile] = useState<File>();
   const [cmsProvider, setCmsProvider] = useState<DropdownOption>({
     label: CMSProvider.STORYBLOK,
     value: CMSProvider.STORYBLOK,
   });
+  
   const [components, setComponents] = useState<any[]>();
   const [component, setComponent] = useState<DropdownOption>();
 
@@ -123,11 +45,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     { label: CMSProvider.CONTENTFUL, value: CMSProvider.CONTENTFUL },
   ];
 
-  useEffect(() => {
-    if (!file) {
-      return;
-    }
-
+  const readFile = (file: File) => {
     const reader = new FileReader();
 
     reader.onload = async (e) => {
@@ -140,7 +58,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         );
 
         setComponents(components);
-        setJsonTest(json);
+        setJson(json);
       } catch (e) {
         setCmsError(true);
         setParsingCmsSchema(false);
@@ -148,29 +66,29 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     };
 
     reader.readAsText(file);
-  }, [file]);
+  }
 
   useEffect(() => {
-    if (!jsonTest) {
+    if (!json) {
       return;
     }
 
     const newComponents = getComponentsFromJson(
       cmsProvider.value as CMSProvider,
-      jsonTest
+      json
     );
 
     setComponents(newComponents);
   }, [cmsProvider]);
 
   useEffect(() => {
-    if (!jsonTest || !component) {
+    if (!json || !component) {
       return;
     }
 
     const filteredComponent = getComponentFromJson(
       cmsProvider.value as CMSProvider,
-      jsonTest,
+      json,
       component.value
     );
 
@@ -200,26 +118,20 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
       try {
-        setParsingCmsSchema(true);
+        const json = await getJSON(cmsEndpoint as string);
+        const components = getComponentsFromJson(cmsProvider.value as CMSProvider, json);
 
-        const cmsSchema = await getJSONSchema(cmsEndpoint as string);
-
-        setCmsSchema(cmsSchema);
-        setParsingCmsSchema(false);
-        setCmsError(false);
-
-        onGenerate(cmsSchema);
+        setJson(json);
+        setComponents(components);
       } catch (e) {
         setCmsError(true);
-        setParsingCmsSchema(false);
       }
     },
     []
   );
 
   const onRemoveFile = useCallback((): void => {
-    setFile(null);
-    setJsonTest(null);
+    setJson(null);
     setComponents(null);
     setComponent(null);
     setCmsSchema(null);
@@ -242,7 +154,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
       </form>
     ),
-    json: <FileSelect onSelect={setFile} onRemoveFile={onRemoveFile} />,
+    json: <FileSelect onSelect={readFile} onRemoveFile={onRemoveFile} />,
   };
 
   return (
