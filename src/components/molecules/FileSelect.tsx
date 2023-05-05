@@ -1,7 +1,7 @@
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { useDropzone } from "react-dropzone";
-import { File } from "../atom/File";
+import { File } from "../atoms/File";
 
 type FileSelectProps = {
   onSelect: (file: File) => void;
