@@ -4,6 +4,8 @@ export enum JSONType {
   Integer = "integer",
   Number = "number",
   String = "string",
+  // null
+  // undefined (if using schema and the field is not required)
 }
 
 export enum JSType {
@@ -11,6 +13,7 @@ export enum JSType {
   Boolean = "bool",
   Number = "number",
   String = "string",
+  // "required": false, any of the types
 }
 
 export enum TSType {
@@ -27,4 +30,5 @@ export enum CommonType {
   BooleanArray = "boolean[]",
   NumberArray = "number[]",
   StringArray = "string[]",
+  // isRequired: boolean;
 }
