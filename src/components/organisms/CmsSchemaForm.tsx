@@ -21,15 +21,34 @@ export enum CMSProvider {
   MAGNOLIA = "Magnolia (not yet implemented)",
 }
 
+function getComponentsFromJson(cmsProvider: CMSProvider, json): DropdownOption[] {
+  const componentsList = []
+    switch (cmsProvider) {
+      case CMSProvider.STORYBLOK:
+        json?.['story']?.['content']?.['body']?.map((obj) => {
+          componentsList.push({label: obj.component, valuue: obj['_uuid']});
+        });
+        break;
+
+      default:
+        break;
+    }
+
+    return componentsList;
+  }
+
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
 }) => {
   const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
+  const [jsonTest, setJsonTest] = useState<JSON>();
   const [cmsError, setCmsError] = useState<boolean>(false);
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
   const [schemaProvider, setSchemaProvider] = useState<SchemaProvider>("api");
   const [file, setFile] = useState<File>();
-  const [cmsProvider, setCmsProvider] = useState<DropdownOption>();
+  const [cmsProvider, setCmsProvider] = useState<DropdownOption>({label: CMSProvider.STORYBLOK, value: CMSProvider.STORYBLOK});
+  const [components, setComponents] = useState<any[]>();
+  const [component, setComponent] = useState<DropdownOption>();
 
   const cmsOptions = [
     { label: CMSProvider.STORYBLOK, value: CMSProvider.STORYBLOK },
@@ -44,19 +63,16 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
     const reader = new FileReader();
 
+    console.log('Im here before read');
     reader.onload = async (e) => {
       try {
-        setParsingCmsSchema(true);
-
         const json = JSON.parse(e.target?.result as string);
+        
+        const components = getComponentsFromJson(cmsProvider.value as CMSProvider, json);
 
-        const cmsSchema = toJsonSchema(json);
+        setComponents(components);
+        setJsonTest(json);
 
-        setCmsSchema(cmsSchema);
-        setParsingCmsSchema(false);
-        setCmsError(false);
-
-        onGenerate(cmsSchema);
       } catch (e) {
         setCmsError(true);
         setParsingCmsSchema(false);
@@ -67,16 +83,45 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   }, [file]);
 
   useEffect(() => {
-    if (cmsSchema) {
-      switch (cmsProvider.value) {
-        case CMSProvider.STORYBLOK:
-          break;
+    const newComponents = getComponentsFromJson(cmsProvider.value as CMSProvider, jsonTest);
+    setComponents(newComponents);
+  }, [cmsProvider]);
 
-        default:
-          break;
+  useEffect(() => {
+    if (!jsonTest || !component) {
+      return;
+    }
+
+    let  filteredComponent;
+
+    try {
+    switch (cmsProvider.value) {
+      case CMSProvider.STORYBLOK:
+        filteredComponent = jsonTest?.['story']?.['content']?.['body']?.find((compt) => compt["_uuid"] === component.value);     
+        break;
+      default:
+        break;
+    }
+  } catch (e) {
+    alert(e);
+  }
+
+    if (filteredComponent) {
+      try {
+        setParsingCmsSchema(true);
+
+        const cmsSchema = toJsonSchema(filteredComponent);
+        setCmsSchema(cmsSchema);
+        setParsingCmsSchema(false);
+        setCmsError(false);
+
+        onGenerate(cmsSchema);
+      } catch (e) {
+        setCmsError(true);
+        setParsingCmsSchema(false);
       }
     }
-  }, [cmsProvider, cmsSchema]);
+  }, [component]);
 
   const getCmsSchemaFromUrl = useCallback(
     async (e: JSX.TargetedEvent<HTMLFormElement, Event>) => {
@@ -106,7 +151,11 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
   const onRemoveFile = useCallback((): void => {
     setFile(null);
+    setJsonTest(null);
+    setComponents(null);
+    setComponent(null);
     setCmsSchema(null);
+
   }, []);
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
@@ -154,6 +203,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         handleOptionSelect={setCmsProvider}
         selected={cmsProvider}
       />
+      {components?.length > 0 && <Dropdown label="Component" options={components} handleOptionSelect={setComponent} selected={component}></Dropdown>}
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error="Unable to process this action!" />}
       {!cmsError && cmsSchema && (
