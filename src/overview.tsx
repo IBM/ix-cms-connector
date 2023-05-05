@@ -1,13 +1,13 @@
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
-import { Button, ButtonType } from "./components/atom/Button";
-import { Dropdown, DropdownOption } from "./components/atom/Dropdown";
+import { Button, ButtonType } from "./components/atoms/Button";
+import { Dropdown, DropdownOption } from "./components/atoms/Dropdown";
 
-import { Header } from "./components/atom/Header";
-import { Input } from "./components/atom/Input";
-import { RadioButton } from "./components/atom/RadioButton";
-import { SearchInput } from "./components/atom/SearchInput";
-import { FileSelect } from "./components/molecule/FileSelect";
+import { Header } from "./components/atoms/Header";
+import { Input } from "./components/atoms/Input";
+import { RadioButton } from "./components/atoms/RadioButton";
+import { SearchInput } from "./components/atoms/SearchInput";
+import { FileSelect } from "./components/molecules/FileSelect";
 
 const Overview: FunctionComponent = () => {
   const [selected, setSelected] = useState<DropdownOption>();
