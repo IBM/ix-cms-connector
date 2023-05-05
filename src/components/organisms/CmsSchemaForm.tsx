@@ -21,21 +21,44 @@ export enum CMSProvider {
   MAGNOLIA = "Magnolia (not yet implemented)",
 }
 
-function getComponentsFromJson(cmsProvider: CMSProvider, json): DropdownOption[] {
-  const componentsList = []
-    switch (cmsProvider) {
-      case CMSProvider.STORYBLOK:
-        json?.['story']?.['content']?.['body']?.map((obj) => {
-          componentsList.push({label: obj.component, valuue: obj['_uuid']});
-        });
-        break;
+function getComponentsFromJson(
+  cmsProvider: CMSProvider,
+  json
+): DropdownOption[] {
+  const componentsList = [];
+  switch (cmsProvider) {
+    case CMSProvider.STORYBLOK:
+      componentsList.push(...getComponentsFromObj(json));
+      break;
 
-      default:
-        break;
-    }
-
-    return componentsList;
+    default:
+      break;
   }
+
+  return componentsList;
+}
+
+function getComponentsFromObj(obj: object) {
+  if(!obj) {
+    return [];
+  }
+
+  const componentsList = [];
+  const keys = Object.keys(obj);
+
+  if(keys.includes('component') && keys.includes('_uid')) {
+    componentsList.push({label: obj['component'], value: obj['_uid']});
+  }
+  
+  keys.forEach((key: string) => {
+    if (typeof obj[key] === 'object') {
+      const a = getComponentsFromObj(obj[key]);
+      componentsList.push(...a);
+    }
+  })
+
+  return componentsList;
+}
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
@@ -46,7 +69,10 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const [parsingCmsSchema, setParsingCmsSchema] = useState(false);
   const [schemaProvider, setSchemaProvider] = useState<SchemaProvider>("api");
   const [file, setFile] = useState<File>();
-  const [cmsProvider, setCmsProvider] = useState<DropdownOption>({label: CMSProvider.STORYBLOK, value: CMSProvider.STORYBLOK});
+  const [cmsProvider, setCmsProvider] = useState<DropdownOption>({
+    label: CMSProvider.STORYBLOK,
+    value: CMSProvider.STORYBLOK,
+  });
   const [components, setComponents] = useState<any[]>();
   const [component, setComponent] = useState<DropdownOption>();
 
@@ -63,16 +89,17 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
     const reader = new FileReader();
 
-    console.log('Im here before read');
     reader.onload = async (e) => {
       try {
         const json = JSON.parse(e.target?.result as string);
-        
-        const components = getComponentsFromJson(cmsProvider.value as CMSProvider, json);
+
+        const components = getComponentsFromJson(
+          cmsProvider.value as CMSProvider,
+          json
+        );
 
         setComponents(components);
         setJsonTest(json);
-
       } catch (e) {
         setCmsError(true);
         setParsingCmsSchema(false);
@@ -83,7 +110,15 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   }, [file]);
 
   useEffect(() => {
-    const newComponents = getComponentsFromJson(cmsProvider.value as CMSProvider, jsonTest);
+    if(!jsonTest) {
+      return;
+    }
+
+    const newComponents = getComponentsFromJson(
+      cmsProvider.value as CMSProvider,
+      jsonTest
+    );
+
     setComponents(newComponents);
   }, [cmsProvider]);
 
@@ -92,19 +127,21 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       return;
     }
 
-    let  filteredComponent;
+    let filteredComponent;
 
     try {
-    switch (cmsProvider.value) {
-      case CMSProvider.STORYBLOK:
-        filteredComponent = jsonTest?.['story']?.['content']?.['body']?.find((compt) => compt["_uuid"] === component.value);     
-        break;
-      default:
-        break;
+      switch (cmsProvider.value) {
+        case CMSProvider.STORYBLOK:
+          filteredComponent = jsonTest?.["story"]?.["content"]?.["body"]?.find(
+            (compt) => compt["_uid"] === component.value
+          );
+          break;
+        default:
+          break;
+      }
+    } catch (e) {
+      alert(e);
     }
-  } catch (e) {
-    alert(e);
-  }
 
     if (filteredComponent) {
       try {
@@ -155,7 +192,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setComponents(null);
     setComponent(null);
     setCmsSchema(null);
-
   }, []);
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
@@ -203,7 +239,14 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         handleOptionSelect={setCmsProvider}
         selected={cmsProvider}
       />
-      {components?.length > 0 && <Dropdown label="Component" options={components} handleOptionSelect={setComponent} selected={component}></Dropdown>}
+      {components?.length > 0 && (
+        <Dropdown
+          label="Component"
+          options={components}
+          handleOptionSelect={setComponent}
+          selected={component}
+        ></Dropdown>
+      )}
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error="Unable to process this action!" />}
       {!cmsError && cmsSchema && (
