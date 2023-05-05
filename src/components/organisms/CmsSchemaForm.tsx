@@ -23,7 +23,7 @@ export enum CMSProvider {
 
 function getComponentsFromJson(
   cmsProvider: CMSProvider,
-  json
+  json: JSON
 ): DropdownOption[] {
   const componentsList = [];
   switch (cmsProvider) {
@@ -60,6 +60,47 @@ function getComponentsFromObj(obj: object) {
   return componentsList;
 }
 
+function getComponentFromJson(
+  cmsProvider: CMSProvider,
+  json: JSON,
+  id: string
+) {
+  let component;
+  switch (cmsProvider) {
+    case CMSProvider.STORYBLOK:
+      component = getComponentFromObj(json, id);
+      break;
+
+    default:
+      break;
+  }
+
+  return component;
+}
+
+function getComponentFromObj(obj: object, id: string) {
+  if (!obj) {
+    return undefined;
+  }
+
+  const keys = Object.keys(obj);
+
+  if (keys.includes("_uid") && obj["_uid"] === id) {
+    return obj;
+  }
+
+  for (const key of keys) {
+    if (typeof obj[key] === "object") {
+      const component = getComponentFromObj(obj[key], id);
+      if (component) {
+        return component;
+      }
+    }
+  }
+
+  return undefined;
+}
+
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
 }) => {
@@ -79,7 +120,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const cmsOptions = [
     { label: CMSProvider.STORYBLOK, value: CMSProvider.STORYBLOK },
     { label: CMSProvider.MAGNOLIA, value: CMSProvider.MAGNOLIA },
-    { label: CMSProvider.CONTENTFUL, value: CMSProvider.STORYBLOK },
+    { label: CMSProvider.CONTENTFUL, value: CMSProvider.CONTENTFUL },
   ];
 
   useEffect(() => {
@@ -127,21 +168,11 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       return;
     }
 
-    let filteredComponent;
-
-    try {
-      switch (cmsProvider.value) {
-        case CMSProvider.STORYBLOK:
-          filteredComponent = jsonTest?.["story"]?.["content"]?.["body"]?.find(
-            (compt) => compt["_uid"] === component.value
-          );
-          break;
-        default:
-          break;
-      }
-    } catch (e) {
-      alert(e);
-    }
+    const filteredComponent = getComponentFromJson(
+      cmsProvider.value as CMSProvider,
+      jsonTest,
+      component.value
+    );
 
     if (filteredComponent) {
       try {
@@ -233,19 +264,25 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
       </div>
       <div class="my-6 ">{schemaComponent[schemaProvider]}</div>
-      <Dropdown
-        options={cmsOptions}
-        label="CMS"
-        handleOptionSelect={setCmsProvider}
-        selected={cmsProvider}
-      />
-      {components?.length > 0 && (
+      <div class="z-40 relative">
         <Dropdown
-          label="Component"
-          options={components}
-          handleOptionSelect={setComponent}
-          selected={component}
-        ></Dropdown>
+          options={cmsOptions}
+          label="CMS"
+          handleOptionSelect={setCmsProvider}
+          selected={cmsProvider}
+          placeholder="Select"
+        />
+      </div>
+      {components?.length > 0 && (
+        <div class="z-10 relative">
+          <Dropdown
+            label="Component"
+            options={components}
+            handleOptionSelect={setComponent}
+            selected={component}
+            placeholder="Select"
+          ></Dropdown>
+        </div>
       )}
       {parsingCmsSchema && <span>Parsing...</span>}
       {cmsError && <Error error="Unable to process this action!" />}

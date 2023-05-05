@@ -14,6 +14,7 @@ interface DropdownProps {
   options: DropdownOption[];
   handleOptionSelect: (option: DropdownOption) => void;
   selected?: DropdownOption;
+  placeholder?: string;
 }
 
 export const Dropdown: FunctionComponent<DropdownProps> = ({
@@ -22,6 +23,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
   description,
   handleOptionSelect,
   selected,
+  placeholder,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -93,7 +95,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
       <div
         class={`${
           isOpen ? " drop-shadow" : ""
-        } bg-ui-shell-white border-b border-ui-04 box-content relative`}
+        } bg-ui-shell-white border-b border-ui-04 box-content`}
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -105,18 +107,18 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
       >
         <div class="py-3.5 px-4 flex justify-between">
           <div class="text-text-01 text-sm">
-            {selected ? selected.label : options[0].label}
+            {selected ? selected.label : placeholder}
           </div>
           <ChevronDown class={`${isOpen ? "rotate-180" : "rotate-0"}`} />
         </div>
         {isOpen && (
           <ul
-            class="bg-ui-shell-white z-10 absolute top-full w-full border-t border-ui-03 divide-slate-200"
+            class="bg-ui-shell-white z-50 absolute top-full w-full border-t border-ui-03 divide-slate-200"
             role="listbox"
           >
             {options.map((option) => (
               <li
-                class="px-4 [&:last-of-type>*]:border-none"
+                class="px-4 [&:last-of-type>*]:border-none relative z-20"
                 key={option.value}
                 role="option"
                 aria-selected={option.value === selected?.value}
