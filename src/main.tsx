@@ -5,7 +5,7 @@ import { Documentation } from "react-docgen";
 import { ComponentParserForm } from "./components/organisms/ComponentParserForm";
 import { CmsSchemaForm } from "./components/organisms/CmsSchemaForm";
 import { SchemaMatcher } from "./components/organisms/SchemaMatcher";
-import { Header } from "./components/atom/Header";
+import { Header } from "./components/atoms/Header";
 import { CodeGenerator } from "./components/organisms/CodeGenerator";
 import type { JSONSchema, MappedProps } from "./utils";
 

@@ -1,11 +1,11 @@
 import { FunctionComponent, JSX } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import toJsonSchema from "to-json-schema";
-import { Input } from "../atom/Input";
-import { Error } from "../atom/Error";
-import { Button, ButtonType } from "../atom/Button";
-import { RadioButton } from "../atom/RadioButton";
-import { FileSelect } from "../molecule/FileSelect";
+import { Input } from "../atoms/Input";
+import { Error } from "../atoms/Error";
+import { Button, ButtonType } from "../atoms/Button";
+import { RadioButton } from "../atoms/RadioButton";
+import { FileSelect } from "../molecules/FileSelect";
 import { getJSONSchema, type JSONSchema } from "../../utils";
 
 interface CmsSchemaFormProps {

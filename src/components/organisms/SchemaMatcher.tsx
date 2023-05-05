@@ -9,8 +9,8 @@ import {
   getComponentMappableProps,
 } from "../../utils";
 import { useCallback } from "react";
-import { ClickableList } from "../molecule/ClickableList";
-import { Button, ButtonType } from "../atom/Button";
+import { ClickableList } from "../molecules/ClickableList";
+import { Button, ButtonType } from "../atoms/Button";
 import { PropFilters } from "../organisms/PropFilters";
 
 type MappedFields = [string, string][];
