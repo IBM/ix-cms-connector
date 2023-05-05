@@ -7,7 +7,12 @@ import { Button, ButtonType } from "../atom/Button";
 import { RadioButton } from "../atom/RadioButton";
 import { FileSelect } from "../molecule/FileSelect";
 import { Dropdown, DropdownOption } from "../atom/Dropdown";
-import { getComponentFromJson, getComponentsFromJson, getJSON, type JSONSchema } from "../../utils";
+import {
+  getComponentFromJson,
+  getComponentsFromJson,
+  getJSON,
+  type JSONSchema,
+} from "../../utils";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
@@ -35,7 +40,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     label: CMSProvider.STORYBLOK,
     value: CMSProvider.STORYBLOK,
   });
-  
+
   const [components, setComponents] = useState<any[]>();
   const [component, setComponent] = useState<DropdownOption>();
 
@@ -66,7 +71,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     };
 
     reader.readAsText(file);
-  }
+  };
 
   useEffect(() => {
     if (!json) {
@@ -119,7 +124,10 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
       try {
         const json = await getJSON(cmsEndpoint as string);
-        const components = getComponentsFromJson(cmsProvider.value as CMSProvider, json);
+        const components = getComponentsFromJson(
+          cmsProvider.value as CMSProvider,
+          json
+        );
 
         setJson(json);
         setComponents(components);
