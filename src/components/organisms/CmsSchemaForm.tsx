@@ -178,7 +178,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
       </div>
       {components?.length > 0 && (
-        <div class="z-10 relative">
+        <div class="z-10 relative mt-2">
           <Dropdown
             label="Component"
             options={components}
