@@ -50,18 +50,17 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   ];
 
   const components = useMemo(() => {
-    return json ? getComponentsFromJson(
-    cmsProvider.value as CMSProvider,
-    json
-  ) : undefined;}, [json, cmsProvider])
+    return json
+      ? getComponentsFromJson(cmsProvider.value as CMSProvider, json)
+      : undefined;
+  }, [json, cmsProvider]);
 
   const readFile = (file: File) => {
     const reader = new FileReader();
 
     reader.onload = async (e) => {
       try {
-  
-        const json = JSON.parse(e.target?.result as string);        
+        const json = JSON.parse(e.target?.result as string);
         setJson(json);
       } catch (e) {
         setCmsError(true);
@@ -104,7 +103,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setCmsProvider(cmsProvider);
     setComponent(undefined);
     setCmsSchema(undefined);
-  }
+  };
 
   const getCmsSchemaFromUrl = useCallback(
     async (e: JSX.TargetedEvent<HTMLFormElement, Event>) => {
@@ -117,7 +116,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       try {
         const json = await getJSON(cmsEndpoint as string);
         setJson(json);
-
       } catch (e) {
         setCmsError(true);
       }
