@@ -16,7 +16,7 @@ import type {
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
 
-async function fetchData(endpoint: string) {
+export async function fetchData(endpoint: string) {
   const res = await axios(endpoint);
 
   return await res.data;

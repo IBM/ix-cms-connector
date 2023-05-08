@@ -1,10 +1,10 @@
 import { FunctionComponent, JSX } from "preact";
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import toJsonSchema from "to-json-schema";
-import { Input } from "../atom/Input";
-import { Error } from "../atom/Error";
-import { Button, ButtonType } from "../atom/Button";
-import { RadioButton } from "../atom/RadioButton";
+import { Input } from "../atoms/Input";
+import { Error } from "../atoms/Error";
+import { Button, ButtonType } from "../atoms/Button";
+import { RadioButton } from "../atoms/RadioButton";
 import { FileSelect } from "../molecule/FileSelect";
 import { Dropdown, DropdownOption } from "../atom/Dropdown";
 import {
@@ -13,6 +13,7 @@ import {
   getJSON,
   type JSONSchema,
 } from "../../utils";
+import React from "react";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
@@ -124,9 +125,9 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   );
 
   const onRemoveFile = useCallback((): void => {
-    setJson(null);
-    setComponent(null);
-    setCmsSchema(null);
+    setJson(undefined);
+    setComponent(undefined);
+    setCmsSchema(undefined);
   }, []);
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {

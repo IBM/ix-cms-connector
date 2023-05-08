@@ -1,5 +1,5 @@
 import { FunctionComponent } from "preact";
-import { CodeSnippet } from "../molecule/CodeSnippet";
+import { CodeSnippet } from "../molecules/CodeSnippet";
 import { generateAdapterCode, type MappedProps } from "../../utils";
 import { Documentation } from "react-docgen";
 
