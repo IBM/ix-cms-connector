@@ -1,5 +1,5 @@
 import { FunctionComponent, JSX } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import toJsonSchema from "to-json-schema";
 import { Input } from "../atom/Input";
 import { Error } from "../atom/Error";
@@ -41,7 +41,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     value: CMSProvider.STORYBLOK,
   });
 
-  const [components, setComponents] = useState<any[]>();
   const [component, setComponent] = useState<DropdownOption>();
 
   const cmsOptions = [
@@ -50,19 +49,19 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     { label: CMSProvider.CONTENTFUL, value: CMSProvider.CONTENTFUL },
   ];
 
+  const components = useMemo(() => {
+    return json ? getComponentsFromJson(
+    cmsProvider.value as CMSProvider,
+    json
+  ) : undefined;}, [json, cmsProvider])
+
   const readFile = (file: File) => {
     const reader = new FileReader();
 
     reader.onload = async (e) => {
       try {
-        const json = JSON.parse(e.target?.result as string);
-
-        const components = getComponentsFromJson(
-          cmsProvider.value as CMSProvider,
-          json
-        );
-
-        setComponents(components);
+  
+        const json = JSON.parse(e.target?.result as string);        
         setJson(json);
       } catch (e) {
         setCmsError(true);
@@ -72,19 +71,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
     reader.readAsText(file);
   };
-
-  useEffect(() => {
-    if (!json) {
-      return;
-    }
-
-    const newComponents = getComponentsFromJson(
-      cmsProvider.value as CMSProvider,
-      json
-    );
-
-    setComponents(newComponents);
-  }, [cmsProvider]);
 
   useEffect(() => {
     if (!json || !component) {
@@ -114,6 +100,12 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     }
   }, [component]);
 
+  const onChangeCMS = (cmsProvider: DropdownOption) => {
+    setCmsProvider(cmsProvider);
+    setComponent(undefined);
+    setCmsSchema(undefined);
+  }
+
   const getCmsSchemaFromUrl = useCallback(
     async (e: JSX.TargetedEvent<HTMLFormElement, Event>) => {
       e.preventDefault();
@@ -124,13 +116,8 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
       try {
         const json = await getJSON(cmsEndpoint as string);
-        const components = getComponentsFromJson(
-          cmsProvider.value as CMSProvider,
-          json
-        );
-
         setJson(json);
-        setComponents(components);
+
       } catch (e) {
         setCmsError(true);
       }
@@ -140,7 +127,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
   const onRemoveFile = useCallback((): void => {
     setJson(null);
-    setComponents(null);
     setComponent(null);
     setCmsSchema(null);
   }, []);
@@ -184,11 +170,11 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
       </div>
       <div class="my-6 ">{schemaComponent[schemaProvider]}</div>
-      <div class="z-40 relative">
+      <div class="z-20 relative">
         <Dropdown
           options={cmsOptions}
           label="CMS"
-          handleOptionSelect={setCmsProvider}
+          handleOptionSelect={onChangeCMS}
           selected={cmsProvider}
           placeholder="Select"
         />

@@ -113,7 +113,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
         </div>
         {isOpen && (
           <ul
-            class="bg-ui-shell-white z-50 absolute top-full w-full border-t border-ui-03 divide-slate-200"
+            class="bg-ui-shell-white z-50 absolute top-full w-full border-t max-h-56 border-ui-03 overflow-auto divide-slate-200"
             role="listbox"
           >
             {options.map((option) => (
