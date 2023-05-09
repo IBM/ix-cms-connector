@@ -1,8 +1,9 @@
 import { FunctionComponent } from "preact";
 
 import { type MappableProp, filterByName } from "../../utils";
+import { Checkbox } from "../atoms/Checkbox";
 
-import { SearchInput } from "../atom/SearchInput";
+import { SearchInput } from "../atoms/SearchInput";
 
 interface PropFiltersProps {
   propList: MappableProp[];
@@ -20,10 +21,13 @@ export const PropFilters: FunctionComponent<PropFiltersProps> = ({
   };
 
   return (
-    <SearchInput
-      label=""
-      placeholder="Filter properties"
-      onSearchText={(text) => getSearchText(text)}
-    />
+    <div>
+      <SearchInput
+        label=""
+        placeholder="Filter properties"
+        onSearchText={(text) => getSearchText(text)}
+      />
+      <Checkbox id="example-1" label="Example" />
+    </div>
   );
 };
