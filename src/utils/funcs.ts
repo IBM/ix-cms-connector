@@ -13,6 +13,7 @@ import type {
   MappableProp,
   MappedProps,
   TimeoutHandle,
+  ConverterFunc,
 } from "./types";
 import CodeBlockWriter from "code-block-writer";
 
@@ -213,7 +214,9 @@ export function getCMSMappableField(
 
   const mappableField = {
     name: fieldName,
-    isRequired: !!fieldSchema.required,
+    // since we parse cms data files, a field can't be not required,
+    // cos it's always presented in the file
+    isRequired: true,
   };
 
   // primitive JSON types and their corresponding TSType
@@ -294,7 +297,7 @@ export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
   );
 }
 
-export function formatPropType(mappableProp: MappableProp) {
+export function formatMappablePropType(mappableProp: MappableProp) {
   // todo: change it to the desired format when the UI is ready
   if (mappableProp.type === TSType.Array && mappableProp.subTypes) {
     return `${mappableProp.subTypes[0]}[]`;
@@ -310,46 +313,89 @@ export function formatPropType(mappableProp: MappableProp) {
 export function canMapProps(
   cmsField: MappableProp,
   componentProp: MappableProp
-) {
-  const fullMatch = cmsField.type === componentProp.type;
+): ConverterFunc | boolean {
+  // if 2 props can be mapped we return a converter function or true, otherwise - false
 
-  const primitiveTypes = [
-    CommonType.Boolean,
-    CommonType.Number,
-    CommonType.String,
-  ];
-  const canBeConverted =
-    primitiveTypes.includes(cmsField.type) &&
-    primitiveTypes.includes(componentProp.type);
+  if (componentProp.type === TSType.Array) {
+    if (cmsField.type === TSType.Array) {
+      return (
+        !!componentProp.subTypes &&
+        !!cmsField.subTypes &&
+        componentProp.subTypes[0] === cmsField.subTypes[0]
+      );
+    }
 
-  return fullMatch || canBeConverted;
+    // since we only work with arrays of primitive types,
+    // we can also convert any single variable of the primitive types by creating an array with only this varible
+    if (
+      !!componentProp.subTypes &&
+      componentProp.subTypes[0] === cmsField.type
+    ) {
+      return (p) => `[${p}]`;
+    }
+  }
+
+  if (componentProp.type === TSType.Boolean) {
+    if (cmsField.type === TSType.Boolean) {
+      return true;
+    }
+
+    // allow any type to be mapped to a boolean field by doing a simple conversion with !!
+    return (p) => `!!${p}`;
+  }
+
+  if (componentProp.type === TSType.Number) {
+    if (cmsField.type === TSType.Number) {
+      return true;
+    }
+
+    if (cmsField.type === TSType.Boolean || cmsField.type === TSType.String) {
+      return (p) => `Number(${p})`;
+    }
+  }
+
+  if (componentProp.type === TSType.String) {
+    if (cmsField.type === TSType.String) {
+      return true;
+    }
+
+    // any type can be converted to string
+    return (p) => `"" + ${p}`;
+  }
+
+  // only for TS components, PropTypes don't have a null type
+  if (componentProp.type === TSType.Null) {
+    return cmsField.type === TSType.Null;
+  }
+
+  // only for TS components, PropTypes don't have an undefined type
+  // and it always returns false, since JSON doesn't have an undefined type
+  if (componentProp.type === TSType.Undefined) {
+    return false;
+  }
+
+  if (componentProp.type === TSType.Union) {
+    //
+  }
+
+  // in TS this flag means the field can be undefined
+  // in PropTypes - either null or undefined
+  if (!componentProp.isRequired) {
+    // JSON only has null type, so just "convert" it to undefined
+    // since it's presented in both type systems
+    if (cmsField.type === TSType.Null) {
+      return (p) => `${p} ?? undefined`;
+    }
+  }
+
+  return false;
 }
 
 function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
-  let cmsFieldPath = `cmsData.${cmsField.name}`;
+  const cmsFieldPath = `cmsData.${cmsField.name}`;
+  const convert = canMapProps(cmsField, compProp);
 
-  // for simple types it is possible to do a conversion
-  if (
-    compProp.type === CommonType.Boolean &&
-    (cmsField.type === CommonType.Number || cmsField.type === CommonType.String)
-  ) {
-    cmsFieldPath = `Boolean(${cmsFieldPath})`;
-  } else if (
-    compProp.type === CommonType.Number &&
-    (cmsField.type === CommonType.Boolean ||
-      cmsField.type === CommonType.String)
-  ) {
-    cmsFieldPath = `Number(${cmsFieldPath})`;
-  } else if (
-    compProp.type === CommonType.String &&
-    (cmsField.type === CommonType.Boolean ||
-      cmsField.type === CommonType.Number)
-  ) {
-    cmsFieldPath = `${cmsFieldPath}.toString()`;
-  }
-
-  // for other cases we just return the default path
-  return cmsFieldPath;
+  return typeof convert === "function" ? convert(cmsFieldPath) : cmsFieldPath;
 }
 
 export function generateAdapterCode(

@@ -13,6 +13,8 @@ export interface MappableProp {
 
 export type MappedProps = [MappableProp, MappableProp][];
 
+export type ConverterFunc = (fieldPath: string) => string;
+
 export type CodeGeneratorOptions = Partial<CodeBlockWriterOptions>;
 
 export type TimeoutHandle = ReturnType<typeof setTimeout>;
