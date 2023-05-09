@@ -2,6 +2,7 @@ import { FunctionComponent } from "preact";
 import { HTMLAttributes } from "react";
 
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
+  id: string;
   label?: string;
 }
 

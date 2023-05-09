@@ -2,12 +2,12 @@ import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Button, ButtonType } from "./components/atoms/Button";
 import { Dropdown, DropdownOption } from "./components/atoms/Dropdown";
-
 import { Header } from "./components/atoms/Header";
 import { Input } from "./components/atoms/Input";
 import { RadioButton } from "./components/atoms/RadioButton";
 import { SearchInput } from "./components/atoms/SearchInput";
 import { FileSelect } from "./components/molecules/FileSelect";
+import { Checkbox } from "./components/atoms/Checkbox";
 
 const Overview: FunctionComponent = () => {
   const [selected, setSelected] = useState<DropdownOption>();
@@ -83,6 +83,14 @@ const Overview: FunctionComponent = () => {
               <RadioButton label="Item 1" name="overview" />
               <RadioButton label="Item 2" name="overview" />
               <RadioButton label="Item 3" name="overview" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 w-[400px] mb-6">
+            <h3>Checkbox</h3>
+            <div class="flex flex-row gap-3">
+              <Checkbox id="checkbox-1" label="Item 1" name="overview" />
+              <Checkbox id="checkbox-2" label="Item 2" name="overview" />
+              <Checkbox id="checkbox-3" label="Item 3" name="overview" />
             </div>
           </div>
         </div>
