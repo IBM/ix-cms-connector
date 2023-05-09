@@ -6,7 +6,7 @@ import { Error } from "../atoms/Error";
 import { Button, ButtonType } from "../atoms/Button";
 import { RadioButton } from "../atoms/RadioButton";
 import { FileSelect } from "../molecules/FileSelect";
-import { Dropdown, DropdownOption } from "../atom/Dropdown";
+import { Dropdown, DropdownOption } from "../atoms/Dropdown";
 import {
   getComponentFromJson,
   getComponentsFromJson,

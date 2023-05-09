@@ -1,5 +1,5 @@
-import { DropdownOption } from "../components/atom/Dropdown";
-import { CMSProvider } from "../components/organisms/CmsSchemaForm";
+import { DropdownOption } from "../../components/atoms/Dropdown";
+import { CMSProvider } from "../../components/organisms/CmsSchemaForm";
 
 export function getComponentsFromJson(
   cmsProvider: CMSProvider,
@@ -32,8 +32,8 @@ export function getComponentsFromObj(obj: object) {
 
   keys.forEach((key: string) => {
     if (typeof obj[key] === "object") {
-      const a = getComponentsFromObj(obj[key]);
-      componentsList.push(...a);
+      const innerComponents = getComponentsFromObj(obj[key]);
+      componentsList.push(...innerComponents);
     }
   });
 
