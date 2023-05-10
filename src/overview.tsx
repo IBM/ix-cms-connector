@@ -2,6 +2,7 @@ import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Button, ButtonType } from "./components/atoms/Button";
 import { Dropdown, DropdownOption } from "./components/atoms/Dropdown";
+import { Error } from "./components/atoms/Error";
 
 import { Header } from "./components/atoms/Header";
 import { Input } from "./components/atoms/Input";
@@ -85,6 +86,9 @@ const Overview: FunctionComponent = () => {
               <RadioButton label="Item 2" name="overview" />
               <RadioButton label="Item 3" name="overview" />
             </div>
+          </div>
+          <div class="flex flex-col gap-3 w-[400px] mb-6">
+            <Error error="There's an error in" />
           </div>
         </div>
       </div>
