@@ -5,10 +5,17 @@ import {
   fetchData,
   getJSONSchema,
   getComponentMappableProp,
+  getComponentMappableProps,
+  getCMSMappableField,
+  getCmsMappableFields,
   canMapProps,
+  getCMSFieldPath,
+  getMappablePropTypeSignature,
+  generateAdapterCode,
 } from "./funcs";
 import { TSType } from "./const";
 import { PropDescriptor } from "react-docgen/dist/Documentation";
+import { ConverterFunc } from "./types";
 
 // Mocks a module (gets hoisted at the beginning of the file)
 // It's functionality can be mocked under the folder "__mocks__"
@@ -45,7 +52,7 @@ describe("getJSONSchema()", () => {
 
 describe("getComponentMappableProp()", () => {
   it("should return 'undefined' if the given prop description is of an unsupported type", () => {
-    const propName = "descr";
+    const propName = "propName";
     const propDescr: PropDescriptor = {
       type: { name: "any" },
       required: false,
@@ -57,7 +64,7 @@ describe("getComponentMappableProp()", () => {
   });
 
   it("should return a valid 'MappableProp' if the given prop description is of a primitive type", () => {
-    const propName = "descr";
+    const propName = "propName";
     const propDescr: PropDescriptor = {
       tsType: { name: TSType.String },
       required: false,
@@ -71,7 +78,7 @@ describe("getComponentMappableProp()", () => {
   });
 
   it("should return a valid 'MappableProp' if the given prop description is of a primitive array type", () => {
-    const propName = "items";
+    const propName = "propName";
     const propDescr: PropDescriptor = {
       tsType: { name: TSType.Array, elements: [{ name: TSType.Number }] },
       required: false,
@@ -86,7 +93,7 @@ describe("getComponentMappableProp()", () => {
   });
 
   it("should return 'undefined' if the given prop description is of a union type with an unsupported type", () => {
-    const propName = "isValid";
+    const propName = "propName";
     const propDescr: PropDescriptor = {
       type: { name: "union", value: [{ name: "bool" }, { name: "func" }] },
       required: false,
@@ -98,55 +105,233 @@ describe("getComponentMappableProp()", () => {
   });
 });
 
-// describe("canMapProps()", () => {
-//   it("should return 'true' if the given types are the same", () => {
-//     const result = canMapProps(
-//       {
-//         name: "items",
-//         type: CommonType.StringArray,
-//         isRequired: false,
-//       },
-//       {
-//         name: "itemsList",
-//         type: CommonType.StringArray,
-//         isRequired: true,
-//       }
-//     );
+describe("canMapProps()", () => {
+  it("should return 'true' if we map 'string[]' to 'string[]'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Array,
+        subTypes: [TSType.String],
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Array,
+        subTypes: [TSType.String],
+        isRequired: true,
+      }
+    );
 
-//     expect(result).toBeTruthy();
-//   });
+    expect(result).toBeTruthy();
+  });
 
-//   it("should return 'true' if the given types can be converted", () => {
-//     const result = canMapProps(
-//       {
-//         name: "name",
-//         type: CommonType.String,
-//         isRequired: false,
-//       },
-//       {
-//         name: "hasName",
-//         type: CommonType.Boolean,
-//         isRequired: true,
-//       }
-//     );
+  it("should return 'false' if we map 'string[]' to 'boolean[]'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Array,
+        subTypes: [TSType.String],
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Array,
+        subTypes: [TSType.Boolean],
+        isRequired: true,
+      }
+    );
 
-//     expect(result).toBeTruthy();
-//   });
+    expect(result).toBeFalsy();
+  });
 
-//   it("should return 'false' if the given types can't be mapped", () => {
-//     const result = canMapProps(
-//       {
-//         name: "name",
-//         type: CommonType.String,
-//         isRequired: false,
-//       },
-//       {
-//         name: "flags",
-//         type: CommonType.BooleanArray,
-//         isRequired: false,
-//       }
-//     );
+  it("should return a converter if we map 'boolean' to 'boolean[]'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Boolean,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Array,
+        subTypes: [TSType.Boolean],
+        isRequired: true,
+      }
+    );
 
-//     expect(result).toBeFalsy();
-//   });
-// });
+    expect(result).toBeTypeOf("function");
+  });
+
+  it("should return 'true' if we map 'boolean' to 'boolean'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Boolean,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Boolean,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTruthy();
+  });
+
+  it("should return a converter if we map 'number[]' (or any other type) to 'boolean'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Array,
+        subTypes: [TSType.Number],
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Boolean,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTypeOf("function");
+  });
+
+  it("should return 'true' if we map 'number' to 'number'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Number,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Number,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTruthy();
+  });
+
+  it("should return a converter if we map 'string' to 'number'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.String,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Number,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTypeOf("function");
+  });
+
+  it("should return 'true' if we map 'string' to 'string'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.String,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.String,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTruthy();
+  });
+
+  it("should return a converter if we map 'boolean[]' (or any other type) to 'string'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Array,
+        subTypes: [TSType.Boolean],
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.String,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTypeOf("function");
+  });
+
+  it("should return 'true' if we map 'number' to 'union' that has 'number'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Number,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Union,
+        subTypes: [TSType.String, TSType.Number, TSType.Null],
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTruthy();
+  });
+
+  it("should return 'true' if we map 'null' to 'null'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Null,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Null,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTruthy();
+  });
+
+  it("should return a converter if we map 'null' to 'undefined'", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Null,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.Undefined,
+        isRequired: true,
+      }
+    );
+
+    expect(result).toBeTypeOf("function");
+  });
+
+  it("should return a converter if we map 'null' to a not required prop (of any type)", () => {
+    const result = canMapProps(
+      {
+        name: "fieldName",
+        type: TSType.Null,
+        isRequired: true,
+      },
+      {
+        name: "propName",
+        type: TSType.String,
+        isRequired: false,
+      }
+    );
+
+    expect(result).toBeTypeOf("function");
+  });
+});

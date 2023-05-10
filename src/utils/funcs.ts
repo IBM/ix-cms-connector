@@ -384,14 +384,17 @@ export function canMapProps(
   return false;
 }
 
-function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
+export function getCMSFieldPath(
+  cmsField: MappableProp,
+  compProp: MappableProp
+) {
   const cmsFieldPath = `cmsData.${cmsField.name}`;
   const convert = canMapProps(cmsField, compProp);
 
   return typeof convert === "function" ? convert(cmsFieldPath) : cmsFieldPath;
 }
 
-function getMappablePropTypeSignature(mappableProp: MappableProp) {
+export function getMappablePropTypeSignature(mappableProp: MappableProp) {
   if (mappableProp.type === TSType.Array && mappableProp.subTypes) {
     return `${mappableProp.subTypes[0]}[]`;
   }
