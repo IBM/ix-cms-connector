@@ -52,7 +52,7 @@ describe("Button", () => {
       />
     );
 
-    const buttonElement = screen.getByTestId(testId);   
+    const buttonElement = screen.getByTestId(testId);
     user.click(buttonElement);
 
     expect(onClickSpy).not.toBeCalled();
