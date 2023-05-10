@@ -9,14 +9,22 @@ import {
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
   id: string;
   label?: string;
+  handleOptionSelect: () => void;
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
   label = "",
+  handleOptionSelect,
   ...rest
 }) => {
   const [selected, setSelected] = useState<boolean>(false);
+
+  const handleOnClick = (event: Event) => {
+    setSelected(!selected);
+    console.log("event: ", event);
+    handleOptionSelect();
+  };
 
   return (
     <div class="flex flex-row items-center my-2 mr-3.5">
@@ -25,7 +33,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         id={id}
         {...rest}
         class="appearance-none"
-        onClick={() => setSelected(!selected)}
+        onClick={(event) => handleOnClick(event)}
       />
 
       <label

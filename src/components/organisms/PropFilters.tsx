@@ -1,4 +1,5 @@
 import { FunctionComponent } from "preact";
+import { useId } from "preact/hooks";
 
 import { type MappableProp, filterByName } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
@@ -19,7 +20,7 @@ enum TypeFiltersEnum {
 // TODO: improve data structure so it can be made dynamic
 const typeFilters = [
   TypeFiltersEnum.String,
-  TypeFiltersEnum.Number,
+  TypeFiltersEnum.Boolean,
   TypeFiltersEnum.String,
 ];
 
@@ -35,6 +36,10 @@ export const PropFilters: FunctionComponent<PropFiltersProps> = ({
     console.log(filter);
   };
 
+  const onItemChecked = () => {
+    console.log("checked");
+  };
+
   return (
     <div class={customCss}>
       <SearchInput
@@ -45,7 +50,12 @@ export const PropFilters: FunctionComponent<PropFiltersProps> = ({
 
       <div class="flex">
         {typeFilters.map((type, index) => (
-          <Checkbox key={index} id={`${type}-${index}`} label={type} />
+          <Checkbox
+            key={index}
+            id={useId()}
+            label={type}
+            handleOptionSelect={onItemChecked}
+          />
         ))}
       </div>
     </div>
