@@ -19,7 +19,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   const [selected, setSelected] = useState<boolean>(false);
 
   return (
-    <div class="flex flex-row items-center my-2">
+    <div class="flex flex-row items-center my-2 mr-3.5">
       <input
         type="checkbox"
         id={id}
@@ -37,7 +37,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         ) : (
           <CheckboxIcon size="20" />
         )}
-        <span class="ml-2.5">{label}</span>
+        <span class="ml-2">{label}</span>
       </label>
     </div>
   );

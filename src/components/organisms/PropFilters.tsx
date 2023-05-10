@@ -9,6 +9,19 @@ interface PropFiltersProps {
   propList: MappableProp[];
 }
 
+enum TypeFiltersEnum {
+  String = "String",
+  Boolean = "Boolean",
+  Number = "Number",
+}
+
+// TODO: improve data structure so it can be made dynamic
+const typeFilters = [
+  TypeFiltersEnum.String,
+  TypeFiltersEnum.Number,
+  TypeFiltersEnum.String,
+];
+
 export const PropFilters: FunctionComponent<PropFiltersProps> = ({
   propList,
 }) => {
@@ -27,7 +40,12 @@ export const PropFilters: FunctionComponent<PropFiltersProps> = ({
         placeholder="Filter properties"
         onSearchText={(text) => getSearchText(text)}
       />
-      <Checkbox id="example-1" label="Example" />
+
+      <div class="flex">
+        {typeFilters.map((type, index) => (
+          <Checkbox key={index} id={`${type}-${index}`} label={type} />
+        ))}
+      </div>
     </div>
   );
 };
