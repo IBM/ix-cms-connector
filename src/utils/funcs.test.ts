@@ -1,12 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 
-import toJsonSchema from "to-json-schema";
-import {
-  fetchData,
-  getJSONSchema,
-  getCMSFieldType,
-  canMapProps,
-} from "./funcs";
+import { fetchData, getJSON, getCMSFieldType, canMapProps } from "./funcs";
 import { CommonType } from "./const";
 
 // Mocks a module (gets hoisted at the beginning of the file)
@@ -26,19 +20,20 @@ describe("fetchData()", () => {
 });
 
 describe("getJSONSchema()", () => {
-  it("should execute the jsonSchemaGenerator method", async () => {
-    await getJSONSchema(testEndpoint);
+  /* This test doesn't make sense anymore */
+  //   it("should execute the jsonSchemaGenerator method", async () => {
+  //     await getJSON(testEndpoint);
 
-    // Check that the mocked module was called
-    expect(toJsonSchema).toBeCalled();
-  });
+  //     // Check that the mocked module was called
+  //     expect(toJsonSchema).toBeCalled();
+  //   });
 
   it("should return a promise that resolves to a defined value", () => {
     // resets the mocks, so we can use the real module
     vi.restoreAllMocks();
 
     // "return" and "resolve" is a way of handling a promise
-    return expect(getJSONSchema(testEndpoint)).resolves.toBeDefined();
+    return expect(getJSON(testEndpoint)).resolves.toBeDefined();
   });
 });
 

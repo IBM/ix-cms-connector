@@ -22,12 +22,9 @@ export async function fetchData(endpoint: string) {
   return await res.data;
 }
 
-export async function getJSONSchema(endpoint: string) {
+export async function getJSON(endpoint: string) {
   const json = await fetchData(endpoint);
-
-  const schema = toJsonSchema(json);
-
-  return schema;
+  return json;
 }
 
 export function getComponentParserConfig(fileName: string): Config {
