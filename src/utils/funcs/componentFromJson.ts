@@ -1,6 +1,8 @@
 import { DropdownOption } from "../../components/atoms/Dropdown";
 import { CMSProvider } from "../../components/organisms/CmsSchemaForm";
 
+/* Get a list of components from a JSON according to the CMS provider 
+in case of no component present returns an empty array. */
 export function getComponentsFromJson(
   cmsProvider: CMSProvider,
   json: JSON
@@ -18,6 +20,8 @@ export function getComponentsFromJson(
   return componentsList;
 }
 
+/* Recursive function to get all the elements in the object 
+based in the key components  and _uid */
 export function getComponentsFromObj(obj: object) {
   if (!obj) {
     return [];
@@ -40,6 +44,7 @@ export function getComponentsFromObj(obj: object) {
   return componentsList;
 }
 
+/* Extract part of Json based in the id of the component and CMS Provider */
 export function getComponentFromJson(
   cmsProvider: CMSProvider,
   json: JSON,
@@ -58,6 +63,7 @@ export function getComponentFromJson(
   return component;
 }
 
+/* Recursive function that returns part of a JSON based in the key _uid */
 export function getComponentFromObj(obj: object, id: string) {
   if (!obj) {
     return undefined;
