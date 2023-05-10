@@ -7,6 +7,7 @@ import { SearchInput } from "../atoms/SearchInput";
 
 interface PropFiltersProps {
   propList: MappableProp[];
+  customCss?: string;
 }
 
 enum TypeFiltersEnum {
@@ -24,6 +25,7 @@ const typeFilters = [
 
 export const PropFilters: FunctionComponent<PropFiltersProps> = ({
   propList,
+  customCss,
 }) => {
   const getSearchText = (searchTerm: string) => {
     console.log("search text: ", searchTerm);
@@ -34,7 +36,7 @@ export const PropFilters: FunctionComponent<PropFiltersProps> = ({
   };
 
   return (
-    <div>
+    <div class={customCss}>
       <SearchInput
         label=""
         placeholder="Filter properties"

@@ -117,7 +117,10 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         {!!componentMappableProps.length && (
           <div>
             <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
-            <PropFilters propList={unmappedComponentProps} />
+            <PropFilters
+              propList={unmappedComponentProps}
+              customCss="flex flex-col items-end"
+            />
             <ClickableList
               listCollection={unmappedComponentProps}
               mappedKey="name"
