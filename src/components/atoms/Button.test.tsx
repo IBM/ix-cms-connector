@@ -12,28 +12,28 @@ const testId = "button";
 
 describe("Button", () => {
   it("should display the button in the dom", () => {
-    render(<Button text={mockLabel} style={ButtonType.PRIMARY} />);
+    render(<Button testId={testId} text={mockLabel} style={ButtonType.PRIMARY} />);
 
     const buttonElement = screen.getByTestId(testId);
     expect(buttonElement).toBeInTheDocument();
   });
 
   it("should display the button with the correct label", () => {
-    render(<Button text={mockLabel} style={ButtonType.PRIMARY} />);
+    render(<Button testId={testId} text={mockLabel} style={ButtonType.PRIMARY} />);
 
     const buttonElement = screen.getByText(mockLabel);
     expect(buttonElement).toBeInTheDocument();
   });
 
   it("should display the button with primary style", () => {
-    render(<Button text={mockLabel} style={ButtonType.PRIMARY} />);
+    render(<Button testId={testId} text={mockLabel} style={ButtonType.PRIMARY} />);
 
     const buttonElement = screen.getByTestId(testId);
     expect(buttonElement).toHaveClass("bg-interactive-01");
   });
 
   it("should display the button with secondary style", () => {
-    render(<Button text={mockLabel} style={ButtonType.SECONDARY} />);
+    render(<Button testId={testId} text={mockLabel} style={ButtonType.SECONDARY} />);
 
     const buttonElement = screen.getByTestId(testId);
     expect(buttonElement).toHaveClass("bg-interactive-02");
@@ -44,7 +44,7 @@ describe("Button", () => {
     const onClickSpy = vi.fn();
 
     render(
-      <Button
+      <Button testId={testId}
         text={mockLabel}
         style={ButtonType.SECONDARY}
         onClick={onClickSpy}
@@ -63,7 +63,7 @@ describe("Button", () => {
     const onClickSpy = vi.fn();
 
     render(
-      <Button
+      <Button testId={testId}
         text={mockLabel}
         style={ButtonType.SECONDARY}
         onClick={onClickSpy}
