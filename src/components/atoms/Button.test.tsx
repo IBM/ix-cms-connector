@@ -14,7 +14,7 @@ describe("Button", () => {
   it("should display the button in the dom", () => {
     render(<Button text={mockLabel} style={ButtonType.PRIMARY} />);
 
-    const buttonElement = screen.getByTestId("button");
+    const buttonElement = screen.getByTestId(testId);
     expect(buttonElement).toBeInTheDocument();
   });
 
