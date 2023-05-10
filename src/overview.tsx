@@ -62,6 +62,7 @@ const Overview: FunctionComponent = () => {
                 { label: "Option 3", value: "3" },
               ]}
               handleOptionSelect={onItemSelected}
+              placeholder="Select"
             />
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">

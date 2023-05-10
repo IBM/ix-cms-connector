@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 
-import toJsonSchema from "to-json-schema";
 import {
   fetchData,
-  getJSONSchema,
+  getJSON,
   getComponentMappableProp,
   getComponentMappableProps,
   getCMSMappableField,
@@ -15,7 +14,6 @@ import {
 } from "./funcs";
 import { TSType } from "./const";
 import { PropDescriptor } from "react-docgen/dist/Documentation";
-import { ConverterFunc } from "./types";
 
 // Mocks a module (gets hoisted at the beginning of the file)
 // It's functionality can be mocked under the folder "__mocks__"
@@ -34,19 +32,12 @@ describe("fetchData()", () => {
 });
 
 describe("getJSONSchema()", () => {
-  it("should execute the jsonSchemaGenerator method", async () => {
-    await getJSONSchema(testEndpoint);
-
-    // Check that the mocked module was called
-    expect(toJsonSchema).toBeCalled();
-  });
-
   it("should return a promise that resolves to a defined value", () => {
     // resets the mocks, so we can use the real module
     vi.restoreAllMocks();
 
     // "return" and "resolve" is a way of handling a promise
-    return expect(getJSONSchema(testEndpoint)).resolves.toBeDefined();
+    return expect(getJSON(testEndpoint)).resolves.toBeDefined();
   });
 });
 
