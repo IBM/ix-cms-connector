@@ -299,24 +299,17 @@ export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
 
 export function formatMappablePropType(mappableProp: MappableProp) {
   // todo: change it to the desired format when the UI is ready
-  if (mappableProp.type === TSType.Array && mappableProp.subTypes) {
-    return `${mappableProp.subTypes[0]}[]`;
-  }
-
-  if (mappableProp.type === TSType.Union && mappableProp.subTypes) {
-    return mappableProp.subTypes.join(" | ");
-  }
-
-  return mappableProp.type;
+  return getMappablePropTypeSignature(mappableProp);
 }
 
 export function canMapProps(
   cmsField: MappableProp,
   componentProp: MappableProp
 ): ConverterFunc | boolean {
-  // if 2 props can be mapped we return a converter function or true, otherwise - false
+  // if 2 props can be mapped we return a converter function (if needed) or true, otherwise - false
 
   if (componentProp.type === TSType.Array) {
+    // if both arrays are of the same type
     if (cmsField.type === TSType.Array) {
       return (
         !!componentProp.subTypes &&
@@ -326,7 +319,7 @@ export function canMapProps(
     }
 
     // since we only work with arrays of primitive types,
-    // we can also convert any single variable of the primitive types by creating an array with only this varible
+    // we can also convert any single variable of a primitive type by creating an array with only this varible
     if (
       !!componentProp.subTypes &&
       componentProp.subTypes[0] === cmsField.type
@@ -363,26 +356,27 @@ export function canMapProps(
     return (p) => `"" + ${p}`;
   }
 
+  if (componentProp.type === TSType.Union) {
+    if (
+      componentProp.subTypes &&
+      componentProp.subTypes.includes(cmsField.type)
+    ) {
+      return true;
+    }
+  }
+
   // only for TS components, PropTypes don't have a null type
   if (componentProp.type === TSType.Null) {
-    return cmsField.type === TSType.Null;
+    if (cmsField.type === TSType.Null) {
+      return true;
+    }
   }
 
-  // only for TS components, PropTypes don't have an undefined type
-  // and it always returns false, since JSON doesn't have an undefined type
-  if (componentProp.type === TSType.Undefined) {
-    return false;
-  }
-
-  if (componentProp.type === TSType.Union) {
-    //
-  }
-
-  // in TS this flag means the field can be undefined
-  // in PropTypes - either null or undefined
-  if (!componentProp.isRequired) {
+  // only TS has the undefined type, plus in TS not required fields mean that they can be undefined
+  // in PropTypes only the "required" flag defines if a field can be null or undefined
+  if (componentProp.type === TSType.Undefined || !componentProp.isRequired) {
     // JSON only has null type, so just "convert" it to undefined
-    // since it's presented in both type systems
+    // since it fits for both type systems
     if (cmsField.type === TSType.Null) {
       return (p) => `${p} ?? undefined`;
     }
@@ -396,6 +390,18 @@ function getCMSFieldPath(cmsField: MappableProp, compProp: MappableProp) {
   const convert = canMapProps(cmsField, compProp);
 
   return typeof convert === "function" ? convert(cmsFieldPath) : cmsFieldPath;
+}
+
+function getMappablePropTypeSignature(mappableProp: MappableProp) {
+  if (mappableProp.type === TSType.Array && mappableProp.subTypes) {
+    return `${mappableProp.subTypes[0]}[]`;
+  }
+
+  if (mappableProp.type === TSType.Union && mappableProp.subTypes) {
+    return mappableProp.subTypes.join(" | ");
+  }
+
+  return mappableProp.type;
 }
 
 export function generateAdapterCode(
@@ -415,7 +421,9 @@ export function generateAdapterCode(
   const mappedPropsTypeName = `${componentName}MappedProps`;
 
   const addTypePropertyDef = (prop: MappableProp) =>
-    `${prop.name}${prop.isRequired ? "" : "?"}: ${prop.type};`;
+    `${prop.name}${prop.isRequired ? "" : "?"}: ${getMappablePropTypeSignature(
+      prop
+    )};`;
 
   const mappedPropsDeclarations = mappedProps.map(
     (mf) => `${mf[1].name}: ${getCMSFieldPath(mf[0], mf[1])},`
