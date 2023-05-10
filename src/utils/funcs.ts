@@ -1,5 +1,4 @@
 import axios from "axios";
-import { JSONSchema4TypeName } from "json-schema";
 import toJsonSchema from "to-json-schema";
 import type { Documentation, Config } from "react-docgen";
 import type {
