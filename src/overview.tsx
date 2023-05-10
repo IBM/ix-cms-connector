@@ -76,6 +76,7 @@ const Overview: FunctionComponent = () => {
               onSearchText={onSearchText}
             />
           </div>
+          <div class="flex flex-col gap-3 w-[400px] mb-6"></div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Radio Button</h3>
             <h4>Select one item</h4>
@@ -87,6 +88,7 @@ const Overview: FunctionComponent = () => {
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Checkbox</h3>
+            <h4>Select as many items as you want</h4>
             <div class="flex flex-row gap-3">
               <Checkbox id="checkbox-1" label="Item 1" name="overview" />
               <Checkbox id="checkbox-2" label="Item 2" name="overview" />

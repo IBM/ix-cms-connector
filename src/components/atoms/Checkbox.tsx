@@ -1,4 +1,5 @@
 import { FunctionComponent } from "preact";
+import { useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
 import {
   Checkbox as CheckboxIcon,
@@ -12,29 +13,32 @@ interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
-  label,
+  label = "",
   ...rest
 }) => {
-  const className = {
-    base: "w-4 h-4 shrink-0 border-ui-05 rounded-sm",
-    focus: "",
-    checked: "",
-  };
+  const [selected, setSelected] = useState<boolean>(false);
 
   return (
     <div class="flex flex-row items-center my-2">
-      <CheckboxIcon class="fill-interactive-icon-01" size="15" />
       <input
         type="checkbox"
         id={id}
         {...rest}
-        class={`${className.base} ${className.focus} ${className.checked}`}
+        class="appearance-none"
+        onClick={() => setSelected(!selected)}
       />
-      {label && (
-        <label class="text-sm leading-tight ml-2.5 text-text-01" htmlFor={id}>
-          {label}
-        </label>
-      )}
+
+      <label
+        class="flex items-center text-sm leading-tight text-text-01"
+        htmlFor={id}
+      >
+        {selected ? (
+          <CheckboxCheckedFilled size="20" />
+        ) : (
+          <CheckboxIcon size="20" />
+        )}
+        <span class="ml-2.5">{label}</span>
+      </label>
     </div>
   );
 };
