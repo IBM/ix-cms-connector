@@ -155,6 +155,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       <div class="flex flex-col">
         <RadioButton
           label="API endpoint"
+          id="api"
           name="cms"
           value={"api"}
           checked={schemaProvider === "api"}
@@ -162,6 +163,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
         <RadioButton
           label="JSON File upload"
+          id="json"
           name="cms"
           value={"json"}
           checked={schemaProvider === "json"}

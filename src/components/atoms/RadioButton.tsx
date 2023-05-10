@@ -2,12 +2,15 @@ import { FunctionComponent } from "preact";
 import { HTMLAttributes } from "react";
 
 interface RadioButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  id: string;
   label?: string;
+  testId?: string;
 }
 
 export const RadioButton: FunctionComponent<RadioButtonProps> = ({
   id,
   label,
+  testId,
   ...rest
 }) => {
   const className = {
@@ -22,10 +25,15 @@ export const RadioButton: FunctionComponent<RadioButtonProps> = ({
         type="radio"
         class={`${className.base} ${className.focus} ${className.checked}`}
         id={id}
+        data-testid={testId}
         {...rest}
       />
       {label && (
-        <label class={`text-sm leading-tight ml-2.5 text-text-01`} htmlFor={id}>
+        <label
+          data-testid={`${testId}-label`}
+          class={`text-sm leading-tight ml-2.5 text-text-01`}
+          htmlFor={id}
+        >
           {label}
         </label>
       )}
