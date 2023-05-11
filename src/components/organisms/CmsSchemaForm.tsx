@@ -10,7 +10,7 @@ import { Dropdown, DropdownOption } from "../atoms/Dropdown";
 import {
   getComponentFromJson,
   getComponentsFromJson,
-  getJSON,
+  fetchData,
   type JSONSchema,
 } from "../../utils";
 import React from "react";
@@ -115,7 +115,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       const { cmsEndpoint } = Object.fromEntries(formData.entries());
 
       try {
-        const json = await getJSON(cmsEndpoint as string);
+        const json = await fetchData(cmsEndpoint as string);
         setJson(json);
       } catch (e) {
         setCmsError(true);
