@@ -23,7 +23,6 @@ export const RadioButton: FunctionComponent<RadioButtonProps> = ({
   return (
     <label
       class={`flex flex-row items-center my-2 text-sm leading-tight text-text-01`}
-      htmlFor={id ?? _id}
     >
       <input
         type="radio"
