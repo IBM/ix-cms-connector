@@ -1,7 +1,7 @@
 import { JSONType, TSType } from "../const";
 import type { JSONSchema, MappableProp } from "../types";
 
-export function getCMSMappableField(
+export function getCmsMappableField(
   fieldName: string,
   fieldSchema: JSONSchema
 ): MappableProp | undefined {
@@ -80,7 +80,7 @@ export function getCMSMappableField(
 export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
   return Object.entries(schema.properties ?? {}).reduce(
     (mappableFields, [name, fieldSchema]) => {
-      const mappableField = getCMSMappableField(name, fieldSchema);
+      const mappableField = getCmsMappableField(name, fieldSchema);
 
       if (mappableField) {
         mappableFields.push(mappableField);
