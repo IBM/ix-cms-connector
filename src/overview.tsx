@@ -81,9 +81,9 @@ const Overview: FunctionComponent = () => {
             <h3>Radio Button</h3>
             <h4>Select one item</h4>
             <div class="flex flex-row gap-3">
-              <RadioButton label="Item 1" name="overview" id="item-1" />
-              <RadioButton label="Item 2" name="overview" id="item-2" />
-              <RadioButton label="Item 3" name="overview" id="item-3" />
+              <RadioButton label="Item 1" name="overview" />
+              <RadioButton label="Item 2" name="overview" />
+              <RadioButton label="Item 3" name="overview" />
             </div>
           </div>
         </div>
