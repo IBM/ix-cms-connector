@@ -190,7 +190,11 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         </div>
       )}
       {parsingCmsSchema && <span>Parsing...</span>}
-      {cmsError && <Error error="Unable to process this action!" />}
+      {cmsError && (
+        <Error>
+          <p class="mb-0">Unable to process this action!</p>
+        </Error>
+      )}
       {!cmsError && cmsSchema && (
         <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
           {JSON.stringify(cmsSchema, undefined, 2)}

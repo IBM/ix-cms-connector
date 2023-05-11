@@ -88,7 +88,12 @@ const Overview: FunctionComponent = () => {
             </div>
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
-            <Error error="There's an error in" />
+            <Error>
+              <p class="mb-0">
+                No React component found in
+                <span class="text-text-01"> foo.json</span>.
+              </p>
+            </Error>
           </div>
         </div>
       </div>

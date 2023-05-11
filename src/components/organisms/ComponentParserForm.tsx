@@ -4,6 +4,7 @@ import { parse, type Documentation } from "react-docgen";
 import { getComponentParserConfig } from "../../utils";
 import { FileSelect } from "../molecules/FileSelect";
 import { CodeSnippet } from "../molecules/CodeSnippet";
+import { Error } from "../atoms/Error";
 
 interface ComponentParserFormProps {
   onParsed: (doc: Documentation) => void;
@@ -67,9 +68,12 @@ export const ComponentParserForm: FunctionComponent<
           <div class="mt-2">
             {pending && <span>Parsing...</span>}
             {error && (
-              <div class="text-red-600 font-mono whitespace-pre p-4 rounded border-2 border-red-200 bg-red-50 max-h-96 text-sm overflow-scroll">
-                {error}
-              </div>
+              <Error>
+                <p class="mb-0">
+                  No component found in
+                  <span class="text-text-01"> {file.name}</span>
+                </p>
+              </Error>
             )}
             {!error && !!docsString && <CodeSnippet snippet={docsString} />}
           </div>
