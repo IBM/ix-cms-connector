@@ -1,20 +1,24 @@
 import { TSType } from "../const";
 import type { MappableProp, ConverterFunc } from "../types";
 
-export function canMapProps(
+// in case if a field shouldn't be converted and just passed as it is
+const NO_CONVERTER_FUNC: ConverterFunc = (p) => p;
+
+export function getPropsConverter(
   cmsField: MappableProp,
   componentProp: MappableProp
-): ConverterFunc | boolean {
+): ConverterFunc | undefined {
   // if 2 props can be mapped we return a converter function (if needed) or true, otherwise - false
 
   if (componentProp.type === TSType.Array) {
     // if both arrays are of the same type
     if (cmsField.type === TSType.Array) {
-      return (
+      const areArraysOfSameType =
         !!componentProp.subTypes &&
         !!cmsField.subTypes &&
-        componentProp.subTypes[0] === cmsField.subTypes[0]
-      );
+        componentProp.subTypes[0] === cmsField.subTypes[0];
+
+      return areArraysOfSameType ? NO_CONVERTER_FUNC : undefined;
     }
 
     // since we only work with arrays of primitive types,
@@ -29,7 +33,7 @@ export function canMapProps(
 
   if (componentProp.type === TSType.Boolean) {
     if (cmsField.type === TSType.Boolean) {
-      return true;
+      return NO_CONVERTER_FUNC;
     }
 
     // allow any type to be mapped to a boolean field by doing a simple conversion with !!
@@ -38,7 +42,7 @@ export function canMapProps(
 
   if (componentProp.type === TSType.Number) {
     if (cmsField.type === TSType.Number) {
-      return true;
+      return NO_CONVERTER_FUNC;
     }
 
     if (cmsField.type === TSType.Boolean || cmsField.type === TSType.String) {
@@ -48,7 +52,7 @@ export function canMapProps(
 
   if (componentProp.type === TSType.String) {
     if (cmsField.type === TSType.String) {
-      return true;
+      return NO_CONVERTER_FUNC;
     }
 
     // any type can be converted to string
@@ -60,14 +64,14 @@ export function canMapProps(
       componentProp.subTypes &&
       componentProp.subTypes.includes(cmsField.type)
     ) {
-      return true;
+      return NO_CONVERTER_FUNC;
     }
   }
 
   // only for TS components, PropTypes don't have a null type
   if (componentProp.type === TSType.Null) {
     if (cmsField.type === TSType.Null) {
-      return true;
+      return NO_CONVERTER_FUNC;
     }
   }
 
@@ -81,5 +85,14 @@ export function canMapProps(
     }
   }
 
-  return false;
+  return undefined;
+}
+
+export function canMapProps(
+  cmsField?: MappableProp,
+  componentProp?: MappableProp
+): boolean {
+  return cmsField && componentProp
+    ? !!getPropsConverter(cmsField, componentProp)
+    : false;
 }

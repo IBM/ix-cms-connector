@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
 
-import { canMapProps } from "./canMapProps";
+import { getPropsConverter, canMapProps } from "./getPropsConverter";
 import { TSType } from "../const";
 
-describe("canMapProps()", () => {
+describe("getPropsConverter()", () => {
   it("should return 'true' if we map 'string[]' to 'string[]'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Array,
@@ -20,11 +20,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeTruthy();
+    expect(result).toBeTypeOf("function");
   });
 
   it("should return 'false' if we map 'string[]' to 'boolean[]'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Array,
@@ -39,11 +39,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeFalsy();
+    expect(result).toBeUndefined();
   });
 
   it("should return a converter if we map 'boolean' to 'boolean[]'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Boolean,
@@ -61,7 +61,7 @@ describe("canMapProps()", () => {
   });
 
   it("should return 'true' if we map 'boolean' to 'boolean'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Boolean,
@@ -74,11 +74,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeTruthy();
+    expect(result).toBeTypeOf("function");
   });
 
   it("should return a converter if we map 'number[]' (or any other type) to 'boolean'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Array,
@@ -96,7 +96,7 @@ describe("canMapProps()", () => {
   });
 
   it("should return 'true' if we map 'number' to 'number'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Number,
@@ -109,11 +109,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeTruthy();
+    expect(result).toBeTypeOf("function");
   });
 
   it("should return a converter if we map 'string' to 'number'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.String,
@@ -130,7 +130,7 @@ describe("canMapProps()", () => {
   });
 
   it("should return 'true' if we map 'string' to 'string'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.String,
@@ -143,11 +143,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeTruthy();
+    expect(result).toBeTypeOf("function");
   });
 
   it("should return a converter if we map 'boolean[]' (or any other type) to 'string'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Array,
@@ -165,7 +165,7 @@ describe("canMapProps()", () => {
   });
 
   it("should return 'true' if we map 'number' to 'union' that has 'number'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Number,
@@ -179,11 +179,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeTruthy();
+    expect(result).toBeTypeOf("function");
   });
 
   it("should return 'true' if we map 'null' to 'null'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Null,
@@ -196,11 +196,11 @@ describe("canMapProps()", () => {
       }
     );
 
-    expect(result).toBeTruthy();
+    expect(result).toBeTypeOf("function");
   });
 
   it("should return a converter if we map 'null' to 'undefined'", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Null,
@@ -217,7 +217,7 @@ describe("canMapProps()", () => {
   });
 
   it("should return a converter if we map 'null' to a not required prop (of any type)", () => {
-    const result = canMapProps(
+    const result = getPropsConverter(
       {
         name: "fieldName",
         type: TSType.Null,
@@ -231,5 +231,18 @@ describe("canMapProps()", () => {
     );
 
     expect(result).toBeTypeOf("function");
+  });
+});
+
+describe("canMapProps()", () => {
+  it("should return 'false' if we only a CMS mappable prop was provided", () => {
+    const result = canMapProps({
+      name: "fieldName",
+      type: TSType.Array,
+      subTypes: [TSType.String],
+      isRequired: true,
+    });
+
+    expect(result).toBe(false);
   });
 });

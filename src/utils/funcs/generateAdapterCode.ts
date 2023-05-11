@@ -2,16 +2,16 @@ import type { Documentation } from "react-docgen";
 import { TSType } from "../const";
 import type { CodeGeneratorOptions, MappableProp, MappedProps } from "../types";
 import CodeBlockWriter from "code-block-writer";
-import { canMapProps } from "./canMapProps";
+import { getPropsConverter } from "./getPropsConverter";
 
 export function getCMSFieldPath(
   cmsField: MappableProp,
   compProp: MappableProp
 ) {
   const cmsFieldPath = `cmsData.${cmsField.name}`;
-  const convert = canMapProps(cmsField, compProp);
+  const convert = getPropsConverter(cmsField, compProp);
 
-  return typeof convert === "function" ? convert(cmsFieldPath) : cmsFieldPath;
+  return convert(cmsFieldPath);
 }
 
 export function getMappablePropTypeSignature(mappableProp: MappableProp) {
