@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header > should match the existing snapshot 1`] = `
+<header
+  class="flex justify-start items-center bg-ui-05 px-2"
+  data-testid="header-component"
+>
+  <div
+    class="text-xl text-text-04 p-2"
+  >
+    IBM 
+    <strong>
+      iX
+    </strong>
+  </div>
+</header>
+`;
