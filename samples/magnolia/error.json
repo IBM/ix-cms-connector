@@ -1,0 +1,374 @@
+{
+    "page": {
+        "@name": "error",
+        "@path": "/de/error",
+        "@nodeType": "mgnl:page",
+        "@id": "18c4068c-4f66-4d41-8b56-ae37fa3f59ba",
+        "shopLink": "/de/template-types",
+        "@language": "de",
+        "@localizedUrls": [
+            {
+                "lang": "de",
+                "link": "/de/error"
+            },
+            {
+                "lang": "en",
+                "link": "/en"
+            },
+            {
+                "lang": "zh",
+                "link": "/zh"
+            }
+        ],
+        "@root": "/de",
+        "@navigation": [
+            {
+                "title": "Aktuelles",
+                "path": "/de/overview",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Themen",
+                "path": "/de/template-types",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Presse",
+                "path": "/de/content-components",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Mitglieder",
+                "path": "/de/teaser-components",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Der ",
+                "path": "/de/event-list",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "publication list",
+                "path": "/de/publication-list",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "test page",
+                "path": "/de/test-page",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Testseite Babette!",
+                "path": "/de/testseite-babette",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Henri",
+                "path": "/de/Henri",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Tinos Test",
+                "path": "/de/Tino",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "kontakt",
+                "path": "/de/kontakt",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "pressReleaseImport",
+                "path": "/de/pressReleaseImport",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Suche",
+                "path": "/de/suche",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Analyze Caching behaviour",
+                "path": "/de/analyze-Caching-behaviour",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "JH Test",
+                "path": "/de/JH",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "ERROR DE\n",
+                "path": "/de/error",
+                "selected": true,
+                "featured": false
+            },
+            {
+                "title": "teaser 1-col",
+                "path": "/de/teaser-1-col0",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "job-postings",
+                "path": "/de/job-postings",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "georgi-test",
+                "path": "/de/georgi-test",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Text Area",
+                "path": "/de/Text-Area",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Interactive Image",
+                "path": "/de/Interactive-Image",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Interactive Image small ",
+                "path": "/de/Interactive-Image-small",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "download pdf com ",
+                "path": "/de/download-pdf-com0",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "MediaList",
+                "path": "/de/3-Column-Media-List-Overview",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "publicationRoot",
+                "path": "/de/publicationRoot",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Tweet Content",
+                "path": "/de/Tweet-Specific",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Modular Form",
+                "path": "/de/Modular-Form",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Proxy Test",
+                "path": "/de/Proxy",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Intro test",
+                "path": "/de/Intro-test",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "subnavigation test luma",
+                "path": "/de/subnavigation",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Speaker Profile",
+                "path": "/de/Speaker-Profile",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Glueup",
+                "path": "/de/Glueup",
+                "selected": false,
+                "featured": false
+            },
+            {
+                "title": "Event Programme",
+                "path": "/de/Event-Programme",
+                "selected": false,
+                "featured": false
+            }
+        ],
+        "@breadcrumb": [],
+        "@site": "",
+        "languageSwitch": "",
+        "mgnl:template": "test-core:pages/error",
+        "hideInNav": false,
+        "backgroundSize": "Big",
+        "text": "ERROR DE",
+        "title": "ERROR DE\n",
+        "hideInSitemap": false,
+        "noIndex": false,
+        "canonicalLink": "http:/localhost:8080/magnolia/de/error",
+        "main": {
+            "0": {
+                "@name": "0",
+                "@path": "/de/error/main/0",
+                "@nodeType": "mgnl:component",
+                "@id": "6066940a-8396-4a56-ba13-53a0e8a1e810",
+                "text": "The page your looking for was changed or doesn’t exist.",
+                "mgnl:template": "-core:components/contentError",
+                "link": "/de",
+                "headline": "404",
+                "ctaText": " Startseite",
+                "subHeadline": "Seite nicht gefunden.",
+                "@nodes": []
+            },
+            "@name": "main",
+            "@path": "/de/error/main",
+            "@nodeType": "mgnl:area",
+            "@id": "88c62590-60a6-4203-b331-759cad778371",
+            "@nodes": [
+                "0"
+            ]
+        },
+        "footer": {
+            "@name": "footer",
+            "@path": "/de/error/footer",
+            "@nodeType": "mgnl:area",
+            "@id": "3c11c203-70fe-4ee3-9278-40bd9ce1f060",
+            "@nodes": []
+        },
+        "footerSocialMedia": {
+            "0": {
+                "@name": "0",
+                "@path": "/de/footerSocialMedia/0",
+                "@nodeType": "mgnl:component",
+                "@id": "3833e7c0-513b-4c47-b1ac-dcb3c106a90e",
+                "introtext": "Folgen Sie uns",
+                "mgnl:template": "-core:components/footer/socialLinkComponentContainer",
+                "socialMedia": {
+                    "@name": "socialMedia",
+                    "@path": "/de/footerSocialMedia/0/socialMedia",
+                    "@nodeType": "mgnl:contentNode",
+                    "@id": "0e63bbbc-7ef3-490d-a9dd-e6023064e185",
+                    "socialMedia0": {
+                        "@name": "socialMedia0",
+                        "@path": "/de/footerSocialMedia/0/socialMedia/socialMedia0",
+                        "@nodeType": "mgnl:contentNode",
+                        "@id": "a6c1e643-ba0e-4092-8edc-2b041193f54c",
+                        "href": "https:/twitter.com/",
+                        "srtext": "this is a link to twitter",
+                        "icon": "jcr:a74cdab1-04ad-49b8-b2af-d22a1a57cd6b",
+                        "@nodes": []
+                    },
+                    "socialMedia1": {
+                        "@name": "socialMedia1",
+                        "@path": "/de/footerSocialMedia/0/socialMedia/socialMedia1",
+                        "@nodeType": "mgnl:contentNode",
+                        "@id": "002fd619-5c88-4d12-a3c5-fc93cbaa8e96",
+                        "href": "https:/de.linkedin.com/",
+                        "srtext": "this is a link to linkedin.de",
+                        "icon": "jcr:e0bcec74-dab6-4c61-8c1f-d12b753a346a",
+                        "@nodes": []
+                    },
+                    "socialMedia2": {
+                        "@name": "socialMedia2",
+                        "@path": "/de/footerSocialMedia/0/socialMedia/socialMedia2",
+                        "@nodeType": "mgnl:contentNode",
+                        "@id": "c3e423cf-c9dd-48d5-8d5c-bcea4284c99b",
+                        "href": "https:/www.xing.com/de",
+                        "srtext": "this is a link to xing.de",
+                        "icon": "jcr:6247710a-3ba4-4b57-8b46-7111e7bfb49e",
+                        "@nodes": []
+                    },
+                    "socialMedia3": {
+                        "@name": "socialMedia3",
+                        "@path": "/de/footerSocialMedia/0/socialMedia/socialMedia3",
+                        "@nodeType": "mgnl:contentNode",
+                        "@id": "b2d276e9-0b78-4baf-ae67-e98e88ef1c5f",
+                        "href": "https:/de-de.facebook.com/",
+                        "srtext": "this is a link to facebook.de",
+                        "icon": "jcr:bebf4fcc-d244-471d-9d97-8ecd853c08f2",
+                        "@nodes": []
+                    },
+                    "socialMedia4": {
+                        "@name": "socialMedia4",
+                        "@path": "/de/footerSocialMedia/0/socialMedia/socialMedia4",
+                        "@nodeType": "mgnl:contentNode",
+                        "@id": "464d4da3-db99-4769-81ce-8b885562a124",
+                        "href": "https:/www.instagram.com/",
+                        "srtext": "click to go to instagram",
+                        "icon": "jcr:00eb9ad1-0540-4e97-9594-b7f6cdbf5d40",
+                        "@nodes": []
+                    },
+                    "@nodes": [
+                        "socialMedia0",
+                        "socialMedia1",
+                        "socialMedia2",
+                        "socialMedia3",
+                        "socialMedia4"
+                    ]
+                },
+                "@nodes": [
+                    "socialMedia"
+                ]
+            },
+            "@name": "footerSocialMedia",
+            "@path": "/de/footerSocialMedia",
+            "@nodeType": "mgnl:area",
+            "@id": "cf0280f7-b7e8-48bd-9927-9e7b50c69910",
+            "@nodes": [
+                "0"
+            ]
+        },
+        "footerLogo": {
+            "0": {
+                "@name": "0",
+                "@path": "/de/footerLogo/0",
+                "@nodeType": "mgnl:component",
+                "@id": "840ec5d1-31a9-4411-80bb-dfbacdc2cd33",
+                "logo": "jcr:96cfc6dd-31a6-4df9-9ee1-058a5829e354",
+                "mgnl:template": "-core:components/footer/logoComponentContainer",
+                "alt": "alt text",
+                "@nodes": []
+            },
+            "@name": "footerLogo",
+            "@path": "test/de/footerLogo",
+            "@nodeType": "mgnl:area",
+            "@id": "5be88485-c7fb-40bd-8fe1-330ba726dase",
+            "@nodes": [
+                "0"
+            ]
+        },
+        "@nodes": [
+            "footer",
+            "footerLinks",
+            "footerMetaNavigation",
+            "footerSocialMedia",
+            "footerLogo"
+        ]
+    }
+}
