@@ -7,7 +7,7 @@ import { File } from "./File";
 
 const filename = "testfile.json";
 
-describe("File.tsx", () => {
+describe("File", () => {
   it("should display a File", () => {
     render(<File name={filename} />);
 
