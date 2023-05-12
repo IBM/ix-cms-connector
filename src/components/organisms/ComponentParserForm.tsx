@@ -18,8 +18,6 @@ export const ComponentParserForm: FunctionComponent<
 
   useEffect(() => {
     try {
-      setError(undefined);
-
       if (!file) {
         return;
       }
