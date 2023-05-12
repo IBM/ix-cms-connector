@@ -104,6 +104,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setCmsProvider(cmsProvider);
     setComponent(undefined);
     setCmsSchema(undefined);
+    setCmsError(false);
   };
 
   const getCmsSchemaFromUrl = useCallback(
@@ -128,6 +129,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setJson(undefined);
     setComponent(undefined);
     setCmsSchema(undefined);
+    setCmsError(false);
   }, []);
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
