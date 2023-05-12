@@ -12,6 +12,6 @@ const testEndpoint = "https://dummyjson.com/products/1";
 
 describe("fetchData()", () => {
   it("should return any data available for the endpoint", async () => {
-    expect(fetchData(testEndpoint)).resolves.toBeDefined();
+    await expect(fetchData(testEndpoint)).resolves.toBeDefined();
   });
 });

@@ -11,7 +11,7 @@ export function getCMSFieldPath(
   const cmsFieldPath = `cmsData.${cmsField.name}`;
   const convert = getPropsConverter(cmsField, compProp);
 
-  return convert(cmsFieldPath);
+  return convert ? convert(cmsFieldPath) : cmsFieldPath;
 }
 
 export function getMappablePropTypeSignature(mappableProp: MappableProp) {

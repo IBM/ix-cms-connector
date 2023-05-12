@@ -26,7 +26,7 @@ describe("getCMSFieldPath()", () => {
     expect(result).toBe(`cmsData.${cmsField.name}`);
   });
 
-  it("should return 'Number(cmsData.count)' (a conversion) if the given props are of types string => number", () => {
+  it("should return 'Number(cmsData.count)' (a conversion) if the given props should be converted from 'string' to 'number'", () => {
     const cmsField: MappableProp = {
       name: "count",
       type: TSType.String,

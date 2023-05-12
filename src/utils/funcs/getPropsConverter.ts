@@ -2,7 +2,7 @@ import { TSType } from "../const";
 import type { MappableProp, ConverterFunc } from "../types";
 
 // in case if a field shouldn't be converted and just passed as it is
-const NO_CONVERTER_FUNC: ConverterFunc = (p) => p;
+const DUMMY_CONVERTER: ConverterFunc = (p) => p;
 
 export function getPropsConverter(
   cmsField: MappableProp,
@@ -18,7 +18,7 @@ export function getPropsConverter(
         !!cmsField.subTypes &&
         componentProp.subTypes[0] === cmsField.subTypes[0];
 
-      return areArraysOfSameType ? NO_CONVERTER_FUNC : undefined;
+      return areArraysOfSameType ? DUMMY_CONVERTER : undefined;
     }
 
     // since we only work with arrays of primitive types,
@@ -33,16 +33,20 @@ export function getPropsConverter(
 
   if (componentProp.type === TSType.Boolean) {
     if (cmsField.type === TSType.Boolean) {
-      return NO_CONVERTER_FUNC;
+      return DUMMY_CONVERTER;
     }
 
     // allow any type to be mapped to a boolean field by doing a simple conversion with !!
-    return (p) => `!!${p}`;
+    // except if the component prop is not required and the CMS field is null
+    // in that case null will be passed without any conversion (see last if statement)
+    if (componentProp.isRequired || cmsField.type !== TSType.Null) {
+      return (p) => `!!${p}`;
+    }
   }
 
   if (componentProp.type === TSType.Number) {
     if (cmsField.type === TSType.Number) {
-      return NO_CONVERTER_FUNC;
+      return DUMMY_CONVERTER;
     }
 
     if (cmsField.type === TSType.Boolean || cmsField.type === TSType.String) {
@@ -52,11 +56,15 @@ export function getPropsConverter(
 
   if (componentProp.type === TSType.String) {
     if (cmsField.type === TSType.String) {
-      return NO_CONVERTER_FUNC;
+      return DUMMY_CONVERTER;
     }
 
     // any type can be converted to string
-    return (p) => `"" + ${p}`;
+    // except if the component prop is not required and the CMS field is null
+    // in that case null will be passed without any conversion (see last if statement)
+    if (componentProp.isRequired || cmsField.type !== TSType.Null) {
+      return (p) => `\`\${${p}}\``;
+    }
   }
 
   if (componentProp.type === TSType.Union) {
@@ -64,14 +72,14 @@ export function getPropsConverter(
       componentProp.subTypes &&
       componentProp.subTypes.includes(cmsField.type)
     ) {
-      return NO_CONVERTER_FUNC;
+      return DUMMY_CONVERTER;
     }
   }
 
   // only for TS components, PropTypes don't have a null type
   if (componentProp.type === TSType.Null) {
     if (cmsField.type === TSType.Null) {
-      return NO_CONVERTER_FUNC;
+      return DUMMY_CONVERTER;
     }
   }
 
