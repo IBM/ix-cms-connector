@@ -1,0 +1,15 @@
+{
+     "introtext": "Folgen Sie uns",
+     "items": [
+        {
+            "href": "https:/twitter.com/",
+            "srtext": "this is a link to twitter",
+            "icon": "jcr:a74cdab1-04ad-49b8-b2af-d22a1a57cd6b"   
+        },
+        {
+            "href": "https:/twitter.com/",
+            "srtext": "this is a link to twitter",
+            "icon": "jcr:a74cdab1-04ad-49b8-b2af-d22a1a57cd6b"
+        }
+     ]
+}
