@@ -34,7 +34,8 @@ const Main: FunctionComponent = () => {
         </div>
 
         <div>
-          <h3>Component</h3>
+          <h3>React component</h3>
+          <p>Upload the React component to be mapped.</p>
           <ComponentParserForm
             onParsed={(doc) => {
               setComponentDoc(doc);
