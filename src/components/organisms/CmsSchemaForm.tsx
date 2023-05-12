@@ -104,6 +104,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setCmsProvider(cmsProvider);
     setComponent(undefined);
     setCmsSchema(undefined);
+    setCmsError(false);
   };
 
   const getCmsSchemaFromUrl = useCallback(
@@ -128,6 +129,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setJson(undefined);
     setComponent(undefined);
     setCmsSchema(undefined);
+    setCmsError(false);
   }, []);
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
@@ -168,7 +170,14 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           onClick={() => setSchemaProvider("json")}
         />
       </div>
-      <div class="my-6 ">{schemaComponent[schemaProvider]}</div>
+      <div class="my-6 ">
+        {schemaComponent[schemaProvider]}
+        {cmsError && (
+          <Error>
+            <p class="mb-0">Unable to process the file provided.</p>
+          </Error>
+        )}
+      </div>
       <div class="z-20 relative">
         <Dropdown
           options={cmsOptions}
@@ -190,7 +199,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         </div>
       )}
       {parsingCmsSchema && <span>Parsing...</span>}
-      {cmsError && <Error error="Unable to process this action!" />}
       {!cmsError && cmsSchema && (
         <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
           {JSON.stringify(cmsSchema, undefined, 2)}

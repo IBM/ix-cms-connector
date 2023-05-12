@@ -22,7 +22,7 @@ export const File = ({
       <div class="flex items-center p-3.5 text-text-01 bg-ui-shell-white  my-2">
         <div class="flex-1 text-sm">{name}</div>
         <div class="flex-shrink-0 flex items-center">
-          {isLoading && <Spinner />}
+          {!!isLoading && <Spinner />}
           {!isLoading && isClickable && (
             <button
               onClick={onRemoveFile}
@@ -32,7 +32,11 @@ export const File = ({
             </button>
           )}
           {!isLoading && !isClickable && (
-            <CheckmarkFilled class="fill-interactive-01" />
+            <CheckmarkFilled
+              aria-live="polite"
+              role="status"
+              class="fill-interactive-01"
+            />
           )}
         </div>
       </div>

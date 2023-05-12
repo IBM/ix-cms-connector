@@ -18,3 +18,14 @@
     @apply text-sm text-text-05 leading-normal mb-2;
   }
 }
+
+/* SVG Custom Helpers */
+
+svg.custom-icon-fill--alert {
+  fill: #f1c21b;
+}
+
+svg.custom-icon-fill [data-icon-path="inner-path"] {
+  fill: #000;
+  opacity: 1;
+}
