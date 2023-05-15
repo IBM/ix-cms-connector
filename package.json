@@ -9,11 +9,14 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender --no-sw",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
     "test": "vitest run",
     "test:verbose": "vitest run --reporter verbose",
     "test:watch": "vitest"
+  },
+  "bin": {
+    "start": "./bin.js"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
