@@ -2,7 +2,7 @@ import { FunctionalComponent } from "preact";
 import { Search, Close } from "@carbon/icons-react";
 import { useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
-import { debounce } from "../../utils";
+import { debounce } from "../../utils/funcs/debounce";
 
 interface SearchInputProps extends HTMLAttributes<HTMLInputElement> {
   label: string;
@@ -43,15 +43,16 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
         <input
           id="search"
           type="text"
+          role="search"
           value={searchTerm}
           aria-label={label}
-          icon={Search}
           onChange={debouncedChange}
           {...input}
           class="py-3.5 px-10 min-w-0 w-full text-sm text-text-01 placeholder-text-03 bg-ui-shell-white box-border focus:outline-focus"
         />
         {searchTerm && (
           <button
+            alt="clear"
             onClick={onClean}
             class="bg-ui-shell-white absolute right-0 mr-3  focus:outline-focus"
           >
