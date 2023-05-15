@@ -15,9 +15,7 @@
     "test:verbose": "vitest run --reporter verbose",
     "test:watch": "vitest"
   },
-  "bin": {
-    "start": "./bin.js"
-  },
+  "bin": "./bin.js",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/preact": "^3.2.3",

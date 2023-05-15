@@ -2,6 +2,10 @@
 
 A tool to connect a JSON schema from a CMS with the input props of UI components
 
+## usage
+
+To execute the cms adapter generator simply run `npx cms-adapter-generator`. This will by default open up the UI of the generator on http://localhost:8080/. You can define another port by passing in a env variable, e.g. `PORT=3000 npx cms-adapter-generator`.
+
 ## prerequistes
 
 ### node

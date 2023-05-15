@@ -2,7 +2,9 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const childProcess = require("child_process");
 const port = process.env.PORT || 8080;
+const url = `http://localhost:${port}`;
 
 const mimeTypes = {
   "html": "text/html",
@@ -42,3 +44,11 @@ http.createServer((req, res) => {
     }
 
   }).listen(port);
+
+const startCmd = process.platform == "darwin" ? "open"
+  : process.platform == "win32" ? "start"
+  : "xdg-open";
+        
+childProcess.exec(startCmd + " " + url);
+
+console.log("CMS adaptor generator now running on port", port);
