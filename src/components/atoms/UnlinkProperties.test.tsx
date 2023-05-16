@@ -11,7 +11,6 @@ describe("UnlinkProperties", () => {
     render(<UnlinkProperties onClick={clickSpy} />);
 
     const buttonEl = screen.getByRole("button");
-    screen.debug(buttonEl);
 
     expect(buttonEl).toBeInTheDocument();
   });
