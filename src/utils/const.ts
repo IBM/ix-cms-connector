@@ -29,3 +29,8 @@ export enum TSType {
   Undefined = "undefined",
   Union = "union",
 }
+
+export enum Source {
+  CMS,
+  COMPONENT,
+}

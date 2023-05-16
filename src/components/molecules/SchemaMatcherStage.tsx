@@ -1,7 +1,7 @@
 import { FunctionComponent } from "preact";
 import { StagedProp } from "../../reducers/stagedPropsReducer";
-import { Property, PropertyProps, Source } from "../atoms/Property";
-import { MappableProp } from "../../utils";
+import { Property, PropertyProps } from "../atoms/Property";
+import { MappableProp, Source } from "../../utils";
 import { UnlinkProperties } from "../atoms/UnlinkProperties";
 import { canMapProps } from "../../utils/funcs/getPropsConverter";
 

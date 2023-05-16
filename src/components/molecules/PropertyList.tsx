@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
-import { MappableProp } from "../../utils";
-import { Property, PropertyProps, Source } from "../atoms/Property";
+import { MappableProp, Source } from "../../utils";
+import { Property, PropertyProps } from "../atoms/Property";
 import { canMapProps } from "../../utils/funcs/getPropsConverter";
 
 type PropertyListProps = {

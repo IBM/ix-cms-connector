@@ -4,8 +4,8 @@ import { it, expect, describe, vi } from "vitest";
 
 import { render, screen, fireEvent } from "@testing-library/preact";
 
-import { Property, Source } from "./Property";
-import { MappableProp, TSType } from "../../utils";
+import { Property } from "./Property";
+import { MappableProp, Source, TSType } from "../../utils";
 
 describe("Property", () => {
   it("should display a Property Component", () => {

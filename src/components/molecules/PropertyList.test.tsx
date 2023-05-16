@@ -5,8 +5,7 @@ import { it, expect, describe, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/preact";
 
 import { PropertyList } from "./PropertyList";
-import { MappableProp, TSType } from "../../utils";
-import { Source } from "../atoms/Property";
+import { MappableProp, Source, TSType } from "../../utils";
 
 const testList: MappableProp[] = [
   {
