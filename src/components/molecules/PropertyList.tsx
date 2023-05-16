@@ -29,6 +29,7 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
     if (!draggingProp) {
       return;
     }
+
     let cmsProp: MappableProp = null;
     let compProp: MappableProp = null;
     if (source === Source.CMS) {
