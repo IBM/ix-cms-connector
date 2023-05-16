@@ -30,7 +30,7 @@ export enum TSType {
   Union = "union",
 }
 
-export enum Source {
+export enum PropSource {
   CMS,
   COMPONENT,
 }

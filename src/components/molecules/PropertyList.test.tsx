@@ -5,7 +5,7 @@ import { it, expect, describe, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/preact";
 
 import { PropertyList } from "./PropertyList";
-import { MappableProp, Source, TSType } from "../../utils";
+import { MappableProp, PropSource, TSType } from "../../utils";
 
 const testList: MappableProp[] = [
   {
@@ -42,7 +42,7 @@ describe("PropertyList", () => {
     render(
       <PropertyList
         list={testList}
-        source={Source.CMS}
+        source={PropSource.CMS}
         onPropertyDragStart={() => 0}
         onPropertyClick={() => 0}
         onDropOnProperty={() => 0}
@@ -60,7 +60,7 @@ describe("PropertyList", () => {
     render(
       <PropertyList
         list={testList}
-        source={Source.CMS}
+        source={PropSource.CMS}
         onPropertyDragStart={propertyListSpy}
         onPropertyClick={() => 0}
         onDropOnProperty={() => 0}
@@ -80,7 +80,7 @@ describe("PropertyList", () => {
     render(
       <PropertyList
         list={testList}
-        source={Source.CMS}
+        source={PropSource.CMS}
         onPropertyDragStart={() => 0}
         onPropertyClick={propertyListSpy}
         onDropOnProperty={() => 0}
@@ -103,13 +103,13 @@ describe("PropertyList", () => {
         type: TSType.String,
         isRequired: true,
       },
-      source: Source.COMPONENT, // different then list source
+      source: PropSource.COMPONENT, // different then list source
     };
 
     render(
       <PropertyList
         list={testList}
-        source={Source.CMS}
+        source={PropSource.CMS}
         draggingProp={draggingProp}
         onPropertyDragStart={() => 0}
         onPropertyClick={() => 0}
@@ -134,13 +134,13 @@ describe("PropertyList", () => {
         type: TSType.String,
         isRequired: true,
       },
-      source: Source.CMS, // same than list source
+      source: PropSource.CMS, // same than list source
     };
 
     render(
       <PropertyList
         list={testList}
-        source={Source.CMS}
+        source={PropSource.CMS}
         draggingProp={draggingProp}
         onPropertyDragStart={() => 0}
         onPropertyClick={() => 0}
@@ -166,13 +166,13 @@ describe("PropertyList", () => {
         subTypes: [TSType.Boolean, TSType.Undefined],
         isRequired: false,
       },
-      source: Source.COMPONENT,
+      source: PropSource.COMPONENT,
     };
 
     render(
       <PropertyList
         list={testList}
-        source={Source.CMS}
+        source={PropSource.CMS}
         draggingProp={draggingProp}
         onPropertyDragStart={() => 0}
         onPropertyClick={() => 0}

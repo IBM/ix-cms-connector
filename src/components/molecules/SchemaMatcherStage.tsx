@@ -1,14 +1,14 @@
 import { FunctionComponent } from "preact";
 import { StagedProp } from "../../reducers/stagedPropsReducer";
 import { Property, PropertyProps } from "../atoms/Property";
-import { MappableProp, Source } from "../../utils";
+import { MappableProp, PropSource } from "../../utils";
 import { UnlinkProperties } from "../atoms/UnlinkProperties";
 import { canMapProps } from "../../utils/funcs/getPropsConverter";
 
 type SchemaMatcherStageProps = {
   stagedProps: StagedProp[];
   draggingProp: PropertyProps | null;
-  onDropOnStage: (propData: MappableProp, source: Source) => void;
+  onDropOnStage: (propData: MappableProp, source: PropSource) => void;
   onDropOnPropery: (
     cmsProp: MappableProp,
     compProp: MappableProp,
@@ -17,9 +17,9 @@ type SchemaMatcherStageProps = {
   onPropertyDragStart: (
     event: DragEvent,
     propData: MappableProp,
-    source: Source
+    source: PropSource
   ) => void;
-  onPropertyClick: (propData: MappableProp, source: Source) => void;
+  onPropertyClick: (propData: MappableProp, source: PropSource) => void;
   onUnlinkClick: (cmsProp: MappableProp, compProp: MappableProp) => void;
 };
 
@@ -48,10 +48,10 @@ export const SchemaMatcherStage: FunctionComponent<SchemaMatcherStageProps> = ({
       <ul>
         {stagedProps.map(([cmsProp, compProp], index) => {
           let isMappable = false;
-          if (draggingProp?.source === Source.CMS) {
+          if (draggingProp?.source === PropSource.CMS) {
             isMappable =
               !!compProp && canMapProps(draggingProp.propData, compProp);
-          } else if (draggingProp?.source === Source.COMPONENT) {
+          } else if (draggingProp?.source === PropSource.COMPONENT) {
             isMappable =
               !!cmsProp && canMapProps(cmsProp, draggingProp.propData);
           }
@@ -66,9 +66,9 @@ export const SchemaMatcherStage: FunctionComponent<SchemaMatcherStageProps> = ({
                 isMappable
                   ? (event) => {
                       event.stopPropagation();
-                      if (draggingProp.source === Source.CMS) {
+                      if (draggingProp.source === PropSource.CMS) {
                         onDropOnPropery(draggingProp.propData, compProp, index);
-                      } else if (draggingProp.source === Source.COMPONENT) {
+                      } else if (draggingProp.source === PropSource.COMPONENT) {
                         onDropOnPropery(cmsProp, draggingProp.propData, index);
                       }
                     }
@@ -83,12 +83,12 @@ export const SchemaMatcherStage: FunctionComponent<SchemaMatcherStageProps> = ({
                 {!!cmsProp && (
                   <Property
                     propData={cmsProp}
-                    source={Source.CMS}
+                    source={PropSource.CMS}
                     draggable={true}
                     onDragStart={(event) =>
-                      onPropertyDragStart(event, cmsProp, Source.CMS)
+                      onPropertyDragStart(event, cmsProp, PropSource.CMS)
                     }
-                    onClick={() => onPropertyClick(cmsProp, Source.CMS)}
+                    onClick={() => onPropertyClick(cmsProp, PropSource.CMS)}
                   />
                 )}
               </div>
@@ -109,12 +109,14 @@ export const SchemaMatcherStage: FunctionComponent<SchemaMatcherStageProps> = ({
                 {!!compProp && (
                   <Property
                     propData={compProp}
-                    source={Source.COMPONENT}
+                    source={PropSource.COMPONENT}
                     draggable={true}
                     onDragStart={(event) =>
-                      onPropertyDragStart(event, compProp, Source.COMPONENT)
+                      onPropertyDragStart(event, compProp, PropSource.COMPONENT)
                     }
-                    onClick={() => onPropertyClick(compProp, Source.COMPONENT)}
+                    onClick={() =>
+                      onPropertyClick(compProp, PropSource.COMPONENT)
+                    }
                   />
                 )}
               </div>

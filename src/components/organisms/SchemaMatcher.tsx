@@ -6,7 +6,7 @@ import {
   JSONSchema,
   MappableProp,
   MappedProps,
-  Source,
+  PropSource,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../../utils";
@@ -23,10 +23,11 @@ import { SchemaMatcherStage } from "../molecules/SchemaMatcherStage";
 const isStaged = (
   prop: MappableProp,
   stagedProps: StagedProp[],
-  source: Source
+  source: PropSource
 ) => {
   return stagedProps.some(
-    (stagedRow) => stagedRow[source === Source.CMS ? 0 : 1]?.name === prop.name
+    (stagedRow) =>
+      stagedRow[source === PropSource.CMS ? 0 : 1]?.name === prop.name
   );
 };
 
@@ -55,7 +56,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   const unstagedCmsProps = useMemo(
     () =>
       cmsProps
-        .filter((cmsProp) => !isStaged(cmsProp, stagedProps, Source.CMS))
+        .filter((cmsProp) => !isStaged(cmsProp, stagedProps, PropSource.CMS))
         .sort(byName),
     [stagedProps]
   );
@@ -63,7 +64,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
     () =>
       compProps
         .filter(
-          (compProp) => !isStaged(compProp, stagedProps, Source.COMPONENT)
+          (compProp) => !isStaged(compProp, stagedProps, PropSource.COMPONENT)
         )
         .sort(byName),
     [stagedProps]
@@ -91,7 +92,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   const handleDragStart = (
     event: DragEvent,
     propData: MappableProp,
-    source: Source
+    source: PropSource
   ) => {
     event.dataTransfer.effectAllowed = "linkMove";
     setDraggingProp({ propData, source });
@@ -111,10 +112,10 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
     setDraggingProp(null);
   };
 
-  const addPropToStage = (prop: MappableProp, source: Source) => {
+  const addPropToStage = (prop: MappableProp, source: PropSource) => {
     let cmsProp: MappableProp = null;
     let compProp: MappableProp = null;
-    if (source === Source.CMS) {
+    if (source === PropSource.CMS) {
       cmsProp = prop;
     } else {
       compProp = prop;
@@ -130,10 +131,10 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
     }
   };
 
-  const removePropFromStage = (prop: MappableProp, source: Source) => {
+  const removePropFromStage = (prop: MappableProp, source: PropSource) => {
     let cmsProp: MappableProp = null;
     let compProp: MappableProp = null;
-    if (source === Source.CMS) {
+    if (source === PropSource.CMS) {
       cmsProp = prop;
     } else {
       compProp = prop;
@@ -160,7 +161,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
       <div class="grid grid-cols-2">
         <PropertyList
           list={unstagedCmsProps}
-          source={Source.CMS}
+          source={PropSource.CMS}
           draggingProp={draggingProp}
           onPropertyDragStart={handleDragStart}
           onDropOnProperty={mapPropsOnStage}
@@ -169,7 +170,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
 
         <PropertyList
           list={unstagedCompProps}
-          source={Source.COMPONENT}
+          source={PropSource.COMPONENT}
           draggingProp={draggingProp}
           onPropertyDragStart={handleDragStart}
           onDropOnProperty={mapPropsOnStage}

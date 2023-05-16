@@ -1,19 +1,19 @@
 import { FunctionalComponent } from "preact";
-import { MappableProp, Source } from "../../utils";
+import { MappableProp, PropSource } from "../../utils";
 import { Property, PropertyProps } from "../atoms/Property";
 import { canMapProps } from "../../utils/funcs/getPropsConverter";
 
 type PropertyListProps = {
   list: MappableProp[];
-  source: Source;
+  source: PropSource;
   draggingProp?: PropertyProps;
   onPropertyDragStart: (
     event: DragEvent,
     propData: MappableProp,
-    source: Source
+    source: PropSource
   ) => void;
   onDropOnProperty: (cmsProp: MappableProp, compProp: MappableProp) => void;
-  onPropertyClick: (prop: MappableProp, source: Source) => void;
+  onPropertyClick: (prop: MappableProp, source: PropSource) => void;
 };
 
 export const PropertyList: FunctionalComponent<PropertyListProps> = ({
@@ -32,7 +32,7 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
 
     let cmsProp: MappableProp = null;
     let compProp: MappableProp = null;
-    if (source === Source.CMS) {
+    if (source === PropSource.CMS) {
       cmsProp = prop;
       compProp = draggingProp.propData;
     } else {
@@ -47,9 +47,9 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
       {list.map((prop) => {
         let isMappable = false;
         if (draggingProp && draggingProp.source !== source) {
-          if (source === Source.CMS) {
+          if (source === PropSource.CMS) {
             isMappable = canMapProps(prop, draggingProp.propData);
-          } else if (source === Source.COMPONENT) {
+          } else if (source === PropSource.COMPONENT) {
             isMappable = canMapProps(draggingProp.propData, prop);
           }
         }
@@ -63,7 +63,7 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
                 : undefined
             }
             class={`mb-px ${isMappable ? "bg-ui-03 bg-opacity-20" : ""} ${
-              source === Source.COMPONENT ? "flex justify-end" : ""
+              source === PropSource.COMPONENT ? "flex justify-end" : ""
             }`}
           >
             <Property

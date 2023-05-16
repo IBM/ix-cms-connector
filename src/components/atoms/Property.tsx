@@ -1,13 +1,13 @@
 import { FunctionalComponent } from "preact";
 import { useRef, useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
-import { MappableProp, Source, formatMappablePropType } from "../../utils";
+import { MappableProp, PropSource, formatMappablePropType } from "../../utils";
 import { PropertyTag } from "./PropertyTag";
 import { PropertyArrowComponent } from "./PropertyArrowComponent";
 import { PropertyArrowCms } from "./PropertyArrowCms";
 
 export interface PropertyProps extends HTMLAttributes<HTMLDivElement> {
-  source: Source.CMS | Source.COMPONENT;
+  source: PropSource.CMS | PropSource.COMPONENT;
   propData: MappableProp;
 }
 
@@ -31,12 +31,12 @@ export const Property: FunctionalComponent<PropertyProps> = ({
       tabIndex={0}
       ref={propertyRef}
     >
-      {source === Source.COMPONENT && <PropertyArrowComponent />}
+      {source === PropSource.COMPONENT && <PropertyArrowComponent />}
 
       <div class="py-2 px-3 bg-ui-01 group-hover/property:bg-highlight h-fit">
         <div
           class={`mb-1.5 text-sm leading-none font-mono text-text-01 ${
-            source === Source.COMPONENT ? "text-right" : ""
+            source === PropSource.COMPONENT ? "text-right" : ""
           }`}
         >
           {name}
@@ -44,7 +44,7 @@ export const Property: FunctionalComponent<PropertyProps> = ({
         </div>
         <ul
           class={`flex space-x-2 ${
-            source === Source.COMPONENT ? "justify-end" : ""
+            source === PropSource.COMPONENT ? "justify-end" : ""
           }`}
         >
           {types.map((type) => (
@@ -55,7 +55,7 @@ export const Property: FunctionalComponent<PropertyProps> = ({
         </ul>
       </div>
 
-      {source === Source.CMS && <PropertyArrowCms />}
+      {source === PropSource.CMS && <PropertyArrowCms />}
     </div>
   );
 };

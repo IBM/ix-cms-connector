@@ -5,7 +5,7 @@ import { it, expect, describe, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/preact";
 
 import { Property } from "./Property";
-import { MappableProp, Source, TSType } from "../../utils";
+import { MappableProp, PropSource, TSType } from "../../utils";
 
 describe("Property", () => {
   it("should display a Property Component", () => {
@@ -14,7 +14,7 @@ describe("Property", () => {
       type: TSType.String,
       isRequired: true,
     };
-    render(<Property propData={simpleProp} source={Source.CMS} />);
+    render(<Property propData={simpleProp} source={PropSource.CMS} />);
 
     const propEl = screen.getByText(simpleProp.name);
 
@@ -27,7 +27,7 @@ describe("Property", () => {
       type: TSType.String,
       isRequired: true,
     };
-    render(<Property propData={simpleProp} source={Source.CMS} />);
+    render(<Property propData={simpleProp} source={PropSource.CMS} />);
 
     const propEl = screen.getByText("*");
 
@@ -40,7 +40,7 @@ describe("Property", () => {
       type: TSType.String,
       isRequired: false,
     };
-    render(<Property propData={simpleProp} source={Source.CMS} />);
+    render(<Property propData={simpleProp} source={PropSource.CMS} />);
 
     const propEl = screen.queryByText("*");
 
@@ -54,7 +54,7 @@ describe("Property", () => {
       subTypes: [TSType.Number],
       isRequired: true,
     };
-    render(<Property propData={arrayProp} source={Source.CMS} />);
+    render(<Property propData={arrayProp} source={PropSource.CMS} />);
 
     const propEl = screen.getByText(TSType.Number + "[]");
 
@@ -68,7 +68,7 @@ describe("Property", () => {
       subTypes: [TSType.String, TSType.Null],
       isRequired: true,
     };
-    render(<Property propData={unionProp} source={Source.CMS} />);
+    render(<Property propData={unionProp} source={PropSource.CMS} />);
 
     const stringEl = screen.getByText(TSType.String);
     const nullEl = screen.getByText(TSType.Null);
@@ -89,7 +89,7 @@ describe("Property", () => {
     render(
       <Property
         propData={simpleProp}
-        source={Source.CMS}
+        source={PropSource.CMS}
         onDragStart={handleDragSpy}
       />
     );
@@ -114,7 +114,7 @@ describe("Property", () => {
     render(
       <Property
         propData={simpleProp}
-        source={Source.CMS}
+        source={PropSource.CMS}
         onClick={handleClickSpy}
       />
     );
