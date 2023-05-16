@@ -1,10 +1,6 @@
 import { MappableProp } from "src/utils";
 
-export type StagedProp =
-  | [MappableProp, MappableProp]
-  | [MappableProp, null]
-  | [null, MappableProp]
-  | [null, null];
+export type StagedProp = [MappableProp | null, MappableProp | null];
 
 export enum StagedPropsActionTypes {
   ADD_PROPS,
