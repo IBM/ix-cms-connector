@@ -7,9 +7,9 @@ import { Error } from "./Error";
 
 const errorMSG = "Error test";
 
-beforeEach(() =>  {
+beforeEach(() => {
   render(
-    <Error> 
+    <Error>
       <p aria-label="error-msg">{errorMSG}</p>
     </Error>
   );
