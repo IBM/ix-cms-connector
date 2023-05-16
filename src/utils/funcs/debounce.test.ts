@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from "vitest";
 import { debounce } from "./debounce";
 
 describe("debounce()", () => {
-  it("should wait for 3 seconds", async() => {
+  it("should wait for 3 seconds", () => {
     vi.useFakeTimers();
     const fnSpy = vi.fn();
 
@@ -16,5 +16,14 @@ describe("debounce()", () => {
     vi.runAllTimers();
 
     expect(fnSpy).toBeCalled();
+  });
+
+  it("should not run the function if time not passed", () => {
+    const fnSpy = vi.fn();
+
+    const debouncedFn = debounce(fnSpy, 300);
+    debouncedFn();
+
+    expect(fnSpy).not.toBeCalled();
   });
 });
