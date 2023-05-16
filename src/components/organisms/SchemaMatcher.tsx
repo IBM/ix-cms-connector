@@ -1,5 +1,5 @@
 import { FunctionComponent } from "preact";
-import { useEffect, useReducer, useState } from "preact/hooks";
+import { useEffect, useMemo, useReducer, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
 import { PropertyProps } from "../atoms/Property";
 import {
@@ -52,6 +52,22 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   );
   const [stagedProps, dispatch] = useReducer(stagedPropsReducer, []);
   const [draggingProp, setDraggingProp] = useState<PropertyProps>(null);
+  const unstagedCmsProps = useMemo(
+    () =>
+      cmsProps
+        .filter((cmsProp) => !isStaged(cmsProp, stagedProps, Source.CMS))
+        .sort(byName),
+    [stagedProps]
+  );
+  const unstagedCompProps = useMemo(
+    () =>
+      compProps
+        .filter(
+          (compProp) => !isStaged(compProp, stagedProps, Source.COMPONENT)
+        )
+        .sort(byName),
+    [stagedProps]
+  );
 
   useEffect(() => {
     const updatedCmsProps = getCmsMappableFields(cmsSchema);
@@ -143,9 +159,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
     >
       <div class="grid grid-cols-2">
         <PropertyList
-          list={cmsProps
-            .filter((cmsProp) => !isStaged(cmsProp, stagedProps, Source.CMS))
-            .sort(byName)}
+          list={unstagedCmsProps}
           source={Source.CMS}
           draggingProp={draggingProp}
           onPropertyDragStart={handleDragStart}
@@ -154,11 +168,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         />
 
         <PropertyList
-          list={compProps
-            .filter(
-              (cmsProp) => !isStaged(cmsProp, stagedProps, Source.COMPONENT)
-            )
-            .sort(byName)}
+          list={unstagedCompProps}
           source={Source.COMPONENT}
           draggingProp={draggingProp}
           onPropertyDragStart={handleDragStart}
