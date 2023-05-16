@@ -1,4 +1,5 @@
-import { MappableProp } from "src/utils";
+import { MappableProp } from "../utils";
+import { canMapProps } from "../utils/funcs/getPropsConverter";
 
 export type StagedProp = [MappableProp | null, MappableProp | null];
 
@@ -26,11 +27,14 @@ type StagedPropsAction =
       compProps: MappableProp[];
     };
 
-const isSameProp = (propA: MappableProp | null, propB: MappableProp | null) => {
+const isSamePropName = (
+  propA: MappableProp | null,
+  propB: MappableProp | null
+) => {
   if (!propA || !propB) {
     return false;
   }
-  return propA.name === propB.name && propA.type === propB.type;
+  return propA.name === propB.name;
 };
 
 export function stagedPropsReducer(
@@ -48,8 +52,10 @@ export function stagedPropsReducer(
       const copy = [...state];
 
       // step 1 remove already staged props to prevent duplicates
-      const cmsIndex = copy.findIndex((row) => isSameProp(cmsProp, row[0]));
-      const compIndex = copy.findIndex((row) => isSameProp(compProp, row[1]));
+      const cmsIndex = copy.findIndex((row) => isSamePropName(cmsProp, row[0]));
+      const compIndex = copy.findIndex((row) =>
+        isSamePropName(compProp, row[1])
+      );
 
       if (cmsIndex != -1) {
         copy[cmsIndex][0] = null;
@@ -78,8 +84,10 @@ export function stagedPropsReducer(
     case StagedPropsActionTypes.REMOVE_PROPS: {
       const { cmsProp, compProp } = action;
       const copy = [...state];
-      const cmsIndex = copy.findIndex((row) => isSameProp(cmsProp, row[0]));
-      const compIndex = copy.findIndex((row) => isSameProp(compProp, row[1]));
+      const cmsIndex = copy.findIndex((row) => isSamePropName(cmsProp, row[0]));
+      const compIndex = copy.findIndex((row) =>
+        isSamePropName(compProp, row[1])
+      );
 
       if (cmsIndex != -1) {
         copy[cmsIndex][0] = null;
@@ -98,9 +106,12 @@ export function stagedPropsReducer(
       const autoMappedProps: StagedProp[] = [];
       cmsProps.forEach((cmsProp) => {
         const matchedComponentProp = compProps.find((compProp) =>
-          isSameProp(cmsProp, compProp)
+          isSamePropName(cmsProp, compProp)
         );
-        if (matchedComponentProp) {
+        if (
+          matchedComponentProp &&
+          canMapProps(cmsProp, matchedComponentProp)
+        ) {
           autoMappedProps.push([cmsProp, matchedComponentProp]);
         }
       });
