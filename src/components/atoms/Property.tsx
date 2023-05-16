@@ -3,6 +3,8 @@ import { useRef, useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
 import { MappableProp, TSType } from "../../utils";
 import { PropertyTag } from "./PropertyTag";
+import { PropertyArrowComponent } from "./PropertyArrowComponent";
+import { PropertyArrowCms } from "./PropertyArrowCms";
 
 export enum Source {
   CMS,
@@ -47,16 +49,7 @@ export const Property: FunctionalComponent<PropertyProps> = ({
       tabIndex={0}
       ref={propertyRef}
     >
-      {source === Source.COMPONENT && (
-        <svg
-          viewBox="0 0 16 56"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-14 fill-ui-01 group-hover/property:fill-highlight"
-          role="none"
-        >
-          <polygon points="0,0 16,0 16,56 0,56 16,28 0,0" />
-        </svg>
-      )}
+      {source === Source.COMPONENT && <PropertyArrowComponent />}
 
       <div class="py-2 px-3 bg-ui-01 group-hover/property:bg-highlight h-fit">
         <div
@@ -80,16 +73,7 @@ export const Property: FunctionalComponent<PropertyProps> = ({
         </ul>
       </div>
 
-      {source === Source.CMS && (
-        <svg
-          viewBox="0 0 16 56"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-14 fill-ui-01 group-hover/property:fill-highlight"
-          role="none"
-        >
-          <polygon points="0,0 16,28 0,56 0,0" />
-        </svg>
-      )}
+      {source === Source.CMS && <PropertyArrowCms />}
     </div>
   );
 };
