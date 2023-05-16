@@ -1,7 +1,21 @@
+import { TSType } from "../const";
 import type { MappableProp } from "../types";
-import { getMappablePropTypeSignature } from "./generateAdapterCode";
 
-export function formatMappablePropType(mappableProp: MappableProp) {
-  // todo: change it to the desired format when the UI is ready
-  return getMappablePropTypeSignature(mappableProp);
+export function formatMappablePropType({
+  type,
+  subTypes,
+}: MappableProp): string[] {
+  const propTypes = [];
+  if (type === TSType.Array) {
+    for (const subType of subTypes) {
+      propTypes.push(`${subType}[]`);
+    }
+  } else if (type === TSType.Union) {
+    for (const subType of subTypes) {
+      propTypes.push(subType);
+    }
+  } else {
+    propTypes.push(type);
+  }
+  return propTypes;
 }

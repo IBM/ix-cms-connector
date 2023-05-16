@@ -13,27 +13,14 @@ export interface PropertyProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Property: FunctionalComponent<PropertyProps> = ({
   source,
-  propData: { name, type, subTypes, isRequired },
+  propData,
   draggable,
   onClick,
   onDragStart,
 }) => {
-  const [types] = useState<string[]>(() => {
-    const propTypes = [];
-    if (type === TSType.Array) {
-      for (const subType of subTypes) {
-        propTypes.push(`${subType}[]`);
-      }
-    } else if (type === TSType.Union) {
-      for (const subType of subTypes) {
-        propTypes.push(subType);
-      }
-    } else {
-      propTypes.push(type);
-    }
-    return propTypes;
-  });
+  const [types] = useState<string[]>(() => formatMappablePropType(propData));
   const propertyRef = useRef<HTMLDivElement>(null);
+  const { name, isRequired } = propData;
 
   return (
     <div
