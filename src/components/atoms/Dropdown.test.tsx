@@ -75,4 +75,26 @@ describe("Dropdown", () => {
     expect(selectedOptionSpy).toBeCalledTimes(1);
     expect(elValue).toMatch(mockOptions[1].value);
   });
+
+  it("should close the dropdown when the key est is pressed", async () => {
+    const user = userEvent.setup();
+    const selectedOption = vi.fn();
+
+    render(
+      <Dropdown
+        label={mockLabel}
+        options={mockOptions}
+        handleOptionSelect={(option) => selectedOption(option.value)}
+      />
+    );
+
+    const dropdownEl = screen.getByLabelText(mockLabel);
+    fireEvent.click(dropdownEl);
+
+    const dropdownListEl = screen.getByRole("listbox");
+    expect(dropdownListEl).toBeInTheDocument();
+
+    await user.keyboard("{Escape}");
+    expect(dropdownListEl).not.toBeInTheDocument();
+  });
 });
