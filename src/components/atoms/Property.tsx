@@ -1,7 +1,7 @@
 import { FunctionalComponent } from "preact";
 import { useRef, useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
-import { MappableProp, Source, TSType } from "../../utils";
+import { MappableProp, Source, formatMappablePropType } from "../../utils";
 import { PropertyTag } from "./PropertyTag";
 import { PropertyArrowComponent } from "./PropertyArrowComponent";
 import { PropertyArrowCms } from "./PropertyArrowCms";

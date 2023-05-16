@@ -1,11 +1,12 @@
 import { FunctionComponent } from "preact";
 import { useEffect, useReducer, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
-import { PropertyProps, Source } from "../atoms/Property";
+import { PropertyProps } from "../atoms/Property";
 import {
   JSONSchema,
   MappableProp,
   MappedProps,
+  Source,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../../utils";
