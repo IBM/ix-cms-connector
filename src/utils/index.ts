@@ -1,6 +1,5 @@
 export * from "./types.d";
 export * from "./const";
-export * from "./funcs/canMapProps";
 export * from "./funcs/componentFromJson";
 export * from "./funcs/debounce";
 export * from "./funcs/fetchData";
