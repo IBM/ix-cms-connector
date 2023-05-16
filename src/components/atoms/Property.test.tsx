@@ -126,4 +126,18 @@ describe("Property", () => {
 
     expect(handleClickSpy).toBeCalled();
   });
+
+  it("should match the existing snapshot", () => {
+    const simpleProp: MappableProp = {
+      name: "test_property",
+      type: TSType.String,
+      isRequired: true,
+    };
+    render(<Property propData={simpleProp} source={PropSource.CMS} />);
+
+    const propEl = screen.getByText(simpleProp.name);
+    const rootEl = propEl.parentElement.parentElement;
+
+    expect(rootEl).toMatchSnapshot();
+  });
 });
