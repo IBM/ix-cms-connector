@@ -155,4 +155,36 @@ describe("PropertyList", () => {
 
     expect(propertyListSpy).not.toBeCalled();
   });
+
+  it("should NOT invoke the onDropOnProperty handler when a property with different source is dropped but is not compatible", () => {
+    const propertyListSpy = vi.fn();
+
+    const draggingProp = {
+      propData: {
+        name: "dragging-test",
+        type: TSType.Union,
+        subTypes: [TSType.Boolean, TSType.Undefined],
+        isRequired: false,
+      },
+      source: Source.COMPONENT,
+    };
+
+    render(
+      <PropertyList
+        list={testList}
+        source={Source.CMS}
+        draggingProp={draggingProp}
+        onPropertyDragStart={() => 0}
+        onPropertyClick={() => 0}
+        onDropOnProperty={propertyListSpy}
+      />
+    );
+
+    const stringPropertyListEl =
+      screen.getByText("string-test").parentElement.parentElement.parentElement;
+
+    fireEvent.drop(stringPropertyListEl);
+
+    expect(propertyListSpy).not.toBeCalled();
+  });
 });
