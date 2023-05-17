@@ -1,161 +1,204 @@
 import { FunctionComponent } from "preact";
-import { useMemo, useRef, useState } from "preact/hooks";
+import { useEffect, useMemo, useReducer, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
+import { PropertyProps } from "../atoms/Property";
 import {
-  type JSONSchema,
-  type MappableProp,
-  type MappedProps,
+  JSONSchema,
+  MappableProp,
+  MappedProps,
+  PropSource,
   getCmsMappableFields,
   getComponentMappableProps,
 } from "../../utils";
-import { useCallback } from "react";
-import { ClickableList } from "../molecules/ClickableList";
-import { Button, ButtonType } from "../atoms/Button";
+import { Button } from "../atoms/Button";
+import { ButtonType } from "../atoms/Button";
+import {
+  stagedPropsReducer,
+  StagedProp,
+  StagedPropsActionTypes,
+} from "../../reducers/stagedPropsReducer";
+import { PropertyList } from "../molecules/PropertyList";
+import { SchemaMatcherStage } from "../molecules/SchemaMatcherStage";
 import { PropFilters } from "../organisms/PropFilters";
 
-type MappedFields = [string, string][];
+const isStaged = (
+  prop: MappableProp,
+  stagedProps: StagedProp[],
+  source: PropSource
+) => {
+  return stagedProps.some(
+    (stagedRow) =>
+      stagedRow[source === PropSource.CMS ? 0 : 1]?.name === prop.name
+  );
+};
 
-interface SchemaMatcherProps {
+const byName = (propA: MappableProp, propB: MappableProp) =>
+  propA.name < propB.name ? -1 : 1;
+
+type SchemaMatcherProps = {
   cmsSchema: JSONSchema;
   componentDoc: Documentation;
-  onGenerate?: (mappedProps: MappedProps) => void;
-}
+  onGenerate: (mappedProps: MappedProps) => void;
+};
 
 export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   cmsSchema,
   componentDoc,
   onGenerate,
 }) => {
-  const [mappedFields, setMappedFields] = useState<MappedFields>([]);
-  const cmsFieldToMap = useRef<string | null>(null);
-  const componentPropToMap = useRef<string | null>(null);
-
-  // convert cms and component schemas to common type
-  const cmsMappableFields: MappableProp[] = useMemo(
-    () => getCmsMappableFields(cmsSchema),
-    [cmsSchema]
+  const [cmsProps, setCmsProps] = useState<MappableProp[]>(() =>
+    getCmsMappableFields(cmsSchema)
   );
-  const componentMappableProps: MappableProp[] = useMemo(
-    () => getComponentMappableProps(componentDoc),
-    [componentDoc]
+  const [compProps, setCompProps] = useState<MappableProp[]>(() =>
+    getComponentMappableProps(componentDoc)
+  );
+  const [stagedProps, dispatch] = useReducer(stagedPropsReducer, []);
+  const [draggingProp, setDraggingProp] = useState<PropertyProps>(null);
+  const unstagedCmsProps = useMemo(
+    () =>
+      cmsProps
+        .filter((cmsProp) => !isStaged(cmsProp, stagedProps, PropSource.CMS))
+        .sort(byName),
+    [stagedProps]
+  );
+  const unstagedCompProps = useMemo(
+    () =>
+      compProps
+        .filter(
+          (compProp) => !isStaged(compProp, stagedProps, PropSource.COMPONENT)
+        )
+        .sort(byName),
+    [stagedProps]
   );
 
-  const onCmsSchemaFieldClick = useCallback((name: string) => {
-    if (componentPropToMap.current) {
-      setMappedFields((prevState) => [
-        ...prevState,
-        [name, componentPropToMap.current],
-      ]);
-      componentPropToMap.current = null;
-    } else {
-      cmsFieldToMap.current = name;
-    }
-  }, []);
-
-  const onComponentPropClick = useCallback((name: string) => {
-    if (cmsFieldToMap.current) {
-      setMappedFields((prevState) => [
-        ...prevState,
-        [cmsFieldToMap.current, name],
-      ]);
-      cmsFieldToMap.current = null;
-    } else {
-      componentPropToMap.current = name;
-    }
-  }, []);
-
-  const onMappedLinkClick = useCallback((pairIndex) => {
-    setMappedFields((prevState) => {
-      return [
-        ...prevState.slice(0, pairIndex),
-        ...prevState.slice(pairIndex + 1),
-      ];
+  useEffect(() => {
+    const updatedCmsProps = getCmsMappableFields(cmsSchema);
+    const updatedCompProps = getComponentMappableProps(componentDoc);
+    setCmsProps(updatedCmsProps);
+    setCompProps(updatedCompProps);
+    dispatch({
+      type: StagedPropsActionTypes.AUTO_MAP_PROPS,
+      cmsProps: updatedCmsProps,
+      compProps: updatedCompProps,
     });
-  }, []);
+  }, [cmsSchema, componentDoc]);
 
-  // callback to get MappedProps from MappedFields
-  const getMappedProps: () => MappedProps = useCallback(
-    () =>
-      mappedFields.map(([cmsField, componentProp]) => [
-        cmsMappableFields.find(({ name }) => name === cmsField),
-        componentMappableProps.find(({ name }) => name === componentProp),
-      ]),
-    [mappedFields]
-  );
+  const handleOnGenerate = () => {
+    // only pass staged props that are mapped
+    onGenerate(
+      stagedProps.filter(([cmsProp, compProp]) => !!cmsProp && !!compProp)
+    );
+  };
 
-  // get unmapped fields to be rendered as clickable lists
-  const unmappedCmsSchemaFields: MappableProp[] = useMemo(
-    () =>
-      cmsMappableFields.filter(
-        (field) => !mappedFields.flat().includes(field.name)
-      ),
-    [cmsMappableFields, mappedFields]
-  );
-  const unmappedComponentProps: MappableProp[] = useMemo(
-    () =>
-      componentMappableProps.filter(
-        (field) => !mappedFields.flat().includes(field.name)
-      ),
-    [componentMappableProps, mappedFields]
-  );
+  const handleDragStart = (
+    event: DragEvent,
+    propData: MappableProp,
+    source: PropSource
+  ) => {
+    event.dataTransfer.effectAllowed = "linkMove";
+    setDraggingProp({ propData, source });
+  };
+
+  const mapPropsOnStage = (
+    cmsProp: MappableProp,
+    compProp: MappableProp,
+    index = 0
+  ) => {
+    dispatch({
+      type: StagedPropsActionTypes.ADD_PROPS,
+      cmsProp,
+      compProp,
+      index,
+    });
+    setDraggingProp(null);
+  };
+
+  const addPropToStage = (prop: MappableProp, source: PropSource) => {
+    let cmsProp: MappableProp = null;
+    let compProp: MappableProp = null;
+    if (source === PropSource.CMS) {
+      cmsProp = prop;
+    } else {
+      compProp = prop;
+    }
+    dispatch({
+      type: StagedPropsActionTypes.ADD_PROPS,
+      cmsProp,
+      compProp,
+      index: 0,
+    });
+    if (draggingProp) {
+      setDraggingProp(null);
+    }
+  };
+
+  const removePropFromStage = (prop: MappableProp, source: PropSource) => {
+    let cmsProp: MappableProp = null;
+    let compProp: MappableProp = null;
+    if (source === PropSource.CMS) {
+      cmsProp = prop;
+    } else {
+      compProp = prop;
+    }
+    dispatch({ type: StagedPropsActionTypes.REMOVE_PROPS, cmsProp, compProp });
+    if (draggingProp) {
+      setDraggingProp(null);
+    }
+  };
+
+  const unlinkPropsOnStage = (
+    cmsProp: MappableProp,
+    compProp: MappableProp
+  ) => {
+    dispatch({ type: StagedPropsActionTypes.REMOVE_PROPS, cmsProp, compProp });
+  };
 
   return (
-    <>
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        {!!cmsMappableFields.length && (
-          <div>
-            <h4 class="mb-4 font-semibold text-sm">Schema Fields</h4>
-            <PropFilters propList={unmappedCmsSchemaFields} />
-            <ClickableList
-              listCollection={unmappedCmsSchemaFields}
-              mappedKey="name"
-              mappedSubKey="type"
-              onItemClick={onCmsSchemaFieldClick}
-            ></ClickableList>
-          </div>
-        )}
-        {!!componentMappableProps.length && (
-          <div>
-            <h4 class="mb-4 font-semibold text-sm">Component Props</h4>
-            <PropFilters
-              propList={unmappedComponentProps}
-              customCss="flex flex-col items-end"
-            />
-            <ClickableList
-              listCollection={unmappedComponentProps}
-              mappedKey="name"
-              mappedSubKey="type"
-              onItemClick={onComponentPropClick}
-            ></ClickableList>
-          </div>
-        )}
+    <div
+      onDrop={() =>
+        removePropFromStage(draggingProp.propData, draggingProp.source)
+      }
+    >
+      <div class="grid grid-cols-2">
+        <PropFilters propList={unstagedCmsProps} />
+        <PropertyList
+          list={unstagedCmsProps}
+          source={PropSource.CMS}
+          draggingProp={draggingProp}
+          onPropertyDragStart={handleDragStart}
+          onDropOnProperty={mapPropsOnStage}
+          onPropertyClick={addPropToStage}
+        />
+
+        <PropFilters
+          propList={unstagedCompProps}
+          customCss="flex flex-col items-end"
+        />
+        <PropertyList
+          list={unstagedCompProps}
+          source={PropSource.COMPONENT}
+          draggingProp={draggingProp}
+          onPropertyDragStart={handleDragStart}
+          onDropOnProperty={mapPropsOnStage}
+          onPropertyClick={addPropToStage}
+        />
       </div>
-      {!!mappedFields.length && (
-        <div>
-          <h4 class="mb-4 font-semibold text-sm">Mapped Props</h4>
-          <ul>
-            {mappedFields.map(([schemaField, componentProp], index) => (
-              <li>
-                {schemaField}
-                <span
-                  class="cursor-pointer"
-                  onClick={() => onMappedLinkClick(index)}
-                >
-                  -
-                </span>
-                {componentProp}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <Button
-        text="Generate Adapter"
-        style={ButtonType.PRIMARY}
-        onClick={() => {
-          onGenerate(getMappedProps());
-        }}
+
+      <SchemaMatcherStage
+        stagedProps={stagedProps}
+        draggingProp={draggingProp}
+        onDropOnStage={addPropToStage}
+        onDropOnPropery={mapPropsOnStage}
+        onPropertyDragStart={handleDragStart}
+        onPropertyClick={removePropFromStage}
+        onUnlinkClick={unlinkPropsOnStage}
       />
-    </>
+
+      <Button
+        text="Generate adapter"
+        style={ButtonType.PRIMARY}
+        onClick={handleOnGenerate}
+      />
+    </div>
   );
 };

@@ -2,12 +2,13 @@ import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Button, ButtonType } from "./components/atoms/Button";
 import { Dropdown, DropdownOption } from "./components/atoms/Dropdown";
+import { Error } from "./components/atoms/Error";
+
 import { Header } from "./components/atoms/Header";
 import { Input } from "./components/atoms/Input";
 import { RadioButton } from "./components/atoms/RadioButton";
 import { SearchInput } from "./components/atoms/SearchInput";
 import { FileSelect } from "./components/molecules/FileSelect";
-import { Checkbox } from "./components/atoms/Checkbox";
 
 const Overview: FunctionComponent = () => {
   const [selected, setSelected] = useState<DropdownOption>();
@@ -62,6 +63,7 @@ const Overview: FunctionComponent = () => {
                 { label: "Option 3", value: "3" },
               ]}
               handleOptionSelect={onItemSelected}
+              placeholder="Select"
             />
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
@@ -76,7 +78,6 @@ const Overview: FunctionComponent = () => {
               onSearchText={onSearchText}
             />
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6"></div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Radio Button</h3>
             <h4>Select one item</h4>
@@ -87,13 +88,12 @@ const Overview: FunctionComponent = () => {
             </div>
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
-            <h3>Checkbox</h3>
-            <h4>Select as many items as you want</h4>
-            <div class="flex flex-row gap-3">
-              <Checkbox id="checkbox-1" label="Item 1" name="overview" />
-              <Checkbox id="checkbox-2" label="Item 2" name="overview" />
-              <Checkbox id="checkbox-3" label="Item 3" name="overview" />
-            </div>
+            <Error>
+              <p class="mb-0">
+                No React component found in
+                <span class="text-text-01"> foo.json</span>.
+              </p>
+            </Error>
           </div>
         </div>
       </div>

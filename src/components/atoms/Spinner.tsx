@@ -1,6 +1,12 @@
 export const Spinner = () => {
   return (
-    <svg viewBox="0 0 16 16" class="w-4 h-4 animate-spin">
+    <svg
+      viewBox="0 0 16 16"
+      class="w-4 h-4 animate-spin"
+      aria-live="polite"
+      role="status"
+    >
+      <title>loading</title>
       <circle
         fill="none"
         r={6.5}

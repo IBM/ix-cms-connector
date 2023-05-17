@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Property > should match the existing snapshot 1`] = `
+<div
+  class="group/property cursor-grab inline-flex relative transition-transform duration-75 ease-linear"
+  tabindex="0"
+>
+  <div
+    class="py-2 px-3 bg-ui-01 group-hover/property:bg-highlight h-fit"
+  >
+    <div
+      class="mb-1.5 text-sm leading-none font-mono text-text-01 "
+    >
+      test_property
+      <sup
+        class="text-text-05 ml-1"
+      >
+        *
+      </sup>
+    </div>
+    <ul
+      class="flex space-x-2 "
+    >
+      <li
+        class="flex"
+      >
+        <div
+          class="inline-block rounded-full text-xs leading-none px-2 py-1 bg-tag-blue-background text-tag-blue-text group-hover/property:bg-tag-blue-hover"
+        >
+          string
+        </div>
+      </li>
+    </ul>
+  </div>
+  <svg
+    class="h-14 fill-ui-01 group-hover/property:fill-highlight"
+    role="none"
+    viewBox="0 0 16 56"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <polygon
+      points="0,0 16,28 0,56 0,0"
+    />
+  </svg>
+</div>
+`;

@@ -2,7 +2,7 @@ import { FunctionalComponent } from "preact";
 import { Search, Close } from "@carbon/icons-react";
 import { useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
-import { debounce } from "../../utils/funcs";
+import { debounce } from "../../utils";
 
 interface SearchInputProps extends HTMLAttributes<HTMLInputElement> {
   label: string;
