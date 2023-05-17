@@ -3,6 +3,7 @@ export * from "./const";
 export * from "./funcs/componentFromJson";
 export * from "./funcs/debounce";
 export * from "./funcs/fetchData";
+export * from "./funcs/filters";
 export * from "./funcs/formatMappablePropType";
 export * from "./funcs/generateAdapterCode";
 export * from "./funcs/getCmsMappableFields";
