@@ -94,7 +94,7 @@ export function generateAdapterCode(
   // we use addInlineTypeDef() function to conditionaly (if it's a TS component) add type definitions
   const snippetCode = requiredTypeDefs
     .write(
-      `function ${hofName}(cmsData${addInlineTypeDef(
+      `export function ${hofName}(cmsData${addInlineTypeDef(
         `: ${mappedCMSFieldsTypeName}`
       )})`
     )

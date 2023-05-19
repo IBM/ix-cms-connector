@@ -9,6 +9,9 @@ import {
 import { TSType } from "../const";
 import { MappableProp } from "../types";
 
+import { transpile, JsxEmit, ModuleKind, ScriptTarget } from "typescript";
+import { SampleComponent } from "../../../samples/adaptor/SampleComponent";
+
 describe("getCMSFieldPath()", () => {
   it("should return 'cmsData.name' (no conversion) if the given props are of the same type", () => {
     const cmsField: MappableProp = {
@@ -133,5 +136,84 @@ describe("generateAdapterCode()", () => {
     expect(result).toContain(
       `${mappedProps2[1].name}: Number(cmsData.${mappedProps2[0].name})`
     );
+  });
+});
+
+describe("generateAdapterCode()", () => {
+  it("should return a generated HOC", () => {
+    const componentDoc: Documentation = {
+      displayName: "MyComponent",
+      props: {
+        test: {
+          tsType: {
+            name: "string",
+          },
+        },
+      },
+    };
+
+    const mappedProps1: [MappableProp, MappableProp] = [
+      {
+        name: "title",
+        type: TSType.Null,
+        isRequired: true,
+      },
+      {
+        name: "header",
+        type: TSType.String,
+        isRequired: false,
+      },
+    ];
+
+    const mappedProps2: [MappableProp, MappableProp] = [
+      {
+        name: "count",
+        type: TSType.String,
+        isRequired: true,
+      },
+      {
+        name: "count",
+        type: TSType.Number,
+        isRequired: false,
+      },
+    ];
+
+    const result = generateAdapterCode(componentDoc, [
+      mappedProps1,
+      mappedProps2,
+    ]);
+
+    let jsCode = transpile(result, {
+      // esModuleInterop: true,
+      module: ModuleKind.ES2022,
+      // target: ScriptTarget.ES5,
+      jsx: JsxEmit.ReactJSX,
+      jsxImportSource: "preact",
+      skipLibCheck: true,
+      baseUrl: "./",
+      paths: {
+        react: ["./node_modules/preact/compat/"],
+        "react-dom": ["./node_modules/preact/compat/"],
+      },
+      lib: ["dom.iterable"],
+    });
+
+    console.log("js: " + jsCode);
+
+    const dataUri =
+      "data:text/javascript;charset=utf-8," + encodeURIComponent(jsCode);
+
+    import(dataUri)
+      .then((module) => {
+        const { connectMyComponentToCMS } = module;
+
+        const ConnectedComponent = connectMyComponentToCMS({
+          title: null,
+          count: "2",
+        })(SampleComponent);
+
+        console.log(JSON.stringify(ConnectedComponent()));
+      })
+      .catch((err) => console.log(err));
   });
 });
