@@ -63,7 +63,7 @@ describe("getComponentsFromJson", () => {
 });
 
 describe("getComponentsFromObj", () => {
-  it("should return list of objects", () => {
+  it("should return list of objects of an expected length", () => {
     const components = getComponentsFromObj(mockJsonStoryBlok);
     expect(components.length).toBe(8);
   });

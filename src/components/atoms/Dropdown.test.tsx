@@ -76,7 +76,7 @@ describe("Dropdown", () => {
     expect(elValue).toMatch(mockOptions[1].value);
   });
 
-  it("should close the dropdown when the key est is pressed", async () => {
+  it("should close the dropdown when the key esc is pressed", async () => {
     const user = userEvent.setup();
     const selectedOption = vi.fn();
 
