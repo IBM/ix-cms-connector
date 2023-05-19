@@ -19,7 +19,7 @@ import {
 } from "../../reducers/stagedPropsReducer";
 import { PropertyList } from "../molecules/PropertyList";
 import { SchemaMatcherStage } from "../molecules/SchemaMatcherStage";
-import { PropFilters } from "../organisms/PropFilters";
+import { PropertyFilters } from "../molecules/PropertyFilters";
 
 const isStaged = (
   prop: MappableProp,
@@ -46,6 +46,8 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   componentDoc,
   onGenerate,
 }) => {
+  const [filteredProps, setFilteredProps] = useState<MappableProp[]>(null);
+
   const [cmsProps, setCmsProps] = useState<MappableProp[]>(() =>
     getCmsMappableFields(cmsSchema)
   );
@@ -82,6 +84,12 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
       compProps: updatedCompProps,
     });
   }, [cmsSchema, componentDoc]);
+
+  const handleFilters = (list) => {
+    console.log("updated list: ", list);
+
+    setFilteredProps(list);
+  };
 
   const handleOnGenerate = () => {
     // only pass staged props that are mapped
@@ -160,9 +168,12 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
       }
     >
       <div class="grid grid-cols-2">
-        <PropFilters propList={unstagedCmsProps} />
-        <PropertyList
+        <PropertyFilters
           list={unstagedCmsProps}
+          onPropertiesFiltered={(filteredProps) => handleFilters(filteredProps)}
+        />
+        <PropertyList
+          list={filteredProps || unstagedCmsProps}
           source={PropSource.CMS}
           draggingProp={draggingProp}
           onPropertyDragStart={handleDragStart}
@@ -170,9 +181,10 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
           onPropertyClick={addPropToStage}
         />
 
-        <PropFilters
-          propList={unstagedCompProps}
+        <PropertyFilters
+          list={unstagedCompProps}
           customCss="flex flex-col items-end"
+          onPropertiesFiltered={(filteredProps) => handleFilters(filteredProps)}
         />
         <PropertyList
           list={unstagedCompProps}

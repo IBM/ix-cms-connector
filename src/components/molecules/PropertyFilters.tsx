@@ -1,13 +1,14 @@
 import { FunctionComponent } from "preact";
-import { useId } from "preact/hooks";
+import { useId, useEffect } from "preact/hooks";
 
 import { type MappableProp, filterByName } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
 
 import { SearchInput } from "../atoms/SearchInput";
 
-interface PropFiltersProps {
-  propList: MappableProp[];
+interface PropertyFiltersProps {
+  list: MappableProp[];
+  onPropertiesFiltered: (listProps: MappableProp[]) => void;
   customCss?: string;
 }
 
@@ -24,14 +25,17 @@ const typeFilters = [
   TypeFiltersEnum.String,
 ];
 
-export const PropFilters: FunctionComponent<PropFiltersProps> = ({
-  propList,
+export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
+  list,
+  onPropertiesFiltered,
   customCss,
 }) => {
   const getSearchText = (searchTerm: string) => {
     console.log("search text: ", searchTerm);
 
-    const filter = filterByName(searchTerm, propList);
+    const filter = filterByName(searchTerm, list);
+
+    onPropertiesFiltered(filter);
 
     console.log(filter);
   };
@@ -39,6 +43,10 @@ export const PropFilters: FunctionComponent<PropFiltersProps> = ({
   const onItemChecked = () => {
     console.log("checked");
   };
+
+  useEffect(() => {
+    console.log("propList: ", list);
+  }, [list]);
 
   return (
     <div class={customCss}>
