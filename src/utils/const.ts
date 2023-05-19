@@ -29,3 +29,8 @@ export enum TSType {
   Undefined = "undefined",
   Union = "union",
 }
+
+export enum PropSource {
+  CMS,
+  COMPONENT,
+}

@@ -99,6 +99,12 @@ module.exports = {
         "teal-background": "#9EF0F0",
         "teal-text": "#005D5D",
         "teal-hover": "#57E5E5",
+        "cool-gray-background": "#CDD3DA",
+        "cool-gray-text": "#121619",
+        "cool-gray-hover": "#C4C9D1",
+        "gray-background": "#E0E0E0",
+        "gray-text": "#161616",
+        "gray-hover": "#D1D1D1",
       },
     },
     extend: {
