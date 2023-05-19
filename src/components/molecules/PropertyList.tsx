@@ -46,6 +46,8 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
     <ul>
       {list.map((prop) => {
         let isMappable = false;
+        const propDepth = prop.name.split(".").length - 1;
+
         if (draggingProp && draggingProp.source !== source) {
           if (source === PropSource.CMS) {
             isMappable = canMapProps(prop, draggingProp.propData);
@@ -62,9 +64,9 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
                 ? (event) => handlePropertyDrop(event, prop)
                 : undefined
             }
-            class={`mb-px ${isMappable ? "bg-ui-03 bg-opacity-20" : ""} ${
-              source === PropSource.COMPONENT ? "flex justify-end" : ""
-            }`}
+            class={`mb-px ml-${propDepth} ${
+              isMappable ? "bg-ui-03 bg-opacity-20" : ""
+            } ${source === PropSource.COMPONENT ? "flex justify-end" : ""}`}
           >
             <Property
               propData={prop}
