@@ -1,4 +1,4 @@
-import { expect, afterEach, vi } from "vitest";
+import { expect, afterEach, vi, beforeAll } from "vitest";
 
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
