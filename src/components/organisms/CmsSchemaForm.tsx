@@ -177,7 +177,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           </Error>
         )}
       </div>
-      {json &&
+      {json && (
         <div class="z-20 relative">
           <Dropdown
             options={cmsOptions}
@@ -187,7 +187,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
             placeholder="Select"
           />
         </div>
-      }
+      )}
       {components?.length > 0 && (
         <div class="z-10 relative mt-2">
           <Dropdown

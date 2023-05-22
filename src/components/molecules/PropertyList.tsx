@@ -66,7 +66,11 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
             }
             class={`mb-px ml-${propDepth} ${
               isMappable ? "bg-ui-03 bg-opacity-20" : ""
-            } ${source === PropSource.COMPONENT ? "flex justify-end" : ""}`}
+            } ${
+              source === PropSource.COMPONENT
+                ? `flex justify-end mr-${propDepth}`
+                : `ml-${propDepth}`
+            }`}
           >
             <Property
               propData={prop}
