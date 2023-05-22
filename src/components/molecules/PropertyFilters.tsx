@@ -1,9 +1,10 @@
 import { FunctionComponent } from "preact";
-import { useId, useMemo } from "preact/hooks";
+import { useId, useEffect, useMemo, useState } from "preact/hooks";
 
 import {
   type MappableProp,
   filterByName,
+  filterByPropType,
   formatMappablePropType,
 } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
@@ -21,6 +22,9 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   onPropertiesFiltered,
   customCss,
 }) => {
+  const [filteredList, setFilteredList] = useState<MappableProp[]>([]);
+  const [checkboxFilters, setCheckboxFilters] = useState<string[]>([]);
+
   const checkboxTypes: string[] = useMemo(() => {
     const propListTypes = list.map((listItem) => {
       const [type] = formatMappablePropType(listItem);
@@ -39,13 +43,46 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   }, list);
 
   const getSearchText = (searchTerm: string) => {
-    const filter = filterByName(searchTerm, list);
-    onPropertiesFiltered(filter);
+    if (searchTerm.trim() === "") {
+      setFilteredList(list);
+      onPropertiesFiltered(list);
+      return;
+    }
+
+    const result = filterByName(searchTerm, filteredList);
+    setFilteredList(result);
+    onPropertiesFiltered(result);
   };
 
-  const onItemChecked = () => {
-    console.log("checked");
+  const onItemChecked = (isSelected: boolean, filterType: string) => {
+    console.log("checked: ", filterType, isSelected);
+
+    setCheckboxFilters((prevState) => {
+      console.log("========= prevState: ", prevState);
+
+      // TODO: if checkbox is selected => remove from state
+      // TODO: IF CHECKBOX IS selected => add to state
+      // check if it makes sense to use reducer
+
+      const newState = [...prevState, filterType];
+
+      console.log("========= newState: ", newState);
+
+      const result = filterByPropType(newState, list);
+      setFilteredList(result);
+      onPropertiesFiltered(result);
+
+      return newState;
+    });
   };
+
+  useEffect(() => {
+    setFilteredList(list);
+  }, [list]);
+
+  useEffect(() => {
+    console.log("checkboxFilters: ", checkboxFilters);
+  }, [checkboxFilters]);
 
   return (
     <div class={customCss}>
@@ -61,7 +98,8 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
             key={index}
             id={useId()}
             label={type}
-            handleOptionSelect={onItemChecked}
+            checked={true}
+            handleOptionSelect={(isSelected) => onItemChecked(isSelected, type)}
           />
         ))}
       </div>

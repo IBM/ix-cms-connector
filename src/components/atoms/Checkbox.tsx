@@ -1,5 +1,5 @@
 import { FunctionComponent } from "preact";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { HTMLAttributes } from "react";
 import {
   Checkbox as CheckboxIcon,
@@ -9,31 +9,37 @@ import {
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
   id: string;
   label?: string;
-  handleOptionSelect: () => void;
+  checked?: boolean;
+  handleOptionSelect: (isSelected: boolean) => void;
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
   label = "",
+  checked = false,
   handleOptionSelect,
   ...rest
 }) => {
   const [selected, setSelected] = useState<boolean>(false);
 
-  const handleOnClick = (event: Event) => {
+  const handleOnClick = () => {
+    handleOptionSelect(!selected);
     setSelected(!selected);
-    console.log("event: ", event);
-    handleOptionSelect();
   };
+
+  useEffect(() => {
+    setSelected(checked);
+  }, [checked]);
 
   return (
     <div class="flex flex-row items-center my-2 mr-3.5">
       <input
         type="checkbox"
         id={id}
+        checked={selected}
         {...rest}
         class="appearance-none"
-        onClick={(event) => handleOnClick(event)}
+        onClick={handleOnClick}
       />
 
       <label
