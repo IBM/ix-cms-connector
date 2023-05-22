@@ -13,7 +13,6 @@ import {
   fetchData,
   type JSONSchema,
 } from "../../utils";
-import React from "react";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
