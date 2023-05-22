@@ -3,6 +3,9 @@ export interface Props {
     propString: string;
     propNestedObject: {
       propString: string;
+      deepNestedPropObject: {
+        propBoolean: boolean;
+      };
     };
   };
   propString: string;

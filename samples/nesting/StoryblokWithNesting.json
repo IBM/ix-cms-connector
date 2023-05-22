@@ -6,7 +6,13 @@
   "boolean": false,
   "union": "String",
   "array": ["String"],
-  "nestedObject": {
-    "nestedString": "String"
+  "object": {
+    "nestedString": "String",
+    "nestedObject": {
+      "deepNestedObject": {
+        "deepNestedBoolean": true,
+        "deepNestedString": "String"
+      }
+    }
   }
 }
