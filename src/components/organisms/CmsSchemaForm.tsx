@@ -13,7 +13,6 @@ import {
   fetchData,
   type JSONSchema,
 } from "../../utils";
-import React from "react";
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
@@ -178,15 +177,17 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           </Error>
         )}
       </div>
-      <div class="z-20 relative">
-        <Dropdown
-          options={cmsOptions}
-          label="CMS"
-          handleOptionSelect={onChangeCMS}
-          selected={cmsProvider}
-          placeholder="Select"
-        />
-      </div>
+      {json &&
+        <div class="z-20 relative">
+          <Dropdown
+            options={cmsOptions}
+            label="CMS"
+            handleOptionSelect={onChangeCMS}
+            selected={cmsProvider}
+            placeholder="Select"
+          />
+        </div>
+      }
       {components?.length > 0 && (
         <div class="z-10 relative mt-2">
           <Dropdown
