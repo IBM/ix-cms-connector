@@ -1,5 +1,6 @@
 import type { Documentation } from "react-docgen";
 import type {
+  ObjectSignatureType,
   PropDescriptor,
   PropTypeDescriptor,
 } from "react-docgen/dist/Documentation";
@@ -25,7 +26,6 @@ export function getComponentMappableProp(
       TSType.Null,
       TSType.Undefined,
     ];
-
     const primitiveType = primitiveTypes.find((t) => t === tsType.name);
 
     if (primitiveType) {
@@ -128,7 +128,24 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
   return Object.entries(doc.props).reduce(
     (mappableProps, [name, propDescr]) => {
       const mappableProp = getComponentMappableProp(name, propDescr);
+      if (
+        propDescr?.tsType?.name === "signature" ||
+        (mappableProp?.type as string) === "signature"
+      ) {
+        const props = (
+          propDescr.tsType as ObjectSignatureType
+        ).signature.properties.reduce(
+          (acc, curr) => ({
+            ...acc,
+            ...{ [`${name}.${curr.key}`]: { tsType: curr.value } },
+          }),
+          {}
+        );
 
+        const subMappableProps = getComponentMappableProps({ props });
+
+        mappableProps = [...mappableProps, ...subMappableProps];
+      }
       if (mappableProp) {
         mappableProps.push(mappableProp);
       }
