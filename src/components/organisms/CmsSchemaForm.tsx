@@ -30,7 +30,6 @@ export enum CMSProvider {
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
 }) => {
-  const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
   const [json, setJson] = useState<JSON>();
 
   const [cmsError, setCmsError] = useState<boolean>(false);
@@ -88,7 +87,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         setParsingCmsSchema(true);
 
         const cmsSchema = toJsonSchema(filteredComponent);
-        setCmsSchema(cmsSchema);
         setParsingCmsSchema(false);
         setCmsError(false);
 
@@ -103,7 +101,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const onChangeCMS = (cmsProvider: DropdownOption) => {
     setCmsProvider(cmsProvider);
     setComponent(undefined);
-    setCmsSchema(undefined);
     setCmsError(false);
   };
 
@@ -128,7 +125,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const onRemoveFile = useCallback((): void => {
     setJson(undefined);
     setComponent(undefined);
-    setCmsSchema(undefined);
     setCmsError(false);
   }, []);
 
@@ -199,11 +195,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         </div>
       )}
       {parsingCmsSchema && <span>Parsing...</span>}
-      {!cmsError && cmsSchema && (
-        <div class="font-mono whitespace-pre p-4 rounded border-2 border-emerald-200 bg-emerald-50 max-h-96 text-sm overflow-scroll text-emerald-600">
-          {JSON.stringify(cmsSchema, undefined, 2)}
-        </div>
-      )}
     </>
   );
 };

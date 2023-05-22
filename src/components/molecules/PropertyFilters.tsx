@@ -1,7 +1,11 @@
 import { FunctionComponent } from "preact";
-import { useId, useEffect } from "preact/hooks";
+import { useId, useMemo } from "preact/hooks";
 
-import { type MappableProp, filterByName } from "../../utils";
+import {
+  type MappableProp,
+  filterByName,
+  formatMappablePropType,
+} from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
 
 import { SearchInput } from "../atoms/SearchInput";
@@ -12,41 +16,36 @@ interface PropertyFiltersProps {
   customCss?: string;
 }
 
-enum TypeFiltersEnum {
-  String = "String",
-  Boolean = "Boolean",
-  Number = "Number",
-}
-
-// TODO: improve data structure so it can be made dynamic
-const typeFilters = [
-  TypeFiltersEnum.String,
-  TypeFiltersEnum.Boolean,
-  TypeFiltersEnum.String,
-];
-
 export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   list,
   onPropertiesFiltered,
   customCss,
 }) => {
+  const checkboxTypes: string[] = useMemo(() => {
+    const propListTypes = list.map((listItem) => {
+      const [type] = formatMappablePropType(listItem);
+      return type;
+    });
+
+    const cleanedTypes: string[] = [];
+
+    propListTypes.forEach((pType) => {
+      if (!cleanedTypes.find((cType) => cType === pType)) {
+        cleanedTypes.push(pType);
+      }
+    });
+
+    return cleanedTypes;
+  }, list);
+
   const getSearchText = (searchTerm: string) => {
-    console.log("search text: ", searchTerm);
-
     const filter = filterByName(searchTerm, list);
-
     onPropertiesFiltered(filter);
-
-    console.log(filter);
   };
 
   const onItemChecked = () => {
     console.log("checked");
   };
-
-  useEffect(() => {
-    console.log("propList: ", list);
-  }, [list]);
 
   return (
     <div class={customCss}>
@@ -57,7 +56,7 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
       />
 
       <div class="flex">
-        {typeFilters.map((type, index) => (
+        {checkboxTypes.map((type, index) => (
           <Checkbox
             key={index}
             id={useId()}
