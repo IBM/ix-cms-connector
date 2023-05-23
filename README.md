@@ -98,3 +98,11 @@ Watch mode
 pnpm run test:watch
 ```
 
+### test: coverage
+
+Create the coverage report of the project under the folder /coverage
+```
+pnpm run test:coverage
+```
+
+
