@@ -55,22 +55,25 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   };
 
   const onItemChecked = (isSelected: boolean, filterType: string) => {
-    console.log("checked: ", filterType, isSelected);
-
     setCheckboxFilters((prevState) => {
-      console.log("========= prevState: ", prevState);
+      // TODO: check if it makes sense to use reducer
 
-      // TODO: if checkbox is selected => remove from state
-      // TODO: IF CHECKBOX IS selected => add to state
-      // check if it makes sense to use reducer
+      let newState: string[] = [];
 
-      const newState = [...prevState, filterType];
+      if (isSelected) {
+        newState = prevState.filter((stateVal) => stateVal !== filterType);
+      } else {
+        newState = [...prevState, filterType];
+      }
 
-      console.log("========= newState: ", newState);
-
-      const result = filterByPropType(newState, list);
-      setFilteredList(result);
-      onPropertiesFiltered(result);
+      if (newState.length > 0) {
+        const result = filterByPropType(newState, list);
+        setFilteredList(result);
+        onPropertiesFiltered(result);
+      } else {
+        setFilteredList(list);
+        onPropertiesFiltered(list);
+      }
 
       return newState;
     });
@@ -79,10 +82,6 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   useEffect(() => {
     setFilteredList(list);
   }, [list]);
-
-  useEffect(() => {
-    console.log("checkboxFilters: ", checkboxFilters);
-  }, [checkboxFilters]);
 
   return (
     <div class={customCss}>

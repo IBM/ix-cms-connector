@@ -8,12 +8,18 @@ export function filterByPropType(
   checkboxFilters: string[],
   propList: MappableProp[]
 ) {
-  console.log("propList: ", propList);
+  const newList: MappableProp[] = [];
 
-  const newList: MappableProp[] = propList.filter((prop) => {
-    console.log("prop: ", prop);
+  propList.forEach((prop) => {
+    let filterMatch = false;
 
-    return checkboxFilters.find((checkbox) => checkbox !== prop.type);
+    checkboxFilters.forEach((checkbox) => {
+      if (checkbox === prop.type) filterMatch = true;
+    });
+
+    if (!filterMatch) {
+      newList.push(prop);
+    }
   });
 
   console.log("new list: ", newList);
