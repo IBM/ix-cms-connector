@@ -9,9 +9,13 @@ const label = "Checkbox label";
 
 describe("Checkbox", () => {
   it("should be present on the DOM with the given label", () => {
-    const spyChecked = vi.fn();
+    const spyCheckboxChecked = vi.fn();
     render(
-      <Checkbox id="checkbox-1" label={label} handleOptionSelect={spyChecked} />
+      <Checkbox
+        id="checkbox-1"
+        label={label}
+        handleOptionSelect={spyCheckboxChecked}
+      />
     );
 
     const checkboxEl = screen.getByLabelText(label);
@@ -19,14 +23,38 @@ describe("Checkbox", () => {
   });
 
   it("should appear as checked if the user clicks on it once", () => {
-    const spyChecked = vi.fn();
+    const spyCheckboxChecked = vi.fn();
+
     render(
-      <Checkbox id="checkbox-1" label={label} handleOptionSelect={spyChecked} />
+      <Checkbox
+        id="checkbox-1"
+        label={label}
+        handleOptionSelect={spyCheckboxChecked}
+      />
     );
 
     const checkboxEl = screen.getByLabelText(label);
     fireEvent.click(checkboxEl);
 
-    //TODO: finish
+    const checkboxEl_checked = screen.getByRole("checkbox", { checked: true });
+
+    expect(checkboxEl_checked).toBeInTheDocument();
+  });
+
+  it("should call the spy function at least once when the user clicks on the checkbox", () => {
+    const spyCheckboxChecked = vi.fn();
+
+    render(
+      <Checkbox
+        id="checkbox-1"
+        label={label}
+        handleOptionSelect={spyCheckboxChecked}
+      />
+    );
+
+    const checkboxEl = screen.getByLabelText(label);
+    fireEvent.click(checkboxEl);
+
+    expect(spyCheckboxChecked).toHaveBeenCalledOnce();
   });
 });
