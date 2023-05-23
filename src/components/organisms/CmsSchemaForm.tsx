@@ -134,6 +134,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
     api: (
       <form
+        aria-label="API endpoint cms"
         onSubmit={getCmsSchemaFromUrl}
         class="flex flex-row max-h-12 items-center"
       >
@@ -152,7 +153,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   };
 
   return (
-    <>
+    <div aria-label="CmsSchemaForm">
       <div class="flex flex-col">
         <RadioButton
           label="API endpoint"
@@ -177,7 +178,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           </Error>
         )}
       </div>
-      {json &&
+      {json && (
         <div class="z-20 relative">
           <Dropdown
             options={cmsOptions}
@@ -187,7 +188,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
             placeholder="Select"
           />
         </div>
-      }
+      )}
       {components?.length > 0 && (
         <div class="z-10 relative mt-2">
           <Dropdown
@@ -205,6 +206,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           {JSON.stringify(cmsSchema, undefined, 2)}
         </div>
       )}
-    </>
+    </div>
   );
 };

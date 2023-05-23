@@ -13,7 +13,8 @@
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
     "test": "vitest run",
     "test:verbose": "vitest run --reporter verbose",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "bin": "./bin.js",
   "devDependencies": {
@@ -28,6 +29,7 @@
     "@types/to-json-schema": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "@vitest/coverage-c8": "^0.31.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "husky": "^8.0.0",
