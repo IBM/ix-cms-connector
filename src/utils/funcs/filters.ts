@@ -1,28 +1,27 @@
 import type { MappableProp } from "../types";
 
-export function filterByName(searchTerm: string, propList: MappableProp[]) {
-  return propList.filter((item) => item.name.match(searchTerm));
+export function filterByPropName(name: string, propList: MappableProp[]) {
+  console.log(propList);
+
+  return propList.filter((item) => item.name.toLowerCase().match(name));
 }
 
-export function filterByPropType(
-  checkboxFilters: string[],
-  propList: MappableProp[]
-) {
-  const newList: MappableProp[] = [];
+export function filterByPropType(types: string[], propList: MappableProp[]) {
+  const result: MappableProp[] = [];
 
   propList.forEach((prop) => {
     let filterMatch = false;
 
-    checkboxFilters.forEach((checkbox) => {
-      if (checkbox === prop.type) filterMatch = true;
+    types.forEach((type) => {
+      if (type === prop.type) filterMatch = true;
     });
 
     if (!filterMatch) {
-      newList.push(prop);
+      result.push(prop);
     }
   });
 
-  console.log("new list: ", newList);
+  console.log("new list: ", result);
 
-  return newList;
+  return result;
 }

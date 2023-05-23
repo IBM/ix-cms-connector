@@ -3,7 +3,7 @@ import { useId, useEffect, useMemo, useState } from "preact/hooks";
 
 import {
   type MappableProp,
-  filterByName,
+  filterByPropName,
   filterByPropType,
   formatMappablePropType,
 } from "../../utils";
@@ -24,6 +24,8 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
 }) => {
   const [filteredList, setFilteredList] = useState<MappableProp[]>([]);
   const [checkboxFilters, setCheckboxFilters] = useState<string[]>([]);
+
+  // TODO: reset filters
 
   const checkboxTypes: string[] = useMemo(() => {
     const propListTypes = list.map((listItem) => {
@@ -49,7 +51,7 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
       return;
     }
 
-    const result = filterByName(searchTerm, filteredList);
+    const result = filterByPropName(searchTerm, filteredList);
     setFilteredList(result);
     onPropertiesFiltered(result);
   };
@@ -80,6 +82,8 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   };
 
   useEffect(() => {
+    console.log("list: ", list);
+
     setFilteredList(list);
   }, [list]);
 
