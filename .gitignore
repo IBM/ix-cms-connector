@@ -1,2 +1,3 @@
 # dependencies
 node_modules
+__mocks__/generatedAdapter.tsx

@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 
-import { describe, it, expect, vi, beforeAll } from "vitest";
-
+import fs from "fs";
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/preact";
 import type { Documentation } from "react-docgen";
 import {
   getCMSFieldPath,
@@ -10,66 +11,6 @@ import {
 } from "./generateAdapterCode";
 import { TSType } from "../const";
 import { MappableProp } from "../types";
-
-// import { transpile, JsxEmit, ModuleKind, ScriptTarget } from "typescript";
-import { SampleComponent } from "../../../samples/adaptor/SampleComponent";
-
-import { render, screen, fireEvent } from "@testing-library/preact";
-import fs from "fs";
-
-vi.mock("adapter");
-
-beforeAll(() => {
-  const componentDoc: Documentation = {
-    displayName: "MyComponent",
-    props: {
-      test: {
-        tsType: {
-          name: "string",
-        },
-      },
-    },
-  };
-
-  const mappedProps1: [MappableProp, MappableProp] = [
-    {
-      name: "title",
-      type: TSType.Null,
-      isRequired: true,
-    },
-    {
-      name: "header",
-      type: TSType.String,
-      isRequired: false,
-    },
-  ];
-
-  const mappedProps2: [MappableProp, MappableProp] = [
-    {
-      name: "count",
-      type: TSType.String,
-      isRequired: true,
-    },
-    {
-      name: "count",
-      type: TSType.Number,
-      isRequired: false,
-    },
-  ];
-
-  let result = generateAdapterCode(componentDoc, [mappedProps1, mappedProps2]);
-
-  result = result.replace("react", "preact");
-
-  console.log(result);
-
-  fs.writeFile("./__mocks__/adapter.tsx", result, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    // file written successfully
-  });
-});
 
 describe("getCMSFieldPath()", () => {
   it("should return 'cmsData.name' (no conversion) if the given props are of the same type", () => {
@@ -181,113 +122,99 @@ describe("generateAdapterCode()", () => {
       },
     ];
 
-    const result = generateAdapterCode(componentDoc, [
+    const code = generateAdapterCode(componentDoc, [
       mappedProps1,
       mappedProps2,
     ]);
 
-    expect(result).toContain(
-      `function connect${componentDoc.displayName}ToCMS`
-    );
-    expect(result).toContain(
+    expect(code).toContain(`function connect${componentDoc.displayName}ToCMS`);
+    expect(code).toContain(
       `${mappedProps1[1].name}: cmsData.${mappedProps1[0].name} ?? undefined`
     );
-    expect(result).toContain(
+    expect(code).toContain(
       `${mappedProps2[1].name}: Number(cmsData.${mappedProps2[0].name})`
     );
   });
 });
 
-describe("generateAdapterCode2()", () => {
-  // it("should return a generated HOC", () => {
-  //   const componentDoc: Documentation = {
-  //     displayName: "MyComponent",
-  //     props: {
-  //       test: {
-  //         tsType: {
-  //           name: "string",
-  //         },
-  //       },
-  //     },
-  //   };
-
-  //   const mappedProps1: [MappableProp, MappableProp] = [
-  //     {
-  //       name: "title",
-  //       type: TSType.Null,
-  //       isRequired: true,
-  //     },
-  //     {
-  //       name: "header",
-  //       type: TSType.String,
-  //       isRequired: false,
-  //     },
-  //   ];
-
-  //   const mappedProps2: [MappableProp, MappableProp] = [
-  //     {
-  //       name: "count",
-  //       type: TSType.String,
-  //       isRequired: true,
-  //     },
-  //     {
-  //       name: "count",
-  //       type: TSType.Number,
-  //       isRequired: false,
-  //     },
-  //   ];
-
-  //   const result = generateAdapterCode(componentDoc, [
-  //     mappedProps1,
-  //     mappedProps2,
-  //   ]);
-
-  //   let jsCode = transpile(result, {
-  //     // esModuleInterop: true,
-  //     module: ModuleKind.ES2022,
-  //     // target: ScriptTarget.ES5,
-  //     jsx: JsxEmit.ReactJSX,
-  //     jsxImportSource: "preact",
-  //     skipLibCheck: true,
-  //     baseUrl: "./",
-  //     paths: {
-  //       react: ["./node_modules/preact/compat/"],
-  //       "react-dom": ["./node_modules/preact/compat/"],
-  //     },
-  //     lib: ["dom.iterable"],
-  //   });
-
-  //   console.log("js: " + result);
-
-  //   const dataUri =
-  //     "data:text/javascript;charset=utf-8," + encodeURIComponent(jsCode);
-
-  //   import(dataUri)
-  //     .then((module) => {
-  //       const { connectMyComponentToCMS } = module;
-
-  //       const ConnectedComponent = connectMyComponentToCMS({
-  //         title: null,
-  //         count: "2",
-  //       })(SampleComponent);
-
-  //       console.log(JSON.stringify(ConnectedComponent()));
-  //     })
-  //     .catch((err) => console.log(err));
-  // });
-
+describe("connectSampleComponentToCMS() - a generated HOC", async () => {
   it("test generated code", async () => {
-    const { connectMyComponentToCMS } = await import("adapter");
-
-    const ConnectedComponent = connectMyComponentToCMS({
+    const cmsData = {
       title: null,
       count: "2",
-    })(SampleComponent);
+    };
 
-    render(<ConnectedComponent isActive dateCreated={new Date()} />);
+    const SampleComponent = (props: { header?: string; count: number }) => {
+      return (
+        <div>
+          {props.header && <h1 data-testid="header">{props.header}</h1>}
+          <div>{props.count}</div>
+        </div>
+      );
+    };
 
-    const buttonElement = screen.getByText("Active");
+    const componentDoc: Documentation = {
+      displayName: "SampleComponent",
+      props: {
+        dummy: {
+          tsType: {
+            name: "string",
+          },
+        },
+      },
+    };
 
-    expect(buttonElement).toBeInTheDocument();
+    const mappedProps: [MappableProp, MappableProp][] = [
+      [
+        {
+          name: "title",
+          type: TSType.Null,
+          isRequired: true,
+        },
+        {
+          name: "header",
+          type: TSType.String,
+          isRequired: false,
+        },
+      ],
+      [
+        {
+          name: "count",
+          type: TSType.String,
+          isRequired: true,
+        },
+        {
+          name: "count",
+          type: TSType.Number,
+          isRequired: true,
+        },
+      ],
+    ];
+
+    const code = generateAdapterCode(componentDoc, mappedProps, {
+      usePreact: true,
+      indentNumberOfSpaces: 2,
+    });
+
+    fs.writeFile("./__mocks__/generatedAdapter.tsx", code, (err) => {
+      if (err) {
+        console.error(err);
+      }
+
+      // file was written successfully
+    });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { connectSampleComponentToCMS } = await import("generatedAdapter");
+
+    const ConnectedComponent =
+      connectSampleComponentToCMS(cmsData)(SampleComponent);
+
+    render(<ConnectedComponent header="New" />);
+
+    const headerElement = screen.getByTestId("header");
+
+    expect(headerElement).toHaveTextContent("New");
   });
 });

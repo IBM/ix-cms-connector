@@ -11,9 +11,10 @@
     "prepare": "husky install",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender --no-sw",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
-    "test": "vitest run",
-    "test:verbose": "vitest run --reporter verbose",
-    "test:watch": "vitest"
+    "pretest": "> ./__mocks__/generatedAdapter.tsx",
+    "test": "pnpm run pretest & vitest run",
+    "test:verbose": "pnpm run pretest & vitest run --reporter verbose",
+    "test:watch": "pnpm run pretest & vitest"
   },
   "bin": "./bin.js",
   "devDependencies": {

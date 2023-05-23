@@ -29,7 +29,7 @@ export function getMappablePropTypeSignature(mappableProp: MappableProp) {
 export function generateAdapterCode(
   componentDoc: Documentation,
   mappedProps: MappedProps,
-  options?: CodeGeneratorOptions
+  options?: CodeGeneratorOptions & { usePreact?: boolean }
 ) {
   // if the component has a tsType field in any of the PropDescriptor, then it's Typescript
   const isTS = Object.entries(componentDoc.props ?? {}).some(
@@ -66,7 +66,7 @@ export function generateAdapterCode(
   if (isTS) {
     requiredTypeDefs = writer
       .write("import { ComponentType } from ")
-      .quote("react")
+      .quote(`${options?.usePreact ? "p" : ""}react`)
       .write(";")
 
       .blankLine()
