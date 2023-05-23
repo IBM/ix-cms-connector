@@ -4,6 +4,7 @@ import {
   type MappableProp,
   filterByPropName,
   filterByPropType,
+  filterPropsList,
 } from "../../utils";
 
 import { TSType } from "../const";
@@ -70,5 +71,15 @@ describe("filterByPropType()", () => {
         type: TSType.String,
       },
     ]);
+  });
+});
+
+describe("filterPropsList", () => {
+  it("should return a filtered array of MappableProp by the given search team and type", () => {
+    // TODO:
+  });
+
+  it("should return initial list when when the search term and types are empty", () => {
+    // TODO:
   });
 });

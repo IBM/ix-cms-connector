@@ -1,12 +1,16 @@
 import type { MappableProp } from "../types";
 
-export function filterByPropName(name: string, propList: MappableProp[]) {
-  console.log(propList);
-
+export function filterByPropName(
+  name: string,
+  propList: MappableProp[]
+): MappableProp[] {
   return propList.filter((item) => item.name.toLowerCase().match(name));
 }
 
-export function filterByPropType(types: string[], propList: MappableProp[]) {
+export function filterByPropType(
+  types: string[],
+  propList: MappableProp[]
+): MappableProp[] {
   const result: MappableProp[] = [];
 
   propList.forEach((prop) => {
@@ -21,7 +25,13 @@ export function filterByPropType(types: string[], propList: MappableProp[]) {
     }
   });
 
-  console.log("new list: ", result);
-
   return result;
+}
+
+export function filterPropsList(
+  name: string,
+  types: string[],
+  propList: MappableProp[]
+) {
+  //do something
 }
