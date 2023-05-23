@@ -14,7 +14,8 @@
     "pretest": "> ./__mocks__/generatedAdapter.tsx",
     "test": "pnpm run pretest & vitest run",
     "test:verbose": "pnpm run pretest & vitest run --reporter verbose",
-    "test:watch": "pnpm run pretest & vitest"
+    "test:watch": "pnpm run pretest & vitest",
+    "test:coverage": "pnpm run pretest & vitest run --coverage"
   },
   "bin": "./bin.js",
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@types/to-json-schema": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "@vitest/coverage-c8": "^0.31.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "husky": "^8.0.0",
