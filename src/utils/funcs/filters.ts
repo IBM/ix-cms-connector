@@ -20,7 +20,7 @@ export function filterByPropType(
       if (type === prop.type) filterMatch = true;
     });
 
-    if (!filterMatch) {
+    if (filterMatch) {
       result.push(prop);
     }
   });

@@ -3,8 +3,7 @@ import { useId, useEffect, useMemo, useState } from "preact/hooks";
 
 import {
   type MappableProp,
-  filterByPropName,
-  filterByPropType,
+  filterPropsList,
   formatMappablePropType,
 } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
@@ -22,10 +21,13 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   onPropertiesFiltered,
   customCss,
 }) => {
-  const [filteredList, setFilteredList] = useState<MappableProp[]>([]);
-  const [checkboxFilters, setCheckboxFilters] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
-  // TODO: reset filters
+  // TODO: CLEANUP
+  // const [filteredList, setFilteredList] = useState<MappableProp[]>([]);
+
+  // TODO: RESET FILTERS IF COMPONENT CHANGES
 
   const checkboxTypes: string[] = useMemo(() => {
     const propListTypes = list.map((listItem) => {
@@ -41,58 +43,40 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
       }
     });
 
+    setTypesFilter(cleanedTypes);
+
     return cleanedTypes;
   }, list);
 
-  const getSearchText = (searchTerm: string) => {
-    if (searchTerm.trim() === "") {
-      setFilteredList(list);
-      onPropertiesFiltered(list);
-      return;
-    }
-
-    const result = filterByPropName(searchTerm, filteredList);
-    setFilteredList(result);
-    onPropertiesFiltered(result);
-  };
-
   const onItemChecked = (isSelected: boolean, filterType: string) => {
-    setCheckboxFilters((prevState) => {
-      // TODO: check if it makes sense to use reducer
-
+    setTypesFilter((prevState) => {
       let newState: string[] = [];
 
-      if (isSelected) {
-        newState = prevState.filter((stateVal) => stateVal !== filterType);
+      if (!isSelected) {
+        newState = prevState.filter((val) => val !== filterType);
       } else {
         newState = [...prevState, filterType];
-      }
-
-      if (newState.length > 0) {
-        const result = filterByPropType(newState, list);
-        setFilteredList(result);
-        onPropertiesFiltered(result);
-      } else {
-        setFilteredList(list);
-        onPropertiesFiltered(list);
       }
 
       return newState;
     });
   };
 
-  useEffect(() => {
-    console.log("list: ", list);
+  // useEffect(() => {
+  //   setFilteredList(list);
+  // }, [list]);
 
-    setFilteredList(list);
-  }, [list]);
+  useEffect(() => {
+    const searchResult = filterPropsList(searchTerm, typesFilter, list);
+    onPropertiesFiltered(searchResult);
+  }, [searchTerm, typesFilter]);
 
   return (
     <div class={customCss}>
       <SearchInput
         label=""
         placeholder="Filter properties"
-        onSearchText={(text) => getSearchText(text)}
+        onSearchText={(text) => setSearchTerm(text)}
       />
 
       <div class="flex">
