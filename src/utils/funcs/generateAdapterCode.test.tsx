@@ -2,7 +2,7 @@
 
 import fs from "fs";
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/preact";
+import { render, screen, within } from "@testing-library/preact";
 import type { Documentation } from "react-docgen";
 import {
   getCMSFieldPath,
@@ -138,17 +138,32 @@ describe("generateAdapterCode()", () => {
 });
 
 describe("connectSampleComponentToCMS() - a generated HOC", async () => {
-  it("test generated code", async () => {
+  it("should connect a component to CMS data and render it correctly", async () => {
     const cmsData = {
       title: null,
-      count: "2",
+      count: "3",
+      flags: [true, false, true],
     };
 
-    const SampleComponent = (props: { header?: string; count: number }) => {
+    const SampleComponent = (props: {
+      header?: string;
+      count: number;
+      indicators: boolean[];
+      date: Date;
+    }) => {
       return (
         <div>
           {props.header && <h1 data-testid="header">{props.header}</h1>}
-          <div>{props.count}</div>
+          <ul data-testid="indicators">
+            {props.indicators.map((i) => (
+              <li>{i ? "+" : "-"}</li>
+            ))}
+          </ul>
+          <div data-testid="typecheck">
+            count is{" "}
+            {typeof props.count === "number" ? "a number" : "not a number"}
+          </div>
+          <div data-testid="date">{props.date.getFullYear()}</div>
         </div>
       );
     };
@@ -157,6 +172,7 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
       displayName: "SampleComponent",
       props: {
         dummy: {
+          // it's needed only for generating TS code later
           tsType: {
             name: "string",
           },
@@ -189,6 +205,20 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
           isRequired: true,
         },
       ],
+      [
+        {
+          name: "flags",
+          type: TSType.Array,
+          subTypes: [TSType.Boolean],
+          isRequired: true,
+        },
+        {
+          name: "indicators",
+          type: TSType.Array,
+          subTypes: [TSType.Boolean],
+          isRequired: true,
+        },
+      ],
     ];
 
     const code = generateAdapterCode(componentDoc, mappedProps, {
@@ -196,6 +226,7 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
       indentNumberOfSpaces: 2,
     });
 
+    // now we need to save our code (a string) to the mock file
     fs.writeFile("./__mocks__/generatedAdapter.tsx", code, (err) => {
       if (err) {
         console.error(err);
@@ -204,6 +235,8 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
       // file was written successfully
     });
 
+    // and import it as a module, we are ignoring a TS error here
+    // cos it is fake and not a real module
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { connectSampleComponentToCMS } = await import("generatedAdapter");
@@ -211,10 +244,16 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
     const ConnectedComponent =
       connectSampleComponentToCMS(cmsData)(SampleComponent);
 
-    render(<ConnectedComponent header="New" />);
+    render(<ConnectedComponent header="Tests" date={new Date(2019, 1, 1)} />);
 
     const headerElement = screen.getByTestId("header");
+    const indicatorsElement = screen.getByTestId("indicators");
+    const typecheckElement = screen.getByTestId("typecheck");
+    const dateElement = screen.getByTestId("date");
 
-    expect(headerElement).toHaveTextContent("New");
+    expect(headerElement).toHaveTextContent("Tests");
+    expect(within(indicatorsElement).getAllByText("+")).toHaveLength(2);
+    expect(typecheckElement).toHaveTextContent("count is a number");
+    expect(dateElement).toHaveTextContent("2019");
   });
 });

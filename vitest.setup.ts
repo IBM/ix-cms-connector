@@ -15,6 +15,8 @@ expect.extend(matchers);
 // add them into "__mocks__/@carbon/icons-react"
 vi.mock("@carbon/icons-react");
 
+// We need to create a "mock" of the generated HOC function
+// This way we can import it asynchronously later, see the generateAdapterCode.test.tsx file
 vi.mock("generatedAdapter");
 
 afterEach(() => {
