@@ -8,6 +8,7 @@ import { Header } from "./components/atoms/Header";
 import { Input } from "./components/atoms/Input";
 import { RadioButton } from "./components/atoms/RadioButton";
 import { SearchInput } from "./components/atoms/SearchInput";
+import { Checkbox } from "./components/atoms/Checkbox";
 import { FileSelect } from "./components/molecules/FileSelect";
 
 const Overview: FunctionComponent = () => {
@@ -27,6 +28,10 @@ const Overview: FunctionComponent = () => {
 
   const onRemoveFile = () => {
     console.log("File removed");
+  };
+
+  const onCheckboxSelected = () => {
+    // Do nothing
   };
 
   return (
@@ -79,6 +84,15 @@ const Overview: FunctionComponent = () => {
             />
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
+            <h3>Error</h3>
+            <Error>
+              <p class="mb-0">
+                No React component found in
+                <span class="text-text-01"> foo.json</span>.
+              </p>
+            </Error>
+          </div>
+          <div class="flex flex-col gap-3 w-[400px] mb-6">
             <h3>Radio Button</h3>
             <h4>Select one item</h4>
             <div class="flex flex-row gap-3">
@@ -88,12 +102,25 @@ const Overview: FunctionComponent = () => {
             </div>
           </div>
           <div class="flex flex-col gap-3 w-[400px] mb-6">
-            <Error>
-              <p class="mb-0">
-                No React component found in
-                <span class="text-text-01"> foo.json</span>.
-              </p>
-            </Error>
+            <h3>Checkbox</h3>
+            <h4>Select as many items as you want</h4>
+            <div class="flex flex-row gap-3">
+              <Checkbox
+                id="checkbox-1"
+                label="Item 1"
+                handleOptionSelect={onCheckboxSelected}
+              />
+              <Checkbox
+                id="checkbox-2"
+                label="Item 2"
+                handleOptionSelect={onCheckboxSelected}
+              />
+              <Checkbox
+                id="checkbox-3"
+                label="Item 3"
+                handleOptionSelect={onCheckboxSelected}
+              />
+            </div>
           </div>
         </div>
       </div>

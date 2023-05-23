@@ -8,14 +8,14 @@ import {
 
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
   id: string;
-  label?: string;
+  label: string;
   checked?: boolean;
   handleOptionSelect: (isSelected: boolean) => void;
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
-  label = "",
+  label,
   checked = false,
   handleOptionSelect,
   ...rest
@@ -36,6 +36,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
       <input
         type="checkbox"
         id={id}
+        aria-checked={selected}
         checked={selected}
         {...rest}
         class="appearance-none"
