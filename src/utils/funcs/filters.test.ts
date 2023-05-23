@@ -5,6 +5,7 @@ import {
   filterByPropName,
   filterByPropType,
   filterPropsList,
+  getTypesFilterFromList,
 } from "../../utils";
 
 import { TSType } from "../const";
@@ -36,6 +37,13 @@ const list: MappableProp[] = [
     type: TSType.Boolean,
   },
 ];
+
+describe("getTypesFilterFromList()", () => {
+  it("should return all the types by which the user can filter a given props list without repetitions", () => {
+    const result = getTypesFilterFromList(list);
+    expect(result).toStrictEqual(["string", "number", "boolean"]);
+  });
+});
 
 describe("filterByPropName()", () => {
   it("should return a filtered array of MappableProp by the given search term", () => {
@@ -100,11 +108,9 @@ describe("filterPropsList", () => {
     ]);
   });
 
-  it("should return initial list when the search term is empty and all the types present on the list are passed", () => {
+  it("should return the initial list when the search term is empty and all the types present on the list are passed", () => {
     const searchTerm = "";
-    const types = ["string", "boolean", "number"];
-
-    // TODO: extract logic to fill the types
+    const types = getTypesFilterFromList(list);
 
     const result = filterPropsList(searchTerm, types, list);
     expect(result).toStrictEqual(list);

@@ -1,4 +1,18 @@
-import type { MappableProp } from "../types";
+import { type MappableProp, formatMappablePropType } from "../../utils";
+
+export function getTypesFilterFromList(propList: MappableProp[]): string[] {
+  const typesFilter: string[] = [];
+
+  propList.forEach((prop) => {
+    const [type] = formatMappablePropType(prop);
+
+    if (!typesFilter.find((typeFilter) => typeFilter === type)) {
+      typesFilter.push(type);
+    }
+  });
+
+  return typesFilter;
+}
 
 export function filterByPropName(
   name: string,
@@ -14,15 +28,9 @@ export function filterByPropType(
   const result: MappableProp[] = [];
 
   propList.forEach((prop) => {
-    let filterMatch = false;
-
     types.forEach((type) => {
-      if (type === prop.type) filterMatch = true;
+      if (type === prop.type) result.push(prop);
     });
-
-    if (filterMatch) {
-      result.push(prop);
-    }
   });
 
   return result;
@@ -32,9 +40,7 @@ export function filterPropsList(
   name: string,
   types: string[],
   propList: MappableProp[]
-) {
-  // TODO: ADD DEBOUNCER?
-
+): MappableProp[] {
   const filteredByName = filterByPropName(name, propList);
   return filterByPropType(types, filteredByName);
 }

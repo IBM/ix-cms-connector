@@ -4,7 +4,7 @@ import { useId, useEffect, useMemo, useState } from "preact/hooks";
 import {
   type MappableProp,
   filterPropsList,
-  formatMappablePropType,
+  getTypesFilterFromList,
 } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
 
@@ -24,28 +24,10 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
-  // TODO: CLEANUP
-  // const [filteredList, setFilteredList] = useState<MappableProp[]>([]);
-
-  // TODO: RESET FILTERS IF COMPONENT CHANGES
-
   const checkboxTypes: string[] = useMemo(() => {
-    const propListTypes = list.map((listItem) => {
-      const [type] = formatMappablePropType(listItem);
-      return type;
-    });
-
-    const cleanedTypes: string[] = [];
-
-    propListTypes.forEach((pType) => {
-      if (!cleanedTypes.find((cType) => cType === pType)) {
-        cleanedTypes.push(pType);
-      }
-    });
-
-    setTypesFilter(cleanedTypes);
-
-    return cleanedTypes;
+    const typesFilter = getTypesFilterFromList(list);
+    setTypesFilter(typesFilter);
+    return typesFilter;
   }, list);
 
   const onItemChecked = (isSelected: boolean, filterType: string) => {
@@ -61,10 +43,6 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
       return newState;
     });
   };
-
-  // useEffect(() => {
-  //   setFilteredList(list);
-  // }, [list]);
 
   useEffect(() => {
     const searchResult = filterPropsList(searchTerm, typesFilter, list);
