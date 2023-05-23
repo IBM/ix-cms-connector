@@ -33,5 +33,8 @@ export function filterPropsList(
   types: string[],
   propList: MappableProp[]
 ) {
-  //do something
+  // TODO: ADD DEBOUNCER?
+
+  const filteredByName = filterByPropName(name, propList);
+  return filterByPropType(types, filteredByName);
 }
