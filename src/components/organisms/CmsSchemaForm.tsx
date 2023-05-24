@@ -130,6 +130,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
     api: (
       <form
+        aria-label="API endpoint cms"
         onSubmit={getCmsSchemaFromUrl}
         class="flex flex-row max-h-12 items-center"
       >
@@ -148,7 +149,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   };
 
   return (
-    <>
+    <div aria-label="CmsSchemaForm">
       <div class="flex flex-col">
         <RadioButton
           label="API endpoint"
@@ -196,6 +197,6 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         </div>
       )}
       {parsingCmsSchema && <span>Parsing...</span>}
-    </>
+    </div>
   );
 };
