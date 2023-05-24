@@ -170,7 +170,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         <div class="flex flex-col">
           <PropertyFilters
             list={unstagedCmsProps}
-            customCss="mb-6"
+            customCss="items-start"
             onPropertiesFiltered={(filteredProps) =>
               setFilteredCmsProps(filteredProps)
             }
@@ -188,7 +188,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         <div class="flex flex-col">
           <PropertyFilters
             list={unstagedCompProps}
-            customCss="flex flex-col items-end mb-6"
+            customCss="items-end"
             onPropertiesFiltered={(filteredProps) =>
               setFilteredCompProps(filteredProps)
             }

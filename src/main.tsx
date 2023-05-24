@@ -45,8 +45,7 @@ const Main: FunctionComponent = () => {
       </div>
 
       {cmsSchema && componentDoc && (
-        <div class="px-4 my-16 mx-auto max-w-7xl">
-          <h3>Schema Mapping</h3>
+        <div class="px-4 my-16 pt-16 mx-auto max-w-7xl border-t border-ui-03">
           <SchemaMatcher
             cmsSchema={cmsSchema}
             componentDoc={componentDoc}

@@ -50,7 +50,7 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   }, [searchTerm, typesFilter]);
 
   return (
-    <div class={customCss}>
+    <div class={`flex flex-col mb-6 ${customCss}`}>
       <SearchInput
         label=""
         placeholder="Filter properties"
