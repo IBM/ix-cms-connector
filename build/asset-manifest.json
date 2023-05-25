@@ -1,7 +1,8 @@
 {
-  "bundle.css": "bundle.34ea7.css",
-  "bundle.js": "bundle.d2d32.esm.js",
-  "bundle.js.map": "bundle.d2d32.esm.js.map",
-  "polyfills.js": "polyfills.79b71.esm.js",
-  "polyfills.js.map": "polyfills.79b71.esm.js.map"
+  "bundle.css": "bundle.3c3fa.css",
+  "bundle.js": "bundle.b570d.esm.js",
+  "bundle.js.map": "bundle.b570d.esm.js.map",
+  "polyfills.js": "polyfills.cf7fb.esm.js",
+  "polyfills.js.map": "polyfills.cf7fb.esm.js.map",
+  "manifest.json": "manifest.json"
 }

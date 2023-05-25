@@ -18,7 +18,7 @@ const Main: FunctionComponent = () => {
     <>
       <Header />
       <div class="px-4 mt-16 mx-auto max-w-7xl">
-        <h1>CMS Adapter Generator</h1>
+        <h1>IBM iX CMS Connector</h1>
         <p>Description ...</p>
       </div>
 
