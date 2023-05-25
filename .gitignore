@@ -1,5 +1,4 @@
 # dependencies
 node_modules
-pnpm-lock.yaml
 coverage
 __mocks__/generatedAdapter.tsx
