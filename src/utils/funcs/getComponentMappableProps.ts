@@ -128,10 +128,9 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
   return Object.entries(doc.props).reduce(
     (mappableProps, [name, propDescr]) => {
       const mappableProp = getComponentMappableProp(name, propDescr);
-      if (
-        propDescr?.tsType?.name === "signature" ||
-        (mappableProp?.type as string) === "signature"
-      ) {
+
+      // nested component props
+      if (propDescr?.tsType?.name === "signature") {
         const props = (
           propDescr.tsType as ObjectSignatureType
         ).signature.properties.reduce(
