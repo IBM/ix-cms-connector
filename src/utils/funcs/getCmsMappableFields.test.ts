@@ -85,3 +85,66 @@ describe("getCmsMappableFields()", () => {
     expect(result).toHaveLength(2);
   });
 });
+
+describe("getCmsMappableFields()", () => {
+  it("should retrieve mappable props in case of 1 level of nesting", () => {
+    const schema: JSONSchema = {
+      properties: {
+        propObject: {
+          type: "object",
+          properties: {
+            propString: {
+              type: "string",
+            },
+            propBoolean: {
+              type: "boolean",
+            },
+          },
+        },
+      },
+    };
+
+    const result = getCmsMappableFields(schema);
+
+    expect(result).toHaveLength(2);
+  });
+});
+
+describe("getCmsMappableFields()", () => {
+  it("should retrieve mappable props in case of n levels of nesting", () => {
+    const schema: JSONSchema = {
+      properties: {
+        propObject: {
+          type: "object",
+          properties: {
+            propObject: {
+              type: "object",
+              properties: {
+                propObject: {
+                  type: "object",
+                  properties: {
+                    propObject: {
+                      type: "object",
+                      properties: {
+                        propString: {
+                          type: "string",
+                        },
+                        propBoolean: {
+                          type: "boolean",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    const result = getCmsMappableFields(schema);
+
+    expect(result).toHaveLength(2);
+  });
+});
