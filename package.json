@@ -1,9 +1,9 @@
 {
-  "name": "cms-adapter-generator",
+  "name": "ibm-ix-cms-connector",
   "version": "1.0.0",
   "description": "get the json schema from a rest endpoint",
   "main": "index.js",
-  "author": "LIT frontend",
+  "author": "IBM iX - LIT frontend",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",

@@ -1,10 +1,10 @@
-# cms-adapter-generator
+# IBM iX CMS Connector
 
 A tool to connect a JSON schema from a CMS with the input props of UI components
 
 ## usage with npx
 
-To execute the cms adapter generator simply run `npx cms-adapter-generator`. This will open up the UI of the generator on http://localhost:8080/. You can define another port by passing in an environment variable, e.g. `PORT=3000 npx cms-adapter-generator`.
+To execute the cms adapter generator simply run `npx ibm-ix-cms-connector`. This will open up the UI of the generator on http://localhost:8080/. You can define another port by passing in an environment variable, e.g. `PORT=3000 npx ibm-ix-cms-connector`.
 
 ## prerequistes
 
@@ -14,7 +14,7 @@ This project needs node 18 in order to run. You can use `nvm install 18` and `nv
 
 ### pnpm
 
-pnpm is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. 
+pnpm is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm.
 
 For more details see: https://pnpm.io/motivation
 
@@ -41,7 +41,9 @@ pnpm run dev
 ```
 
 #### Component overview
+
 It is possible to check all the components avaible in the overview page.
+
 ```
 localhost:8080/overview
 ```
@@ -58,12 +60,12 @@ pnpm run build
 
 `pnpm run lint` and `pnpm run format` is run before every commit.
 
-## generate schema 
+## generate schema
 
 to generate the json schema based on a cms api endpoint run:
 
 ```
-pnpm generate:schema <apiendpoint> 
+pnpm generate:schema <apiendpoint>
 ```
 
 ## Unit & Integration Testing
@@ -101,8 +103,7 @@ pnpm run test:watch
 ### test: coverage
 
 Create the coverage report of the project under the folder /coverage
+
 ```
 pnpm run test:coverage
 ```
-
-
