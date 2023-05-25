@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-if [[ $(git rev-parse --abbrev-ref HEAD) == master ]]; then pnpm run build && git status; fi
+if [[ $(git rev-parse --abbrev-ref HEAD) == main ]]; then pnpm run build && git status; fi
