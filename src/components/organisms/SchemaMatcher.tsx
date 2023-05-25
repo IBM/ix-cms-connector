@@ -19,6 +19,7 @@ import {
 } from "../../reducers/stagedPropsReducer";
 import { PropertyList } from "../molecules/PropertyList";
 import { SchemaMatcherStage } from "../molecules/SchemaMatcherStage";
+import { PropertyFilters } from "../molecules/PropertyFilters";
 
 const isStaged = (
   prop: MappableProp,
@@ -45,6 +46,13 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   componentDoc,
   onGenerate,
 }) => {
+  const [filteredCmsProps, setFilteredCmsProps] = useState<
+    MappableProp[] | null
+  >(null);
+  const [filteredCompProps, setFilteredCompProps] = useState<
+    MappableProp[] | null
+  >(null);
+
   const [cmsProps, setCmsProps] = useState<MappableProp[]>(() =>
     getCmsMappableFields(cmsSchema)
   );
@@ -159,23 +167,41 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
       }
     >
       <div class="grid grid-cols-2">
-        <PropertyList
-          list={unstagedCmsProps}
-          source={PropSource.CMS}
-          draggingProp={draggingProp}
-          onPropertyDragStart={handleDragStart}
-          onDropOnProperty={mapPropsOnStage}
-          onPropertyClick={addPropToStage}
-        />
+        <div class="flex flex-col">
+          <PropertyFilters
+            list={unstagedCmsProps}
+            customCss="items-start"
+            onPropertiesFiltered={(filteredProps) =>
+              setFilteredCmsProps(filteredProps)
+            }
+          />
+          <PropertyList
+            list={filteredCmsProps || unstagedCmsProps}
+            source={PropSource.CMS}
+            draggingProp={draggingProp}
+            onPropertyDragStart={handleDragStart}
+            onDropOnProperty={mapPropsOnStage}
+            onPropertyClick={addPropToStage}
+          />
+        </div>
 
-        <PropertyList
-          list={unstagedCompProps}
-          source={PropSource.COMPONENT}
-          draggingProp={draggingProp}
-          onPropertyDragStart={handleDragStart}
-          onDropOnProperty={mapPropsOnStage}
-          onPropertyClick={addPropToStage}
-        />
+        <div class="flex flex-col">
+          <PropertyFilters
+            list={unstagedCompProps}
+            customCss="items-end"
+            onPropertiesFiltered={(filteredProps) =>
+              setFilteredCompProps(filteredProps)
+            }
+          />
+          <PropertyList
+            list={filteredCompProps || unstagedCompProps}
+            source={PropSource.COMPONENT}
+            draggingProp={draggingProp}
+            onPropertyDragStart={handleDragStart}
+            onDropOnProperty={mapPropsOnStage}
+            onPropertyClick={addPropToStage}
+          />
+        </div>
       </div>
 
       <SchemaMatcherStage
