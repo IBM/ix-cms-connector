@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
 import { Search, Close } from "@carbon/icons-react";
-import { useState } from "preact/hooks";
+import { useState, useId } from "preact/hooks";
 import { HTMLAttributes } from "react";
 import { debounce } from "../../utils/funcs/debounce";
 
@@ -14,6 +14,8 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
   onSearchText,
   ...input
 }) => {
+  const inputId = useId();
+
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const onChange = (event): void => {
@@ -34,14 +36,14 @@ export const SearchInput: FunctionalComponent<SearchInputProps> = ({
 
   return (
     <label
-      htmlFor="search"
+      htmlFor={inputId}
       class="flex flex-col text-xs text-text-02 font-normal mb-2"
     >
       {label}
       <div class="flex relative items-center bg-ui-shell-white focus:outline-8 border-b mt-2 border-ui-04">
         <Search class="absolute left-0 ml-3" />
         <input
-          id="search"
+          id={inputId}
           type="text"
           value={searchTerm}
           aria-label={label}
