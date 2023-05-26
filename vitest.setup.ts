@@ -5,6 +5,9 @@ import { expect, afterEach, vi } from "vitest";
 // learn more: https://github.com/testing-library/jest-dom
 import matchers from "@testing-library/jest-dom/matchers";
 
+// Run a cleanup after each test case (e.g. clearing jsdom)
+import { cleanup } from "@testing-library/preact";
+
 expect.extend(matchers);
 
 // Mock svg's library to be able to run the tests
@@ -12,8 +15,9 @@ expect.extend(matchers);
 // add them into "__mocks__/@carbon/icons-react"
 vi.mock("@carbon/icons-react");
 
-// Run a cleanup after each test case (e.g. clearing jsdom)
-import { cleanup } from "@testing-library/preact";
+// We need to create a "mock" of the generated HOC function
+// This way we can import it asynchronously later, see the generateAdapterCode.test.tsx file
+vi.mock("generatedAdapter");
 
 afterEach(() => {
   cleanup();

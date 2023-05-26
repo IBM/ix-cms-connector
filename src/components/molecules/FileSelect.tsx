@@ -39,6 +39,7 @@ export const FileSelect: FunctionComponent<FileSelectProps> = ({
     />
   ) : (
     <div
+      aria-label="drop area"
       {...getRootProps({
         className: `cursor-pointer h-24 border border-dashed hover:border-interactive-01 hover:bg-highlight ${
           isDragActive ? "border-interactive-01 bg-highlight" : "border-ui-04"

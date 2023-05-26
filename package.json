@@ -1,9 +1,9 @@
 {
-  "name": "cms-adapter-generator",
+  "name": "ibm-ix-cms-connector",
   "version": "1.0.0",
   "description": "get the json schema from a rest endpoint",
   "main": "index.js",
-  "author": "LIT frontend",
+  "author": "IBM iX - LIT frontend",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
@@ -11,9 +11,11 @@
     "prepare": "husky install",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build --no-prerender --no-sw",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
-    "test": "vitest run",
-    "test:verbose": "vitest run --reporter verbose",
-    "test:watch": "vitest"
+    "pretest": "> ./__mocks__/generatedAdapter.tsx",
+    "test": "pnpm run pretest & vitest run",
+    "test:verbose": "pnpm run pretest & vitest run --reporter verbose",
+    "test:watch": "pnpm run pretest & vitest",
+    "test:coverage": "pnpm run pretest & vitest run --coverage"
   },
   "bin": "./bin.js",
   "devDependencies": {
@@ -28,6 +30,7 @@
     "@types/to-json-schema": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "@vitest/coverage-c8": "^0.31.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "husky": "^8.0.0",
@@ -35,6 +38,8 @@
     "preact-render-to-string": "^6.0.2",
     "prettier": "^2.8.7",
     "prop-types": "^15.8.1",
+    "react": "npm:@preact/compat@^17.1.2",
+    "react-dom": "npm:@preact/compat@^17.1.2",
     "string-replace-loader": "^3.1.0",
     "tailwindcss": "^3.3.1",
     "ts-node": "^10.9.1",
@@ -49,9 +54,7 @@
     "postcss": "^8.4.21",
     "preact": "^10.13.2",
     "preact-router": "^4.1.0",
-    "react": "npm:@preact/compat@^17.1.2",
     "react-docgen": "6.0.0-beta.6",
-    "react-dom": "npm:@preact/compat@^17.1.2",
     "react-dropzone": "^14.2.3",
     "to-json-schema": "^0.2.5"
   },
