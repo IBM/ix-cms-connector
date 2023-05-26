@@ -3,10 +3,12 @@ import Main from "./main";
 import Overview from "./overview";
 
 export const AppRoute = () => {
+  const isDev = process.env.PREACT_APP_ENV === "dev";
+
   return (
     <Router>
       <Route path="/" component={Main} />
-      <Route path="/overview" component={Overview} />
+      {isDev && <Route path="/overview" component={Overview} />}
     </Router>
   );
 };
