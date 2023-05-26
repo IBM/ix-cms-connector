@@ -90,3 +90,153 @@ describe("getComponentMappableProps()", () => {
     expect(result).toHaveLength(2);
   });
 });
+
+describe("getComponentMappableProps()", () => {
+  it("should retrieve nested mappable props in case of 1 level of nesting", () => {
+    const doc: Documentation = {
+      props: {
+        propObject: {
+          required: true,
+          tsType: {
+            name: "signature",
+            type: "object",
+            signature: {
+              properties: [
+                {
+                  key: "propString",
+                  value: {
+                    name: "string",
+                    required: true,
+                  },
+                },
+                {
+                  key: "propBoolean",
+                  value: {
+                    name: "boolean",
+                    required: true,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    };
+
+    const result = getComponentMappableProps(doc);
+
+    expect(result).toHaveLength(2);
+  });
+});
+
+describe("getComponentMappableProps()", () => {
+  it("should retrieve nested mappable props in case of 1 level of nesting", () => {
+    const doc: Documentation = {
+      props: {
+        propObject: {
+          required: true,
+          tsType: {
+            name: "signature",
+            type: "object",
+            signature: {
+              properties: [
+                {
+                  key: "propString",
+                  value: {
+                    name: "string",
+                    required: true,
+                  },
+                },
+                {
+                  key: "propBoolean",
+                  value: {
+                    name: "boolean",
+                    required: true,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    };
+
+    const result = getComponentMappableProps(doc);
+
+    expect(result).toHaveLength(2);
+  });
+});
+
+describe("getComponentMappableProps()", () => {
+  it("should retrieve nested mappable props in case of 1 level of nesting", () => {
+    const doc: Documentation = {
+      props: {
+        propObject: {
+          required: true,
+          tsType: {
+            name: "signature",
+            type: "object",
+            signature: {
+              properties: [
+                {
+                  key: "propObject",
+                  value: {
+                    name: "signature",
+                    type: "object",
+                    signature: {
+                      properties: [
+                        {
+                          key: "propObject",
+                          value: {
+                            name: "signature",
+                            type: "object",
+                            signature: {
+                              properties: [
+                                {
+                                  key: "propObject",
+                                  value: {
+                                    name: "signature",
+                                    type: "object",
+                                    signature: {
+                                      properties: [
+                                        {
+                                          key: "propString",
+                                          value: {
+                                            name: "string",
+                                            required: true,
+                                          },
+                                        },
+                                        {
+                                          key: "propBoolean",
+                                          value: {
+                                            name: "boolean",
+                                            required: true,
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    required: true,
+                                  },
+                                },
+                              ],
+                            },
+                            required: true,
+                          },
+                        },
+                      ],
+                    },
+                    required: true,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    };
+
+    const result = getComponentMappableProps(doc);
+
+    expect(result).toHaveLength(2);
+  });
+});
