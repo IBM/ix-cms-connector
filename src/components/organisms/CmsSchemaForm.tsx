@@ -132,7 +132,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
       <form
         aria-label="API endpoint cms"
         onSubmit={getCmsSchemaFromUrl}
-        class="flex flex-row max-h-12 items-center"
+        class="flex flex-row"
       >
         <Input
           name="cmsEndpoint"
@@ -150,7 +150,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
 
   return (
     <div aria-label="CmsSchemaForm">
-      <div class="flex flex-col">
+      <div class="flex flex-col gap-2 mt-8">
         <RadioButton
           label="API endpoint"
           name="cms"
@@ -166,7 +166,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
           onClick={() => setSchemaProvider("json")}
         />
       </div>
-      <div class="my-6 ">
+      <div class="mt-8">
         {schemaComponent[schemaProvider]}
         {cmsError && (
           <Error>
@@ -175,7 +175,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         )}
       </div>
       {json && (
-        <div class="z-20 relative">
+        <div class="z-20 relative mt-8">
           <Dropdown
             options={cmsOptions}
             label="CMS"
@@ -186,17 +186,16 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         </div>
       )}
       {components?.length > 0 && (
-        <div class="z-10 relative mt-2">
+        <div class="z-10 relative mt-8">
           <Dropdown
             label="Component"
             options={components}
             handleOptionSelect={setComponent}
             selected={component}
             placeholder="Select"
-          ></Dropdown>
+          />
         </div>
       )}
-      {parsingCmsSchema && <span>Parsing...</span>}
     </div>
   );
 };

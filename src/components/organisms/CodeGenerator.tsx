@@ -18,7 +18,7 @@ export const CodeGenerator: FunctionComponent<CodeGeneratorProps> = ({
 
   return (
     <div>
-      <h3 class="mb-4 font-semibold text-lg">Adapter Code</h3>
+      <h3 class="mb-4">Connect function</h3>
       <CodeSnippet snippet={code} />
     </div>
   );

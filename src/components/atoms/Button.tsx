@@ -25,7 +25,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   return (
     <button
       data-testid={testId}
-      class={`${colorsVariants[style]} max-h-12 py-3 whitespace-nowrap pl-3.5 pr-16 text-text-04 text-sm font-normal focus:outline-2 focus:outline-offset-2 focus:outline-interactive-01 rounded-none disabled:bg-disabled-02 disabled:text-disabled-03`}
+      class={`${colorsVariants[style]} h-[49px] py-3 whitespace-nowrap pl-3.5 pr-16 text-text-04 text-sm font-normal focus:outline-2 focus:outline-offset-2 focus:outline-interactive-01 rounded-none disabled:bg-disabled-02 disabled:text-disabled-03`}
       {...rest}
     >
       {text}

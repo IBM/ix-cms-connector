@@ -50,14 +50,14 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   }, [searchTerm, typesFilter]);
 
   return (
-    <div class={`flex flex-col mb-6 ${customCss}`}>
+    <div class={`flex flex-col mb-8 ${customCss}`}>
       <SearchInput
         label=""
         placeholder="Filter properties"
         onSearchText={(text) => setSearchTerm(text)}
       />
 
-      <div class="flex">
+      <div class="flex mt-2 gap-4">
         {checkboxTypes.map((type, index) => (
           <Checkbox
             key={index}

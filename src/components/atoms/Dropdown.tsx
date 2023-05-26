@@ -91,7 +91,9 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
 
   return (
     <div class="flex flex-col">
-      <label class="text-xs text-text-02 font-normal mb-2">{label}</label>
+      {!!label && (
+        <label class="text-xs text-text-02 font-normal mb-2">{label}</label>
+      )}
       <div
         class={`${
           isOpen ? " drop-shadow" : ""
@@ -136,7 +138,9 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
           </ul>
         )}
       </div>
-      <span class="text-xs text-text-02 font-normal mt-2">{description}</span>
+      {!!description && (
+        <span class="text-xs text-text-02 font-normal mt-2">{description}</span>
+      )}
     </div>
   );
 };

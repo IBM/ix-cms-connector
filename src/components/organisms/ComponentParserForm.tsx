@@ -50,21 +50,16 @@ export const ComponentParserForm: FunctionComponent<
   }, [file]);
 
   return (
-    <div>
+    <div class="mt-8">
       <FileSelect onSelect={setFile} onRemoveFile={() => setFile(null)} />
 
-      {file && (
-        <div class="mt-2">
-          {pending && <span>Parsing...</span>}
-          {error && (
-            <Error>
-              <p class="mb-0">
-                No component found in
-                <span class="text-text-01"> {file.name}</span>
-              </p>
-            </Error>
-          )}
-        </div>
+      {file && error && (
+        <Error>
+          <p class="mb-0">
+            No component found in
+            <span class="text-text-01"> {file.name}</span>
+          </p>
+        </Error>
       )}
     </div>
   );

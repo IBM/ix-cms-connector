@@ -37,10 +37,11 @@ const Overview: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <div class="px-4 mt-16 mx-auto max-w-7xl">
+      <div class="px-8 py-16 mx-auto max-w-7xl">
         <h1>Components Overview</h1>
-        <div class="px-4 my-16 mx-auto max-w-7xl grid grid-cols-2 gap-8">
-          <div class="flex flex-col gap-3 w-[200px] mb-6">
+
+        <div class="mt-16 grid grid-cols-2 gap-8">
+          <div class="flex flex-col gap-3 w-[200px]">
             <h3>Button Variation</h3>
             <Button style={ButtonType.PRIMARY} text="Button Primary" />
             <Button style={ButtonType.SECONDARY} text="Button Secondary" />
@@ -50,13 +51,15 @@ const Overview: FunctionComponent = () => {
               text="Button disabled"
             />
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>File whitout removing option</h3>
             <FileSelect onSelect={onSelect} />
             <h3>File with removing option</h3>
             <FileSelect onSelect={onSelect} onRemoveFile={onRemoveFile} />
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>Dropdown</h3>
             <Dropdown
               selected={selected}
@@ -71,11 +74,13 @@ const Overview: FunctionComponent = () => {
               placeholder="Select"
             />
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>Input</h3>
             <Input label="Input Label" placeholder="Placeholder" />
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>Search Input</h3>
             <SearchInput
               label="Search Input Label"
@@ -83,7 +88,8 @@ const Overview: FunctionComponent = () => {
               onSearchText={onSearchText}
             />
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>Error</h3>
             <Error>
               <p class="mb-0">
@@ -92,7 +98,8 @@ const Overview: FunctionComponent = () => {
               </p>
             </Error>
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>Radio Button</h3>
             <h4>Select one item</h4>
             <div class="flex flex-row gap-3">
@@ -101,7 +108,8 @@ const Overview: FunctionComponent = () => {
               <RadioButton label="Item 3" name="overview" />
             </div>
           </div>
-          <div class="flex flex-col gap-3 w-[400px] mb-6">
+
+          <div class="flex flex-col gap-3 w-[400px]">
             <h3>Checkbox</h3>
             <h4>Select as many items as you want</h4>
             <div class="flex flex-row gap-3">

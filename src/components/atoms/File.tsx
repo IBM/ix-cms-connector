@@ -17,9 +17,11 @@ export const File = ({
   const isClickable = onRemoveFile !== undefined;
 
   return (
-    <div class="text-text-02 font-normal text-xs flex flex-col">
-      {label}
-      <div class="flex items-center p-3.5 text-text-01 bg-ui-shell-white  my-2">
+    <div class="flex flex-col">
+      {!!label && (
+        <label class="text-text-02 font-normal text-xs mb-2">{label}</label>
+      )}
+      <div class="flex items-center p-3.5 text-text-01 bg-ui-shell-white">
         <div class="flex-1 text-sm">{name}</div>
         <div class="flex-shrink-0 flex items-center">
           {!!isLoading && <Spinner />}
