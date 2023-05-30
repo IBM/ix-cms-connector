@@ -125,6 +125,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setJson(undefined);
     setComponent(undefined);
     setCmsError(false);
+    onGenerate(undefined);
   }, []);
 
   const schemaComponent: Record<SchemaProvider, JSX.Element> = {
