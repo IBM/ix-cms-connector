@@ -1,7 +1,9 @@
 import type { Documentation } from "react-docgen";
 import type {
+  ObjectSignatureType,
   PropDescriptor,
   PropTypeDescriptor,
+  TypeDescriptor,
 } from "react-docgen/dist/Documentation";
 import { JSPropType, TSType } from "../const";
 import type { MappableProp } from "../types";
@@ -25,7 +27,6 @@ export function getComponentMappableProp(
       TSType.Null,
       TSType.Undefined,
     ];
-
     const primitiveType = primitiveTypes.find((t) => t === tsType.name);
 
     if (primitiveType) {
@@ -128,6 +129,39 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
   return Object.entries(doc.props).reduce(
     (mappableProps, [name, propDescr]) => {
       const mappableProp = getComponentMappableProp(name, propDescr);
+
+      // nested component props
+      if (
+        propDescr?.tsType?.name === "signature" ||
+        propDescr?.type?.name === "shape"
+      ) {
+        // TS or JS props
+        const isTS = !!propDescr.tsType;
+        const nestedProps = isTS
+          ? (propDescr.tsType as ObjectSignatureType).signature.properties
+          : Object.keys(propDescr.type.value).map((key) => ({
+              ...propDescr.type.value[key],
+              key,
+            }));
+
+        const props = nestedProps.reduce(
+          (acc, curr) => ({
+            ...acc,
+            ...{
+              [`${name}.${curr.key}`]: {
+                [isTS ? "tsType" : "type"]: isTS
+                  ? curr.value
+                  : { name: curr.name, value: curr.value },
+              },
+            },
+          }),
+          {} as { key: string; value: TypeDescriptor }
+        );
+
+        const subMappableProps = getComponentMappableProps({ props });
+
+        mappableProps = [...mappableProps, ...subMappableProps];
+      }
 
       if (mappableProp) {
         mappableProps.push(mappableProp);

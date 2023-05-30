@@ -1,0 +1,18 @@
+{
+  "_uid": "3e2ef3b0-30c4-427d-8f49-996c6e3559ab",
+  "string": "String",
+  "component": "component-with-nesting",
+  "nullable": null,
+  "boolean": false,
+  "union": "String",
+  "array": ["String"],
+  "object": {
+    "nestedString": "String",
+    "nestedObject": {
+      "deepNestedObject": {
+        "deepNestedBoolean": true,
+        "deepNestedString": "String"
+      }
+    }
+  }
+}
