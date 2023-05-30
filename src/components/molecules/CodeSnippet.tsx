@@ -4,10 +4,12 @@ import { Copy, ChevronDown } from "@carbon/icons-react";
 
 type CodeSnippetProps = {
   snippet: string;
+  inline?: boolean;
 };
 
 export const CodeSnippet: FunctionalComponent<CodeSnippetProps> = ({
   snippet,
+  inline,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hasShowMore, setHasShowMore] = useState(true);
@@ -24,6 +26,10 @@ export const CodeSnippet: FunctionalComponent<CodeSnippetProps> = ({
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+  if (inline) {
+    return <code class="bg-field-01 text-xs px-2 rounded-sm">{snippet}</code>;
+  }
 
   return (
     <div

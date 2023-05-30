@@ -1,6 +1,24 @@
 # IBM iX CMS Connector
 
-A tool to connect a JSON schema from a CMS with the input props of UI components
+A tool that helps create a connector function (HOC) between a CMS schema and a react component.
+
+## How to use the HOC
+
+To map the CMS data with the properties of your component, call the
+generated higher order component like so, passing it the data and invoke the
+returned function with the component you want to adapt as an argument.
+
+```
+const ConnectedComponent = connectSampleComponentToCMS(cmsData)(SampleComponent);
+```
+
+The return value is the component with the CMS data already applied. The
+component can then be used as usual and you can pass the rest props if
+necessary. It is also possible to overwrite already applied props.
+
+```
+<ConnectedComponent notMappedProp={new Date()} mappedProp="new value" />
+```
 
 ## usage with npx
 

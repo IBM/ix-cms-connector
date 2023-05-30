@@ -20,8 +20,8 @@ const Main: FunctionComponent = () => {
       <div class="px-8 py-16 mx-auto max-w-7xl">
         <h1>IBM iX CMS Connector</h1>
         <p>
-          A tool to connect a JSON schema from a CMS with the input props of UI
-          components.
+          A tool that helps create a connector function (HOC) between a CMS
+          schema and a react component.
         </p>
       </div>
 
