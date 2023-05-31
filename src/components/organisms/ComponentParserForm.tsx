@@ -4,6 +4,7 @@ import { parse, type Documentation } from "react-docgen";
 import { getComponentParserConfig } from "../../utils";
 import { FileSelect } from "../molecules/FileSelect";
 import { Error } from "../atoms/Error";
+import { useCallback } from "react";
 
 interface ComponentParserFormProps {
   onParsed: (doc: Documentation) => void;
@@ -49,9 +50,14 @@ export const ComponentParserForm: FunctionComponent<
     }
   }, [file]);
 
+  const onRemove = useCallback(() => {
+    setFile(null);
+    onParsed(undefined);
+  }, []);
+
   return (
     <div class="mt-8 w-2/3">
-      <FileSelect onSelect={setFile} onRemoveFile={() => setFile(null)} />
+      <FileSelect onSelect={setFile} onRemoveFile={onRemove} />
 
       {file && error && (
         <Error>
