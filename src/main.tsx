@@ -17,41 +17,46 @@ const Main: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <div class="px-8 py-16 mx-auto max-w-7xl">
-        <h1>IBM iX CMS Connector</h1>
-        <p>
-          A tool that helps create a connector function (HOC) between a CMS
-          schema and a react component.
-        </p>
+
+      <div class="mx-auto max-w-7xl px-4 my-12">
+        <div class="p-4">
+          <h1>IBM iX CMS Connector</h1>
+          <p>
+            A tool that helps create a connector function (HOC) between a CMS
+            schema and a react component.
+          </p>
+        </div>
       </div>
 
       <div class="border-t border-ui-03">
-        <div class="px-8 py-16 mx-auto max-w-7xl grid grid-cols-2 gap-16">
-          <div>
-            <h3>JSON Schema</h3>
-            <p>Provide a schema to map data from.</p>
-            <CmsSchemaForm
-              onGenerate={(cmsSchema) => {
-                setCmsSchema(cmsSchema);
-              }}
-            />
-          </div>
+        <div class="mx-auto max-w-7xl px-4 my-12">
+          <div class="grid grid-cols-2">
+            <div class="p-4">
+              <h3>JSON Schema</h3>
+              <p>Provide a schema to map data from.</p>
+              <CmsSchemaForm
+                onGenerate={(cmsSchema) => {
+                  setCmsSchema(cmsSchema);
+                }}
+              />
+            </div>
 
-          <div>
-            <h3>React component</h3>
-            <p>Upload the React component to be mapped.</p>
-            <ComponentParserForm
-              onParsed={(doc) => {
-                setComponentDoc(doc);
-              }}
-            />
+            <div class="p-4">
+              <h3>React component</h3>
+              <p>Upload the React component to be mapped.</p>
+              <ComponentParserForm
+                onParsed={(doc) => {
+                  setComponentDoc(doc);
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {cmsSchema && componentDoc && (
         <div class="border-t border-ui-03">
-          <div class="px-8 py-16 mx-auto max-w-7xl">
+          <div class="mx-auto max-w-7xl px-4 my-12">
             <SchemaMatcher
               cmsSchema={cmsSchema}
               componentDoc={componentDoc}
@@ -65,11 +70,13 @@ const Main: FunctionComponent = () => {
 
       {componentDoc && mappedProps?.length && (
         <div class="border-t border-ui-03">
-          <div class="px-8 py-16 mx-auto max-w-7xl">
-            <CodeGenerator
-              componentDoc={componentDoc}
-              mappedProps={mappedProps}
-            />
+          <div class="mx-auto max-w-7xl px-4 my-12">
+            <div class="p-4">
+              <CodeGenerator
+                componentDoc={componentDoc}
+                mappedProps={mappedProps}
+              />
+            </div>
           </div>
         </div>
       )}

@@ -134,10 +134,12 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         onSubmit={getCmsSchemaFromUrl}
         class="flex flex-row"
       >
-        <Input
-          name="cmsEndpoint"
-          placeholder="cms-endpoint:3000/my-component"
-        />
+        <div class="w-2/3">
+          <Input
+            name="cmsEndpoint"
+            placeholder="cms-endpoint:3000/my-component"
+          />
+        </div>
         <Button
           text="Get CMS schema"
           type="submit"
@@ -145,12 +147,16 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         />
       </form>
     ),
-    json: <FileSelect onSelect={readFile} onRemoveFile={onRemoveFile} />,
+    json: (
+      <div class="w-2/3">
+        <FileSelect onSelect={readFile} onRemoveFile={onRemoveFile} />
+      </div>
+    ),
   };
 
   return (
     <div aria-label="CmsSchemaForm">
-      <div class="flex flex-col gap-2 mt-8">
+      <div class="flex flex-col gap-2 mt-8 w-2/3">
         <RadioButton
           label="API endpoint"
           name="cms"
@@ -170,12 +176,12 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         {schemaComponent[schemaProvider]}
         {cmsError && (
           <Error>
-            <p class="mb-0">Unable to process the file provided.</p>
+            <p class="mb-0 w-2/3">Unable to process the file provided.</p>
           </Error>
         )}
       </div>
       {json && (
-        <div class="z-20 relative mt-8">
+        <div class="z-20 relative mt-8 w-2/3">
           <Dropdown
             options={cmsOptions}
             label="CMS"
@@ -186,7 +192,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
         </div>
       )}
       {components?.length > 0 && (
-        <div class="z-10 relative mt-8">
+        <div class="z-10 relative mt-8 w-2/3">
           <Dropdown
             label="Component"
             options={components}

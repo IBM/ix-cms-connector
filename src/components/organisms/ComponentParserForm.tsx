@@ -50,7 +50,7 @@ export const ComponentParserForm: FunctionComponent<
   }, [file]);
 
   return (
-    <div class="mt-8">
+    <div class="mt-8 w-2/3">
       <FileSelect onSelect={setFile} onRemoveFile={() => setFile(null)} />
 
       {file && error && (

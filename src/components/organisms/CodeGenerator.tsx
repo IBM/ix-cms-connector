@@ -17,7 +17,7 @@ export const CodeGenerator: FunctionComponent<CodeGeneratorProps> = ({
   });
 
   return (
-    <div>
+    <>
       <h3 class="mb-4">Connect function</h3>
       <CodeSnippet snippet={code} />
       <h3 class="mb-4 mt-16">How to use</h3>
@@ -43,6 +43,6 @@ export const CodeGenerator: FunctionComponent<CodeGeneratorProps> = ({
           inline
         />
       </div>
-    </div>
+    </>
   );
 };

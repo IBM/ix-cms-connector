@@ -7,7 +7,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 
 export const Input: FunctionalComponent<InputProps> = ({ label, ...input }) => {
   return (
-    <label class="flex flex-1 flex-col">
+    <label class="flex flex-col">
       {!!label && (
         <span class="text-text-02 font-normal text-xs mb-2">{label}</span>
       )}
