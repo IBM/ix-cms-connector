@@ -13,13 +13,13 @@ import { SearchInput } from "../atoms/SearchInput";
 interface PropertyFiltersProps {
   list: MappableProp[];
   onPropertiesFiltered: (listProps: MappableProp[]) => void;
-  customCss?: string;
+  alignRight?: boolean;
 }
 
 export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   list,
   onPropertiesFiltered,
-  customCss,
+  alignRight,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
@@ -50,14 +50,14 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   }, [searchTerm, typesFilter]);
 
   return (
-    <div class={`flex flex-col mb-6 ${customCss}`}>
+    <div class={`flex flex-col mb-8 w-2/3 ${alignRight ? "self-end" : ""}`}>
       <SearchInput
         label=""
         placeholder="Filter properties"
         onSearchText={(text) => setSearchTerm(text)}
       />
 
-      <div class="flex">
+      <div class={`flex flex-wrap mt-2 gap-4 ${alignRight ? "self-end" : ""}`}>
         {checkboxTypes.map((type, index) => (
           <Checkbox
             key={index}

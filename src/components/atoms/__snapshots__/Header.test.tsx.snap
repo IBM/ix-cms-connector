@@ -2,11 +2,11 @@
 
 exports[`Header > should match the existing snapshot 1`] = `
 <header
-  class="flex justify-start items-center bg-ui-05 px-2"
+  class="flex justify-start items-center bg-ui-05 p-4"
   data-testid="header-component"
 >
   <div
-    class="text-xl text-text-04 p-2"
+    class="text-xl text-text-04"
   >
     IBM 
     <strong>

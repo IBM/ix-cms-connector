@@ -162,15 +162,15 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
 
   return (
     <div
+      class="p-4"
       onDrop={() =>
         removePropFromStage(draggingProp.propData, draggingProp.source)
       }
     >
-      <div class="grid grid-cols-2">
+      <div class="grid grid-cols-2 gap-8">
         <div class="flex flex-col">
           <PropertyFilters
             list={unstagedCmsProps}
-            customCss="items-start"
             onPropertiesFiltered={(filteredProps) =>
               setFilteredCmsProps(filteredProps)
             }
@@ -188,7 +188,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         <div class="flex flex-col">
           <PropertyFilters
             list={unstagedCompProps}
-            customCss="items-end"
+            alignRight
             onPropertiesFiltered={(filteredProps) =>
               setFilteredCompProps(filteredProps)
             }

@@ -34,7 +34,7 @@ export const SchemaMatcherStage: FunctionComponent<SchemaMatcherStageProps> = ({
 }) => {
   return (
     <div
-      class="py-6 my-6 border border-dashed border-ui-03 relative"
+      class="py-8 my-8 border border-dashed border-ui-03 relative"
       onDrop={(event) => {
         event.stopPropagation();
         if (draggingProp) {

@@ -9,7 +9,7 @@
   }
   h1,
   h2 {
-    @apply text-xl text-text-01 leading-tight mb-7;
+    @apply text-xl text-text-01 leading-tight mb-8;
   }
   h3 {
     @apply text-sm text-text-01 leading-tight font-semibold mb-2;

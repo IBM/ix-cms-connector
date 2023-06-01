@@ -32,19 +32,19 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   }, [checked]);
 
   return (
-    <div class="flex flex-row items-center my-2 mr-3.5">
+    <div class="flex flex-row items-center">
       <input
         type="checkbox"
         id={id}
         aria-checked={selected}
         checked={selected}
         {...rest}
-        class="appearance-none"
+        class="appearance-none cursor-pointer"
         onClick={handleOnClick}
       />
 
       <label
-        class="flex items-center text-sm leading-tight text-text-01"
+        class="flex items-center text-sm leading-tight text-text-01 cursor-pointer"
         htmlFor={id}
       >
         {selected ? (

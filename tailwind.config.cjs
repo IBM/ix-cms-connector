@@ -112,6 +112,9 @@ module.exports = {
         sans: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
         mono: ["IBM Plex Mono", ...defaultTheme.fontFamily.mono],
       },
+      gridTemplateColumns: {
+        16: "repeat(16, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],
