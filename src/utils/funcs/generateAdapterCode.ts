@@ -26,6 +26,103 @@ export function getMappablePropTypeSignature(mappableProp: MappableProp) {
   return mappableProp.type;
 }
 
+interface TreeProp {
+  name: string;
+  props?: TreeProp[];
+  mappedPair?: [MappableProp, MappableProp];
+}
+
+enum PropsTree {
+  CMS = 0,
+  Component = 1,
+}
+
+function getPropsTree(
+  propsTreeIndex: PropsTree,
+  mappedProps: MappedProps,
+  path?: string
+) {
+  const pathPrefix = path ? `${path}.` : "";
+
+  return mappedProps.reduce<TreeProp[]>((tree, mappedPair) => {
+    const fullName = mappedPair[propsTreeIndex].name;
+    const nameSegments = fullName.replace(pathPrefix, "").split(".");
+
+    if (nameSegments.length === 1) {
+      // a simple property
+
+      tree.push({
+        name: nameSegments[0],
+        mappedPair,
+      });
+    } else {
+      // an object property
+
+      const objectPropName = nameSegments[0];
+
+      if (tree.every((t) => t.name !== objectPropName)) {
+        const fullPath = pathPrefix + objectPropName;
+
+        tree.push({
+          name: objectPropName,
+          props: getPropsTree(
+            propsTreeIndex,
+            mappedProps.filter((mp) =>
+              mp[propsTreeIndex].name.startsWith(fullPath)
+            ),
+            fullPath
+          ),
+        });
+      }
+    }
+
+    return tree;
+  }, []);
+}
+
+function writeInterfaceBody(
+  writer: CodeBlockWriter,
+  propsTreeIndex: PropsTree,
+  propsTree: TreeProp[]
+) {
+  propsTree.forEach((tp) => {
+    if (tp.mappedPair) {
+      const mappedProp = tp.mappedPair[propsTreeIndex];
+
+      writer.writeLine(
+        `${tp.name}${
+          mappedProp.isRequired ? "" : "?"
+        }: ${getMappablePropTypeSignature(mappedProp)};`
+      );
+    } else if (tp.props) {
+      writer
+        .write(`${tp.name}: `)
+        .inlineBlock(() => writeInterfaceBody(writer, propsTreeIndex, tp.props))
+        .write(";")
+        .newLine();
+    }
+  });
+}
+
+function writeMappedPropsObjectBody(
+  writer: CodeBlockWriter,
+  propsTree: TreeProp[]
+) {
+  propsTree.forEach((tp) => {
+    if (tp.mappedPair) {
+      writer.writeLine(
+        `${tp.name}: ${getCMSFieldPath(tp.mappedPair[0], tp.mappedPair[1])},`
+      );
+    } else if (tp.props) {
+      writer
+        .write(`${tp.name}: `)
+        .inlineBlock(() => writeMappedPropsObjectBody(writer, tp.props))
+        .write(",")
+        .newLine();
+    }
+  });
+}
+
 export function generateAdapterCode(
   componentDoc: Documentation,
   mappedProps: MappedProps,
@@ -42,14 +139,8 @@ export function generateAdapterCode(
   const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
   const mappedPropsTypeName = `${componentName}MappedProps`;
 
-  const addTypePropertyDef = (prop: MappableProp) =>
-    `${prop.name}${prop.isRequired ? "" : "?"}: ${getMappablePropTypeSignature(
-      prop
-    )};`;
-
-  const mappedPropsDeclarations = mappedProps.map(
-    (mf) => `${mf[1].name}: ${getCMSFieldPath(mf[0], mf[1])},`
-  );
+  const cmsPropsTree = getPropsTree(PropsTree.CMS, mappedProps);
+  const compPropsTree = getPropsTree(PropsTree.Component, mappedProps);
 
   const addInlineTypeDef = (typeDefinition: string) =>
     isTS ? typeDefinition : "";
@@ -73,17 +164,15 @@ export function generateAdapterCode(
 
       // an interface for the mapped CMS fields
       .write(`interface ${mappedCMSFieldsTypeName}`)
-      .block(() => {
-        mappedProps.forEach((f) => writer.writeLine(addTypePropertyDef(f[0])));
-      })
+      .block(() => writeInterfaceBody(writer, PropsTree.CMS, cmsPropsTree))
 
       .blankLine()
 
       // an interface for the mapped component props
       .write(`interface ${mappedPropsTypeName}`)
-      .block(() => {
-        mappedProps.forEach((f) => writer.writeLine(addTypePropertyDef(f[1])));
-      })
+      .block(() =>
+        writeInterfaceBody(writer, PropsTree.Component, compPropsTree)
+      )
 
       .blankLine();
   } else {
@@ -132,7 +221,7 @@ export function generateAdapterCode(
                   )} = `
                 )
                 .inlineBlock(() => {
-                  mappedPropsDeclarations.forEach((p) => writer.writeLine(p));
+                  writeMappedPropsObjectBody(writer, compPropsTree);
                 })
                 .write(";")
 

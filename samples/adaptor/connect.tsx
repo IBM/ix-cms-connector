@@ -4,12 +4,20 @@ import { ComponentType } from "preact";
 interface SampleComponentMappedCMSFields {
   headline: string;
   hyphenatedHeadline: boolean;
+  imageLink: {
+    title: string;
+    filename: string;
+  };
 }
 
 // generated from the mapped component props
 interface SampleComponentMappedProps {
   label: string;
   isActive: boolean;
+  link: {
+    url: string;
+    title: string;
+  };
 }
 
 export function connectSampleComponentToCMS(
@@ -27,6 +35,10 @@ export function connectSampleComponentToCMS(
       const mappedProps: SampleComponentMappedProps = {
         label: cmsData.headline,
         isActive: cmsData.hyphenatedHeadline,
+        link: {
+          url: cmsData.imageLink.filename,
+          title: cmsData.imageLink.title,
+        },
       };
 
       const allProps = {
