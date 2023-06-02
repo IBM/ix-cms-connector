@@ -32,13 +32,13 @@ interface TreeProp {
   mappedPair?: [MappableProp, MappableProp];
 }
 
-enum PropsTree {
+enum PropsTreeTarget {
   CMS = 0,
   Component = 1,
 }
 
 function getPropsTree(
-  propsTreeIndex: PropsTree,
+  propsTreeIndex: PropsTreeTarget,
   mappedProps: MappedProps,
   path?: string
 ) {
@@ -82,7 +82,7 @@ function getPropsTree(
 
 function writeInterfaceBody(
   writer: CodeBlockWriter,
-  propsTreeIndex: PropsTree,
+  propsTreeIndex: PropsTreeTarget,
   propsTree: TreeProp[]
 ) {
   propsTree.forEach((tp) => {
@@ -133,17 +133,16 @@ export function generateAdapterCode(
     ([, pd]) => pd.tsType
   );
 
-  // helper variables and functions
+  // helpers
   const componentName = componentDoc.displayName ?? "Component";
   const hofName = `connect${componentName}ToCMS`;
   const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
   const mappedPropsTypeName = `${componentName}MappedProps`;
 
-  const cmsPropsTree = getPropsTree(PropsTree.CMS, mappedProps);
-  const compPropsTree = getPropsTree(PropsTree.Component, mappedProps);
+  const cmsPropsTree = getPropsTree(PropsTreeTarget.CMS, mappedProps);
+  const compPropsTree = getPropsTree(PropsTreeTarget.Component, mappedProps);
 
-  const addInlineTypeDef = (typeDefinition: string) =>
-    isTS ? typeDefinition : "";
+  const addTypeDef = (typeDefinition: string) => (isTS ? typeDefinition : "");
 
   // start writing
 
@@ -164,14 +163,16 @@ export function generateAdapterCode(
 
       // an interface for the mapped CMS fields
       .write(`interface ${mappedCMSFieldsTypeName}`)
-      .block(() => writeInterfaceBody(writer, PropsTree.CMS, cmsPropsTree))
+      .block(() =>
+        writeInterfaceBody(writer, PropsTreeTarget.CMS, cmsPropsTree)
+      )
 
       .blankLine()
 
       // an interface for the mapped component props
       .write(`interface ${mappedPropsTypeName}`)
       .block(() =>
-        writeInterfaceBody(writer, PropsTree.Component, compPropsTree)
+        writeInterfaceBody(writer, PropsTreeTarget.Component, compPropsTree)
       )
 
       .blankLine();
@@ -180,23 +181,23 @@ export function generateAdapterCode(
   }
 
   // then we are creating our function (see samples/adaptor/connect.tsx as an example of the ready function)
-  // we use addInlineTypeDef() function to conditionaly (if it's a TS component) add type definitions
+  // we use addTypeDef() function to conditionaly (if it's a TS component) add type definitions
   const snippetCode = requiredTypeDefs
     .write(
-      `export function ${hofName}(cmsData${addInlineTypeDef(
+      `export function ${hofName}(cmsData${addTypeDef(
         `: ${mappedCMSFieldsTypeName}`
       )})`
     )
     .block(() => {
       writer
         .writeLine(
-          `return function enhance${addInlineTypeDef(
+          `return function enhance${addTypeDef(
             `<P extends ${mappedPropsTypeName}>`
           )}(`
         )
 
         .indent()
-        .write(`Component${addInlineTypeDef(": ComponentType<P>")}`)
+        .write(`Component${addTypeDef(": ComponentType<P>")}`)
         .newLine()
 
         .write(") ")
@@ -206,7 +207,7 @@ export function generateAdapterCode(
 
             .indent()
             .write(
-              `restProps${addInlineTypeDef(
+              `restProps${addTypeDef(
                 `: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
               )}`
             )
@@ -216,7 +217,7 @@ export function generateAdapterCode(
             .inlineBlock(() => {
               writer
                 .write(
-                  `const mappedProps${addInlineTypeDef(
+                  `const mappedProps${addTypeDef(
                     `: ${mappedPropsTypeName}`
                   )} = `
                 )
@@ -233,7 +234,7 @@ export function generateAdapterCode(
                     .writeLine("...mappedProps,")
                     .writeLine("...restProps,");
                 })
-                .write(`${addInlineTypeDef(" as P")};`)
+                .write(`${addTypeDef(" as P")};`)
 
                 .blankLine()
 
