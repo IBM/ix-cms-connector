@@ -23,7 +23,7 @@ type SchemaProvider = "api" | "json";
 export enum CMSProvider {
   STORYBLOK = "Storyblok",
   CONTENTFUL = "Contentful (not yet implemented)",
-  MAGNOLIA = "Magnolia (not yet implemented)",
+  MAGNOLIA = "Magnolia",
 }
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
