@@ -4,7 +4,7 @@
   "description": "get the json schema from a rest endpoint",
   "main": "index.js",
   "author": "IBM iX - LIT frontend",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
