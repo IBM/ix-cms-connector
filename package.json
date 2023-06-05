@@ -1,10 +1,10 @@
 {
   "name": "ibm-ix-cms-connector",
-  "version": "1.0.0",
-  "description": "get the json schema from a rest endpoint",
+  "version": "0.2.0",
+  "description": "a tool that generates a connector function between a CMS schema and react component props",
   "main": "index.js",
   "author": "IBM iX - LIT frontend",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
