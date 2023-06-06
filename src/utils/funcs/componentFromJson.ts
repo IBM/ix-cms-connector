@@ -95,7 +95,7 @@ export function getComponentFromJson(
   return component;
 }
 
-/* Recursive function that returns part of a JSON based in the key _uid */
+/* Recursive function that returns part of a JSON based in the objKey pass as param */
 export function getComponentFromObj(obj: object, id: string, objKey: string) {
   if (!obj) {
     return undefined;
