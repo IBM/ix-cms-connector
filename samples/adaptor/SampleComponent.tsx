@@ -4,7 +4,12 @@ export interface SampleComponentProps {
   link: {
     url: string;
     title: string;
+    extra: {
+      name: string;
+      date: Date;
+    };
   };
+  callback?: () => void;
   dateCreated: Date; // complex type
 }
 

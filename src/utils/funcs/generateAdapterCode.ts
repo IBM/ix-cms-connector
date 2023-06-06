@@ -3,6 +3,12 @@ import { TSType } from "../const";
 import type { CodeGeneratorOptions, MappableProp, MappedProps } from "../types";
 import CodeBlockWriter from "code-block-writer";
 import { getPropsConverter } from "./getPropsConverter";
+import {
+  ObjectSignatureType,
+  SimpleType,
+  TSFunctionSignatureType,
+  TypeDescriptor,
+} from "react-docgen/dist/Documentation";
 
 export function getCMSFieldPath(
   cmsField: MappableProp,
@@ -80,7 +86,7 @@ function getPropsTree(
   }, []);
 }
 
-function writeInterfaceBody(
+function writeMappedPropsInterface(
   writer: CodeBlockWriter,
   propsTreeIndex: PropsTreeTarget,
   propsTree: TreeProp[]
@@ -97,9 +103,64 @@ function writeInterfaceBody(
     } else if (tp.props) {
       writer
         .write(`${tp.name}: `)
-        .inlineBlock(() => writeInterfaceBody(writer, propsTreeIndex, tp.props))
+        .inlineBlock(() =>
+          writeMappedPropsInterface(writer, propsTreeIndex, tp.props)
+        )
         .write(";")
         .newLine();
+    }
+  });
+}
+
+function writeRestPropType(
+  writer: CodeBlockWriter,
+  propName: string,
+  typeDescr: TypeDescriptor<TSFunctionSignatureType>,
+  required: boolean,
+  compPropsTree: TreeProp[],
+  path: string[]
+) {
+  if ((typeDescr as ObjectSignatureType).type === "object") {
+    writer
+      .write(`${propName}${required ? "" : "?"}: `)
+      .inlineBlock(() =>
+        (typeDescr as ObjectSignatureType).signature.properties.forEach((p) => {
+          if (typeof p.key === "string") {
+            writeRestPropType(
+              writer,
+              p.key,
+              p.value,
+              p.value.required,
+              compPropsTree,
+              [...path, propName]
+            );
+          }
+        })
+      )
+      .write(";")
+      .newLine();
+  } else {
+    const type = "raw" in typeDescr ? typeDescr.raw : typeDescr.name;
+
+    writer.writeLine(`${propName}${required ? "" : "?"}: ${type};`);
+  }
+}
+
+function writeRestPropsInterface(
+  writer: CodeBlockWriter,
+  componentDoc: Documentation,
+  compPropsTree: TreeProp[]
+) {
+  Object.entries(componentDoc.props ?? {}).forEach(([name, descr]) => {
+    if (descr.tsType) {
+      writeRestPropType(
+        writer,
+        name,
+        descr.tsType,
+        descr.required,
+        compPropsTree,
+        []
+      );
     }
   });
 }
@@ -138,6 +199,7 @@ export function generateAdapterCode(
   const hofName = `connect${componentName}ToCMS`;
   const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
   const mappedPropsTypeName = `${componentName}MappedProps`;
+  const restPropsTypeName = `${componentName}RestProps`;
 
   const cmsPropsTree = getPropsTree(PropsTreeTarget.CMS, mappedProps);
   const compPropsTree = getPropsTree(PropsTreeTarget.Component, mappedProps);
@@ -164,7 +226,7 @@ export function generateAdapterCode(
       // an interface for the mapped CMS fields
       .write(`interface ${mappedCMSFieldsTypeName}`)
       .block(() =>
-        writeInterfaceBody(writer, PropsTreeTarget.CMS, cmsPropsTree)
+        writeMappedPropsInterface(writer, PropsTreeTarget.CMS, cmsPropsTree)
       )
 
       .blankLine()
@@ -172,8 +234,18 @@ export function generateAdapterCode(
       // an interface for the mapped component props
       .write(`interface ${mappedPropsTypeName}`)
       .block(() =>
-        writeInterfaceBody(writer, PropsTreeTarget.Component, compPropsTree)
+        writeMappedPropsInterface(
+          writer,
+          PropsTreeTarget.Component,
+          compPropsTree
+        )
       )
+
+      .blankLine()
+
+      // an interface for the rest component props
+      .write(`interface ${restPropsTypeName}`)
+      .block(() => writeRestPropsInterface(writer, componentDoc))
 
       .blankLine();
   } else {
@@ -206,11 +278,7 @@ export function generateAdapterCode(
             .writeLine(`return function ConnectedComponent(`)
 
             .indent()
-            .write(
-              `restProps${addTypeDef(
-                `: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
-              )}`
-            )
+            .write(`restProps${addTypeDef(`: ${restPropsTypeName}`)}`)
             .newLine()
 
             .write(") ")

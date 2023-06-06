@@ -132,7 +132,7 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
 
       // nested component props
       if (
-        propDescr?.tsType?.name === "signature" ||
+        (propDescr?.tsType as ObjectSignatureType)?.type === "object" ||
         propDescr?.type?.name === "shape"
       ) {
         // TS or JS props
