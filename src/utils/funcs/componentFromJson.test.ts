@@ -88,7 +88,7 @@ describe("getComponentFromJson", () => {
 
 describe("getComponentFromObj", () => {
   it("should return undefined if the obj is empty", () => {
-    const component = getComponentFromObj({}, "001");
+    const component = getComponentFromObj({}, "001", "_uid");
 
     expect(component).toBeUndefined();
   });
@@ -96,7 +96,8 @@ describe("getComponentFromObj", () => {
   it("should return undefined if the id is not present", () => {
     const component = getComponentFromObj(
       mockJsonStoryBlok as unknown as JSON,
-      "5"
+      "5",
+      "_uid"
     );
 
     expect(component).toBeUndefined();
@@ -105,7 +106,8 @@ describe("getComponentFromObj", () => {
   it("should return the partial object from JSON when the id is correct", () => {
     const component = getComponentFromObj(
       mockJsonStoryBlok as unknown as JSON,
-      "001"
+      "001",
+      "_uid"
     );
 
     expect(component._uid).toBe("001");
