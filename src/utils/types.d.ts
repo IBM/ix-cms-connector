@@ -15,6 +15,12 @@ export type MappedProps = [MappableProp, MappableProp][];
 
 export type ConverterFunc = (fieldPath: string) => string;
 
+export interface TreeProp {
+  name: string;
+  props?: TreeProp[];
+  mappedPair?: [MappableProp, MappableProp];
+}
+
 export type CodeGeneratorOptions = Partial<CodeBlockWriterOptions>;
 
 export type TimeoutHandle = ReturnType<typeof setTimeout>;

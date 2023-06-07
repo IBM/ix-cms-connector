@@ -137,6 +137,7 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
       ) {
         // TS or JS props
         const isTS = !!propDescr.tsType;
+
         const nestedProps = isTS
           ? (propDescr.tsType as ObjectSignatureType).signature.properties
           : Object.keys(propDescr.type.value).map((key) => ({
@@ -152,6 +153,7 @@ export function getComponentMappableProps(doc: Documentation): MappableProp[] {
                 [isTS ? "tsType" : "type"]: isTS
                   ? curr.value
                   : { name: curr.name, value: curr.value },
+                required: isTS ? curr.value.required : curr.required,
               },
             },
           }),
