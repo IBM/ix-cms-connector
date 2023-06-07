@@ -58,7 +58,7 @@ describe("generateAdapterCode()", () => {
 describe("connectSampleComponentToCMS() - a generated HOC", async () => {
   it("should connect a component to CMS data and render it correctly", async () => {
     const cmsData = {
-      title: null,
+      title: "Tests",
       count: "3",
       flags: [true, false, true],
     };
@@ -102,7 +102,7 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
       [
         {
           name: "title",
-          type: TSType.Null,
+          type: TSType.String,
           isRequired: true,
         },
         {
@@ -162,7 +162,7 @@ describe("connectSampleComponentToCMS() - a generated HOC", async () => {
     const ConnectedComponent =
       connectSampleComponentToCMS(cmsData)(SampleComponent);
 
-    render(<ConnectedComponent header="Tests" date={new Date(2019, 1, 1)} />);
+    render(<ConnectedComponent date={new Date(2019, 1, 1)} />);
 
     const headerElement = screen.getByTestId("header");
     const indicatorsElement = screen.getByTestId("indicators");

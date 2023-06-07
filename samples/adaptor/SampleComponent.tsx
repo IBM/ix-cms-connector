@@ -6,11 +6,15 @@ export interface SampleComponentProps {
     title: string;
     extra: {
       name: string;
-      date: Date;
+      date: Date; // not mappable
     };
   };
-  callback?: () => void;
-  dateCreated: Date; // complex type
+  target: {
+    name: string;
+    level?: number;
+  };
+  callback?: () => void; // not mappable
+  dateCreated: Date; // not mappable
 }
 
 export const SampleComponent = (props: SampleComponentProps) => {

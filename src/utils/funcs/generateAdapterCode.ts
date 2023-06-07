@@ -83,14 +83,14 @@ export function generateAdapterCode(
     )
     .block(() => {
       writer
-        .writeLine(
-          `return function enhance${addTypeDef(
-            `<P extends ${mappedPropsTypeName}>`
-          )}(`
-        )
+        .writeLine(`return function enhance(`)
 
         .indent()
-        .write(`Component${addTypeDef(": ComponentType<P>")}`)
+        .write(
+          `Component${addTypeDef(
+            `: ComponentType<${mappedPropsTypeName} & ${restPropsTypeName}>`
+          )}`
+        )
         .newLine()
 
         .write(") ")
@@ -105,25 +105,11 @@ export function generateAdapterCode(
             .write(") ")
             .inlineBlock(() => {
               writer
-                .write(
-                  `const mappedProps${addTypeDef(
-                    `: ${mappedPropsTypeName}`
-                  )} = `
-                )
-                .inlineBlock(() => {
-                  writeMappedPropsObjectBody(writer, compPropsTree);
-                })
-                .write(";")
-
-                .blankLine()
-
                 .write(`const allProps = `)
                 .inlineBlock(() => {
-                  writer
-                    .writeLine("...mappedProps,")
-                    .writeLine("...restProps,");
+                  writeMappedPropsObjectBody(writer, compPropsTree, []);
                 })
-                .write(`${addTypeDef(" as P")};`)
+                .write(";")
 
                 .blankLine()
 

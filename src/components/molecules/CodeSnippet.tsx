@@ -17,7 +17,9 @@ export const CodeSnippet: FunctionalComponent<CodeSnippetProps> = ({
   const overflowRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    setHasShowMore(overflowRef.current.scrollHeight >= EXPAND_HEIGHT);
+    if (overflowRef.current) {
+      setHasShowMore(overflowRef.current.scrollHeight >= EXPAND_HEIGHT);
+    }
   }, [snippet]);
 
   const copyToClipboard = () => {

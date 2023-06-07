@@ -109,26 +109,51 @@ function writeRestPropType(
   compMappedPropsTree: TreeProp[]
 ) {
   if ((typeDescr as ObjectSignatureType).type === "object") {
-    writer
-      .write(`${propName}${required ? "" : "?"}: `)
-      .inlineBlock(() =>
-        (typeDescr as ObjectSignatureType).signature.properties.forEach((p) => {
-          if (typeof p.key === "string") {
-            writeRestPropType(
-              writer,
-              p.key,
-              p.value,
-              p.value.required,
-              [...propPath, propName],
-              compMappedPropsTree
-            );
-          }
-        })
-      )
-      .write(";")
-      .newLine();
+    const { properties } = (typeDescr as ObjectSignatureType).signature;
+    const path = [...propPath, propName];
+
+    const objMappedPropsTree = path.reduce((propsTree, pathSegment) => {
+      const treePropMatched = propsTree.find((tp) => tp.name === pathSegment);
+
+      if (treePropMatched) {
+        return treePropMatched.props ?? [];
+      }
+
+      return [];
+    }, compMappedPropsTree);
+
+    // todo: need to improve, rn it will exclude a top level prop if a not mapped field somewhere in the nested object
+    const areAllChildrenMapped = properties.every(
+      (p) =>
+        typeof p.key === "string" &&
+        objMappedPropsTree.some((tp) => tp.name === p.key)
+    );
+
+    if (!areAllChildrenMapped) {
+      writer
+        .write(`${propName}${required ? "" : "?"}: `)
+        .inlineBlock(() =>
+          properties.forEach((p) => {
+            // only standard prop names are supported atm for TS, eg:
+            // { prop: number; } is supported
+            // { [x: string]: number; } is not supported
+            if (typeof p.key === "string") {
+              writeRestPropType(
+                writer,
+                p.key,
+                p.value,
+                p.value.required,
+                path,
+                compMappedPropsTree
+              );
+            }
+          })
+        )
+        .write(";")
+        .newLine();
+    }
   } else {
-    const parentObject = propPath.length
+    const parentMappedPropsTree = propPath.length
       ? propPath.reduce((propsTree, pathSegment) => {
           const treePropMatched = propsTree.find(
             (tp) => tp.name === pathSegment
@@ -142,13 +167,13 @@ function writeRestPropType(
         }, compMappedPropsTree)
       : compMappedPropsTree;
 
-    const isMapped = parentObject.some((tp) => tp.name === propName);
+    const isMapped = parentMappedPropsTree.some((tp) => tp.name === propName);
 
-    const type = "raw" in typeDescr ? typeDescr.raw : typeDescr.name;
+    if (!isMapped) {
+      const type = "raw" in typeDescr ? typeDescr.raw : typeDescr.name;
 
-    writer.writeLine(
-      `${propName}${required && !isMapped ? "" : "?"}: ${type};`
-    );
+      writer.writeLine(`${propName}${required ? "" : "?"}: ${type};`);
+    }
   }
 }
 
@@ -173,8 +198,13 @@ export function writeRestPropsInterface(
 
 export function writeMappedPropsObjectBody(
   writer: CodeBlockWriter,
-  propsTree: TreeProp[]
+  propsTree: TreeProp[],
+  path: string[]
 ) {
+  writer.writeLine(
+    `...restProps${`${path.length ? "." : ""}${path.join("?.")}`},`
+  );
+
   propsTree.forEach((tp) => {
     if (tp.mappedPair) {
       writer.writeLine(
@@ -183,7 +213,9 @@ export function writeMappedPropsObjectBody(
     } else if (tp.props) {
       writer
         .write(`${tp.name}: `)
-        .inlineBlock(() => writeMappedPropsObjectBody(writer, tp.props))
+        .inlineBlock(() =>
+          writeMappedPropsObjectBody(writer, tp.props, [...path, tp.name])
+        )
         .write(",")
         .newLine();
     }
