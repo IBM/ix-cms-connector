@@ -1,3 +1,8 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
+
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Button, ButtonType } from "./components/atoms/Button";

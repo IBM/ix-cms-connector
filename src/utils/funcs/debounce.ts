@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import type { TimeoutHandle } from "../types";
 
 export function debounce<T extends (...args: any[]) => void>(

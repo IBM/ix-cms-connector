@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import toJsonSchema from "to-json-schema";
 import type { Options as CodeBlockWriterOptions } from "code-block-writer";
 import { TSType } from "./const";

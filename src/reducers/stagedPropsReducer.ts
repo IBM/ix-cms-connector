@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { MappableProp } from "../utils";
 import { canMapProps } from "../utils/funcs/getPropsConverter";
 
