@@ -1,3 +1,9 @@
+/*
+ * 
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ * 
+ */
 import { DropdownOption } from "../../components/atoms/Dropdown";
 import { CMSProvider } from "../../components/organisms/CmsSchemaForm";
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 // @vitest-environment jsdom
 
 import { describe, it, expect, beforeEach } from "vitest";
