@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { FunctionalComponent } from "preact";
 import { useState, useEffect, useRef } from "preact/hooks";
 import { Copy, ChevronDown } from "@carbon/icons-react";
