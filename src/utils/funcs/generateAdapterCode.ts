@@ -1,30 +1,13 @@
 import type { Documentation } from "react-docgen";
-import { TSType } from "../const";
-import type { CodeGeneratorOptions, MappableProp, MappedProps } from "../types";
+import type { CodeGeneratorOptions, MappedProps } from "../types";
+import { PropSource } from "../const";
 import CodeBlockWriter from "code-block-writer";
-import { getPropsConverter } from "./getPropsConverter";
-
-export function getCMSFieldPath(
-  cmsField: MappableProp,
-  compProp: MappableProp
-) {
-  const cmsFieldPath = `cmsData.${cmsField.name}`;
-  const convert = getPropsConverter(cmsField, compProp);
-
-  return convert ? convert(cmsFieldPath) : cmsFieldPath;
-}
-
-export function getMappablePropTypeSignature(mappableProp: MappableProp) {
-  if (mappableProp.type === TSType.Array && mappableProp.subTypes) {
-    return `${mappableProp.subTypes[0]}[]`;
-  }
-
-  if (mappableProp.type === TSType.Union && mappableProp.subTypes) {
-    return mappableProp.subTypes.join(" | ");
-  }
-
-  return mappableProp.type;
-}
+import {
+  getPropsTree,
+  writeMappedPropsInterface,
+  writeMappedPropsObjectBody,
+  writeRestPropsInterface,
+} from "./generatorUtils";
 
 export function generateAdapterCode(
   componentDoc: Documentation,
@@ -36,23 +19,17 @@ export function generateAdapterCode(
     ([, pd]) => pd.tsType
   );
 
-  // helper variables and functions
+  // helpers
   const componentName = componentDoc.displayName ?? "Component";
   const hofName = `connect${componentName}ToCMS`;
   const mappedCMSFieldsTypeName = `${componentName}MappedCMSFields`;
   const mappedPropsTypeName = `${componentName}MappedProps`;
+  const restPropsTypeName = `${componentName}RestProps`;
 
-  const addTypePropertyDef = (prop: MappableProp) =>
-    `${prop.name}${prop.isRequired ? "" : "?"}: ${getMappablePropTypeSignature(
-      prop
-    )};`;
+  const cmsPropsTree = getPropsTree(PropSource.CMS, mappedProps);
+  const compPropsTree = getPropsTree(PropSource.COMPONENT, mappedProps);
 
-  const mappedPropsDeclarations = mappedProps.map(
-    (mf) => `${mf[1].name}: ${getCMSFieldPath(mf[0], mf[1])},`
-  );
-
-  const addInlineTypeDef = (typeDefinition: string) =>
-    isTS ? typeDefinition : "";
+  const addTypeDef = (typeDefinition: string) => (isTS ? typeDefinition : "");
 
   // start writing
 
@@ -73,17 +50,23 @@ export function generateAdapterCode(
 
       // an interface for the mapped CMS fields
       .write(`interface ${mappedCMSFieldsTypeName}`)
-      .block(() => {
-        mappedProps.forEach((f) => writer.writeLine(addTypePropertyDef(f[0])));
-      })
+      .block(() =>
+        writeMappedPropsInterface(writer, PropSource.CMS, cmsPropsTree)
+      )
 
       .blankLine()
 
       // an interface for the mapped component props
       .write(`interface ${mappedPropsTypeName}`)
-      .block(() => {
-        mappedProps.forEach((f) => writer.writeLine(addTypePropertyDef(f[1])));
-      })
+      .block(() =>
+        writeMappedPropsInterface(writer, PropSource.COMPONENT, compPropsTree)
+      )
+
+      .blankLine()
+
+      // an interface for the rest component props
+      .write(`interface ${restPropsTypeName}`)
+      .block(() => writeRestPropsInterface(writer, componentDoc, compPropsTree))
 
       .blankLine();
   } else {
@@ -91,23 +74,23 @@ export function generateAdapterCode(
   }
 
   // then we are creating our function (see samples/adaptor/connect.tsx as an example of the ready function)
-  // we use addInlineTypeDef() function to conditionaly (if it's a TS component) add type definitions
+  // we use addTypeDef() function to conditionaly (if it's a TS component) add type definitions
   const snippetCode = requiredTypeDefs
     .write(
-      `export function ${hofName}(cmsData${addInlineTypeDef(
+      `export function ${hofName}(cmsData${addTypeDef(
         `: ${mappedCMSFieldsTypeName}`
       )})`
     )
     .block(() => {
       writer
-        .writeLine(
-          `return function enhance${addInlineTypeDef(
-            `<P extends ${mappedPropsTypeName}>`
-          )}(`
-        )
+        .writeLine(`return function enhance(`)
 
         .indent()
-        .write(`Component${addInlineTypeDef(": ComponentType<P>")}`)
+        .write(
+          `Component${addTypeDef(
+            `: ComponentType<${mappedPropsTypeName} & ${restPropsTypeName}>`
+          )}`
+        )
         .newLine()
 
         .write(") ")
@@ -116,35 +99,17 @@ export function generateAdapterCode(
             .writeLine(`return function ConnectedComponent(`)
 
             .indent()
-            .write(
-              `restProps${addInlineTypeDef(
-                `: Omit<P, keyof ${mappedPropsTypeName}> & Partial<${mappedPropsTypeName}>`
-              )}`
-            )
+            .write(`restProps${addTypeDef(`: ${restPropsTypeName}`)}`)
             .newLine()
 
             .write(") ")
             .inlineBlock(() => {
               writer
-                .write(
-                  `const mappedProps${addInlineTypeDef(
-                    `: ${mappedPropsTypeName}`
-                  )} = `
-                )
-                .inlineBlock(() => {
-                  mappedPropsDeclarations.forEach((p) => writer.writeLine(p));
-                })
-                .write(";")
-
-                .blankLine()
-
                 .write(`const allProps = `)
                 .inlineBlock(() => {
-                  writer
-                    .writeLine("...mappedProps,")
-                    .writeLine("...restProps,");
+                  writeMappedPropsObjectBody(writer, compPropsTree, []);
                 })
-                .write(`${addInlineTypeDef(" as P")};`)
+                .write(";")
 
                 .blankLine()
 
