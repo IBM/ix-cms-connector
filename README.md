@@ -113,3 +113,15 @@ To get an overview of all UI components open:
 ```
 localhost:8080/overview
 ```
+
+## License
+
+This project is licensed under Apache 2.0. Full license text is available in [LICENSE](./LICENSE.txt).
+All source files must be include a Copyright and License header.
+
+```
+#
+# Copyright 2020- IBM Inc. All rights reserved
+# SPDX-License-Identifier: Apache2.0
+#
+```
