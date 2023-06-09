@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 export * from "./types.d";
 export * from "./const";
 export * from "./funcs/componentFromJson";
