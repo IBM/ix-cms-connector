@@ -1,10 +1,10 @@
 # IBM iX CMS Connector
 
-A tool that generates a connector function (HOC) between a CMS schema and react component props.
+IBM iX CMS Connector is a tool that generates a connector function (HOC) between a CMS schema and react component props.
 
 ## Usage
 
-To exectue the cms connector simply run
+To exectute the cms connector simply run
 
 ```
 npx ibm-ix-cms-connector
@@ -62,6 +62,26 @@ Create production build with:
 pnpm run build
 ```
 
+### Lint & Format
+
+The linting task `pnpm run lint` and the formatting task `pnpm run format` are run before every commit.
+
+### Component overview
+
+To get an overview of all UI components open:
+
+```
+localhost:8080/overview
+```
+
+## Unit and Integration Tests
+
+Unit and Integration Testing is done using a combination of Vitest (https://vitest.dev/) with Preact Testing Library (https://preactjs.com/guide/v10/preact-testing-library)
+
+User events are available through @testing-library/user-event (https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
+
+Vitest has been expanded with Jest Dom (https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
+
 ### Test
 
 Run all tests once with:
@@ -69,18 +89,6 @@ Run all tests once with:
 ```
 pnpm run test
 ```
-
-### Lint & Format
-
-The linting task `pnpm run lint` and the formatting task `pnpm run format` are run before every commit.
-
-### Unit and Integration Tests
-
-Unit and Integration Testing is done using a combination of Vitest (https://vitest.dev/) with Preact Testing Library (https://preactjs.com/guide/v10/preact-testing-library)
-
-User events are available through @testing-library/user-event (https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
-
-Vitest has been expanded with Jest Dom (https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
 
 ### Test: verbose
 
@@ -106,13 +114,15 @@ Create the coverage report of the project under the folder /coverage
 pnpm run test:coverage
 ```
 
-### Component overview
+## Roadmap
 
-To get an overview of all UI components open:
+Planned features that are coming soon:
 
-```
-localhost:8080/overview
-```
+- Additional CMS parser: Magnolia
+- Improvements on filter functionality
+- UI changes to have a clear visualization of nested props available for mapping
+- Ability to copy/paste the schemas and components
+- Additional CMS parser: Contentful
 
 ## License
 
