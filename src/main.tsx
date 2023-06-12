@@ -64,6 +64,7 @@ const Main: FunctionComponent = () => {
         <div class="border-t border-ui-03">
           <div class="mx-auto max-w-7xl px-4 my-12">
             <SchemaMatcher
+              cms={cms}
               cmsSchema={cmsSchema}
               componentDoc={componentDoc}
               onGenerate={(mappedProps) => {
