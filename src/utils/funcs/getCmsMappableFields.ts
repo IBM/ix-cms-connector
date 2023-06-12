@@ -104,7 +104,7 @@ export function getCmsMappableFields(
 
       // nested cms fields
       if (fieldSchema.type === "object") {
-        const mappableSubFields = getCmsMappableFields(fieldSchema).map(
+        const mappableSubFields = getCmsMappableFields(fieldSchema, cms).map(
           (obj) => ({ ...obj, name: `${name}.${obj.name}` })
         );
         mappableFields = [...mappableFields, ...mappableSubFields];
