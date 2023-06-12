@@ -10,6 +10,7 @@ import {
 } from "./getCmsMappableFields";
 import { TSType } from "../const";
 import { JSONSchema } from "../types";
+import { CMSProvider } from "../../components/organisms/CmsSchemaForm";
 
 describe("getCmsMappableField()", () => {
   it("should return 'undefined' if the given field schema is of an unsupported type", () => {
@@ -150,5 +151,27 @@ describe("getCmsMappableFields()", () => {
     const result = getCmsMappableFields(schema);
 
     expect(result).toHaveLength(2);
+  });
+});
+
+describe("getCmsMappableFields() for Magnolia", () => {
+  it("should ignore mappable props prefixed with mgnl: and @", () => {
+    const schema: JSONSchema = {
+      properties: {
+        propString: {
+          type: "string",
+        },
+        "@propString": {
+          type: "string",
+        },
+        "mgnl:propString": {
+          type: "string",
+        },
+      },
+    };
+
+    const result = getCmsMappableFields(schema, CMSProvider.MAGNOLIA);
+
+    expect(result).toHaveLength(1);
   });
 });
