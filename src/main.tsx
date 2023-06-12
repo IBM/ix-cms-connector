@@ -15,6 +15,7 @@ import type { JSONSchema, MappedProps } from "./utils";
 
 const Main: FunctionComponent = () => {
   const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
+  const [cms, setCms] = useState<string>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
   const [mappedProps, setMappedProps] = useState<MappedProps>();
 
@@ -42,6 +43,7 @@ const Main: FunctionComponent = () => {
                 onGenerate={(cmsSchema) => {
                   setCmsSchema(cmsSchema);
                 }}
+                onSetCms={(cms) => setCms(cms)}
               />
             </div>
 

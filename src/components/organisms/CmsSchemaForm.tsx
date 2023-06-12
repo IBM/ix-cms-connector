@@ -20,6 +20,7 @@ import {
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
+  onSetCms: (cms: string) => void;
 }
 
 type SchemaProvider = "api" | "json";
@@ -32,6 +33,7 @@ export enum CMSProvider {
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
+  onSetCms,
 }) => {
   const [json, setJson] = useState<JSON>();
 
@@ -105,6 +107,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setCmsProvider(cmsProvider);
     setComponent(undefined);
     setCmsError(false);
+    onSetCms(cmsProvider.value);
   };
 
   const getCmsSchemaFromUrl = useCallback(
