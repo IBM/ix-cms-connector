@@ -40,12 +40,14 @@ const byName = (propA: MappableProp, propB: MappableProp) =>
   propA.name < propB.name ? -1 : 1;
 
 type SchemaMatcherProps = {
+  cms: string;
   cmsSchema: JSONSchema;
   componentDoc: Documentation;
   onGenerate: (mappedProps: MappedProps) => void;
 };
 
 export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
+  cms,
   cmsSchema,
   componentDoc,
   onGenerate,
@@ -59,7 +61,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   >(null);
 
   const [cmsProps, setCmsProps] = useState<MappableProp[]>(() =>
-    getCmsMappableFields(cmsSchema)
+    getCmsMappableFields(cmsSchema, cms)
   );
 
   const [compProps, setCompProps] = useState<MappableProp[]>(() =>
@@ -89,7 +91,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   );
 
   useEffect(() => {
-    const updatedCmsProps = getCmsMappableFields(cmsSchema);
+    const updatedCmsProps = getCmsMappableFields(cmsSchema, cms);
     const updatedCompProps = getComponentMappableProps(componentDoc);
 
     setCmsProps(updatedCmsProps);
