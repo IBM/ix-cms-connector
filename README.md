@@ -17,10 +17,10 @@ We are constantly improving the existing features and adding new ones. Our curre
 To exectute the cms connector simply run
 
 ```
-npx ibm-ix-cms-connector
+npx https://github.com/IBM/ibm-ix-cms-connector
 ```
 
-This will open up the UI of the connector on http://localhost:8080/. You can define another port by passing in an environment variable, e.g. `PORT=3000 npx ibm-ix-cms-connector`.
+This will open up the UI of the connector on http://localhost:8080/. You can define another port by passing in an environment variable, e.g. `PORT=3000 npx https://github.com/IBM/ibm-ix-cms-connector`.
 
 After completing all steps of the cms connector app, code is generated for a higher order component (HOC).
 
