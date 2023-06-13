@@ -2,7 +2,17 @@
 
 IBM iX CMS Connector is a tool that generates a connector function (HOC) between a CMS schema and react component props.
 
-## Usage
+## Roadmap
+
+IBM iX CMS Connector is constantly improving the current features and adding new ones. Our current focus is on the following topics:
+
+- [ ] Additional CMS parser: Magnolia
+- [ ] Improvements on filter functionality and usability
+- [ ] UI changes to have a clear visualization of nested props available for mapping
+- [ ] Ability to copy/paste the schemas and components
+- [ ] Additional CMS parser: Contentful
+
+## How to use?
 
 To exectute the cms connector simply run
 
@@ -14,7 +24,7 @@ This will open up the UI of the connector on http://localhost:8080/. You can def
 
 After completing all steps of the cms connector app, code is generated for a higher order component (HOC).
 
-### HOC
+### Higher Order Component (HOC)
 
 To map the CMS data with the properties of your component, call the generated HOC, passing it the data and invoke the returned function with the component you want to adapt as an argument, like so:
 
@@ -36,7 +46,9 @@ In order to develop the cms connector web app the following prequistes are requi
 
 - **node 18** - This project needs node 18 in order to run. You can use `nvm install 18` and `nvm use 18` for that.
 
-- **pnpm** - pnpm is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. For more details see: https://pnpm.io/motivation. For installation instructions see: https://pnpm.io/installation
+- **pnpm** - [pnpm](https://pnpm.io/motivation) is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. For more details see: . For installation instructions see: https://pnpm.io/installation
+
+- **preact** - [Preact](https://preactjs.com/) is the chosen JavaScript library used to build the cms connector as an alternative to React.:
 
 ### Installation
 
@@ -76,11 +88,11 @@ localhost:8080/overview
 
 ## Unit and Integration Tests
 
-Unit and Integration Testing is done using a combination of Vitest (https://vitest.dev/) with Preact Testing Library (https://preactjs.com/guide/v10/preact-testing-library)
+Unit and Integration Testing is done using a combination of [Vitest](https://vitest.dev/) with [Preact Testing Library](https://preactjs.com/guide/v10/preact-testing-library)
 
-User events are available through @testing-library/user-event (https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
+User events are available through [@testing-library/user-event](https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
 
-Vitest has been expanded with Jest Dom (https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
+Vitest has been expanded with [Jest Dom](https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
 
 ### Test
 
@@ -113,16 +125,6 @@ Create the coverage report of the project under the folder /coverage
 ```
 pnpm run test:coverage
 ```
-
-## Roadmap
-
-Planned features that are coming soon:
-
-- Additional CMS parser: Magnolia
-- Improvements on filter functionality
-- UI changes to have a clear visualization of nested props available for mapping
-- Ability to copy/paste the schemas and components
-- Additional CMS parser: Contentful
 
 ## License
 
