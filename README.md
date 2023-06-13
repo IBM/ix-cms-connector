@@ -4,7 +4,7 @@ IBM iX CMS Connector is a tool that generates a connector function (HOC) between
 
 ## Roadmap
 
-IBM iX CMS Connector is constantly improving the current features and adding new ones. Our current focus is on the following topics:
+We are constantly improving the existing features and adding new ones. Our current focus is on the following topics:
 
 - [ ] Additional CMS parser: Magnolia
 - [ ] Improvements on filter functionality and usability
