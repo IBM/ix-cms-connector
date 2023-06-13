@@ -1,3 +1,8 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
+import { CMSProvider } from "../../components/organisms/CmsSchemaForm";
 import { JSONType, TSType } from "../const";
 import type { JSONSchema, MappableProp } from "../types";
 
@@ -10,7 +15,7 @@ export function getCmsMappableField(
   const mappableField = {
     name: fieldName,
     // since we parse cms data files, a field can't be not required,
-    // cos it's always presented in the file
+    // cos it's always present in the file
     isRequired: true,
   };
 
@@ -77,14 +82,29 @@ export function getCmsMappableField(
   return undefined;
 }
 
-export function getCmsMappableFields(schema: JSONSchema): MappableProp[] {
+export function isNotMappable(name, cms) {
+  const notMappablePrefixes = ["mgnl:", "@"];
+
+  return (
+    cms === CMSProvider.MAGNOLIA &&
+    notMappablePrefixes.some((prefix) => name.startsWith(prefix))
+  );
+}
+
+export function getCmsMappableFields(
+  schema: JSONSchema,
+  cms?: string
+): MappableProp[] {
   return Object.entries(schema.properties ?? {}).reduce(
     (mappableFields, [name, fieldSchema]) => {
+      if (isNotMappable(name, cms)) {
+        return mappableFields;
+      }
       const mappableField = getCmsMappableField(name, fieldSchema);
 
       // nested cms fields
       if (fieldSchema.type === "object") {
-        const mappableSubFields = getCmsMappableFields(fieldSchema).map(
+        const mappableSubFields = getCmsMappableFields(fieldSchema, cms).map(
           (obj) => ({ ...obj, name: `${name}.${obj.name}` })
         );
         mappableFields = [...mappableFields, ...mappableSubFields];

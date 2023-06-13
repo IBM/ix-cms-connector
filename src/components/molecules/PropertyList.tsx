@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { FunctionalComponent } from "preact";
 import { MappableProp, PropSource } from "../../utils";
 import { Property, PropertyProps } from "../atoms/Property";
@@ -66,12 +70,13 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
                     ? (event) => handlePropertyDrop(event, prop)
                     : undefined
                 }
-                class={`mb-px ml-${propDepth} ${
-                  isMappable ? "bg-ui-03 bg-opacity-20" : ""
-                } ${
+                class={`mb-px ${isMappable ? "bg-ui-03 bg-opacity-20" : ""} ${
+                  source === PropSource.COMPONENT ? `flex justify-end` : ""
+                }`}
+                style={`${
                   source === PropSource.COMPONENT
-                    ? `flex justify-end mr-${propDepth}`
-                    : `ml-${propDepth}`
+                    ? `margin-right:calc(${propDepth} * .5rem)`
+                    : `margin-left:calc(${propDepth} * .5rem)`
                 }`}
               >
                 <Property

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { FunctionComponent } from "preact";
 import { CodeSnippet } from "../molecules/CodeSnippet";
 import { generateAdapterCode, type MappedProps } from "../../utils";

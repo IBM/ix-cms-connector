@@ -1,20 +1,30 @@
 # IBM iX CMS Connector
 
-A tool that generates a connector function (HOC) between a CMS schema and react component props.
+IBM iX CMS Connector is a tool that generates a connector function (HOC) between a CMS schema and react component props.
 
-## Usage
+## Roadmap
 
-To exectue the cms connector simply run
+We are constantly improving the existing features and adding new ones. Our current focus is on the following topics:
+
+- [ ] Additional CMS parser: Magnolia
+- [ ] Improvements on filter functionality and usability
+- [ ] UI changes to have a clear visualization of nested props available for mapping
+- [ ] Ability to copy/paste the schemas and components
+- [ ] Additional CMS parser: Contentful
+
+## How to use?
+
+To exectute the cms connector simply run
 
 ```
-npx ibm-ix-cms-connector
+npx https://github.com/IBM/ibm-ix-cms-connector
 ```
 
-This will open up the UI of the connector on http://localhost:8080/. You can define another port by passing in an environment variable, e.g. `PORT=3000 npx ibm-ix-cms-connector`.
+This will open up the UI of the connector on http://localhost:8080/. You can define another port by passing in an environment variable, e.g. `PORT=3000 npx https://github.com/IBM/ibm-ix-cms-connector`.
 
 After completing all steps of the cms connector app, code is generated for a higher order component (HOC).
 
-### HOC
+### Higher Order Component (HOC)
 
 To map the CMS data with the properties of your component, call the generated HOC, passing it the data and invoke the returned function with the component you want to adapt as an argument, like so:
 
@@ -36,7 +46,9 @@ In order to develop the cms connector web app the following prequistes are requi
 
 - **node 18** - This project needs node 18 in order to run. You can use `nvm install 18` and `nvm use 18` for that.
 
-- **pnpm** - pnpm is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. For more details see: https://pnpm.io/motivation. For installation instructions see: https://pnpm.io/installation
+- **pnpm** - [pnpm](https://pnpm.io/motivation) is used as a package manager as it is disk efficient and stores all js packages in a local store. this project assumes prior installation of pnpm. For more details see: . For installation instructions see: https://pnpm.io/installation
+
+- **preact** - [Preact](https://preactjs.com/) is the chosen JavaScript library used to build the cms connector as an alternative to React.:
 
 ### Installation
 
@@ -62,6 +74,26 @@ Create production build with:
 pnpm run build
 ```
 
+### Lint & Format
+
+The linting task `pnpm run lint` and the formatting task `pnpm run format` are run before every commit.
+
+### Component overview
+
+To get an overview of all UI components open:
+
+```
+localhost:8080/overview
+```
+
+## Unit and Integration Tests
+
+Unit and Integration Testing is done using a combination of [Vitest](https://vitest.dev/) with [Preact Testing Library](https://preactjs.com/guide/v10/preact-testing-library)
+
+User events are available through [@testing-library/user-event](https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
+
+Vitest has been expanded with [Jest Dom](https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
+
 ### Test
 
 Run all tests once with:
@@ -69,18 +101,6 @@ Run all tests once with:
 ```
 pnpm run test
 ```
-
-### Lint & Format
-
-The linting task `pnpm run lint` and the formatting task `pnpm run format` are run before every commit.
-
-### Unit and Integration Tests
-
-Unit and Integration Testing is done using a combination of Vitest (https://vitest.dev/) with Preact Testing Library (https://preactjs.com/guide/v10/preact-testing-library)
-
-User events are available through @testing-library/user-event (https://testing-library.com/docs/user-event/intro) which is part of the Testing Library ecosystem, as does the Preact Testing Library.
-
-Vitest has been expanded with Jest Dom (https://testing-library.com/docs/ecosystem-jest-dom/) to be able to access additional matchers to test the UI.
 
 ### Test: verbose
 
@@ -106,10 +126,14 @@ Create the coverage report of the project under the folder /coverage
 pnpm run test:coverage
 ```
 
-### Component overview
+## License
 
-To get an overview of all UI components open:
+This project is licensed under Apache 2.0. Full license text is available in [LICENSE](./LICENSE.txt).
+All source files must be include a Copyright and License header.
 
 ```
-localhost:8080/overview
+#
+# Copyright 2020- IBM Inc. All rights reserved
+# SPDX-License-Identifier: Apache2.0
+#
 ```

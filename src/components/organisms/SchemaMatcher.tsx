@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { FunctionComponent } from "preact";
 import { useEffect, useMemo, useReducer, useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
@@ -36,12 +40,14 @@ const byName = (propA: MappableProp, propB: MappableProp) =>
   propA.name < propB.name ? -1 : 1;
 
 type SchemaMatcherProps = {
+  cms: string;
   cmsSchema: JSONSchema;
   componentDoc: Documentation;
   onGenerate: (mappedProps: MappedProps) => void;
 };
 
 export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
+  cms,
   cmsSchema,
   componentDoc,
   onGenerate,
@@ -49,18 +55,23 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   const [filteredCmsProps, setFilteredCmsProps] = useState<
     MappableProp[] | null
   >(null);
+
   const [filteredCompProps, setFilteredCompProps] = useState<
     MappableProp[] | null
   >(null);
 
   const [cmsProps, setCmsProps] = useState<MappableProp[]>(() =>
-    getCmsMappableFields(cmsSchema)
+    getCmsMappableFields(cmsSchema, cms)
   );
+
   const [compProps, setCompProps] = useState<MappableProp[]>(() =>
     getComponentMappableProps(componentDoc)
   );
+
   const [stagedProps, dispatch] = useReducer(stagedPropsReducer, []);
+
   const [draggingProp, setDraggingProp] = useState<PropertyProps>(null);
+
   const unstagedCmsProps = useMemo(
     () =>
       cmsProps
@@ -68,6 +79,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         .sort(byName),
     [stagedProps]
   );
+
   const unstagedCompProps = useMemo(
     () =>
       compProps
@@ -79,10 +91,12 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   );
 
   useEffect(() => {
-    const updatedCmsProps = getCmsMappableFields(cmsSchema);
+    const updatedCmsProps = getCmsMappableFields(cmsSchema, cms);
     const updatedCompProps = getComponentMappableProps(componentDoc);
+
     setCmsProps(updatedCmsProps);
     setCompProps(updatedCompProps);
+
     dispatch({
       type: StagedPropsActionTypes.AUTO_MAP_PROPS,
       cmsProps: updatedCmsProps,
@@ -103,6 +117,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
     source: PropSource
   ) => {
     event.dataTransfer.effectAllowed = "linkMove";
+
     setDraggingProp({ propData, source });
   };
 
@@ -117,23 +132,27 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
       compProp,
       index,
     });
+
     setDraggingProp(null);
   };
 
   const addPropToStage = (prop: MappableProp, source: PropSource) => {
     let cmsProp: MappableProp = null;
     let compProp: MappableProp = null;
+
     if (source === PropSource.CMS) {
       cmsProp = prop;
     } else {
       compProp = prop;
     }
+
     dispatch({
       type: StagedPropsActionTypes.ADD_PROPS,
       cmsProp,
       compProp,
       index: 0,
     });
+
     if (draggingProp) {
       setDraggingProp(null);
     }
@@ -142,12 +161,15 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
   const removePropFromStage = (prop: MappableProp, source: PropSource) => {
     let cmsProp: MappableProp = null;
     let compProp: MappableProp = null;
+
     if (source === PropSource.CMS) {
       cmsProp = prop;
     } else {
       compProp = prop;
     }
+
     dispatch({ type: StagedPropsActionTypes.REMOVE_PROPS, cmsProp, compProp });
+
     if (draggingProp) {
       setDraggingProp(null);
     }

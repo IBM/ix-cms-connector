@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { FunctionComponent, JSX } from "preact";
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import toJsonSchema from "to-json-schema";
@@ -16,6 +20,7 @@ import {
 
 interface CmsSchemaFormProps {
   onGenerate: (cmsSchema: JSONSchema) => void;
+  onSetCms: (cms: string) => void;
 }
 
 type SchemaProvider = "api" | "json";
@@ -28,6 +33,7 @@ export enum CMSProvider {
 
 export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
   onGenerate,
+  onSetCms,
 }) => {
   const [json, setJson] = useState<JSON>();
 
@@ -101,6 +107,7 @@ export const CmsSchemaForm: FunctionComponent<CmsSchemaFormProps> = ({
     setCmsProvider(cmsProvider);
     setComponent(undefined);
     setCmsError(false);
+    onSetCms(cmsProvider.value);
   };
 
   const getCmsSchemaFromUrl = useCallback(

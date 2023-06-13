@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020- IBM Inc. All rights reserved
+ * SPDX-License-Identifier: Apache2.0
+ */
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { Documentation } from "react-docgen";
@@ -11,6 +15,7 @@ import type { JSONSchema, MappedProps } from "./utils";
 
 const Main: FunctionComponent = () => {
   const [cmsSchema, setCmsSchema] = useState<JSONSchema>();
+  const [cms, setCms] = useState<string>();
   const [componentDoc, setComponentDoc] = useState<Documentation>();
   const [mappedProps, setMappedProps] = useState<MappedProps>();
 
@@ -38,6 +43,7 @@ const Main: FunctionComponent = () => {
                 onGenerate={(cmsSchema) => {
                   setCmsSchema(cmsSchema);
                 }}
+                onSetCms={(cms) => setCms(cms)}
               />
             </div>
 
@@ -58,6 +64,7 @@ const Main: FunctionComponent = () => {
         <div class="border-t border-ui-03">
           <div class="mx-auto max-w-7xl px-4 my-12">
             <SchemaMatcher
+              cms={cms}
               cmsSchema={cmsSchema}
               componentDoc={componentDoc}
               onGenerate={(mappedProps) => {
