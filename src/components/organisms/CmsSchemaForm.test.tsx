@@ -20,7 +20,8 @@ vi.mock("react-dropzone", () => ({
 describe("CmsSchemaForm", () => {
   it("should render component", () => {
     const onGenerateSpy = vi.fn();
-    render(<CmsSchemaForm onGenerate={onGenerateSpy} />);
+    const onSetCmsSpy = vi.fn();
+    render(<CmsSchemaForm onGenerate={onGenerateSpy} onSetCms={onSetCmsSpy} />);
 
     const element = screen.getByLabelText("CmsSchemaForm");
     expect(element).toBeInTheDocument();
@@ -28,7 +29,8 @@ describe("CmsSchemaForm", () => {
 
   it("should not render CMS's dropdown if no json is provider", () => {
     const onGenerateSpy = vi.fn();
-    render(<CmsSchemaForm onGenerate={onGenerateSpy} />);
+    const onSetCmsSpy = vi.fn();
+    render(<CmsSchemaForm onGenerate={onGenerateSpy} onSetCms={onSetCmsSpy} />);
 
     const cmsDropdownEl = screen.queryByText("CMS");
 
@@ -37,7 +39,8 @@ describe("CmsSchemaForm", () => {
 
   it("should not render component' dropdown if the components list is empty", () => {
     const onGenerateSpy = vi.fn();
-    render(<CmsSchemaForm onGenerate={onGenerateSpy} />);
+    const onSetCmsSpy = vi.fn();
+    render(<CmsSchemaForm onGenerate={onGenerateSpy} onSetCms={onSetCmsSpy} />);
 
     const cmsDropdownEl = screen.queryByText("Component");
 
@@ -46,7 +49,8 @@ describe("CmsSchemaForm", () => {
 
   it("should render form for CMS's endpoint", () => {
     const onGenerateSpy = vi.fn();
-    render(<CmsSchemaForm onGenerate={onGenerateSpy}></CmsSchemaForm>);
+    const onSetCmsSpy = vi.fn();
+    render(<CmsSchemaForm onGenerate={onGenerateSpy} onSetCms={onSetCmsSpy} />);
 
     const radioButtonApiEl = screen.getByLabelText("API endpoint");
     fireEvent.click(radioButtonApiEl);
@@ -58,7 +62,8 @@ describe("CmsSchemaForm", () => {
 
   it("should render FileSelect", () => {
     const onGenerateSpy = vi.fn();
-    render(<CmsSchemaForm onGenerate={onGenerateSpy}></CmsSchemaForm>);
+    const onSetCmsSpy = vi.fn();
+    render(<CmsSchemaForm onGenerate={onGenerateSpy} onSetCms={onSetCmsSpy} />);
 
     const radioButtonApiEl = screen.getByLabelText("JSON File upload");
     fireEvent.click(radioButtonApiEl);
