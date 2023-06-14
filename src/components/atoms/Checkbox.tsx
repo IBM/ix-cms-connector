@@ -8,6 +8,7 @@ import { HTMLAttributes } from "react";
 import {
   Checkbox as CheckboxIcon,
   CheckboxCheckedFilled,
+  CheckboxIndeterminate,
 } from "@carbon/icons-react";
 
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
@@ -31,6 +32,12 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   const handleOnClick = () => {
     handleOptionSelect(!selected);
     setSelected(!selected);
+  };
+
+  const renderCheckboxIcon = () => {
+    if (disabled) return <CheckboxIndeterminate size="20" />;
+    if (selected) return <CheckboxCheckedFilled size="20" />;
+    return <CheckboxIcon size="20" />;
   };
 
   useEffect(() => {
@@ -60,11 +67,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         }`}
         htmlFor={id}
       >
-        {selected ? (
-          <CheckboxCheckedFilled size="20" />
-        ) : (
-          <CheckboxIcon size="20" />
-        )}
+        {renderCheckboxIcon()}
         <span class="ml-2">{label}</span>
       </label>
     </div>
