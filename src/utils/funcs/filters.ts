@@ -22,7 +22,9 @@ export function filterByPropName(
   name: string,
   propList: MappableProp[]
 ): MappableProp[] {
-  return propList.filter((item) => item.name.toLowerCase().match(name));
+  return propList.filter((item) =>
+    item.name.toLowerCase().match(name.toLowerCase())
+  );
 }
 
 export function filterByPropType(

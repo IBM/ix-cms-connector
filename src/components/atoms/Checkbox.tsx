@@ -14,7 +14,7 @@ import {
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
   id: string;
   label: string;
-  checked?: boolean;
+  defaultChecked?: boolean;
   disabled?: boolean;
   handleOptionSelect: (isSelected: boolean) => void;
 }
@@ -22,41 +22,41 @@ interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
   label,
-  checked = false,
+  defaultChecked = false,
   disabled = false,
   handleOptionSelect,
   ...rest
 }) => {
-  const [selected, setSelected] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(false);
 
-  const handleOnClick = () => {
-    handleOptionSelect(!selected);
-    setSelected(!selected);
+  const onChangeHandler = () => {
+    setChecked(!checked);
+    handleOptionSelect(!checked);
   };
 
   const renderCheckboxIcon = () => {
     if (disabled) return <CheckboxIndeterminate size="20" />;
-    if (selected) return <CheckboxCheckedFilled size="20" />;
+    if (checked) return <CheckboxCheckedFilled size="20" />;
     return <CheckboxIcon size="20" />;
   };
 
   useEffect(() => {
-    setSelected(checked);
-  }, [checked]);
+    setChecked(defaultChecked);
+  }, [defaultChecked]);
 
   return (
     <div class="flex flex-row items-center">
       <input
         type="checkbox"
         id={id}
-        aria-checked={selected}
-        checked={selected}
+        aria-checked={checked}
+        defaultChecked={defaultChecked}
         disabled={disabled}
         {...rest}
         class={`appearance-none ${
           disabled ? "cursor-not-allowed" : "cursor-pointer"
         }`}
-        onClick={handleOnClick}
+        onChange={onChangeHandler}
       />
 
       <label

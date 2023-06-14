@@ -19,6 +19,7 @@ interface PropertyFiltersProps {
 
 type checkboxFilter = {
   label: string;
+  defaultVal?: boolean;
   isDisabled: boolean;
 };
 
@@ -32,20 +33,32 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
   const checkboxFilters: checkboxFilter[] = useMemo(() => {
-    console.log("PropertyFilters - checkboxTypes");
-
     const filters: checkboxFilter[] = [];
 
     types.forEach((t) => {
       if (list.some((item) => t === item.type)) {
-        filters.push({ label: t, isDisabled: false });
+        filters.push({ label: t, defaultVal: true, isDisabled: false });
       } else {
         filters.push({ label: t, isDisabled: true });
       }
     });
 
     return filters;
-  }, [list]);
+  }, [types]);
+
+  const memoizedCheckboxes = () =>
+    useMemo(() => {
+      return checkboxFilters.map(({ label, defaultVal, isDisabled }, index) => (
+        <Checkbox
+          key={index}
+          id={useId()}
+          label={label}
+          defaultChecked={defaultVal}
+          disabled={isDisabled}
+          handleOptionSelect={(val) => onItemChecked(val, label)}
+        />
+      ));
+    }, [checkboxFilters]);
 
   const onItemChecked = (isSelected: boolean, filterType: string) => {
     setTypesFilter((prevState) => {
@@ -62,7 +75,12 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   };
 
   useEffect(() => {
-    console.log("property filters: set filter types");
+    // If the CMS or component props change,
+    // reset the search input field
+    setSearchTerm("");
+  }, [list]);
+
+  useEffect(() => {
     setTypesFilter(types);
   }, [types]);
 
@@ -77,21 +95,11 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
         label=""
         placeholder="Filter properties"
         onSearchText={(text) => setSearchTerm(text)}
+        value={searchTerm}
       />
 
       <div class={`flex flex-wrap mt-2 gap-4 ${alignRight ? "self-end" : ""}`}>
-        {checkboxFilters.map((checkboxItem, index) => (
-          <Checkbox
-            key={index}
-            id={useId()}
-            label={checkboxItem.label}
-            checked={true}
-            disabled={checkboxItem.isDisabled}
-            handleOptionSelect={(isSelected) =>
-              onItemChecked(isSelected, checkboxItem.label)
-            }
-          />
-        ))}
+        {memoizedCheckboxes()}
       </div>
     </div>
   );
