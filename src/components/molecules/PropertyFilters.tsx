@@ -18,6 +18,7 @@ interface PropertyFiltersProps {
 }
 
 type checkboxFilter = {
+  id: number;
   label: string;
   defaultVal?: boolean;
   isDisabled: boolean;
@@ -36,10 +37,17 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
     const filters: checkboxFilter[] = [];
 
     types.forEach((t) => {
+      const newId = Math.floor(Math.random() * 1000);
+
       if (list.some((item) => t === item.type)) {
-        filters.push({ label: t, defaultVal: true, isDisabled: false });
+        filters.push({
+          id: newId,
+          label: t,
+          defaultVal: true,
+          isDisabled: false,
+        });
       } else {
-        filters.push({ label: t, isDisabled: true });
+        filters.push({ id: newId, label: t, isDisabled: true });
       }
     });
 
@@ -48,10 +56,10 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
 
   const memoizedCheckboxes = () =>
     useMemo(() => {
-      return checkboxFilters.map(({ label, defaultVal, isDisabled }, index) => (
+      return checkboxFilters.map(({ id, label, defaultVal, isDisabled }) => (
         <Checkbox
-          key={index}
-          id={useId()}
+          key={id}
+          id={id.toString()}
           label={label}
           defaultChecked={defaultVal}
           disabled={isDisabled}
