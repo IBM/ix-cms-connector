@@ -14,6 +14,7 @@ interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
   id: string;
   label: string;
   checked?: boolean;
+  disabled?: boolean;
   handleOptionSelect: (isSelected: boolean) => void;
 }
 
@@ -21,6 +22,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
   label,
   checked = false,
+  disabled = false,
   handleOptionSelect,
   ...rest
 }) => {
@@ -42,13 +44,20 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         id={id}
         aria-checked={selected}
         checked={selected}
+        disabled={disabled}
         {...rest}
-        class="appearance-none cursor-pointer"
+        class={`appearance-none ${
+          disabled ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         onClick={handleOnClick}
       />
 
       <label
-        class="flex items-center text-sm leading-tight text-text-01 cursor-pointer"
+        class={`flex items-center text-sm leading-tight ${
+          disabled
+            ? "text-disabled-03 cursor-not-allowed"
+            : "text-text-01 cursor-pointer"
+        }`}
         htmlFor={id}
       >
         {selected ? (

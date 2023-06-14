@@ -130,7 +130,8 @@ const Overview: FunctionComponent = () => {
               />
               <Checkbox
                 id="checkbox-3"
-                label="Item 3"
+                label="Checkbox disabled"
+                disabled
                 handleOptionSelect={onCheckboxSelected}
               />
             </div>

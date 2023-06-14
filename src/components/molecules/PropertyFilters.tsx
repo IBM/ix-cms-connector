@@ -5,34 +5,47 @@
 import { FunctionComponent } from "preact";
 import { useId, useEffect, useMemo, useState } from "preact/hooks";
 
-import {
-  type MappableProp,
-  filterPropsList,
-  getTypesFilterFromList,
-} from "../../utils";
+import { type MappableProp, filterPropsList } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
 
 import { SearchInput } from "../atoms/SearchInput";
 
 interface PropertyFiltersProps {
   list: MappableProp[];
+  types: string[];
   onPropertiesFiltered: (listProps: MappableProp[]) => void;
   alignRight?: boolean;
 }
 
+type checkboxFilter = {
+  label: string;
+  isDisabled: boolean;
+};
+
 export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   list,
+  types,
   onPropertiesFiltered,
   alignRight,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
-  const checkboxTypes: string[] = useMemo(() => {
-    const typesFilter = getTypesFilterFromList(list);
-    setTypesFilter(typesFilter);
-    return typesFilter;
-  }, list);
+  const checkboxFilters: checkboxFilter[] = useMemo(() => {
+    console.log("PropertyFilters - checkboxTypes");
+
+    const filters: checkboxFilter[] = [];
+
+    types.forEach((t) => {
+      if (list.some((item) => t === item.type)) {
+        filters.push({ label: t, isDisabled: false });
+      } else {
+        filters.push({ label: t, isDisabled: true });
+      }
+    });
+
+    return filters;
+  }, [list]);
 
   const onItemChecked = (isSelected: boolean, filterType: string) => {
     setTypesFilter((prevState) => {
@@ -49,6 +62,11 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   };
 
   useEffect(() => {
+    console.log("property filters: set filter types");
+    setTypesFilter(types);
+  }, [types]);
+
+  useEffect(() => {
     const searchResult = filterPropsList(searchTerm, typesFilter, list);
     onPropertiesFiltered(searchResult);
   }, [searchTerm, typesFilter]);
@@ -62,13 +80,16 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
       />
 
       <div class={`flex flex-wrap mt-2 gap-4 ${alignRight ? "self-end" : ""}`}>
-        {checkboxTypes.map((type, index) => (
+        {checkboxFilters.map((checkboxItem, index) => (
           <Checkbox
             key={index}
             id={useId()}
-            label={type}
+            label={checkboxItem.label}
             checked={true}
-            handleOptionSelect={(isSelected) => onItemChecked(isSelected, type)}
+            disabled={checkboxItem.isDisabled}
+            handleOptionSelect={(isSelected) =>
+              onItemChecked(isSelected, checkboxItem.label)
+            }
           />
         ))}
       </div>

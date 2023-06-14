@@ -10,7 +10,7 @@ export function getTypesFilterFromList(propList: MappableProp[]): string[] {
   propList.forEach((prop) => {
     const [type] = formatMappablePropType(prop);
 
-    if (!typesFilter.find((typeFilter) => typeFilter === type)) {
+    if (!typesFilter.some((typeFilter) => typeFilter === type)) {
       typesFilter.push(type);
     }
   });
