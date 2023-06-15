@@ -8,66 +8,54 @@ import { HTMLAttributes } from "react";
 import {
   Checkbox as CheckboxIcon,
   CheckboxCheckedFilled,
-  CheckboxIndeterminate,
 } from "@carbon/icons-react";
 
 interface CheckboxProps extends HTMLAttributes<HTMLButtonElement> {
   id: string;
   label: string;
-  defaultChecked?: boolean;
-  disabled?: boolean;
+  checked?: boolean;
   handleOptionSelect: (isSelected: boolean) => void;
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id,
   label,
-  defaultChecked = false,
-  disabled = false,
+  checked = false,
   handleOptionSelect,
   ...rest
 }) => {
-  const [checked, setChecked] = useState<boolean>(false);
+  const [selected, setSelected] = useState<boolean>(false);
 
-  const onChangeHandler = () => {
-    setChecked(!checked);
-    handleOptionSelect(!checked);
-  };
-
-  const renderCheckboxIcon = () => {
-    if (disabled) return <CheckboxIndeterminate size="20" />;
-    if (checked) return <CheckboxCheckedFilled size="20" />;
-    return <CheckboxIcon size="20" />;
+  const handleOnClick = () => {
+    handleOptionSelect(!selected);
+    setSelected(!selected);
   };
 
   useEffect(() => {
-    setChecked(defaultChecked);
-  }, [defaultChecked]);
+    setSelected(checked);
+  }, [checked]);
 
   return (
     <div class="flex flex-row items-center">
       <input
         type="checkbox"
         id={id}
-        aria-checked={checked}
-        defaultChecked={defaultChecked}
-        disabled={disabled}
+        aria-checked={selected}
+        checked={selected}
         {...rest}
-        class={`appearance-none ${
-          disabled ? "cursor-not-allowed" : "cursor-pointer"
-        }`}
-        onChange={onChangeHandler}
+        class="appearance-none cursor-pointer"
+        onClick={handleOnClick}
       />
 
       <label
-        class={`flex items-center text-sm leading-tight ${
-          disabled
-            ? "text-disabled-03 cursor-not-allowed"
-            : "text-text-01 cursor-pointer"
-        }`}
+        class="flex items-center text-sm leading-tight text-text-01 cursor-pointer"
         htmlFor={id}
       >
-        {renderCheckboxIcon()}
+        {selected ? (
+          <CheckboxCheckedFilled size="20" />
+        ) : (
+          <CheckboxIcon size="20" />
+        )}
         <span class="ml-2">{label}</span>
       </label>
     </div>
