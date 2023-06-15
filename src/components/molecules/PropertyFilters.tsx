@@ -3,36 +3,70 @@
  * SPDX-License-Identifier: Apache2.0
  */
 import { FunctionComponent } from "preact";
-import { useId, useEffect, useMemo, useState } from "preact/hooks";
+import { useEffect, useMemo, useState } from "preact/hooks";
 
-import {
-  type MappableProp,
-  filterPropsList,
-  getTypesFilterFromList,
-} from "../../utils";
+import { type MappableProp, filterPropsList } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
 
 import { SearchInput } from "../atoms/SearchInput";
 
 interface PropertyFiltersProps {
   list: MappableProp[];
+  types: string[];
   onPropertiesFiltered: (listProps: MappableProp[]) => void;
   alignRight?: boolean;
 }
 
+type CheckboxFilter = {
+  id: number;
+  label: string;
+  defaultVal?: boolean;
+  isDisabled: boolean;
+};
+
 export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   list,
+  types,
   onPropertiesFiltered,
   alignRight,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
-  const checkboxTypes: string[] = useMemo(() => {
-    const typesFilter = getTypesFilterFromList(list);
-    setTypesFilter(typesFilter);
-    return typesFilter;
-  }, list);
+  const checkboxFilters: CheckboxFilter[] = useMemo(() => {
+    const filters: CheckboxFilter[] = [];
+
+    types.forEach((t) => {
+      const newId = Math.floor(Math.random() * 1000);
+
+      if (list.some((item) => t === item.type)) {
+        filters.push({
+          id: newId,
+          label: t,
+          defaultVal: true,
+          isDisabled: false,
+        });
+      } else {
+        filters.push({ id: newId, label: t, isDisabled: true });
+      }
+    });
+
+    return filters;
+  }, [types]);
+
+  const memoizedCheckboxes = () =>
+    useMemo(() => {
+      return checkboxFilters.map(({ id, label, defaultVal, isDisabled }) => (
+        <Checkbox
+          key={id}
+          id={id.toString()}
+          label={label}
+          defaultChecked={defaultVal}
+          disabled={isDisabled}
+          handleOptionSelect={(val) => onItemChecked(val, label)}
+        />
+      ));
+    }, [checkboxFilters]);
 
   const onItemChecked = (isSelected: boolean, filterType: string) => {
     setTypesFilter((prevState) => {
@@ -49,6 +83,16 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   };
 
   useEffect(() => {
+    // If the CMS or component props change,
+    // reset the search input field
+    setSearchTerm("");
+  }, [list]);
+
+  useEffect(() => {
+    setTypesFilter(types);
+  }, [types]);
+
+  useEffect(() => {
     const searchResult = filterPropsList(searchTerm, typesFilter, list);
     onPropertiesFiltered(searchResult);
   }, [searchTerm, typesFilter]);
@@ -59,18 +103,11 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
         label=""
         placeholder="Filter properties"
         onSearchText={(text) => setSearchTerm(text)}
+        value={searchTerm}
       />
 
       <div class={`flex flex-wrap mt-2 gap-4 ${alignRight ? "self-end" : ""}`}>
-        {checkboxTypes.map((type, index) => (
-          <Checkbox
-            key={index}
-            id={useId()}
-            label={type}
-            checked={true}
-            handleOptionSelect={(isSelected) => onItemChecked(isSelected, type)}
-          />
-        ))}
+        {memoizedCheckboxes()}
       </div>
     </div>
   );
