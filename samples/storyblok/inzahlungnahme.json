@@ -1,6 +1,6 @@
 {
   "story": {
-    "name": "Inzahlungnahme | UMGEZOGEN",
+    "name": "Lorem ipsum",
     "created_at": "2023-04-05T11:42:13.126Z",
     "published_at": "2023-04-06T09:59:09.155Z",
     "id": 287752870,
@@ -10,16 +10,16 @@
       "body": [
         {
           "_uid": "c052aeb4-c8a9-4402-8cda-1450618972aa",
-          "text": "Du willst dein altes Auto in Zahlung geben? Kein Problem! Bei Foo Bar findest du dein neues Wunschfahrzeug in unserem großen Angebot und verkaufst gleichzeitig deinen Gebrauchten an einen unserer Händler – schnell, einfach und persönlich. Hier erfährst du alle wichtigen Infos über die Inzahlungnahme.",
+          "text": "Lorem ipsum",
           "darkBg": true,
-          "headline": "Inzahlungnahme: alt gegen neu.",
+          "headline": "Lorem ipsum",
           "component": "image-stage",
           "imageLink": {
             "id": 7852058,
-            "alt": "mann-bereitet-auto-fuer-inzahlungnahme-vor",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Mann bereitet Auto für Inzahlungnahme vor | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com/",
             "copyright": "Foo Bar",
             "fieldtype": "asset",
@@ -60,11 +60,11 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Du möchtest ein neues Auto kaufen und dich gleichzeitig von deinem Gebrauchten trennen? Wähle aus einer Vielzahl von Neuwagen und Gebrauchtwagen dein neues Wunschfahrzeug und erfahre mit wenigen Klicks, ",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
-                        "text": "wie viel dein aktuelles Auto noch wert",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -73,7 +73,7 @@
                         ]
                       },
                       {
-                        "text": " ist. Direkt im Anschluss suchst du dir einen Händler in deiner Nähe für den Verkauf aus und sicherst dir einen fairen Preis für dein altes Fahrzeug.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
@@ -91,7 +91,7 @@
                         "type": "hard_break"
                       },
                       {
-                        "text": "Die Inzahlungnahme beim Kauf deines neuen Autos – das lohnt sich für dich.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -100,7 +100,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Und so funktioniert’s:",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -115,7 +115,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Finde dein neues Auto bei ",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -149,7 +149,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Füge dein altes Auto hinzu und gib die Fahrzeugdaten an.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -171,7 +171,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Wähle einen Händler in deiner Nähe und erhalte eine unverbindliche Preisschätzung.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -193,7 +193,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Erhalte ein finales Angebot, nachdem der Händler dein Auto vor Ort begutachtet hat.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -215,7 +215,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Bist du mit dem finalen Angebot zufrieden, steht der Inzahlungnahme nichts mehr im Wege!",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -241,7 +241,7 @@
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Kaufen \u0026 verkaufen in einer Tour",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -275,7 +275,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -287,7 +287,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar ist die Suche nach deinem Wunschauto so einfach wie nie. Klick dich online durch das markenübergreifende Angebot aus Neuwagen, Gebrauchtwagen und vielen weiteren Fahrzeugtypen. Jetzt musst du dich nur noch entscheiden, welches Auto am besten zu dir passt. Bei Bedarf stehen dir unsere Autohändler gerne beratend zur Seite.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -302,20 +302,20 @@
                   }
                 ]
               },
-              "title": "Finde dein neues Auto in unserem Angebot",
+              "title": "Lorem ipsum",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7852056,
                 "alt": "mann-sucht-online-nach-neuem-auto",
                 "name": "",
                 "focus": "",
-                "title": "Mann sucht online Auto an Tablet | Foo Bar",
+                "title": "Foo Bar",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar",
                 "fieldtype": "asset",
                 "is_external_url": false
               },
-              "linkLabel": "Finde hier dein neues Auto",
+              "linkLabel": "Lorem ipsum",
               "listItemMarker": "",
               "listItemMarkerColor": ""
             },
@@ -335,7 +335,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Dein altes Auto kannst du für dein neues ganz bequem in Zahlung geben. Dank unserem bundesweiten Netzwerk an Händlern findest du schnell einen Partner in deiner Nähe — so klappt die Inzahlungnahme ohne langwierige Suche.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -353,7 +353,7 @@
                         "type": "hard_break"
                       },
                       {
-                        "text": "Wie hoch der Ankaufspreis ausfällt, hängt unter anderem von Fahrzeugdaten wie der Marke und dem Modell ab. Diese Angaben gibst du in wenigen Schritten online ein. Ergänze außerdem Details zum Zustand deines Autos für eine noch genauere Preisschätzung. Unser Tipp: Halte deinen Fahrzeugschein bereit. Darin findest du alle wichtigen Informationen.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -368,14 +368,14 @@
                   }
                 ]
               },
-              "title": "Alt gegen neu – so einfach wie nie",
+              "title": "Lorem ipsum",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7852053,
-                "alt": "mann-gibt-online-fahrzeugdaten-fuer-inzahlungnahme-ein",
+                "alt": "Lorem ipsum",
                 "name": "",
                 "focus": "",
-                "title": "Mann gibt Fahrzeugdaten bei Inzahlungnahme ein | Foo Bar",
+                "title": "Foo Bar",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar",
                 "fieldtype": "asset",
@@ -401,7 +401,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Mit deinen eingegebenen Fahrzeugdaten wie Marke, Modell, Kilometerstand oder Erstzulassung ermitteln wir online den Wert deines Autos. So weißt du, wie viel Geld du bei einer Inzahlungnahme oder als Anzahlung für deine Finanzierung bzw. Leasing erwarten kannst. Natürlich kann das finale Angebot des Händlers von der Online-Preisschätzung abweichen.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -416,14 +416,14 @@
                   }
                 ]
               },
-              "title": "Erhalte online eine Preisschätzung",
+              "title": "Lorem ipsum",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7852052,
-                "alt": "mann-sieht-preisangebot-fuer-sein-auto",
+                "alt": "Lorem ipsum",
                 "name": "",
                 "focus": "",
-                "title": "Mann erhält Preisschätzung für sein Auto am Tablet | Foo Bar",
+                "title": "Foo Bar",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar",
                 "fieldtype": "asset",
@@ -449,7 +449,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Jetzt kannst du deinen Autokauf über ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -461,7 +461,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar abschließen und für die Inzahlungnahme einen Termin beim Händler vereinbaren. Beim finalen Check deines alten Autos vor Ort kannst du dich auf einen verbindlichen Verkaufspreis für die Inzahlungnahme freuen und den Verkauf direkt vor Ort abschließen.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -476,14 +476,14 @@
                   }
                 ]
               },
-              "title": "Kaufen, verkaufen, fertig!",
+              "title": "Lorem ipsum",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7852057,
-                "alt": "mann-steigt-in-sein-neues-auto",
+                "alt": "Lorem ipsum",
                 "name": "",
                 "focus": "",
-                "title": "Mann steigt in sein neues Auto | Hyundai | Foo Bar",
+                "title": "Foo Bar",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar",
                 "fieldtype": "asset",
@@ -508,8 +508,8 @@
             {
               "_uid": "b22a4c55-8879-429e-95eb-18385eb48fe4",
               "icon": "certificateCheck",
-              "content": "Anhand weniger Parameter zeigt dir unser intelligenter Preisrechner den Wert deines Fahrzeugs. Je konkreter deine Angaben, desto genauer ist unsere Preisschätzung.",
-              "headline": "Schnelle Preisschätzung",
+              "content": "Lorem ipsum",
+              "headline": "Lorem ipsum",
               "component": "benefit",
               "background": "WHITE",
               "subheadline": "",
@@ -525,8 +525,8 @@
             {
               "_uid": "df37b081-e606-448f-8831-06ec7ea158a9",
               "icon": "partnership",
-              "content": "Alle unsere Händler sind Partner von Foo Bar und genießen unser volles Vertrauen. Du kannst dich drauf verlassen, dass sie die Inzahlungnahme professionell und seriös abwickeln.",
-              "headline": "Vertrauensvolle Partner",
+              "content": "Lorem ipsum",
+              "headline": "Lorem ipsum",
               "component": "benefit",
               "background": "PURPLE",
               "subheadline": "",
@@ -542,8 +542,8 @@
             {
               "_uid": "c665be18-cb5f-4ff1-b3a8-9255c8384343",
               "icon": "connect",
-              "content": "Mit dem hybriden Modell aus Online-Beratung und Vor-Ort-Betreuung sind unsere Händler im ganzen Prozess der Inzahlungnahme an deiner Seite.",
-              "headline": "Online und Offline an deiner Seite",
+              "content": "Lorem ipsum",
+              "headline": "Lorem ipsum",
               "component": "benefit",
               "background": "BLACK",
               "subheadline": "",
@@ -559,8 +559,8 @@
             {
               "_uid": "aaa38883-9305-448c-bdee-9e7b70a19070",
               "icon": "personFavorite",
-              "content": "Von der ersten Preisschätzung bis zum finalen Angebot — bei Foo Bar gibt es die komplette Inzahlungnahme in einem Prozess. Zuverlässig, vertrauensvoll und auf dich abgestimmt.",
-              "headline": "Abgestimmt auf deine Bedürfnisse",
+              "content": "Lorem ipsum",
+              "headline": "Lorem ipsum",
               "component": "benefit",
               "background": "WHITE",
               "subheadline": "",
@@ -574,11 +574,11 @@
               "textLinkText": ""
             }
           ],
-          "headline": "Auf einen Blick",
+          "headline": "Lorem ipsum",
           "component": "benefits-teaser",
           "isNumeric": false,
           "background": "GREY",
-          "subHeadline": "Schnell, unkompliziert und einfach. Die Inzahlungnahme bei Foo Bar.",
+          "subHeadline": "Lorem ipsum",
           "isMultiColor": true,
           "textLinkHref": {
             "id": "",
@@ -624,7 +624,7 @@
                     },
                     "content": [
                       {
-                        "text": "Profitiere von vielen Vorteilen",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -633,7 +633,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Die Inzahlungnahme bei Foo Bar punktet mit einem großen Autoangebot und einem schnellen Kauf- und Verkaufsprozess. In nur wenigen Schritten hast du alles erledigt und kannst dich hinter das Steuer deines neuen Fahrzeugs setzen. Dank unserer ausgewählten Händler kannst du dir zudem sicher sein, ein gutes Angebot für deinen Gebrauchten zu erhalten. Klingt fair? Ist es auch.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -647,7 +647,7 @@
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Deshalb lohnt sich die Inzahlungnahme bei Foo Bar",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -676,7 +676,7 @@
                 "target": "_blank",
                 "linktype": "story",
                 "fieldtype": "multilink",
-                "cached_url": "pages/Haendleruebersicht"
+                "cached_url": "pages/url"
               },
               "bodyHtml": {
                 "type": "doc",
@@ -688,7 +688,7 @@
                     },
                     "content": [
                       {
-                        "text": "Online Preis-Check",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -697,7 +697,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei Foo Bar erhältst du bereits vor der Prüfung durch den Händler eine unverbindliche Preisschätzung für dein altes Auto. So bekommst du vorab ganz bequem online ein erstes Gefühl dafür, ob sich der Verkauf für dich lohnt.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -709,7 +709,7 @@
                     },
                     "content": [
                       {
-                        "text": "Wir verbinden dich mit einem Händler in deiner Nähe",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -718,7 +718,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Wir ersparen dir die langwierige Suche nach dem richtigen Händler! Gib dein Auto entweder bei dem Händler in Zahlung, bei dem du dein neues Auto kaufst, oder finde in unserem großen Händlernetzwerk ein anderes Autohaus in deiner Nähe.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -726,7 +726,7 @@
                 ]
               },
               "component": "text-component-section",
-              "linkLabel": "Zu unseren Händlern",
+              "linkLabel": "Lorem ipsum",
               "linkAsButton": false,
               "listItemMarker": "",
               "listItemMarkerColor": ""
@@ -735,10 +735,10 @@
           "leftAreaBody": "",
           "leftAreaImage": {
             "id": 7852055,
-            "alt": "preisschatzung-fuer-inzahlungnahme-fahrzeug",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Screenshot Preisschätzung für Inzahlungnahme | Opel | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Foo Bar",
             "fieldtype": "asset",
@@ -759,26 +759,26 @@
             {
               "_uid": "7ca8a11e-a3b2-4135-978b-526380495a8c",
               "icon": "",
-              "title": "Fahrzeugdaten eingeben",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Für eine schnelle Wertermittlung deines Gebrauchtwagens spielen Informationen wie Alter, Zustand, Marke, Kilometerstand und die Erstzulassung des Autos eine entscheidende Rolle."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "fb85cdda-7916-4b12-a6c8-8dbc4d645f26",
               "icon": "",
-              "title": "Preisschätzung erhalten",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Anhand deiner Fahrzeugdaten berechnen wir, wie viel Geld du für dein altes Auto erwarten kannst. Dieser Wert ist jedoch unverbindlich. Das heißt, das finale Angebot des Händlers kann auch außerhalb der errechneten Preisspanne liegen."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "2a7c925f-8f11-46fa-a3d5-8a11e65b75a4",
               "icon": "",
-              "title": "Begutachtung durch den Händler",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Abschließend prüft der ausgewählte Händler dein Auto vor Ort und begutachtet bei einem persönlichen Termin den technischen und optischen Zustand deines Autos. Im Anschluss erhältst du das finale Angebot für dein Fahrzeug."
+              "description": "Lorem ipsum"
             }
           ],
-          "headline": "So funktioniert die Preisschätzung für dein Auto",
+          "headline": "Lorem ipsum",
           "component": "content-steps",
           "background": "GREEN",
           "buttonLink": {
@@ -796,16 +796,16 @@
           "_uid": "9068de4b-8ee1-49b4-8e50-4434805074b1",
           "image": {
             "id": 7852054,
-            "alt": "auto-online-kaufen-cta",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "BMW | Opel | Skoda | Freisteller | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Foo Bar",
             "fieldtype": "asset",
             "is_external_url": false
           },
-          "headline": "Finde jetzt dein neues Auto",
+          "headline": "Lorem ipsum",
           "component": "car-finder",
           "customButtonName": "",
           "mobileImageIsSquare": false
@@ -818,7 +818,7 @@
             "target": "_blank",
             "linktype": "story",
             "fieldtype": "multilink",
-            "cached_url": "pages/hilfe-faqs-umgezogen"
+            "cached_url": "pages/url"
           },
           "items": [
             {
@@ -830,7 +830,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Was ist eine Inzahlungnahme?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -839,7 +839,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei einer Inzahlungnahme verkaufst du dein altes Auto und kaufst im gleichen Zug ein neues. Du erledigst also den ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -851,7 +851,7 @@
                         ]
                       },
                       {
-                        "text": "Verkauf und den Kauf in einem Prozess",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -860,7 +860,7 @@
                         ]
                       },
                       {
-                        "text": " und sparst dir separaten Verkaufsaufwand. Wenn du dein altes Auto bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -872,7 +872,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar in Zahlung gibst, bieten wir dir jede Menge Flexibilität: Du entscheidest selbst, ob du dein altes Fahrzeug direkt bei dem Händler in Zahlung gibst, bei dem du dein neues Auto kaufst, oder ob du ein anderes Autohaus für den Verkauf wählst. Mit unserer online Preisschätzung erfährst du sofort, wieviel dein Auto wert ist. Dieser unverbindliche Verkaufspreis basiert auf vergleichbaren Fahrzeugen aus diversen Datenbanken. Im nächsten Schritt kannst du dein Fahrzeug bei einem unserer Händler in Zahlung geben und bekommst vor Ort eine genaue Einschätzung darüber, wieviel Geld dein Gebrauchter noch wert ist. Der Händler schaut sich dabei genau die Optik und Funktionalität des Fahrzeugs an und macht dir für die Inzahlungnahme ein unverbindliches Angebot.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -900,7 +900,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Welche Vorteile hat eine Inzahlungnahme?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -909,7 +909,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Die Inzahlungnahme deines Gebrauchten hat viele Vorteile. Allen voran ist das Verfahren bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -933,7 +933,7 @@
                         ]
                       },
                       {
-                        "text": "unkompliziert und schnell",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -942,7 +942,7 @@
                         ]
                       },
                       {
-                        "text": ". Du musst dich nicht um den Verkauf deines alten Autos kümmern und der Aufwand rund um das Autoinserat und die Verkaufsgespräche fallen für dich weg. Unsere Partner-Autohäuser begutachten dein Auto vor Ort fachkundig und bieten dir einen fairen Preis. Am Ende liegt es in deiner Hand, ob du dem Angebot und damit der Inzahlungnahme zustimmst oder nicht. Denn du bist natürlich nicht verpflichtet, das Angebot anzunehmen.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -970,7 +970,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Was muss ich bei einer Inzahlungnahme beachten?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -979,7 +979,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei der Inzahlungnahme erfolgen Kauf und Verkauf in wenigen Schritten und sparen dir so Zeit und Aufwand. Dabei solltest du beachten, dass nicht jeder Händler jedes Fahrzeug in Zahlung nimmt. Je nach Marke und Modell kann es sein, dass einige Händler nicht in Frage kommen. In ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -991,13 +991,13 @@
                         ]
                       },
                       {
-                        "text": "unserem großen Händlernetzwerk",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
                             "type": "link",
                             "attrs": {
-                              "href": "https://www.Foo Bar/haendler-uebersicht/",
+                              "href": "https://www.Foo.bar",
                               "uuid": null,
                               "anchor": null,
                               "custom": {},
@@ -1008,7 +1008,7 @@
                         ]
                       },
                       {
-                        "text": " findest du aber mit Sicherheit einen Partner, der deinen Gebrauchtwagen akzeptiert. Wie viel Geld du für dein altes Auto bekommst, hängt von mehreren Faktoren ab, wie zum Beispiel dem Kilometerstand, der Marke und dem technischen Zustand. Bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1020,7 +1020,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar erhältst du direkt online eine erste Preisschätzung für dein altes Auto. Der finale Preis wird dann vor Ort beim Händler anhand einer genauen Prüfung deines Fahrzeugs ermittelt. Eventuell lohnt sich für dich eine Autopflege vor der Fahrt zum Händler, um kleinere Schönheitsfehler auszubessern und den Innenraum aufzuarbeiten. Diese Faktoren können zu einem höheren Preis bei der Inzahlungnahme führen.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1048,7 +1048,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Wie viel ist mein Gebrauchtwagen wert?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1057,7 +1057,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Wie viel dein Auto preislich noch wert ist, kannst du schnell und einfach ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1069,7 +1069,7 @@
                         ]
                       },
                       {
-                        "text": "mit unserer online Preisermittlung prüfen",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1078,7 +1078,7 @@
                         ]
                       },
                       {
-                        "text": ". Dafür gibst du die Fahrzeugdaten wie Kilometerstand, Zustand und Alter des Autos in unser Tool ein und erhältst sofort eine unverbindliche Preisspanne für den Verkaufspreis. Über den finalen Preis der Inzahlungnahme verhandelst du mit dem Händler, bei dem du deinen Wagen in Zahlung gibst. Dieser prüft vor Ort den tatsächlichen technischen und optischen Zustand deines Autos.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1106,7 +1106,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Welche Unterlagen benötige ich, wenn ich mein Auto verkaufe?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1115,7 +1115,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Wenn du dein Fahrzeug über Foo Bar verkaufst, benötigst du diese Dinge:",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -1130,7 +1130,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Deinen Fahrzeugschein und Fahrzeugbrief",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1152,7 +1152,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Deinen Autoschlüssel inkl. aller Ersatzschlüssel",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1174,7 +1174,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Das Scheckheft deines Autos, falls vorhanden",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1196,7 +1196,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Vorliegende Unterlagen von Reparaturen",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1218,7 +1218,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Deinen Personalausweis",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1250,7 +1250,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Bei welchen Händlern kann ich mein Fahrzeug verkaufen?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1259,7 +1259,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Unser großes Händlernetzwerk erstreckt sich über ganz Deutschland. In unserer Übersicht findest du garantiert ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1271,13 +1271,13 @@
                         ]
                       },
                       {
-                        "text": "einen Händler in deiner Nähe",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
                             "type": "link",
                             "attrs": {
-                              "href": "https://www.Foo Bar/haendler-uebersicht/",
+                              "href": "https://www.Foo.bar",
                               "uuid": null,
                               "anchor": null,
                               "custom": {},
@@ -1288,7 +1288,7 @@
                         ]
                       },
                       {
-                        "text": ", bei dem du dein Auto in Zahlung geben oder verkaufen kannst. Mehr noch: Wir als ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1300,7 +1300,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar verbinden die Online- mit der Offline-Welt. So kannst du nicht nur klassisch beim Händler vor Ort kaufen, verkaufen und beraten werden, sondern von überall und zu jeder Zeit auch online unsere Angebote nutzen.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1321,10 +1321,10 @@
             }
           ],
           "bgColor": "white",
-          "subtext": "Alles, was du über die Inzahlungnahme bei Foo Bar wissen solltest.",
-          "headline": "Noch Fragen?",
+          "subtext": "Lorem ipsum",
+          "headline": "Lorem ipsum",
           "component": "faq-accordion",
-          "linkLabel": "Zum FAQ-Bereich",
+          "linkLabel": "Lorem ipsum",
           "isMultiple": false,
           "hasShowMore": false,
           "onlyAccordion": false,
@@ -1333,15 +1333,15 @@
       ],
       "metadata": {
         "_uid": "65209c82-cfb1-479e-8ec1-c103c1797e49",
-        "title": "Inzahlungnahme von Gebrauchtwagen | Foo Bar",
+        "title": "Foo Bar",
         "plugin": "meta-fields",
-        "description": "Gib dein altes Auto einfach in Zahlung und profitiere von unserem großen Händlernetzwerk ✓ Einfach und fair ✓ "
+        "description": "Lorem ipsum"
       },
       "component": "page",
       "backgroundColor": "bg-white"
     },
-    "slug": "inzahlungnahme-umgezogen",
-    "full_slug": "pages/inzahlungnahme-umgezogen",
+    "slug": "slug",
+    "full_slug": "pages/slug",
     "sort_by_date": null,
     "position": -120,
     "tag_list": [],

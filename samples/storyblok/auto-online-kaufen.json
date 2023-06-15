@@ -1,6 +1,6 @@
 {
   "story": {
-    "name": "Auto online kaufen",
+    "name": "Lorem ipsum",
     "created_at": "2023-03-30T09:16:01.884Z",
     "published_at": "2023-04-12T08:42:59.802Z",
     "id": 284278570,
@@ -10,16 +10,16 @@
       "body": [
         {
           "_uid": "b4f78ade-fb33-4bdb-9ddc-1ea5f6223b80",
-          "text": "Bei Foo Bar ist es ein Kinderspiel, dein Fahrzeug sicher online zu kaufen. Finde schnell dein Wunschmodell, wähle deine Extras und die passende Bezahlmethode und wir kümmern uns um den Rest — auf Wunsch inklusive Lieferung vor deine Haustür.",
+          "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
           "darkBg": true,
-          "headline": "Auto online kaufen: so einfach geht’s.",
+          "headline": "Lorem ipsum dolor sit amet",
           "component": "image-stage",
           "imageLink": {
             "id": 7613201,
-            "alt": "Junges Paar will online ein Auto kaufen ",
+            "alt": "Lorem ipsum dolor sit amet",
             "name": "",
             "focus": "",
-            "title": "Autokauf online - Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Foo Bar ",
             "fieldtype": "asset",
@@ -33,7 +33,7 @@
             "fieldtype": "multilink",
             "cached_url": ""
           },
-          "buttonLabel": "Jetzt Auto finden ",
+          "buttonLabel": "Click here",
           "mailToEmail": "",
           "hyphenatedHeadline": false
         },
@@ -61,7 +61,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Nutze die Vorteile unseres deutschlandweiten Händlernetzwerks und finde unter unzähligen Neuwagen, Gebrauchtwagen und Tageszulassungen das richtige Auto für dich.",
+                        "text": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt.",
                         "type": "text"
                       }
                     ]
@@ -73,7 +73,7 @@
                     },
                     "content": [
                       {
-                        "text": "So schnell und einfach steht ein neues Auto vor deiner Tür.",
+                        "text": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. ",
                         "type": "text"
                       }
                     ]
@@ -82,7 +82,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Und so funktioniert’s:",
+                        "text": "Donec sodales sagittis magna.",
                         "type": "text"
                       }
                     ]
@@ -97,7 +97,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Finde dein Traumauto",
+                                "text": "Donec sodales sagittis magna.",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -119,7 +119,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Entscheide, wie du dein Auto bezahlst",
+                                "text": "Lorem ipsum dolor sit amet.",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -141,7 +141,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Buche Extras und Zusatzleistungen hinzu",
+                                "text": "Lorem ipsum dolor sit amet.",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -163,7 +163,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Wähle zwischen Lieferung und Abholung",
+                                "text": "Lorem ipsum dolor sit amet.",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -185,7 +185,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Erhalte dein neues Auto und fahr los",
+                                "text": "Lorem ipsum dolor sit amet.",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -210,7 +210,7 @@
               "listItemMarker": ""
             }
           ],
-          "leftAreaBody": "In 5 Schritten zu deinem neuen Auto",
+          "leftAreaBody": "Nulla consequat massa quis enim.",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -243,11 +243,11 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Ganz gleich ob Familienauto oder Stadtflitzer, E-Auto oder Hybrid — bei uns ist der Online-Autokauf so einfach wie nie. Denn bei Foo Bar wartet ein ",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
                         "type": "text"
                       },
                       {
-                        "text": "riesiges Angebot an Neuwagen, Gebrauchtwagen und Tageszulassungen",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                         "type": "text",
                         "marks": [
                           {
@@ -256,27 +256,27 @@
                         ]
                       },
                       {
-                        "text": " auf dich. Mit unseren praktischen Filtern kannst du deine Suche dabei schnell auf die für dich interessanten Fahrzeuge eingrenzen. Neben der großen Auswahl an Fahrzeugtypen, Marken und Modellen bieten unsere Händler auch passendes Zubehör und weitere Zusatzleistungen an.",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
                         "type": "text"
                       }
                     ]
                   }
                 ]
               },
-              "title": "Traumauto finden leicht gemacht",
+              "title": "Lorem ipsum",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7613300,
-                "alt": "Ehepaar sieht online Fahrzeug Angebote an",
+                "alt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                 "name": "",
                 "focus": "",
-                "title": "Auto online suchen | Foo Bar",
+                "title": "Foo Bar",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar ",
                 "fieldtype": "asset",
                 "is_external_url": false
               },
-              "linkLabel": "Finde jetzt dein neues Auto",
+              "linkLabel": "Lorem ipsum",
               "listItemMarker": ""
             },
             {
@@ -296,11 +296,11 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Egal ob ",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                         "type": "text"
                       },
                       {
-                        "text": "attraktives Leasing, flexible Finanzierungen oder Barkauf",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                         "type": "text",
                         "marks": [
                           {
@@ -309,7 +309,7 @@
                         ]
                       },
                       {
-                        "text": " – wenn du dein Auto online kaufst, bieten wir dir bei der Bezahlung viele Möglichkeiten. Mit unserem intelligenten Ratenrechner kannst du potenzielle Finanzierungs- und Leasingraten mit dem Barkaufpreis vergleichen und die beste Wahl für dich treffen. ",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                         "type": "text"
                       },
                       {
@@ -319,17 +319,17 @@
                         "type": "hard_break"
                       },
                       {
-                        "text": "Übrigens kannst du dein altes Fahrzeug auch bequem ",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                         "type": "text"
                       },
                       {
-                        "text": "bei einem unserer Partner in Zahlung geben ",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                         "type": "text",
                         "marks": [
                           {
                             "type": "link",
                             "attrs": {
-                              "href": "https://www.Foo Bar/inzahlungnahme/",
+                              "href": "https://www.Foo.bar",
                               "uuid": null,
                               "anchor": null,
                               "custom": {},
@@ -340,27 +340,27 @@
                         ]
                       },
                       {
-                        "text": "und so Geld für ein neues Auto sparen.",
+                        "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                         "type": "text"
                       }
                     ]
                   }
                 ]
               },
-              "title": "Du entscheidest, wie du dein Auto bezahlst.",
+              "title": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7613431,
-                "alt": "Ehepaar betrachtet Zahlungsmethoden fuer ein Autokauf online",
+                "alt": "Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. ",
                 "name": "",
                 "focus": "",
-                "title": "Auto wird online bezahlt | Foo Bar ",
+                "title": "Foo Bar ",
                 "filename": "https://a.storyblok.com",
-                "copyright": "Foo Bar ",
+                "copyright": "Foo Bar",
                 "fieldtype": "asset",
                 "is_external_url": false
               },
-              "linkLabel": "Mehr zu den Zahlungsoptionen",
+              "linkLabel": "Link label",
               "listItemMarker": ""
             },
             {
@@ -379,23 +379,23 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Du brauchst noch eine Dachbox oder möchtest deine Reifen einlagern? Kein Problem! Wenn du dein neues Auto online kaufst, bieten dir unsere Händler im Bestellprozess ausgewähltes Autozubehör sowie diverse Zusatzleistungen an. So kannst du gewünschte Leistungen in einem Rutsch bestellen und Zubehör passend zu jedem Modell einfach und schnell dazubuchen. Später kannst du sogar Servicetermine online mit deinem Foo Bar Händler vereinbaren. Egal, um was es geht, der persönliche Kontakt bleibt dir immer erhalten.",
+                        "text": "Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.",
                         "type": "text"
                       }
                     ]
                   }
                 ]
               },
-              "title": "Für jedes Auto das passende Zubehör und Zusatzleistungen",
+              "title": "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc.",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7613374,
-                "alt": "Paar verlaesst Wohnung",
+                "alt": "Lorem ipsum",
                 "name": "",
                 "focus": "",
-                "title": "Paar geht auf Autoreise | Foo Bar",
+                "title": "Foo Bar",
                 "filename": "https://a.storyblok.com",
-                "copyright": "Foo Bar ",
+                "copyright": "Foo Bar",
                 "fieldtype": "asset",
                 "is_external_url": false
               },
@@ -418,7 +418,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Wähle eine Liefermethode und lass dir dein neues Auto entweder vor deine Haustür liefern oder hol es vor Ort beim Händler ab.",
+                        "text": "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
                         "type": "text"
                       }
                     ]
@@ -427,21 +427,21 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Einige unserer Händler bieten dir eine Lieferung in das Autohaus deiner Nähe an. Somit ersparst du dir eine weite Anreise, genießt aber dennoch die Vorteile einer persönlichen Betreuung vor Ort.",
+                        "text": "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
                         "type": "text"
                       }
                     ]
                   }
                 ]
               },
-              "title": "Lieferung oder Abholung? Du hast die Wahl!",
+              "title": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7613397,
-                "alt": "Zwei Herren unterhalten sich an einem VW Auto ",
+                "alt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
                 "name": "",
                 "focus": "",
-                "title": "Autoverkauf eines VW | Foo Bar ",
+                "title": "Foo Bar ",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar ",
                 "fieldtype": "asset",
@@ -467,27 +467,27 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Ob Abholung oder Lieferung – jetzt kannst du endlich einsteigen und losfahren. Übrigens findest du dein neues Auto nach dem Kauf auch in deiner Online-Garage. Hier hast du deinen persönlichen Ansprechpartner beim Händler immer in Reichweite und kannst Services und Werkstatt-Termine komfortabel online buchen.",
+                        "text": "Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.",
                         "type": "text"
                       }
                     ]
                   }
                 ]
               },
-              "title": "Auto erhalten und los geht’s",
+              "title": "Phasellus viverra nulla ut metus varius laoreet.",
               "component": "step-component-item",
               "imageLink": {
                 "id": 7613461,
-                "alt": "Mann belaedt Dachbox auf einem Auto",
+                "alt": "Phasellus viverra nulla ut metus varius laoreet.",
                 "name": "",
                 "focus": "",
-                "title": "Autodachbox beladen | Foo Bar ",
+                "title": "Foo Bar ",
                 "filename": "https://a.storyblok.com",
                 "copyright": "Foo Bar ",
                 "fieldtype": "asset",
                 "is_external_url": false
               },
-              "linkLabel": "Mehr zu deiner Online-Garage",
+              "linkLabel": "Link label",
               "listItemMarker": ""
             }
           ]
@@ -498,8 +498,8 @@
             {
               "_uid": "2433ae95-9728-408e-b071-22966056a38d",
               "icon": "car",
-              "content": "Du willst dein Auto online kaufen? Kein Problem! Wir bieten ein deutschlandweites Händlernetzwerk und verschiedene Bezahlmethoden. Bei unserem großen Angebot findest du mit Sicherheit dein Traumauto.",
-              "headline": "Riesige Auswahl",
+              "content": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
+              "headline": "Headline",
               "component": "benefit",
               "background": "BLACK",
               "subheadline": "",
@@ -510,13 +510,13 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "textLinkText": "Jetzt Auto finden "
+              "textLinkText": "Link text"
             },
             {
               "_uid": "a03bf09d-3c24-4d00-ba2e-ea7a4365652a",
               "icon": "grid",
-              "content": "Bereits während des Autokaufs kannst du online das passende Zubehör für dein neues Fahrzeug aussuchen. Ob Scheibenreiniger oder Dachbox – unsere Händler halten ein ausgewähltes Angebot für dich bereit.",
-              "headline": "Passendes Zubehör",
+              "content": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
+              "headline": "Headline",
               "component": "benefit",
               "background": "PURPLE",
               "subheadline": "",
@@ -526,15 +526,15 @@
                 "target": "_blank",
                 "linktype": "story",
                 "fieldtype": "multilink",
-                "cached_url": "pages/zubehoer-shop-umgezogen"
+                "cached_url": "somepage/cached"
               },
-              "textLinkText": "Mehr Info zum Zubehör "
+              "textLinkText": "Lorem ipsum"
             },
             {
               "_uid": "37e3c516-8bcd-44b9-9caa-f37aac70b9c3",
               "icon": "vehicleServices",
-              "content": "Viele unserer Händler bieten dir beim Autokauf weitere Leistungen wie die Durchführung der Kfz-Zulassung, die Einlagerung deiner Reifen und weitere passende Zusatzprodukte an.",
-              "headline": "Zusätzliche Services unserer Händler",
+              "content": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
+              "headline": "headline",
               "component": "benefit",
               "background": "GREEN",
               "subheadline": "",
@@ -550,8 +550,8 @@
             {
               "_uid": "3b1a2347-b084-4c41-a736-f3d3c8d21d17",
               "icon": "connect",
-              "content": "Unsere Händler sind online wie offline für dich da. Von der Autosuche bis zur Abholung. Du entscheidest, ob du dein Auto online kaufst oder beim Händler vor Ort. So viel Flexibilität gibt es nur bei Foo Bar.",
-              "headline": "Online und offline für dich da",
+              "content": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
+              "headline": "Headline",
               "component": "benefit",
               "background": "GREY",
               "subheadline": "",
@@ -561,15 +561,15 @@
                 "target": "_blank",
                 "linktype": "story",
                 "fieldtype": "multilink",
-                "cached_url": "pages/Haendleruebersicht"
+                "cached_url": "somepage/cached"
               },
-              "textLinkText": "Zu unserer Händlerübersicht"
+              "textLinkText": "Text link"
             },
             {
               "_uid": "e344bd6f-a7c0-4e45-9736-914a692aee74",
               "icon": "locationHeart",
-              "content": "Bei Foo Bar gehen Autokauf und Service Hand in Hand: Unsere Händler sind nach dem Autokauf deine persönlichen Ansprechpartner. Du hast Fragen zu Wartung oder Reparaturen? Sie bieten dir alle wichtigen Infos, vom Radwechsel bis zur Hauptuntersuchung.",
-              "headline": "Lokale Ansprechpartner",
+              "content": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
+              "headline": "Headline",
               "component": "benefit",
               "background": "GREEN",
               "subheadline": "",
@@ -579,15 +579,15 @@
                 "target": "_blank",
                 "linktype": "story",
                 "fieldtype": "multilink",
-                "cached_url": "pages/werkstattservice-umgezogen"
+                "cached_url": "somepage/cached"
               },
               "textLinkText": "Zu den Werkstatt-Services "
             },
             {
               "_uid": "13659692-3b61-4798-b163-938121cec335",
               "icon": "personFavorite",
-              "content": "Ganz gleich ob Neuwagen oder Gebrauchtwagen: Wenn du dein Auto bei uns online kaufst, garantieren wir dir die gleiche Service-Qualität wie beim Händler vor Ort sowie eine reibungslose Lieferung. Hand drauf!",
-              "headline": "Garantierte Zufriedenheit",
+              "content": "Lorem ipsum",
+              "headline": "Headline",
               "component": "benefit",
               "background": "BLACK",
               "subheadline": "",
@@ -601,7 +601,7 @@
               "textLinkText": ""
             }
           ],
-          "headline": "Deine Vorteile auf einen Blick",
+          "headline": "Headline",
           "component": "benefits-teaser",
           "isNumeric": false,
           "background": "",
@@ -641,7 +641,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Ob Barkauf, Finanzierung oder Leasing – bei Foo Bar entscheidest du selbst, wie du dein neues Auto bezahlen möchtest. In unserem intelligenten Ratenrechner hast du alle Preise und Raten für dein Wunschauto sowie die wichtigsten Infos zu den Zahlungsoptionen auf einen Blick.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -656,7 +656,7 @@
                         "type": "hard_break"
                       },
                       {
-                        "text": "Barkauf",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -665,7 +665,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Beim Barkauf kaufst du das Auto und bezahlst die Gesamtsumme auf einmal – vor Ort beim Händler oder bequem online.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -677,7 +677,7 @@
                     },
                     "content": [
                       {
-                        "text": "Finanzierung",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -686,7 +686,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Beim Kauf per Ratenzahlung bietet dir die Finanzierung maximale Flexibilität. Am Ende der Laufzeit gehört das Auto dir.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -707,7 +707,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Beim Leasing kaufst du das Auto nicht, sondern bezahlst monatliche Raten über eine von dir gewünschte Laufzeit. Danach gibst du das A",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -720,7 +720,7 @@
               "listItemMarker": ""
             }
           ],
-          "leftAreaBody": "So kannst du dein Auto bezahlen",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -744,10 +744,10 @@
           "_uid": "f95d0a40-a5d1-4779-983f-2d0fcbd4daa7",
           "link": {
             "id": 7616147,
-            "alt": "Mann kauft am PC online ein Auto ",
+            "alt": "image alt",
             "name": "",
             "focus": "",
-            "title": "BMW wird online gekauft | Foo Bar ",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Foo Bar ",
             "fieldtype": "asset",
@@ -772,7 +772,7 @@
                 "target": "_blank",
                 "linktype": "story",
                 "fieldtype": "multilink",
-                "cached_url": "pages/Privatverkauf"
+                "cached_url": "somepage/cached"
               },
               "bodyHtml": {
                 "type": "doc",
@@ -784,7 +784,7 @@
                     },
                     "content": [
                       {
-                        "text": "Privat kaufen und verkaufen",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -793,11 +793,11 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei Foo Bar kannst du nicht nur ",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
-                        "text": "von Händlern, sondern auch von Privatpersonen gebrauchte Autos kaufen",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -806,17 +806,17 @@
                         ]
                       },
                       {
-                        "text": ". Diese Gebrauchtwagen findest du ebenfalls in ",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
-                        "text": "unserem großen Produktkatalog",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
                             "type": "link",
                             "attrs": {
-                              "href": "https://allesauto-shop-dev.root360-service.cloud/auto-kaufen/",
+                              "href": "",
                               "uuid": null,
                               "anchor": null,
                               "custom": {},
@@ -827,7 +827,7 @@
                         ]
                       },
                       {
-                        "text": ". Bist du an einem privaten Angebot interessiert, nimmst du über unser Kontaktformular ganz einfach online Kontakt zu dem oder der Verkäufer:in auf. So könnt ihr gemeinsam offene Fragen klären und die Verkaufsdetails besprechen.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -835,13 +835,13 @@
                 ]
               },
               "component": "text-component-section",
-              "linkLabel": "Mehr Infos zum Privatverkauf",
+              "linkLabel": "Lorem ipsum",
               "linkAsButton": false,
               "listItemMarker": "",
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Bei Foo Bar findest du auch private Inserate",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -867,26 +867,26 @@
             {
               "_uid": "76b14ec9-55e2-4e49-a96d-18a30ca7e03c",
               "icon": "",
-              "title": "Privates Angebot finden",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Angebote von Privatpersonen findest du ebenso wie Autos von Händlern in unserem Produktkatalog. Private Inserate sind als solche gekennzeichnet. Wenn du willst, kannst du auch explizit nach Privatangeboten filtern. In den Inseraten erfährst du jeweils alle relevanten Infos über das Auto und den oder die Verkäufer:in."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "4bb5ab59-9eca-4471-88fd-bde2cdd6e1bf",
               "icon": "",
-              "title": "Verkäufer:in kontaktieren",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Du hast einen passenden Gebrauchtwagen für dich gefunden? Dann kontaktiere den oder die Verkäufer:in ganz einfach und schnell. Dafür steht dir unser Kontaktformular zur Verfügung. Natürlich kannst du in deiner Anfrage auch weitere Fragen zum Zustand oder zur Ausstattung des Autos stellen."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "9d0f0718-69dc-4909-9aad-6788fbb03d55",
               "icon": "",
-              "title": "Termin vereinbaren und Auto kaufen",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Vereinbare mit dem oder der Verkäufer:in einen Termin, um dein potentielles neues Auto zu besichtigen. Du kannst natürlich auch eine Probefahrt anfragen. Bist du mit dem Angebot zufrieden, besprichst du mit dem oder der Verkäufer:in alle weiteren Details und schließt den Kauf ab."
+              "description": "Lorem ipsum"
             }
           ],
-          "headline": "Privatkauf – so kaufst du ein Auto von einer Privatperson",
+          "headline": "Headline",
           "component": "content-steps",
           "background": "GREEN",
           "buttonLink": {
@@ -904,16 +904,16 @@
           "_uid": "61920ca6-e0d3-4451-9696-7245193aa114",
           "image": {
             "id": 7849465,
-            "alt": "auto-online-kaufen-cta",
+            "alt": "image alt",
             "name": "",
             "focus": "",
-            "title": "BMW | Opel | Skoda | Freisteller CTA | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Foo Bar",
             "fieldtype": "asset",
             "is_external_url": false
           },
-          "headline": "Finde jetzt dein neues Auto",
+          "headline": "Headline",
           "component": "car-finder",
           "customButtonName": "",
           "mobileImageIsSquare": false
@@ -926,7 +926,7 @@
             "target": "_blank",
             "linktype": "story",
             "fieldtype": "multilink",
-            "cached_url": "pages/hilfe-faqs-umgezogen"
+            "cached_url": "somepage/cached"
           },
           "items": [
             {
@@ -938,7 +938,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Was sollte ich beim Autokauf beachten?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -947,7 +947,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Wenn du ein Auto online kaufst, solltest du diese Punkte beachten:",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -962,7 +962,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Mache dir im Voraus Gedanken über dein maximales Budget und überlege dir, wie du das Auto sinnvoll bezahlst.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -984,7 +984,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Nimm dir Zeit und vergleiche verschiedene Angebote.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1006,7 +1006,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Prüfe alle Fahrzeuginformationen und stelle bei Bedarf Rückfragen an den jeweiligen Händler oder die Privatperson, die das Auto verkauft.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1028,7 +1028,7 @@
                             "type": "paragraph",
                             "content": [
                               {
-                                "text": "Vereinbare einen Besichtigungstermin und eine Probefahrt, bevor du das Auto online kaufst. So merkst du schnell, ob ein Fahrzeug wirklich zu dir passt.",
+                                "text": "Lorem ipsum",
                                 "type": "text",
                                 "marks": [
                                   {
@@ -1060,7 +1060,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Wie nehme ich Kontakt zu einem Händler auf?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1069,7 +1069,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Möchtest du ein Auto online kaufen und bist an einem Angebot eines Händlers interessiert, kannst du schnell und einfach Kontakt zu diesem aufnehmen. Klicke dazu auf der jeweiligen Produktseite eines Autos auf „Händler kontaktieren\". Schon öffnet sich unser ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1081,7 +1081,7 @@
                         ]
                       },
                       {
-                        "text": "praktisches Kontaktformular,",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1090,7 +1090,7 @@
                         ]
                       },
                       {
-                        "text": " in das du deine Anfrage schreiben kannst. Gib nun noch deinen Vor- und Nachnamen sowie deine E-Mail-Adresse an und schicke deine Nachricht an den entsprechenden Händler ab.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1118,7 +1118,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Zahle ich Gebühren an Foo Bar, wenn ich ein Auto online kaufe?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1127,7 +1127,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Nein, ",
+                        "text": "",
                         "type": "text",
                         "marks": [
                           {
@@ -1139,7 +1139,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar verlangt als Plattform keine Gebühren. Der Kauf-, Leasing- oder Finanzierungsvertrag wird zwischen Käufer:innen und Verkäufer:innen geschlossen. Wir als Foo Bar dienen dabei lediglich als Vermittler und ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1151,7 +1151,7 @@
                         ]
                       },
                       {
-                        "text": "verdienen nicht an den Transaktionen",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1160,7 +1160,7 @@
                         ]
                       },
                       {
-                        "text": ", die über unsere Plattformen getätigt werden.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1188,7 +1188,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Kann ich vom Kauf meines neuen Autos zurücktreten?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1197,7 +1197,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Grundsätzlich haben Käufer:innen, auf deren Kauf das Fernabsatzgesetz anwendbar ist, die Möglichkeit, ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1209,7 +1209,7 @@
                         ]
                       },
                       {
-                        "text": "binnen 14 Tagen ohne Nennung von Gründen",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1218,7 +1218,7 @@
                         ]
                       },
                       {
-                        "text": " vom Kauf zurückzutreten. Dies gilt jedoch nicht für Konfigurationsfahrzeuge. Bitte informiere dich vor dem jeweiligen Kauf bei deinem Händler über deine Rechte, denn er ist für die Abwicklung sämtlicher Rückabwicklungen zuständig.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1246,7 +1246,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Kann ich das Auto auch zu einem Händler in meiner Nähe liefern lassen?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1255,7 +1255,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Ja, einige unserer Händler bieten bereits eine ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1267,7 +1267,7 @@
                         ]
                       },
                       {
-                        "text": "Lieferung in das Autohaus deiner Nähe",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1276,7 +1276,7 @@
                         ]
                       },
                       {
-                        "text": " an. Hierfür muss der Händler zur selben Händlergruppe gehören, bei der du dein Auto online kaufst. Wir arbeiten aktuell daran, dieses Angebot für dich auszuweiten. Darüber hinaus kannst du dir dein Fahrzeug auch direkt vor deine Haustür liefern lassen. Wie viel das kostet, siehst du, wenn du deine gewünschte Lieferoption auswählst.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1304,7 +1304,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Kann ich den Kaufvertrag online unterschreiben?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1313,7 +1313,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Du musst online keine Unterschrift leisten. Der Kaufvertrag kann auch ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1325,7 +1325,7 @@
                         ]
                       },
                       {
-                        "text": "ohne Unterschrift rechtswirksam",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1334,7 +1334,7 @@
                         ]
                       },
                       {
-                        "text": " zustande kommen, so wie du es von anderen E-Commerce-Plattformen kennst. Es bedarf lediglich der übereinstimmenden Willenserklärung beider Parteien. In diesem Fall ist der Vertrag gültig, sobald du eine verbindliche Bestellung auslöst und der Händler diese annimmt.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1362,7 +1362,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Kann ich mein altes Auto auch in Zahlung geben?",
+              "title": "Foo Bar",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1371,7 +1371,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Das geht! Du kannst dein altes Auto ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1383,7 +1383,7 @@
                         ]
                       },
                       {
-                        "text": "direkt über Foo Bar in Zahlung geben",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1392,7 +1392,7 @@
                         ]
                       },
                       {
-                        "text": ". Entweder verkaufst du es an den Händler, bei dem du dein neues Auto kaufst, oder du suchst dir einen passenden Händler in deiner Nähe. In beiden Fällen registrierst du dein Auto einfach und schnell mit allen Fahrzeugdaten online. Im nächsten Schritt schauen sich unsere Händler dein gebrauchtes Auto vor Ort an und machen dir ein finales Kaufangebot. Bist du mit dem Preis zufrieden, steht dem Verkauf beziehungsweise der Inzahlungnahme nichts mehr im Wege. Du hast noch Fragen? Dann erfahre mehr über die ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1404,13 +1404,13 @@
                         ]
                       },
                       {
-                        "text": "Inzahlungnahme bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
                             "type": "link",
                             "attrs": {
-                              "href": "https://www.Foo Bar/inzahlungnahme/",
+                              "href": "https://www.Foo.bar",
                               "uuid": null,
                               "anchor": null,
                               "custom": {},
@@ -1446,10 +1446,10 @@
             }
           ],
           "bgColor": "white",
-          "subtext": "Alles, was du über den Autokauf bei Foo Bar wissen solltest.",
-          "headline": "Noch Fragen?",
+          "subtext": "Lorem ipsum",
+          "headline": "Headline",
           "component": "faq-accordion",
-          "linkLabel": "Zum FAQ-Bereich",
+          "linkLabel": "Lorem ipsum",
           "isMultiple": false,
           "hasShowMore": false,
           "onlyAccordion": false,
@@ -1458,15 +1458,15 @@
       ],
       "metadata": {
         "_uid": "12c96c4f-a9e8-40be-a144-640c9ec42dd7",
-        "title": "Dein Auto online kaufen — einfach und sicher | Foo Bar ",
+        "title": "Foo Bar",
         "plugin": "meta-fields",
-        "description": "Angebote und günstige Preise von unserem großen Händlernetz. Neuwagen ✔ Gebrauchtwagen ✔ Tageszulassungen ✔"
+        "description": "Lorem ipsum"
       },
       "component": "page",
       "backgroundColor": "bg-white"
     },
-    "slug": "auto-online-kaufen-umgezogen",
-    "full_slug": "pages/auto-online-kaufen-umgezogen",
+    "slug": "slug",
+    "full_slug": "pages/fullslug",
     "sort_by_date": null,
     "position": 50,
     "tag_list": [],
