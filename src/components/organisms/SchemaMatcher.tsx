@@ -13,7 +13,6 @@ import {
   PropSource,
   getCmsMappableFields,
   getComponentMappableProps,
-  getTypesFilterFromList,
 } from "../../utils";
 import { Button } from "../atoms/Button";
 import { ButtonType } from "../atoms/Button";
@@ -90,10 +89,6 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         .sort(byName),
     [stagedProps]
   );
-
-  const typesFilter: string[] = useMemo(() => {
-    return getTypesFilterFromList([...cmsProps, ...compProps]);
-  }, [cmsProps, compProps]);
 
   useEffect(() => {
     const updatedCmsProps = getCmsMappableFields(cmsSchema, cms);
@@ -198,7 +193,6 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         <div class="flex flex-col">
           <PropertyFilters
             list={unstagedCmsProps}
-            types={typesFilter}
             onPropertiesFiltered={(filteredProps) =>
               setFilteredCmsProps(filteredProps)
             }
@@ -216,7 +210,6 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         <div class="flex flex-col">
           <PropertyFilters
             list={unstagedCompProps}
-            types={typesFilter}
             alignRight
             onPropertiesFiltered={(filteredProps) =>
               setFilteredCompProps(filteredProps)
@@ -232,6 +225,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
           />
         </div>
       </div>
+
       <SchemaMatcherStage
         stagedProps={stagedProps}
         draggingProp={draggingProp}
@@ -241,6 +235,7 @@ export const SchemaMatcher: FunctionComponent<SchemaMatcherProps> = ({
         onPropertyClick={removePropFromStage}
         onUnlinkClick={unlinkPropsOnStage}
       />
+
       <Button
         text="Generate adapter"
         style={ButtonType.PRIMARY}

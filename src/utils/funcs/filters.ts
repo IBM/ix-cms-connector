@@ -10,7 +10,7 @@ export function getTypesFilterFromList(propList: MappableProp[]): string[] {
   propList.forEach((prop) => {
     const [type] = formatMappablePropType(prop);
 
-    if (!typesFilter.some((typeFilter) => typeFilter === type)) {
+    if (!typesFilter.find((typeFilter) => typeFilter === type)) {
       typesFilter.push(type);
     }
   });
@@ -22,9 +22,7 @@ export function filterByPropName(
   name: string,
   propList: MappableProp[]
 ): MappableProp[] {
-  return propList.filter((item) =>
-    item.name.toLowerCase().match(name.toLowerCase())
-  );
+  return propList.filter((item) => item.name.toLowerCase().match(name));
 }
 
 export function filterByPropType(
