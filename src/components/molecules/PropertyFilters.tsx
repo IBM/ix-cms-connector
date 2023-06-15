@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache2.0
  */
 import { FunctionComponent } from "preact";
-import { useId, useEffect, useMemo, useState } from "preact/hooks";
+import { useEffect, useMemo, useState } from "preact/hooks";
 
 import { type MappableProp, filterPropsList } from "../../utils";
 import { Checkbox } from "../atoms/Checkbox";
@@ -17,7 +17,7 @@ interface PropertyFiltersProps {
   alignRight?: boolean;
 }
 
-type checkboxFilter = {
+type CheckboxFilter = {
   id: number;
   label: string;
   defaultVal?: boolean;
@@ -33,8 +33,8 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
-  const checkboxFilters: checkboxFilter[] = useMemo(() => {
-    const filters: checkboxFilter[] = [];
+  const checkboxFilters: CheckboxFilter[] = useMemo(() => {
+    const filters: CheckboxFilter[] = [];
 
     types.forEach((t) => {
       const newId = Math.floor(Math.random() * 1000);
