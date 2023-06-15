@@ -6,9 +6,10 @@ IBM iX CMS Connector is a tool that generates a connector function (HOC) between
 
 We are constantly improving the existing features and adding new ones. Our current focus is on the following topics:
 
+- [ ] Update on the logic to receive a schema (yaml) from a CMS instead of a JSON
 - [ ] Additional CMS parser: Magnolia
-- [ ] Improvements on filter functionality and usability
 - [ ] UI changes to have a clear visualization of nested props available for mapping
+- [ ] Improvements on filter usability and bugfix for filtering union types
 - [ ] Ability to copy/paste the schemas and components
 - [ ] Additional CMS parser: Contentful
 
