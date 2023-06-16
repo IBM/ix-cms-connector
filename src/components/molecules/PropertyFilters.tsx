@@ -17,13 +17,6 @@ interface PropertyFiltersProps {
   alignRight?: boolean;
 }
 
-type CheckboxFilter = {
-  id: number;
-  label: string;
-  defaultVal?: boolean;
-  isDisabled: boolean;
-};
-
 export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   list,
   types,
@@ -33,40 +26,24 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [typesFilter, setTypesFilter] = useState<string[]>([]);
 
-  const checkboxFilters: CheckboxFilter[] = useMemo(() => {
-    const filters: CheckboxFilter[] = [];
-
-    types.forEach((t) => {
-      const newId = Math.floor(Math.random() * 1000);
-
-      if (list.some((item) => t === item.type)) {
-        filters.push({
-          id: newId,
-          label: t,
-          defaultVal: true,
-          isDisabled: false,
-        });
-      } else {
-        filters.push({ id: newId, label: t, isDisabled: true });
-      }
-    });
-
-    return filters;
-  }, [types]);
-
   const memoizedCheckboxes = () =>
     useMemo(() => {
-      return checkboxFilters.map(({ id, label, defaultVal, isDisabled }) => (
-        <Checkbox
-          key={id}
-          id={id.toString()}
-          label={label}
-          defaultChecked={defaultVal}
-          disabled={isDisabled}
-          handleOptionSelect={(val) => onItemChecked(val, label)}
-        />
-      ));
-    }, [checkboxFilters]);
+      return types.map((t) => {
+        const newId = Math.floor(Math.random() * 1000);
+        const typeFound = list.some((item) => t === item.type);
+
+        return (
+          <Checkbox
+            key={newId}
+            id={newId.toString()}
+            label={t}
+            defaultChecked={typeFound ? true : false}
+            disabled={!typeFound}
+            handleOptionSelect={(val) => onItemChecked(val, t)}
+          />
+        );
+      });
+    }, [types]);
 
   const onItemChecked = (isSelected: boolean, filterType: string) => {
     setTypesFilter((prevState) => {
