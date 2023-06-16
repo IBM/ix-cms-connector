@@ -95,7 +95,7 @@ export const PropertyFilters: FunctionComponent<PropertyFiltersProps> = ({
   useEffect(() => {
     const searchResult = filterPropsList(searchTerm, typesFilter, list);
     onPropertiesFiltered(searchResult);
-  }, [searchTerm, typesFilter]);
+  }, [searchTerm, typesFilter, list]);
 
   return (
     <div class={`flex flex-col mb-8 w-2/3 ${alignRight ? "self-end" : ""}`}>
