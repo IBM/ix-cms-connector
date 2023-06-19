@@ -120,19 +120,17 @@ const Overview: FunctionComponent = () => {
             <div class="flex flex-row gap-3">
               <Checkbox
                 id="checkbox-1"
-                label="Checkbox"
+                label="Item 1"
                 handleOptionSelect={onCheckboxSelected}
               />
               <Checkbox
                 id="checkbox-2"
-                label="Selected by default"
-                defaultChecked={true}
+                label="Item 2"
                 handleOptionSelect={onCheckboxSelected}
               />
               <Checkbox
                 id="checkbox-3"
-                label="Checkbox disabled"
-                disabled
+                label="Item 3"
                 handleOptionSelect={onCheckboxSelected}
               />
             </div>

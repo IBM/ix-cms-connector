@@ -1,6 +1,6 @@
 {
   "story": {
-    "name": "Finanzierung -Leasing-Barkauf | UMGEZOGEN ",
+    "name": "Lorem ipsum",
     "created_at": "2023-04-05T11:21:23.792Z",
     "published_at": "2023-04-12T08:57:47.850Z",
     "id": 287714617,
@@ -10,18 +10,18 @@
       "body": [
         {
           "_uid": "249735f3-0701-4d6f-a6be-6c69f5d2c23c",
-          "text": "Dein neues Auto kannst du auf verschiedene Arten finanzieren, leasen oder sofort bezahlen. Hier findest du eine Übersicht der drei Zahlungsarten bei Foo Bar – wähle die richtige für dich und deinen Geldbeutel.",
+          "text": "Lorem ipsum",
           "darkBg": true,
-          "headline": "So zahlst du dein Auto: Finanzierung, Leasing, Barkauf.",
+          "headline": "Lorem ipsum",
           "component": "image-stage",
           "imageLink": {
             "id": 7851541,
-            "alt": "Pärchen bezahlt ihren Autokauf online ",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Pärchen zahlt das Auto online | Foo Bar ",
+            "title": "Foo Bar ",
             "filename": "https://a.storyblok.com",
-            "copyright": "Foo Bar ",
+            "copyright": "Foo Bar",
             "fieldtype": "asset",
             "is_external_url": false
           },
@@ -63,7 +63,7 @@
                     },
                     "content": [
                       {
-                        "text": "Genau die richtige Zahlungsart für dich",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -72,7 +72,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Egal ob Neuwagen, Tageszulassung oder Gebrauchtwagen – ein neues Auto ist für viele Menschen eine große Investition. Umso wichtiger daher die Frage, auf welche Arten du dein Auto bezahlen kannst. Bei Foo Bar hast du die Wahl zwischen den drei üblichen Zahlungsarten: Finanzierung, Leasing und Barkauf. Im Bestellvorgang siehst du, welche der drei Zahlungsarten der jeweilige Händler dir für dein neues Auto anbietet.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -81,11 +81,11 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Unser ",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
-                        "text": "intelligenter live Ratenrechner",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -94,7 +94,7 @@
                         ]
                       },
                       {
-                        "text": " zeigt dir, zu welchen Bedingungen du dein Auto leasen oder finanzieren kannst. Je nach Bedarf legst du entsprechend deinen individuellen Bedürfnissen beispielsweise die gewünschte Höhe einer Anzahlung sowie die Laufleistung und Laufzeit eines Vertrages fest. Wenn du dein Auto finanzieren möchtest, kannst du zudem entscheiden, ob du eine Schlussrate zahlen möchtest und in welcher Höhe. Anhand deiner Angaben ermittelt der Ratenrechner anschließend deine monatliche Rate. So kannst du ganz einfach die Kosten bei Finanzierung, Leasing und Barkauf miteinander vergleichen.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -108,7 +108,7 @@
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "So zahlen, wie es für dich am besten passt",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -130,14 +130,14 @@
         },
         {
           "_uid": "50798c9d-d9ad-4ee6-8de5-eca0d89931cd",
-          "headline": "Auf einen Blick",
+          "headline": "Lorem ipsum",
           "component": "check-list-container",
           "checkLists": [
             {
               "_uid": "2c428fa6-4c99-470c-934c-755679deb704",
-              "item_00": "Kauf auf Raten",
-              "item_01": "Flexible Konditionen",
-              "item_02": "Hohe Planungssicherhei",
+              "item_00": "Lorem ipsum",
+              "item_01": "Lorem ipsum",
+              "item_02": "Lorem ipsum",
               "item_03": "",
               "item_04": "",
               "item_05": "",
@@ -145,7 +145,7 @@
               "item_07": "",
               "item_08": "",
               "item_09": "",
-              "headline": "Finanzierung",
+              "headline": "Lorem ipsum",
               "textLink": {
                 "id": "",
                 "url": "",
@@ -155,14 +155,14 @@
               },
               "component": "check-list",
               "background": "WHITE",
-              "subHeadline": "Bei der Finanzierung bezahlst du dein Auto in monatlichen Raten. Am Ende der Laufzeit gehört das Auto dir.",
+              "subHeadline": "Lorem ipsum",
               "textLinkLabel": ""
             },
             {
               "_uid": "3d87d006-a320-4652-90c5-7f2db4ad5d81",
-              "item_00": "Kein Kauf",
-              "item_01": "Flexible Laufzeit",
-              "item_02": "Schont deine finanziellen Rücklagen",
+              "item_00": "Lorem ipsum",
+              "item_01": "Lorem ipsum",
+              "item_02": "Lorem ipsum",
               "item_03": "",
               "item_04": "",
               "item_05": "",
@@ -170,7 +170,7 @@
               "item_07": "",
               "item_08": "",
               "item_09": "",
-              "headline": "Leasing",
+              "headline": "Lorem ipsum",
               "textLink": {
                 "id": "",
                 "url": "",
@@ -180,14 +180,14 @@
               },
               "component": "check-list",
               "background": "PURPLE",
-              "subHeadline": "Durch das Leasing bist du Fahrzeughalter:in und zahlst für die Nutzung des Autos monatliche Raten.",
+              "subHeadline": "Lorem ipsum",
               "textLinkLabel": ""
             },
             {
               "_uid": "dc14b6e9-f787-48e7-b150-f38939221588",
-              "item_00": "Einmalige Zahlung",
-              "item_01": "Das Auto ist sofort dein Eigentum",
-              "item_02": "Zahlung vor Ort oder online",
+              "item_00": "Lorem ipsum",
+              "item_01": "Lorem ipsum",
+              "item_02": "Lorem ipsum",
               "item_03": "",
               "item_04": "",
               "item_05": "",
@@ -195,7 +195,7 @@
               "item_07": "",
               "item_08": "",
               "item_09": "",
-              "headline": "Barkauf",
+              "headline": "Lorem ipsum",
               "textLink": {
                 "id": "",
                 "url": "",
@@ -205,7 +205,7 @@
               },
               "component": "check-list",
               "background": "GREEN",
-              "subHeadline": "Beim Barkauf zahlst du dein Auto beim Händler vor Ort oder online in einer einzigen Zahlung.",
+              "subHeadline": "Lorem ipsum",
               "textLinkLabel": ""
             }
           ],
@@ -214,7 +214,7 @@
         {
           "_uid": "20210c67-5dbf-4f56-933f-decf782d68ab",
           "items": [],
-          "headline": "Finanzierung und Leasing im Vergleich",
+          "headline": "Lorem ipsum",
           "brandType": "largeImage",
           "component": "brand",
           "buttonLink": {
@@ -285,7 +285,7 @@
                     },
                     "content": [
                       {
-                        "text": "Die besten Konditionen wie beim Händler vor Ort",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -294,7 +294,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei Foo Bar kannst du alle Fahrzeuge, egal ob neu oder gebraucht, zu den besten Konditionen finanzieren. Eine Finanzierung ist hilfreich, wenn du ein Fahrzeug kaufen möchtest und es angenehmer für dich ist, den Kaufpreis in Raten zu zahlen, statt ihn auf einmal zu begleichen. Dazu erhältst du bei Foo Bar vom Hersteller selbst oder einer Drittbank einen Kredit, welchen du in monatlichen Raten abbezahlst. Für die Rückzahlung wird dir meist ein Zins berechnet, der in den monatlichen Raten enthalten ist.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
@@ -304,7 +304,7 @@
                         "type": "hard_break"
                       },
                       {
-                        "text": "Die verschiedenen Finanzierungsoptionen unterscheiden sich je nach Hersteller, Fahrzeug und Bank. Das heißt: Unser intelligenter Ratenrechner zeigt dir immer die händlerspezifische Rate für die von dir gewählten Bedingungen. Individuelle Sonderkonditionen oder Aktionsrabatte, wie du sie vor Ort erhältst, sind dabei schon eingerechnet. Unsere Händler beraten dich gerne beim Autokauf, welche Form der Finanzierung sich am besten für dich eignet.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -312,13 +312,13 @@
                 ]
               },
               "component": "text-component-section",
-              "linkLabel": "Jetzt Traumauto finden",
+              "linkLabel": "Lorem ipsum",
               "linkAsButton": false,
               "listItemMarker": "",
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Finanzierung: perfekt auf dich abgestimmt",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -344,23 +344,23 @@
             {
               "_uid": "c66d7bb8-8b1d-44b2-8f15-620350d28ea4",
               "icon": "",
-              "title": "Individueller Kauf auf Raten",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Flexible Anzahlung und Schlussrate sowie eine individuell konfigurierbare monatliche Rate – so hast du volle Kontrolle über die Zahlung deines Autos. Wie auch immer du dich entscheidest: Am Ende gehört das Auto dir."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "5682e31b-88b8-4db1-991d-8b4ec16ad739",
               "icon": "",
-              "title": "Flexible Konditionen",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "ege die monatlichen Raten und die Laufzeit so fest, wie sie für dich passen. Bei Foo Bar bieten wir dir Kredite von Herstellern und Drittbanken an – genau wie beim Händler vor Ort."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "dc21eb35-cb26-4a12-a475-7d61c12a54e5",
               "icon": "",
-              "title": "Hohe Planungssicherheit",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Bei einer Finanzierung weißt du genau, wann dich welche Kosten erwarten. Durch die hohe Planungssicherheit ist die Finanzierung ein beliebtes Mittel, um ein Auto zu bezahlen."
+              "description": "Lorem ipsum"
             }
           ],
           "headline": "",
@@ -404,7 +404,7 @@
                     },
                     "content": [
                       {
-                        "text": "Schnell, einfach und sorglos unterwegs",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -413,7 +413,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Wenn du dein neues Auto nutzen, aber nicht besitzen möchtest, ist Leasing wie für dich gemacht. Als Leasingnehmer:in bist du für die vereinbarte Vertragslaufzeit lediglich Halter:in des Fahrzeugs. So bleibst du flexibel und hast je nach Vereinbarung die Möglichkeit, das Fahrzeug zum Beispiel gegen ein neueres Modell auszutauschen. Außerdem wird beim Leasing das Eigenkapital geschont und dein Auto ist immer auf dem neuesten Stand.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
@@ -423,7 +423,7 @@
                         "type": "hard_break"
                       },
                       {
-                        "text": "Ein weiterer Pluspunkt ist die hohe Planungssicherheit durch die monatlichen Raten. Zudem trägst du keinen Wertverlust des Autos und musst dich nicht um den Verkauf kümmern. Nach Ende der Laufzeit kannst du selbst entscheiden, ob du das Fahrzeug weiterhin leasen oder wieder abgeben möchtest.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -431,13 +431,13 @@
                 ]
               },
               "component": "text-component-section",
-              "linkLabel": "Jetzt Leasingwagen finden",
+              "linkLabel": "Lorem ipsum",
               "linkAsButton": false,
               "listItemMarker": "",
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Leasing: genieße hohe Flexibilität",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": null,
             "alt": null,
@@ -463,23 +463,23 @@
             {
               "_uid": "73fc13c1-a3f8-4619-abf5-c45923c21d96",
               "icon": "",
-              "title": "Sorgenfrei unterwegs",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Da beim Leasing das Fahrzeug nicht dein Eigentum ist, musst du dich auch nicht um den späteren Verkauf sorgen. Zudem bleiben dir durch die kurze Haltedauer des Fahrzeugs große Reparaturen erspart."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "4e16e7c6-6ada-4893-923d-53656698c3f9",
               "icon": "",
-              "title": "Regelmäßige Leasingraten",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Für die gesamte Dauer des Leasings werden feste monatliche Raten vereinbart. Dadurch kannst du deine Kosten für den festgelegten Zeitraum exakt kalkulieren. Leasing von Neu- und Gebrauchtwagen kann eine günstige Alternative für dich sein."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "df1b160c-bc9e-4b3b-9a59-06d82e431f44",
               "icon": "",
-              "title": "Immer auf dem neuesten Stand",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Beim Leasing bist du stets in einem aktuellen Modell unterwegs, das mit den modernsten Technologien ausgestattet ist. Nach dem Auslaufen des Leasingvertrages gibst du das alte Auto einfach zurück."
+              "description": "Lorem ipsum"
             }
           ],
           "headline": "",
@@ -523,7 +523,7 @@
                     },
                     "content": [
                       {
-                        "text": "Lass dir deine Kosten einfach berechnen",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -532,7 +532,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei Foo Bar definieren unsere Händler, welche Zahlungsarten sie für ihre Autos anbieten. So kann es sein, dass du einen Gebrauchten nur finanzieren oder direkt kaufen, einen Neuwagen hingegen auch leasen kannst. Welche Zahlungsarten verfügbar sind und welche Preise dich jeweils erwarten, erfährst du ganz einfach im Foo Bar Ratenrechner.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -546,15 +546,15 @@
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Mit dem Foo Bar live Ratenrechner zur richtigen Entscheidung",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": 7851609,
-            "alt": "Zahlungsart bei Foo Bar auswählen ",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Screen vom Autokauf online | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
-            "copyright": "eigenes Produktion ",
+            "copyright": "Lorem ipsum",
             "fieldtype": "asset",
             "is_external_url": false
           },
@@ -584,7 +584,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Den intelligenten Ratenrechner findest du auf der Detailseite jedes Autos. Hier kannst du den Preis beim Barkauf mit den möglichen Leasing- oder Finanzierungsraten vergleichen. Dafür stellst du deine bevorzugten Konditionen wie die Anzahlung, Laufzeit oder Schlussrate selbst ein und siehst sofort, wie sich die monatliche Rate ändert. Hast du deine optimale Rate gefunden, kannst du sie mit nur einem Klick für dein gewähltes Auto speichern.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       },
                       {
@@ -602,7 +602,7 @@
                     },
                     "content": [
                       {
-                        "text": "Echte Preise – wie beim Händler vor Ort",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -611,7 +611,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei den Raten, die dir im Ratenrechner angezeigt werden, handelt es sich um die vorkalkulierten Angebote des jeweiligen Händlers. Die Finanzierungskonditionen sind abhängig von deinem Bonitätsstatus. Je nach Bonität fallen die Kreditzinsen für dich niedriger oder höher aus. Wir bieten dir die Finanzierung über Hersteller oder Drittbanken an. Wenn ein Händler spezielle Sonderkonditionen von einer Bank für das Leasing oder eine Autofinanzierung erhält, sind diese für dich im Ratenrechner abgebildet. Somit kannst du sicherstellen, dass du die besten Konditionen erhältst – wie beim Händler vor Ort.",
+                        "text": "Lorem ipsum",
                         "type": "text"
                       }
                     ]
@@ -625,15 +625,15 @@
               "listItemMarkerColor": ""
             }
           ],
-          "leftAreaBody": "Mit dem Foo Bar live Ratenrechner zur richtigen Entscheidung",
+          "leftAreaBody": "Lorem ipsum",
           "leftAreaImage": {
             "id": 7851609,
-            "alt": "Zahlungsart bei Foo Bar auswählen ",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Screen vom Autokauf online | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
-            "copyright": "eigenes Produktion ",
+            "copyright": "Lorem ipsum",
             "fieldtype": "asset",
             "is_external_url": false
           },
@@ -652,26 +652,26 @@
             {
               "_uid": "e093de8d-6671-4db8-8c96-23350b11e58b",
               "icon": "",
-              "title": "Wähle aus drei Zahlungsarten",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Im Kalkulator kannst du den Kaufpreis, Leasing- und Finanzierungskosten ganz einfach miteinander vergleichen. Wähle einfach die von dir bevorzugte Zahlungsart aus, um den entsprechenden Preis bzw. die monatliche Rate zu sehen."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "6f7531a1-517c-4957-a022-c60e4d3184f3",
               "icon": "",
-              "title": "Entscheide selbst, wie du bezahlst",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Die monatlichen Leasing- und Finanzierungskosten hängen u. a. von der Laufzeit des Vertrags, der Laufleistung und einer möglichen Anzahlung ab. Passt du die einzelnen Faktoren an, siehst du die Veränderung der monatlichen Rate."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "82baef9a-320f-4800-8a1b-37b650472dea",
               "icon": "",
-              "title": "Alle Optionen einfach vergleichen",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Ob Finanzierung, Leasing oder Barkauf am besten für dich geeignet ist, hängt von deiner finanziellen Situation sowie deinen individuellen Bedürfnissen ab. Der Kalkulator macht es dir leicht, deine Optionen im direkten Vergleich zu sehen."
+              "description": "Lorem ipsum"
             }
           ],
-          "headline": "So funktioniert der Preis- und Ratenrechner",
+          "headline": "Lorem ipsum",
           "component": "content-steps",
           "background": "GREEN",
           "buttonLink": {
@@ -688,7 +688,7 @@
         {
           "_uid": "fd199c97-ffd1-4320-b856-ebadfacba418",
           "items": [],
-          "headline": "Barkauf – und das Auto gehört dir",
+          "headline": "Lorem ipsum",
           "brandType": "largeImage",
           "component": "brand",
           "buttonLink": {
@@ -701,10 +701,10 @@
           "buttonLabel": "",
           "imageMobile": {
             "id": 7851601,
-            "alt": "Beifahrertür wird mit einer Frauenhand geöffnet",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Autotür wird geöffnet | Foo Bar ",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Getty ",
             "fieldtype": "asset",
@@ -713,10 +713,10 @@
           "subHeadline": "",
           "imageDesktop": {
             "id": 7851601,
-            "alt": "Beifahrertür wird mit einer Frauenhand geöffnet",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "Autotür wird geöffnet | Foo Bar ",
+            "title": "Foo Bar ",
             "filename": "https://a.storyblok.com",
             "copyright": "Getty ",
             "fieldtype": "asset",
@@ -737,23 +737,23 @@
             {
               "_uid": "6a335212-7e29-433e-8b22-1c484dfd1723",
               "icon": "",
-              "title": "Einmalige Zahlung online oder vor Ort",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Mit nur einer einzigen Zahlung hast du alles abgedeckt, was du zum Zeitpunkt des Autokaufs finanziell leisten musst. Besonders beliebt ist der Barkauf bei günstigen oder gebrauchten Fahrzeugen."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "92a9eac3-c6ca-45d2-aca9-e4ca81b75418",
               "icon": "",
-              "title": "Eigentum genießen",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Bezahlen, einsteigen und losfahren – beim Barkauf geht das Auto sofort in dein Eigentum über. So genießt du von der ersten Fahrt an alle Freiheiten in der Nutzung deines Autos."
+              "description": "Lorem ipsum"
             },
             {
               "_uid": "2ae68be2-b074-4b0b-93e4-c59a11e21008",
               "icon": "",
-              "title": "Einfache Abwicklung",
+              "title": "Lorem ipsum",
               "component": "contentStep",
-              "description": "Der Kauf deines neuen Autos könnte kaum einfacher sein – beim Barkauf zahlst du dein Auto beim Händler vor Ort oder online in einer Zahlung. Es entstehen keine weiteren Finanzierungskosten für dich."
+              "description": "Lorem ipsum"
             }
           ],
           "headline": "",
@@ -774,18 +774,18 @@
           "_uid": "8bafe46d-a013-49a5-b7a3-448464fb684a",
           "image": {
             "id": 7852054,
-            "alt": "auto-online-kaufen-cta",
+            "alt": "Lorem ipsum",
             "name": "",
             "focus": "",
-            "title": "BMW | Opel | Skoda | Freisteller | Foo Bar",
+            "title": "Foo Bar",
             "filename": "https://a.storyblok.com",
             "copyright": "Foo Bar",
             "fieldtype": "asset",
             "is_external_url": false
           },
-          "headline": "Finde jetzt dein neues Auto",
+          "headline": "Lorem ipsum",
           "component": "car-finder",
-          "customButtonName": "Alle Angebote anzeigen ",
+          "customButtonName": "Lorem ipsum",
           "mobileImageIsSquare": true
         },
         {
@@ -808,7 +808,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Wie funktioniert der Abschluss eines Leasing- oder Finanzierungsvertrags?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -817,7 +817,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Die von dir gewählten Leasing- oder Finanzierungskonditionen werden mit der Bestellung deines Autos gespeichert. Anschließend wirst du für den Abschluss deines Vertrags direkt an den jeweiligen Vertragspartner, z. B. eine Herstellerbank, weitergeleitet. Hier wirst du um die Ergänzung weiterer Angaben gebeten, u. a. dein Einkommen, bereits laufende Kredite und die Größe deines Haushalts. Mithilfe dieser Angaben wird deine Bonität bewertet – erhältst du eine positive Rückmeldung, steht dem Vertragsabschluss nichts mehr im Wege! Die finale Unterzeichnung deines Vertrags erfolgt ganz einfach online oder bei Abholung des Fahrzeugs vor Ort beim Händler. Je nach Bankinstitut können sich die Anforderungen und Prozesse unterscheiden.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -845,7 +845,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Welche Bezahlarten werden beim Barkauf akzeptiert?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -854,7 +854,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Beim Barkauf zahlst du ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -866,7 +866,7 @@
                         ]
                       },
                       {
-                        "text": "online oder vor Ort beim Händler",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -875,7 +875,7 @@
                         ]
                       },
                       {
-                        "text": " den gesamten Preis auf einmal. Online hast du bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -887,7 +887,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar je nach Händler die Möglichkeit, per Sofortüberweisung, Kreditkarte, PayPal oder Vorkasse zu bezahlen. Alternativ kannst du dein Fahrzeug vor Ort im Autohaus bezahlen. Solltest du hierzu noch weitere Fragen haben, hilft dir dein Händler gerne weiter.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -915,7 +915,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Wie kann ich mein altes Auto bei Foo Bar in Zahlung geben?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -924,7 +924,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -936,7 +936,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar kannst du deinen Gebrauchtwagen ganz einfach in ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -948,13 +948,13 @@
                         ]
                       },
                       {
-                        "text": "Zahlung geben",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
                             "type": "link",
                             "attrs": {
-                              "href": "https://www.Foo Bar/inzahlungnahme/",
+                              "href": "https://www.Foo.bar",
                               "uuid": null,
                               "anchor": null,
                               "custom": {},
@@ -965,7 +965,7 @@
                         ]
                       },
                       {
-                        "text": ". Dabei bieten wir dir jede Menge Flexibilität: Du entscheidest selbst, ob du dein altes Fahrzeug direkt bei dem Händler in Zahlung gibst, bei dem du dein neues Auto kaufst, oder ob du ein anderes Autohaus für den Verkauf wählst. Im Rahmen einer unverbindlichen Preisschätzung erfährst du online bei ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -977,7 +977,7 @@
                         ]
                       },
                       {
-                        "text": "Foo Bar sofort, wie viel dein Auto ungefähr wert ist. Für die finale Bewertung deines Autos vereinbarst du einen Termin mit dem Händler. Nachdem der technische und optische Zustand deines Autos geprüft wurden, erhältst du ein Preisangebot vom Händler. Bist du damit einverstanden, steht dem Verkauf deines Gebrauchten nichts mehr im Wege.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1005,7 +1005,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Wann bezahle ich bei Leasing und Finanzierung die erste Rate?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1014,7 +1014,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Leasingraten werden in der Regel vorab gezahlt: Deine erste monatliche Rate zahlst du meistens direkt bei Übergabe des Fahrzeugs. Bei einer Finanzierung beginnt die Ratenzahlung mit Auszahlung deines Kredits. Erfolgt die Auszahlung vor dem 15. des Monats, zahlst du Ende des Monats deine erste Rate. Bekommst du erst nach dem 15. des Monats deinen Kredit, ist die erste Zahlung im folgenden Monat fällig.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1042,7 +1042,7 @@
                 "fieldtype": "multilink",
                 "cached_url": ""
               },
-              "title": "Was ist der Unterschied zwischen Laufleistung und Laufzeit?",
+              "title": "Lorem ipsum",
               "linkText": "",
               "childHtml": {
                 "type": "doc",
@@ -1051,7 +1051,7 @@
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Beim Kilometerleasing wird eine ",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1063,7 +1063,7 @@
                         ]
                       },
                       {
-                        "text": "bestimmte Kilometeranzahl im Leasingvertrag",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1072,7 +1072,7 @@
                         ]
                       },
                       {
-                        "text": " festgelegt. Diese sogenannte Laufleistung beträgt in der Regel ca. 10.000 Kilometer im Jahr. Auch die Laufzeit des Vertrags wird vorab vereinbart und variiert üblicherweise zwischen zwölf Monaten und fünf Jahren. Mit Ablauf der Laufzeit wird geprüft, ob du die Laufleistung eingehalten hast oder eine entsprechende Nachzahlung leisten musst.",
+                        "text": "Lorem ipsum",
                         "type": "text",
                         "marks": [
                           {
@@ -1093,10 +1093,10 @@
             }
           ],
           "bgColor": "white",
-          "subtext": "Alles, was du zu Barkauf, Leasing und Finanzierung bei Foo Bar wissen musst.",
-          "headline": "Noch Fragen?",
+          "subtext": "Lorem ipsum",
+          "headline": "Lorem ipsum",
           "component": "faq-accordion",
-          "linkLabel": "Zum FAQ-Bereich",
+          "linkLabel": "Lorem ipsum",
           "isMultiple": false,
           "hasShowMore": false,
           "onlyAccordion": false,
@@ -1105,15 +1105,15 @@
       ],
       "metadata": {
         "_uid": "00615a01-48ff-4f59-8367-92092786a131",
-        "title": "Finanzierung, Leasing oder Barkauf | Foo Bar",
+        "title": "Foo Bar",
         "plugin": "meta-fields",
-        "description": "Hier findest du eine Übersicht der drei Zahlungsarten bei Foo Bar – wähle die richtige für dich und deinen Geldbeutel ✓ Flexible Konditionen ✓"
+        "description": "Lorem ipsum"
       },
       "component": "page",
       "backgroundColor": "bg-white"
     },
-    "slug": "finanzierung-leasing-barkauf-umgezogen",
-    "full_slug": "pages/finanzierung-leasing-barkauf-umgezogen",
+    "slug": "slug",
+    "full_slug": "pages/slug",
     "sort_by_date": null,
     "position": -110,
     "tag_list": [],

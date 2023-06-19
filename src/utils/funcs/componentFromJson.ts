@@ -19,7 +19,7 @@ export function getComponentsFromJson(
       componentsList.push(...getComponentsFromObj(json));
       break;
     case CMSProvider.MAGNOLIA:
-      componentsList.push(...getComponentsFromObjMagnolia(json));
+      // componentsList.push(...getComponentsFromObjMagnolia(json));
       break;
     default:
       break;
