@@ -47,46 +47,58 @@ export const PropertyList: FunctionalComponent<PropertyListProps> = ({
   };
 
   return (
-    <ul>
-      {list.map((prop) => {
-        let isMappable = false;
-        const propDepth = prop.name.split(".").length - 1;
+    <>
+      {list.length ? (
+        <ul>
+          {list.map((prop) => {
+            let isMappable = false;
+            const propDepth = prop.name.split(".").length - 1;
 
-        if (draggingProp && draggingProp.source !== source) {
-          if (source === PropSource.CMS) {
-            isMappable = canMapProps(prop, draggingProp.propData);
-          } else if (source === PropSource.COMPONENT) {
-            isMappable = canMapProps(draggingProp.propData, prop);
-          }
-        }
-
-        return (
-          <li
-            key={prop.name}
-            onDrop={
-              isMappable
-                ? (event) => handlePropertyDrop(event, prop)
-                : undefined
+            if (draggingProp && draggingProp.source !== source) {
+              if (source === PropSource.CMS) {
+                isMappable = canMapProps(prop, draggingProp.propData);
+              } else if (source === PropSource.COMPONENT) {
+                isMappable = canMapProps(draggingProp.propData, prop);
+              }
             }
-            class={`mb-px ${isMappable ? "bg-ui-03 bg-opacity-20" : ""} ${
-              source === PropSource.COMPONENT ? `flex justify-end` : ""
-            }`}
-            style={`${
-              source === PropSource.COMPONENT
-                ? `margin-right:calc(${propDepth} * .5rem)`
-                : `margin-left:calc(${propDepth} * .5rem)`
-            }`}
-          >
-            <Property
-              propData={prop}
-              source={source}
-              onDragStart={(event) => onPropertyDragStart(event, prop, source)}
-              onClick={() => onPropertyClick(prop, source)}
-              draggable={true}
-            />
-          </li>
-        );
-      })}
-    </ul>
+
+            return (
+              <li
+                key={prop.name}
+                onDrop={
+                  isMappable
+                    ? (event) => handlePropertyDrop(event, prop)
+                    : undefined
+                }
+                class={`mb-px ${isMappable ? "bg-ui-03 bg-opacity-20" : ""} ${
+                  source === PropSource.COMPONENT ? `flex justify-end` : ""
+                }`}
+                style={`${
+                  source === PropSource.COMPONENT
+                    ? `margin-right:calc(${propDepth} * .5rem)`
+                    : `margin-left:calc(${propDepth} * .5rem)`
+                }`}
+              >
+                <Property
+                  propData={prop}
+                  source={source}
+                  onDragStart={(event) =>
+                    onPropertyDragStart(event, prop, source)
+                  }
+                  onClick={() => onPropertyClick(prop, source)}
+                  draggable={true}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p
+          class={`${source === PropSource.COMPONENT ? `flex justify-end` : ""}`}
+        >
+          No more properties available.
+        </p>
+      )}
+    </>
   );
 };
