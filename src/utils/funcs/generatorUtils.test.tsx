@@ -1,5 +1,3 @@
-// @vitest-environment jsdom
-
 import { describe, it, expect } from "vitest";
 import type { Documentation } from "react-docgen";
 import CodeBlockWriter from "code-block-writer";
